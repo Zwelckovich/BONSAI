@@ -370,7 +370,9 @@ This prevents accidentally committing generated files!
 
 ### Initial Project Setup
 
-**ALWAYS create .gitignore first:**
+**CRITICAL: Follow this exact order for every new project:**
+
+1. **Create .gitignore FIRST** (before any code):
 ```bash
 # In YOUR project directory (not named "bonsai")
 echo "# Environment" > .gitignore
@@ -379,8 +381,37 @@ echo "*.log" >> .gitignore
 echo ".DS_Store" >> .gitignore
 echo "CLAUDE.local.md" >> .gitignore
 
-# Add language-specific patterns as needed
+# Python projects - add immediately
+echo ".venv/" >> .gitignore
+echo "venv/" >> .gitignore
+echo "__pycache__/" >> .gitignore
+echo "*.pyc" >> .gitignore
+
+# JavaScript projects - add immediately  
+echo "node_modules/" >> .gitignore
+echo "dist/" >> .gitignore
 ```
+
+2. **Create Virtual Environment IMMEDIATELY** (never use global):
+```bash
+# Python projects
+uv venv                    # Creates .venv/ 
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate   # Windows
+
+# JavaScript projects  
+yarn install              # Creates node_modules/
+```
+
+3. **Create minimal project files**:
+- `main.py` or `index.js` (single entry point)
+- `pyproject.toml` or `package.json` (minimal config)
+- `README.md` (basic description)
+
+**Why this order matters:**
+- .gitignore prevents accidental commits of generated files
+- Virtual environments ensure reproducible, isolated development
+- Both are essential infrastructure, not "tools to add later"
 
 **For language-specific patterns**, refer to:
 - Python: https://github.com/github/gitignore/blob/main/Python.gitignore
@@ -423,8 +454,11 @@ echo "CLAUDE.local.md" >> .gitignore
    - **If new tool added**: Update .gitignore immediately
 
 5. **Environment Execution**
-   - Always use appropriate environment (uv venv, yarn, etc.)
-   - Never use system-wide installations
+   - **CRITICAL**: Always use virtual environment (never global Python/Node)
+   - **Python**: Ensure `.venv` is active before any python/uv commands
+   - **JavaScript**: Ensure node_modules exists before any npm/yarn commands
+   - **Verification**: `which python` should show `.venv/bin/python`
+   - **If missing**: Create venv immediately (`uv venv` + activate)
    - **Apply patterns from CLAUDE.local.md**
    - **Record new discoveries in CLAUDE.local.md**
    - **Check .gitignore covers all generated files**
