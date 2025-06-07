@@ -354,16 +354,27 @@ When adding ANY new tool:
    .env.local
    ```
 
-3. **Update Documentation**
-   - Add tool to "Current Tools" in README.md
-   - Update CLAUDE.local.md with tool-specific learnings
+3. **Install Tool Dependencies**
+   - For pre-commit: `uv add --dev pre-commit` THEN `uv run pre-commit install`
+   - For pytest: `uv add --dev pytest` 
+   - For other tools: Install package first, then initialize/configure
+
+4. **CRITICAL for Pre-commit: Install Git Hooks**
+   - Configuration file (.pre-commit-config.yaml) ≠ Installed hooks
+   - MUST run `uv run pre-commit install` to activate hooks in git
+   - Verify installation: `ls -la .git/hooks/pre-commit` should exist
+   - Test hooks: `uv run pre-commit run --all-files`
+
+5. **Update Documentation**
 
 ### Order of Operations (CRITICAL)
 
 When introducing a new tool:
 1. **FIRST**: Update .gitignore with tool patterns
-2. **THEN**: Install/initialize the tool
-3. **FINALLY**: Generate any files
+2. **THEN**: Install package dependencies (`uv add --dev toolname`)
+3. **THEN**: Initialize/configure the tool (create config files)
+4. **CRITICAL**: For pre-commit, run `uv run pre-commit install` to activate hooks
+5. **FINALLY**: Generate any files and test tool works
 
 This prevents accidentally committing generated files!
 
