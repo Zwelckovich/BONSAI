@@ -282,13 +282,39 @@ if __name__ == "__main__":
 
 ### Tool Introduction Triggers
 
-1. **pytest**: First function with logic beyond simple returns
-2. **pydantic**: Data validation needed or external API integration
-3. **hypothesis**: Edge case testing becomes complex
-4. **type hints**: Function used in 3+ places or has 3+ parameters
-5. **pre-commit**: Repository has 5+ files or multiple contributors
-6. **docker**: Deployment or complex dependencies
-7. **CI/CD**: Automated deployment or team collaboration
+#### **pytest**: Add when ANY of these complexity indicators are met:
+- **Mathematical Logic**: Functions with calculations, formulas, or mathematical operations (e.g., linear sweeps, parameter combinations)
+- **Validation Logic**: Data validation, type checking, or error handling beyond simple checks
+- **Class Methods**: Any class with 3+ methods or complex state management
+- **Combinatorial Functions**: Functions generating combinations, permutations, or nested iterations
+- **File I/O Operations**: JSON serialization, file loading, or data persistence
+- **Edge Cases**: Functions that need testing with boundary conditions or invalid inputs
+- **Configuration Logic**: Parameter configuration, sweep generation, or complex object creation
+
+**Current Project Status**: ✅ **SHOULD BE ADDED NOW** - We have mathematical sweep logic, pydantic validation, combinatorial parameter generation, JSON serialization, and complex class hierarchies (360+ lines with validation)
+
+#### **pydantic**: Data validation needed or external API integration
+**Current Status**: ✅ Added in Phase 3 - Type safety and validation implemented
+
+#### **hypothesis**: Property-based testing for complex edge cases
+- Add when pytest tests become repetitive for testing ranges
+- Useful for testing mathematical functions with many possible inputs  
+- **Trigger**: When you find yourself writing >5 similar test cases for the same function
+
+#### **pre-commit**: Add when ANY of these collaboration indicators are met:
+- **Repository has 4+ core files** (excluding configs like .gitignore, pyproject.toml)
+- **Multiple contributors** working on the project
+- **Production deployment** planned or active
+- **Complex formatting rules** that must be enforced consistently
+- **Security-sensitive code** that needs automatic scanning
+
+**Current Project Status**: 🟡 **APPROACHING TRIGGER** - We have 6 core files (main.py, examples.py, validation_examples.py, concept.md, README.md, CLAUDE.md) but single contributor
+
+#### **type hints**: Function used in 3+ places or has 3+ parameters
+**Current Status**: ✅ Already using comprehensive type hints with pydantic
+
+#### **docker**: Deployment or complex dependencies
+#### **CI/CD**: Automated deployment or team collaboration
 
 ### Tool Addition Protocol
 
