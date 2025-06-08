@@ -66,6 +66,16 @@
 - **Cross-Platform First**: Code must work on Windows, Linux, and macOS
 - **Session Hygiene**: Track all created files with CLEANUP.md, remove what's not needed
 - **Template Purity**: CLAUDE.md remains unmodified - it's a template, not a workspace
+- **Clean Naming**: Use simple, clear names without confusing prefixes
+  - ❌ Don't use temporary prefixes: "HybridManager", "NewService", "TempHandler", "EnhancedProcessor"
+  - ✅ Use direct names: "Manager", "Service", "Handler", "Processor"
+  - ❌ Don't keep multiple names for the same thing: both "PlottingManager" and "HybridPlottingManager"
+  - ✅ Consolidate to single, clear name as soon as implementation stabilizes
+- **Immediate Cleanup**: Remove unused files immediately, don't accumulate "old" versions
+  - ❌ Don't keep: "file_old.py", "backup_service.py", "previous_version.js", "system_v2.py"
+  - ✅ Delete unused files immediately after consolidation
+  - ❌ Don't create "for reference" copies unless explicitly requested by user
+  - ✅ Use git history for reference - that's what version control is for
 
 The CLEANUP.md approach embodies BONSAI philosophy - like pruning a bonsai tree, we actively remove what doesn't belong. Every file must justify its existence or be removed. The cleanup record persists as a valuable debugging tool, showing the history of careful maintenance.
 
@@ -126,13 +136,13 @@ ignore = [
     "PLR0913",  # Too many arguments (let the user decide)
     "PLR0912",  # Too many branches (sometimes necessary)
     "PLR0915",  # Too many statements (organic growth)
-    
+
     # Pragmatic development
     "F401",     # Imported but unused (for availability checks)
     "E501",     # Line too long (some lines need length)
     "SIM108",   # Ternary operator (readability preference)
     "B008",     # Function calls in defaults (sometimes needed)
-    
+
     # User preference
     "UP038",    # Use X | Y in isinstance (readability)
     "PTH123",   # Path.open vs open() (both are fine)
@@ -267,12 +277,12 @@ def run_check(cmd, description):
     print(f"Running: {description}")
     print(f"Command: {cmd}")
     print(f"{'='*60}")
-    
+
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     print(result.stdout)
     if result.stderr:
         print("STDERR:", result.stderr)
-    
+
     return result.returncode == 0
 
 # Define checks based on project files
@@ -345,23 +355,23 @@ def cleanup_session():
         print("No CLEANUP.md found - creating one now to track current files")
         # Could auto-generate based on git status
         return
-    
+
     # Parse CLEANUP.md and remove files marked for deletion
     content = cleanup_file.read_text()
     deleted_count = 0
-    
+
     for line in content.split('\n'):
         if line.strip().startswith('- [ ] Delete:') or '(to delete)' in line.lower():
             # Extract filename and delete if exists
             # Implementation depends on CLEANUP.md format
             deleted_count += 1
-    
+
     # Update CLEANUP.md with completion status instead of deleting
     with open(cleanup_file, 'a') as f:
         f.write(f"\n\n## Cleanup Complete: {datetime.now()}\n")
         f.write(f"- Deleted {deleted_count} temporary files\n")
         f.write("- Session ended cleanly ✓\n")
-    
+
     print(f"✓ Session cleanup complete - {deleted_count} files removed")
     print("  CLEANUP.md preserved for debugging")
 
@@ -401,7 +411,7 @@ if __name__ == "__main__":
         "install": install,
         "c/p": commit_push,  # Alias support
     }
-    
+
     if len(sys.argv) > 1 and sys.argv[1] in tasks:
         tasks[sys.argv[1]]()
     else:
@@ -444,7 +454,7 @@ When the user sends a prompt that matches an alias exactly, execute the correspo
   5. Execute standard cleanup review process
   6. Remove all files marked for deletion
   7. Update CLEANUP.md with results
-  
+
   # Common patterns to find:
   - debug_*.py, test_*.py (unless in tests/)
   - *.tmp, *.log, *.bak, *~
@@ -635,29 +645,29 @@ When adding ANY new tool:
    .ruff_cache/
    .venv/
    venv/
-   
+
    # JavaScript tools  
    node_modules/
    .next/
    dist/
    build/
    *.log
-   
+
    # IDE
    .vscode/
    .idea/
    *.swp
    .DS_Store
-   
+
    # Project specific
    *.db
    *.sqlite
    .env
    .env.local
-   
+
    # Session management
    CLEANUP.md
-   
+
    # Temporary files (should be in CLEANUP.md)
    *.tmp
    *.bak
@@ -671,7 +681,7 @@ When adding ANY new tool:
 
 3. **Install Tool Dependencies**
    - For pre-commit: `uv add --dev pre-commit` THEN `uv run pre-commit install`
-   - For pytest: `uv add --dev pytest` 
+   - For pytest: `uv add --dev pytest`
    - For other tools: Install package first, then initialize/configure
 
 4. **CRITICAL for Pre-commit: Install Git Hooks**
@@ -699,7 +709,7 @@ This prevents accidentally committing generated files!
    - Start with everything in one file (e.g., `main.py` or `index.js`)
    - Create `.gitignore` immediately with basic patterns
    - Split when it makes logical sense, not at arbitrary line counts
-   
+
 2. **Minimal Split Stage**
    - Split by responsibility when complexity demands it
    - Example: `main.py`, `helpers.py` NOT `models.py`, `views.py`, `utils.py`
@@ -747,7 +757,7 @@ echo "dist/" >> .gitignore
 2. **Create Virtual Environment IMMEDIATELY** (never use global):
 ```bash
 # Python projects
-uv venv                    # Creates .venv/ 
+uv venv                    # Creates .venv/
 source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\activate   # Windows
 
@@ -793,18 +803,18 @@ yarn install              # Creates node_modules/
    - **CREATE/UPDATE CLEANUP.md** to track all files created in this session:
      ```markdown
      # Cleanup Tracker - Session Started: [timestamp]
-     
+
      ## Previous Session Summary
      [If applicable, brief summary of what was cleaned in last session]
-     
+
      ## Files Created This Session
      - [ ] filename.py - Purpose: [why created]
      - [ ] test_debug.py - Purpose: debugging X issue
      - [ ] temp_data.json - Purpose: testing data parsing
-     
+
      ## Commands Run That Generate Files
      - `command` - Generates: [what files/folders]
-     
+
      ## Cleanup Decisions
      - [x] Keep: filename.py (core functionality)
      - [ ] Delete: test_debug.py (debugging complete)
@@ -813,19 +823,19 @@ yarn install              # Creates node_modules/
    - Example initial CLEANUP.md:
      ```markdown
      # Cleanup Tracker - Session Started: 2024-01-15 10:30
-     
+
      ## Previous Session: 2024-01-14 15:00
      - Cleaned: 5 debug files, 2 test data files
      - Kept: api_handler.py, test_api_handler.py
-     
+
      ## Files Created This Session
      (will be updated as files are created)
-     
+
      ## Generated Artifacts Expected
      - [ ] __pycache__/ - Python bytecode (auto-generated)
      - [ ] .pytest_cache/ - If tests are run
      - [ ] .ruff_cache/ - If ruff is run
-     
+
      ## Cleanup Decisions
      (to be completed at session end)
      ```
@@ -935,7 +945,17 @@ yarn install              # Creates node_modules/
     - **NEVER update CLAUDE.md** unless explicitly instructed by user
     - **Remember**: CLAUDE.md is a template, not a project document
 
-15. **Cleanup Review & Execution (MANDATORY)**
+15. **Naming Consistency Review (MANDATORY)**
+    - **STOP** - Review all class/function/file names before completing task
+    - **Remove confusing prefixes**: "Hybrid", "New", "Temp", "Enhanced", "Old", "V2", etc.
+    - **Eliminate duplicate names**: If you have both "Manager" and "HybridManager", consolidate to one
+    - **Use simple, direct names**: What would a new developer expect this to be called?
+    - **Delete unused files immediately**: No "file_old.py", "backup_*.py", "previous_version.*"
+    - **Update all imports and references** to use consistent naming
+    - **Verify no references to old names remain** in any files
+    - **Remember**: Use git history for reference, not extra files
+
+16. **Cleanup Review & Execution (MANDATORY)**
     - **STOP** - Do not skip this step
     - **Open CLEANUP.md** and review EVERY file listed
     - **For each file, ask**:
@@ -1102,7 +1122,7 @@ CLAUDE.local.md
 CLEANUP.md
 ```
 
-**Note**: 
+**Note**:
 - CLEANUP.md persists between sessions for debugging/history
 - It's ALWAYS in .gitignore (never committed)
 - Review it at the start of each new session
@@ -1360,7 +1380,7 @@ When migrating an existing project:
 1. **User prepares the project**:
    - Clone from GitHub or locate existing project
    - Keep it completely separate from new project
-   
+
 2. **User creates new directory** for minimal rebuild
    ```bash
    # Name it after YOUR project, not "bonsai"
