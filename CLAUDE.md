@@ -73,9 +73,10 @@
   - ✅ Consolidate to single, clear name as soon as implementation stabilizes
 - **Immediate Cleanup**: Remove unused files immediately, don't accumulate "old" versions
   - ❌ Don't keep: "file_old.py", "backup_service.py", "previous_version.js", "system_v2.py"
-  - ✅ Delete unused files immediately after consolidation
+  - ✅ Delete unused files immediately after consolidation - BUT ONLY after usage scanning
   - ❌ Don't create "for reference" copies unless explicitly requested by user
   - ✅ Use git history for reference - that's what version control is for
+  - ⚠️ **CRITICAL**: Always scan for usage with Grep tool before deleting ANY file
 
 The CLEANUP.md approach embodies BONSAI philosophy - like pruning a bonsai tree, we actively remove what doesn't belong. Every file must justify its existence or be removed. The cleanup record persists as a valuable debugging tool, showing the history of careful maintenance.
 
@@ -945,17 +946,29 @@ yarn install              # Creates node_modules/
     - **NEVER update CLAUDE.md** unless explicitly instructed by user
     - **Remember**: CLAUDE.md is a template, not a project document
 
-15. **Naming Consistency Review (MANDATORY)**
+15. **File Usage Scanning (MANDATORY - Before ANY deletion)**
+    - **STOP** - NEVER delete a file without checking usage first
+    - **Use Grep tool** to scan entire codebase for:
+      - Filename: `grep -r "filename" .` 
+      - Class names: `grep -r "ClassName" .`
+      - Function names: `grep -r "function_name" .`
+      - Import statements: `grep -r "from filename import" .`
+    - **Check ALL file types**: .py, .js, .md, .txt, .json, .yaml, etc.
+    - **If ANY usage found**: Update references BEFORE deleting the file
+    - **If unsure**: Ask user before deletion - better safe than sorry
+    - **Document findings**: Add scan results to CLEANUP.md
+
+16. **Naming Consistency Review (MANDATORY)**
     - **STOP** - Review all class/function/file names before completing task
     - **Remove confusing prefixes**: "Hybrid", "New", "Temp", "Enhanced", "Old", "V2", etc.
     - **Eliminate duplicate names**: If you have both "Manager" and "HybridManager", consolidate to one
     - **Use simple, direct names**: What would a new developer expect this to be called?
-    - **Delete unused files immediately**: No "file_old.py", "backup_*.py", "previous_version.*"
+    - **Delete unused files immediately**: Only AFTER step 15 usage scanning confirms no usage
     - **Update all imports and references** to use consistent naming
-    - **Verify no references to old names remain** in any files
+    - **Verify no references to old names remain** using Grep tool
     - **Remember**: Use git history for reference, not extra files
 
-16. **Cleanup Review & Execution (MANDATORY)**
+17. **Cleanup Review & Execution (MANDATORY)**
     - **STOP** - Do not skip this step
     - **Open CLEANUP.md** and review EVERY file listed
     - **For each file, ask**:
