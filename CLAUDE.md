@@ -186,33 +186,48 @@ useLibraryCodeForTypes = true
 ```
 
 ### JavaScript/React
-- **Package Manager**: yarn
+- **Package Manager**: yarn (or pnpm for better performance)
+- **Build Tool**: vite (always - not "when needed")
+- **Framework**: React 18+ with TypeScript
+- **State Management**: zustand (simpler than Redux)
+- **Server State**: @tanstack/react-query
 - **Formatter**: prettier
 - **Linter**: eslint (minimal rules)
-- **Bundler**: vite (when needed)
+- **Testing**: vitest + @testing-library/react
 - **Scripts**: Use `node scripts/build.js` not shell scripts
 
-#### Cross-Platform package.json scripts:
-```json
-{
-  "scripts": {
-    "dev": "node scripts/dev.js",
-    "build": "node scripts/build.js",
-    "clean": "node scripts/clean.js"
+#### Vite Configuration (minimal):
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
   }
-}
+})
 ```
 
-**Note**: Never use `&&` or `;` in npm scripts (platform-specific). Instead, use Node.js scripts that work everywhere.
-
-#### Prettier Configuration (.prettierrc):
+#### TypeScript Configuration (when needed):
 ```json
+// tsconfig.json
 {
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "printWidth": 100,
-  "trailingComma": "es5"
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
 }
 ```
 
