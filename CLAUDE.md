@@ -93,6 +93,305 @@ The CLEANUP.md approach embodies BONSAI philosophy - like pruning a bonsai tree,
 
 **Important**: CLAUDE.md is a read-only template. All project-specific discoveries, learnings, or modifications go in CLAUDE.local.md or concept.md. Only update CLAUDE.md when the user explicitly requests template improvements.
 
+## Backend/Frontend Structure Rules
+
+### Structure Decision Hierarchy
+
+When determining project structure for backend/frontend applications:
+
+1. **User's Existing Structure** (if user wrote >60% of code)
+   - Detect and document in CLAUDE.local.md
+   - Preserve their organization patterns
+   - Make minimal changes for compliance
+
+2. **concept.md Specifications** (if defined)
+   - Follow explicit structure guidelines
+   - Example: "Use src/ for all source files"
+   - Overrides BONSAI defaults
+
+3. **BONSAI Minimal Structure** (default)
+   - Start with single files
+   - Split only when complexity demands
+   - Feature-based, not type-based organization
+
+### Structure Detection & Persistence
+
+**CRITICAL**: Once a structure decision is recorded in CLAUDE.local.md, it MUST NOT be changed unless:
+- No structure decision exists yet in CLAUDE.local.md
+- User explicitly requests: "Change to BONSAI structure" or "Use structure from concept.md"
+
+On first backend/frontend operation:
+1. **Check CLAUDE.local.md FIRST** - If structure decision exists, use it
+2. If no decision recorded:
+   - Scan for existing structure patterns
+   - Check concept.md for structure specifications  
+   - Make decision based on hierarchy above
+3. Document decision in CLAUDE.local.md:
+
+```markdown
+## Project Structure Decision
+### Date: 2024-01-15
+### Structure Type: [User Custom|concept.md|BONSAI]
+### LOCKED: Do not change unless user explicitly requests
+
+### Detected Pattern:
+- Backend: [description]
+- Frontend: [description]  
+- Reasoning: [why this choice]
+
+### Structure Rules:
+- API endpoints: [location]
+- Components: [location]
+- Shared code: [location]
+- Tests: [location]
+```
+
+### Environment Placement (BONSAI Style)
+
+#### Single Technology Projects
+```
+project/
+├── .venv/              # Python venv at root
+├── node_modules/       # Node deps at root
+├── main.py            # Or index.js
+└── README.md
+```
+
+#### Full-Stack Projects - Progressive Evolution
+
+**Stage 1: Both in Root (Start here)**
+```
+project/
+├── .venv/              # Python backend env
+├── node_modules/       # Frontend deps
+├── backend.py          # Backend code
+├── frontend.html       # Frontend code
+├── package.json        # Frontend deps
+├── pyproject.toml      # Backend deps
+└── README.md
+```
+
+**Stage 2: Split When Needed (Only if conflicts)**
+```
+project/
+├── backend/
+│   ├── .venv/          # Python env
+│   ├── main.py
+│   └── pyproject.toml
+├── frontend/
+│   ├── node_modules/   # Node deps
+│   ├── index.html
+│   └── package.json
+└── README.md
+```
+
+**Environment Rules**:
+- Start with environments at project root
+- Only move into subdirectories when actual conflicts occur
+- Never create empty directory structures preemptively
+- Document environment locations in CLAUDE.local.md
+
+### Structure Migration
+
+When user explicitly requests structure change:
+```bash
+"Migrate this project to BONSAI structure"
+"Follow the structure defined in concept.md"
+"Keep my custom structure"
+```
+
+Process:
+1. Confirm user wants to override CLAUDE.local.md decision
+2. Document current structure
+3. Plan migration with file mappings
+4. Update all imports and references
+5. Move environments if needed
+6. Test everything still works
+7. Update CLAUDE.local.md with new decision (marked as explicit user choice)
+
+### BONSAI Default Structures
+
+#### Progressive Backend Evolution (Python/FastAPI)
+```
+# Stage 1: Single file
+main.py                 # Everything here
+
+# Stage 2: Minimal split (>200 lines)
+backend/
+├── main.py            # Entry point & routes
+└── models.py          # Data models
+
+# Stage 3: Feature split (>500 lines)
+backend/
+├── main.py            # Entry point
+├── api.py             # Routes/endpoints
+├── models.py          # Data models
+└── auth.py            # Only if auth complex
+```
+
+#### Progressive Frontend Evolution (React)
+```
+# Stage 1: Single file
+index.html             # React inline
+
+# Stage 2: Minimal split
+frontend/
+├── index.html         
+├── app.js             # Extracted JS
+└── styles.css         # Extracted CSS
+
+# Stage 3: Component split (>3 components)
+frontend/
+├── index.html
+├── App.jsx            # Main component
+├── components/        # Feature components
+│   ├── Auth.jsx
+│   └── Dashboard.jsx
+└── api.js             # API calls
+```
+
+#### Full-Stack Progressive Evolution
+```
+# Stage 1: Two files (Start here!)
+project/
+├── backend.py         # Entire backend
+├── frontend.html      # Entire frontend
+└── README.md
+
+# Stage 2: Static assets extracted
+project/
+├── backend.py         
+├── index.html         
+├── static/
+│   ├── app.js
+│   └── styles.css
+└── README.md
+
+# Stage 3: Backend/Frontend split (only when truly needed)
+project/
+├── backend/
+│   ├── .venv/         # Moved from root
+│   ├── main.py
+│   └── models.py
+├── frontend/
+│   ├── node_modules/  # Moved from root
+│   ├── index.html
+│   └── src/
+│       └── App.jsx
+└── README.md
+```
+
+### Anti-Patterns to Avoid
+
+❌ **Premature Folder Structure**
+```
+src/
+├── controllers/
+├── models/
+├── views/
+├── utils/
+├── helpers/
+├── middleware/
+├── services/
+└── repositories/
+```
+*Why bad*: Empty folders, single-file folders, over-organization
+
+✅ **BONSAI Approach**
+```
+api.py          # All endpoints here until it's too big
+models.py       # All models here until it's too big
+```
+
+### When to Create Folders
+
+Only create a folder when:
+- You have 3+ files of similar purpose
+- Files are clearly related by feature
+- It improves code discovery
+- It reduces naming conflicts
+
+Examples:
+- `auth_login.py`, `auth_register.py`, `auth_reset.py` → `auth/`
+- `UserModel.js`, `PostModel.js`, `CommentModel.js` → `models/`
+
+### Framework-Specific Minimal Structures
+
+#### FastAPI Minimal
+```python
+# main.py - Everything in one file until complexity demands split
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
+
+# Add more endpoints here
+# Split to api.py when >10 endpoints
+# Split to models.py when >3 models
+```
+
+#### Express Minimal
+```javascript
+// server.js - Everything in one file
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello World' })
+})
+
+app.listen(3000)
+// Split when file exceeds 200 lines
+```
+
+#### React Minimal
+```html
+<!-- index.html - Start with everything inline -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        function App() {
+            return React.createElement('h1', null, 'Hello World')
+        }
+        ReactDOM.render(React.createElement(App), document.getElementById('root'))
+    </script>
+</body>
+</html>
+<!-- Extract to app.js when logic exceeds 50 lines -->
+```
+
+### Structure Decision Examples in CLAUDE.local.md
+
+```markdown
+## Project Structure Decision
+### Date: 2024-01-15
+### Structure Type: User Custom
+### LOCKED: Do not change unless user explicitly requests
+
+### Detected Pattern:
+- Backend: Flask app in /server with blueprints
+- Frontend: React app in /client with standard CRA structure
+- Reasoning: User has existing 50+ file project with established patterns
+
+### Structure Rules:
+- API endpoints: /server/api/*.py
+- React components: /client/src/components/
+- Shared types: /shared/types.ts
+- Tests: Alongside source files as *.test.py/js
+- Environments: /server/.venv and /client/node_modules
+
+### DO NOT CHANGE unless user explicitly requests migration
+```
+
 ## Best Practices & Preferred Tools
 
 ### Python
@@ -186,33 +485,48 @@ useLibraryCodeForTypes = true
 ```
 
 ### JavaScript/React
-- **Package Manager**: yarn
+- **Package Manager**: yarn (or pnpm for better performance)
+- **Build Tool**: vite (always - not "when needed")
+- **Framework**: React 18+ with TypeScript
+- **State Management**: zustand (simpler than Redux)
+- **Server State**: @tanstack/react-query
 - **Formatter**: prettier
 - **Linter**: eslint (minimal rules)
-- **Bundler**: vite (when needed)
+- **Testing**: vitest + @testing-library/react
 - **Scripts**: Use `node scripts/build.js` not shell scripts
 
-#### Cross-Platform package.json scripts:
-```json
-{
-  "scripts": {
-    "dev": "node scripts/dev.js",
-    "build": "node scripts/build.js",
-    "clean": "node scripts/clean.js"
+#### Vite Configuration (minimal):
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
   }
-}
+})
 ```
 
-**Note**: Never use `&&` or `;` in npm scripts (platform-specific). Instead, use Node.js scripts that work everywhere.
-
-#### Prettier Configuration (.prettierrc):
+#### TypeScript Configuration (when needed):
 ```json
+// tsconfig.json
 {
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "printWidth": 100,
-  "trailingComma": "es5"
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
 }
 ```
 
@@ -1061,6 +1375,7 @@ CLAUDE.local.md is a dynamically generated file that stores environment-specific
 - Shell-specific behaviors
 - Package manager peculiarities
 - **Platform differences** (Windows vs Linux vs macOS behaviors)
+- **Backend/Frontend structure decisions** (LOCKED once made)
 
 ### What Does NOT Go Here
 - ❌ Universal truths that apply to all projects → Those stay in CLAUDE.md (only if user requests)
@@ -1089,6 +1404,17 @@ CLAUDE.local.md is a dynamically generated file that stores environment-specific
 - ✅ Always use: `Path()` from pathlib
 - ✅ Join paths: `Path("folder") / "file.txt"`
 - ❌ Never: `"folder/file.txt"` or `"folder\\file.txt"`
+
+## Project Structure Decision
+### Date: 2024-01-15
+### Structure Type: BONSAI
+### LOCKED: Do not change unless user explicitly requests
+
+### Structure Rules:
+- Backend: Single file main.py until complexity demands split
+- Frontend: Single file index.html with inline JS/CSS
+- Environments: Both at project root
+- Split point: >200 lines or >5 features
 ```
 
 ### Update Trigger
@@ -1097,11 +1423,13 @@ Whenever Claude Code:
 2. Discovers a system-specific path or command
 3. Learns about local tool behavior
 4. Finds environment variables or configurations
+5. Makes a backend/frontend structure decision
 
 ### Usage
 - Check CLAUDE.local.md before attempting system operations
 - Update immediately upon discovering new behaviors
 - Use learned patterns in future operations
+- **Never change locked structure decisions without explicit user request**
 
 ### Lifecycle
 1. **Initial State**: File doesn't exist
@@ -1109,6 +1437,7 @@ Whenever Claude Code:
 3. **Continuous Growth**: Append new discoveries as they occur
 4. **Before Each Operation**: Check existing patterns
 5. **After Errors**: Document what didn't work and what did
+6. **Structure Decisions**: Once made, they're LOCKED
 
 ### Example Evolution
 ```markdown
@@ -1121,6 +1450,12 @@ Whenever Claude Code:
 ### Command Execution
 - ❌ `cd tests && pytest` - Directory change doesn't persist
 - ✅ `pytest tests/` - Direct path works
+
+### Project Structure Decision
+- Date: 2024-01-15
+- Type: BONSAI
+- LOCKED: Do not change
+- Reason: New project, following minimal approach
 
 ## Day 3
 ### Package Installation  
@@ -1248,6 +1583,20 @@ git commit -m "Remove tracked file that should be ignored"
 - Use patterns like `*.pyc`, `*.log`, `build/`
 - Check if tool has standard ignore patterns
 
+### Structure Decision Changed Without Permission
+
+If Claude Code changes a locked structure decision:
+1. **STOP** - Revert any structural changes
+2. **Check CLAUDE.local.md** - Verify decision is marked as LOCKED
+3. **Restore original structure** - Follow the documented decision
+4. **Add reminder**:
+   ```markdown
+   ## REMINDER: Structure Decision is LOCKED
+   - Type: [User Custom|concept.md|BONSAI]
+   - DO NOT CHANGE without explicit user request
+   - User must say "change structure" or similar
+   ```
+
 ### Rollback Strategy
 
 1. Keep changes atomic
@@ -1302,6 +1651,7 @@ As project grows, keep these configs updated:
 - **Check for aliases first** - If user types just "c/p" or "cleanup", execute the alias
 - **CLAUDE.md is READ-ONLY** - Never modify unless user explicitly requests
 - **concept.md is THE MASTER** - It overrides all other configurations
+- **Structure decisions are LOCKED** - Once made in CLAUDE.local.md, don't change without explicit request
 - **Every file has a purpose** - Track with CLEANUP.md, delete if not needed
 - **Every line has a reason** (enforce via linting!)
 - **Every tool has a trigger**
