@@ -304,6 +304,10 @@
 **CONFIRM TO USER**: "🌱 Task 12 Complete: Concept re-alignment verified ✅"
 
 ### Task 13: Pre-commit Validation
+- **CRITICAL**: Always use local environment (virtual environment/local installation)
+- **Python Example**: `uv add pre-commit --dev` → `uv run pre-commit install` → `uv run pre-commit run --all-files`
+- **JavaScript Example**: `npm install --save-dev pre-commit` → `npx pre-commit install` → `npx pre-commit run --all-files`
+- **Any Language**: Install in project's local environment, never globally
 - Run pre-commit hooks (if configured)
 - Fix any issues
 - Only proceed when clean
