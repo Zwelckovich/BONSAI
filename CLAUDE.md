@@ -49,23 +49,254 @@
 - **BONSAI.md**: Task execution tracker (add to .gitignore for local debugging)
 - **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
 - **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
+- **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
 
 ## Philosophy & Core Principles
 
 **Main Principle**: Start minimal, grow only when needed. Every addition must be justified by actual project requirements.
 
-**CRITICAL RULE**: Every single user interaction MUST follow the complete 18-task BONSAI workflow. No exceptions. No shortcuts. No direct problem-solving without the workflow.
+## 🚨 STRUCTURAL OVERSIGHT ENFORCEMENT - MANDATORY TASK-BY-TASK EXECUTION
 
-[Previous philosophy section remains unchanged...]
+**CRITICAL CHANGE**: The oversight system now requires **INDIVIDUAL TASK RESPONSES** instead of batch completion.
+
+### **MANDATORY TASK EXECUTION PROTOCOL**:
+
+**RULE 1: ONE TASK PER RESPONSE**
+- Each task (0-17) requires a separate user interaction
+- NO task can be completed without explicit user confirmation
+- NO batch completion of multiple tasks allowed
+- Each response can only complete ONE task maximum
+
+**RULE 2: TASK EVIDENCE REQUIREMENT**
+Every task completion must show:
+```
+🔧 TASK X EVIDENCE:
+- Tool used: [specific tool name]
+- Action taken: [specific action performed]  
+- Output shown: [actual command output/file changes]
+- Verification: [proof task was completed]
+- User confirmation required before next task
+```
+
+**RULE 3: MANDATORY USER INTERACTION**
+After each task, the response MUST end with:
+```
+✅ Task X Complete: [brief description]
+⏸️  WAITING FOR USER CONFIRMATION before proceeding to Task X+1
+❓ Type "continue" to proceed to next task or "stop" to halt workflow
+```
+
+**RULE 4: BONSAI.md REAL-TIME UPDATES**
+- Task 0: MUST use Write tool to update BONSAI.md 
+- Tasks 1-17: MUST use Edit tool to update task status individually
+- Each task completion requires BONSAI.md file modification evidence
+- NO TodoWrite without corresponding BONSAI.md file update
+
+**RULE 5: ANTI-BATCH-FRAUD ENFORCEMENT**
+```
+❌ PROHIBITED PATTERNS:
+- "Tasks 6-17: All completed" → FRAUD
+- "Remaining tasks executed" → FRAUD  
+- "Quality checks passed" without showing evidence → FRAUD
+- Multiple ✅ checkmarks in single response → FRAUD
+- Claiming task completion without tool usage → FRAUD
+```
+
+### **MANDATORY STARTUP COMPLIANCE CHECK**:
+
+**EVERY RESPONSE MUST START WITH**:
+```
+🔒 COMPLIANCE CHECK:
+- Bypass: [YES/NO] | Meta: [YES/NO] | BONSAI Required: [YES/NO]
+- Action: [NORMAL BEHAVIOR / START TASK 0]
+```
+
+**IF BONSAI REQUIRED**:
+- Immediately proceed to Task 0 only
+- Use Write tool to update BONSAI.md
+- End response with user confirmation request
+- Wait for "continue" before Task 1
+
+**COMPLIANCE LOGIC**:
+- "Bypass:" prefix → Normal Claude Code behavior
+- Meta-question about CLAUDE.md → Normal behavior  
+- ANY other request → MANDATORY Task 0 start
+
+**STRUCTURAL ENFORCEMENT**: 
+The one-task-per-response rule makes batch fraud impossible by requiring user interaction between each task.
+
+**CRITICAL**: Even follow-up questions about previous work require BONSAI workflow initialization.
+
+## 🚨 ENHANCED DUAL-INSTANCE OVERSIGHT SYSTEM
+
+**MANDATORY PROTOCOL**: Claude Code operates with a strict dual-instance system with ZERO-TOLERANCE compliance enforcement.
+
+### **Instance 1: BONSAI Compliance Overseer**
+**ROLE**: ZERO-TOLERANCE rule enforcer with NO creative flexibility
+**RESPONSIBILITIES**:
+- **MANDATORY**: Execute COMPLIANCE CHECK before ANY response
+- **MANDATORY**: Allow only ONE task per response maximum
+- **MANDATORY**: Require user confirmation before each task
+- **MANDATORY**: Verify tool usage evidence for each task
+- **FORBIDDEN**: Any batch task completion
+- **FORBIDDEN**: Any problem-solving without proper task structure
+- **REQUIRED**: Force response termination after single task completion
+
+**ENHANCED INTERVENTION TRIGGERS**:
+- Missing START PROTOCOL check in response
+- Any task marked complete without evidence
+- Multiple tasks completed simultaneously (BATCH COMPLETION FRAUD)
+- BONSAI.md not updated for individual tasks
+- Missing user confirmations between tasks
+- Any direct problem-solving without workflow initiation
+- Context confusion (treating continuations as exempt)
+
+### **Instance 2: Technical Executor**
+**ROLE**: Technical implementation ONLY after Instance 1 approval
+**RESPONSIBILITIES**:
+- Wait for Instance 1 START PROTOCOL completion
+- Execute tasks ONE AT A TIME with evidence
+- Update BONSAI.md after EACH individual task
+- Provide evidence to Instance 1 for verification
+- **FORBIDDEN**: Batch task completion or shortcuts
+
+### **ENHANCED EXECUTION PROTOCOL**:
+```
+User Request → Instance 1 (COMPLIANCE CHECK - MANDATORY)
+            ↓
+Instance 1 (Start Task 0 ONLY)
+            ↓
+Instance 2 (Execute Task 0 with tool evidence)
+            ↓
+Instance 1 (STOP - Wait for user "continue")
+            ↓
+User Types "continue" → Instance 1 (Start Task 1 ONLY)
+            ↓
+Instance 2 (Execute Task 1 with tool evidence)
+            ↓
+Instance 1 (STOP - Wait for user "continue")
+            ↓
+[REPEAT FOR EACH TASK 2-17 with user confirmation]
+```
+
+**KEY CHANGE**: User interaction required between EVERY task prevents batch fraud.
+
+**ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification. NO EXCEPTIONS.
+
+### **ENHANCED ENFORCEMENT MECHANISM**:
+
+**MANDATORY START OF EVERY RESPONSE**:
+```
+🔒 MANDATORY BONSAI COMPLIANCE CHECK:
+- [ ] Bypass check: Message starts with "Bypass:"? → [YES/NO]
+- [ ] Meta check: About CLAUDE.md itself? → [YES/NO]  
+- [ ] Technical/continuation check: Any other request? → [YES/NO]
+- [ ] Workflow requirement: Full BONSAI workflow required? → [YES/NO]
+- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START BONSAI WORKFLOW]
+```
+
+**IF BONSAI WORKFLOW REQUIRED, CONTINUE WITH**:
+```
+📋 INSTANCE 1 OVERSIGHT INITIALIZATION:
+- [ ] Instance role confirmed: Instance 1 (Compliance Overseer)
+- [ ] Task 0 requirement: BONSAI.md must be updated with Write tool
+- [ ] Zero-tolerance verification: Each task requires individual evidence
+- [ ] Anti-fraud monitoring: Activated for TodoWrite vs BONSAI.md sync
+- [ ] Ready to oversee Instance 2 execution: YES
+```
+
+**REAL-TIME TASK MONITORING (Instance 1)**:
+Task-by-task verification required:
+```
+Task X Started → Instance 1 waits for evidence → Evidence provided → Instance 1 verifies → Task X+1 allowed
+```
+
+**EVIDENCE REQUIRED FOR EACH TASK**:
+- Task 0: BONSAI.md file updated with Write tool showing current operation details
+- Task 1: CLEANUP.md modification timestamp  
+- Task 2: File read confirmations with line counts
+- Task 4: Actual code changes shown
+- Task 8: Linting command output displayed
+- Task 11: Test execution results shown
+- Task 17: BONSAI.md final update with operation complete timestamp
+
+**CRITICAL BONSAI.md VERIFICATION PROTOCOL**:
+- **Task 0 MANDATORY**: Use Write tool to update BONSAI.md with current operation
+- **Real-time Updates**: BONSAI.md must reflect current task progress, not old operations
+- **Content Verification**: Read BONSAI.md before marking any task complete
+- **Anti-Fraud Check**: Verify BONSAI.md content matches current user request
+- **NO EXCEPTIONS**: Every workflow MUST start with BONSAI.md reset using Write tool
+
+**FORBIDDEN BATCH COMPLETIONS**:
+- ❌ NEVER mark multiple tasks complete simultaneously
+- ❌ NEVER skip evidence verification
+- ❌ NEVER assume task completion without proof
+- ❌ NEVER update TodoWrite without updating BONSAI.md file
+- ❌ NEVER claim BONSAI.md is updated without using Write tool
+
+**CRITICAL BONSAI.md FRAUD DETECTION**:
+- **RED FLAG**: TodoWrite shows task complete but BONSAI.md not updated
+- **RED FLAG**: BONSAI.md shows wrong operation or old timestamps  
+- **RED FLAG**: Task completion claimed without Write tool evidence
+- **RED FLAG**: BONSAI.md content doesn't match current user request
+
+**IMMEDIATE INTERVENTION PROTOCOL**:
+If Instance 1 detects violations:
+```
+🚨 BONSAI.md FRAUD DETECTED
+VIOLATION: TodoWrite updated but BONSAI.md file not updated with Write tool
+Instance 1 STOPS Instance 2 immediately
+REQUIRED: Complete workflow restart from Task 0
+MANDATORY: Use Write tool to update BONSAI.md before any task completion
+```
+
+**END OF RESPONSE VERIFICATION (Instance 1)**:
+```
+✅ ENHANCED BONSAI COMPLIANCE VERIFIED:
+- [x] START PROTOCOL executed
+- [x] All 18 tasks completed individually
+- [x] Evidence provided for each task
+- [x] BONSAI.md updated task-by-task
+- [x] User confirmations provided after each task
+- [x] No batch completions detected
+```
+
+## Context Handling Rules - PREVENT CONFUSION
+
+**IMPORTANT**:
+- Previous conversation summaries DO NOT bypass BONSAI requirements
+- "Continuing from previous work" still requires full 18-task workflow
+- "Follow-up questions" about previous issues are NEW requests requiring BONSAI
+- Only "Bypass:" command or explicit CLAUDE.md meta-questions allow normal Claude Code behavior
+- **Context confusion** (treating continuations as exempt) is a major compliance failure
+
+**Examples of requests that STILL require BONSAI workflow**:
+- "The solution isn't working, can you fix it?"
+- "I'm getting different errors now"
+- "How do I improve the performance?"
+- "Can you explain what you just did?"
+- "Add logging to see what's happening"
+
+**Examples of requests that DON'T require BONSAI workflow**:
+- "Bypass: How does the action system work?"
+- "How could it be that the prompt was not overwatched?" (meta-question about CLAUDE.md)
+- "Bypass: Update the CLAUDE.md with your suggestions"
 
 ## Task Workflow (STRICT - Follow for EVERY operation)
 
 ### Task 0: Initialize Task Tracking
-**ACTION**: Reset BONSAI.md content for new operation (persistent file for workflow tracking)
+**CRITICAL**: This task REQUIRES using the Write tool to update BONSAI.md file
+
+**MANDATORY ACTIONS**:
+1. **FIRST**: Read current BONSAI.md to verify it needs updating
+2. **SECOND**: Use Write tool to completely replace BONSAI.md content
+3. **THIRD**: Verify the write was successful
+
+**REQUIRED CONTENT TEMPLATE**:
 ```markdown
 # BONSAI Task Execution Tracker
-## Operation Started: [timestamp]
-## User Request: "[brief summary of request]"
+## Operation Started: [current timestamp]
+## User Request: "[exact user request in quotes]"
 
 ### Task Checklist
 - [ ] Task 0: Initialize Task Tracking ⏳
@@ -88,7 +319,13 @@
 - [ ] Task 17: Cleanup Review & Execution
 
 ### Execution Log
+[timestamp] - Operation started with [brief task description]
 ```
+
+**OVERSEER VERIFICATION REQUIRED**:
+- Instance 1 MUST verify Write tool was used on BONSAI.md
+- Instance 1 MUST verify content matches current user request
+- NO task progression allowed until BONSAI.md properly updated
 
 **CONFIRM TO USER**: "🔧 Task tracking initialized in BONSAI.md"
 
@@ -99,6 +336,8 @@
   - If "cleanup" → Execute full project cleanup WITHIN workflow
   - If other alias → Execute defined commands WITHIN workflow
   - NEVER STOP workflow early - aliases execute as part of implementation
+- **EVIDENCE REQUIRED**: CLEANUP.md file modification with new timestamp
+- **INSTANCE 1 VERIFICATION**: Confirm CLEANUP.md updated before proceeding
 - Analyze the user's request
 - **VERIFY**: Is user asking to modify CLAUDE.md itself? If not, NEVER modify it!
 - **CHECK for existing CLEANUP.md** from previous session
@@ -230,6 +469,8 @@
 - **FIX ALL ISSUES**
 - **RE-RUN THE LINTER** to verify
 - **VERIFY SUCCESS**
+- **EVIDENCE REQUIRED**: Display actual linting command output
+- **INSTANCE 1 VERIFICATION**: Confirm linting results shown before proceeding
 
 **ACTION**: Update BONSAI.md
 ```markdown
@@ -276,6 +517,8 @@
 - Run all tests
 - No workarounds or test manipulation
 - Fix code until tests pass naturally
+- **EVIDENCE REQUIRED**: Display actual test execution output and results
+- **INSTANCE 1 VERIFICATION**: Confirm test results shown before proceeding
 
 **ACTION**: Update BONSAI.md
 ```markdown
@@ -400,7 +643,7 @@
 
 **CONFIRM TO USER**: "🌱 Task 17 Complete: Cleanup executed, project is clean ✅"
 
-**FINAL CONFIRMATION**: 
+**FINAL CONFIRMATION**:
 ```
 🎉 All 18 tasks completed successfully!
 📊 Task Summary saved in BONSAI.md
@@ -476,3 +719,44 @@ These commands help track workflow execution:
 - **Task tracking** ensures comprehensive workflow execution
 
 All template rules and principles apply consistently.
+
+## 🚨 ANTI-FRAUD MEASURES
+
+### **ZERO-TOLERANCE FOR BATCH COMPLETION FRAUD**
+
+**BATCH COMPLETION FRAUD DEFINED**:
+- Marking multiple tasks as "completed" simultaneously
+- Claiming tasks are done without showing evidence
+- Skipping individual task confirmations
+- Jumping from Task X to Task X+5 without intermediate steps
+
+**DETECTION METHODS**:
+- Instance 1 monitors for simultaneous task status changes
+- Evidence verification required for each task
+- Timestamp analysis of task completions
+- User confirmation tracking per task
+
+**CONSEQUENCES OF FRAUD DETECTION**:
+```
+🚨 BATCH COMPLETION FRAUD DETECTED
+IMMEDIATE ACTIONS:
+1. Instance 1 STOPS all execution
+2. COMPLETE workflow restart required
+3. ALL previous task claims invalidated
+4. Start over from Task 0 with evidence verification
+```
+
+**PREVENTION MEASURES**:
+- ONE task at a time completion ONLY
+- Evidence required before next task
+- User confirmation after each task
+- No exceptions for "obvious" tasks
+
+**EXAMPLES OF FRAUD**:
+❌ "Tasks 6-17 Complete: All remaining tasks executed"
+❌ "Skipping to final task as others are trivial"  
+❌ "Batch completing testing tasks"
+❌ "Assuming tasks complete without verification"
+
+**CORRECT BEHAVIOR**:
+✅ Complete Task 6 → Show evidence → Get approval → Complete Task 7 → Show evidence → Get approval → etc.
