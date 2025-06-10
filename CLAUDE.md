@@ -1,12 +1,12 @@
-# 🌱 BONSAI - Build Only Necessary Software, Adapt Intelligently (DEBUG VERSION)
+# 🌱 BONSAI - Build Only Necessary Software, Adapt Intelligently
 
-> **DEBUG VERSION**: This version includes task confirmations and progress tracking to ensure all workflow steps are executed properly.
+> **BONSAI**: This template provides systematic development workflow with task tracking and progress confirmation to ensure thorough software development.
 
 **Note**: BONSAI is the name of this development template/methodology, NOT your project name. Your project can be named anything you want!
 
 ---
 
-# CLAUDE.md - Dynamic Minimal Development Guide (DEBUG VERSION)
+# CLAUDE.md - Dynamic Minimal Development Guide
 
 ## ⚠️ CRITICAL: DO NOT MODIFY THIS FILE
 
@@ -32,11 +32,11 @@
 - **concept.md**: THE MASTER - Project vision and decisions (overrides all other configs)
 - **CLAUDE.md**: Template for workflow and practices (READ-ONLY - NEVER MODIFY)
 - **CLAUDE.local.md**: Auto-generated environment learnings (created by Claude Code)
-- **BONSAI.md**: Task execution tracker (DEBUG VERSION ONLY)
+- **BONSAI.md**: Task execution tracker (add to .gitignore for local workflow tracking)
 
 ### Session Management
 - **CLEANUP.md**: Persistent session tracker - Always in .gitignore
-- **BONSAI.md**: Task progress tracker - Reset each operation (DEBUG)
+- **BONSAI.md**: Task progress tracker - Reset content per operation (file persists)
 
 ### User-Facing Documents  
 - **README.md**: Manual for end users of your software
@@ -60,8 +60,8 @@
 
 ## Task Workflow (STRICT - Follow for EVERY operation)
 
-### Task 0: Initialize Task Tracking (DEBUG)
-**DEBUG ACTION**: Reset BONSAI.md content for new operation (persistent file for debugging)
+### Task 0: Initialize Task Tracking
+**ACTION**: Reset BONSAI.md content for new operation (persistent file for workflow tracking)
 ```markdown
 # BONSAI Task Execution Tracker
 ## Operation Started: [timestamp]
@@ -90,7 +90,7 @@
 ### Execution Log
 ```
 
-**CONFIRM TO USER**: "🔧 DEBUG: Task tracking initialized in BONSAI.md"
+**CONFIRM TO USER**: "🔧 Task tracking initialized in BONSAI.md"
 
 ### Task 1: Plan Creation & Cleanup Tracking
 - **MANDATORY**: ALWAYS execute full BONSAI workflow regardless of request type
@@ -108,7 +108,7 @@
 - Identify files to modify/create
 - List required tools (only if not present and not in Don'ts)
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 1: Plan Creation & Cleanup Tracking ✓ [timestamp]
   - Alias check: [result]
@@ -124,7 +124,7 @@
 - Understand current structure and dependencies
 - **Check CLEANUP.md status**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 2: File Reading ✓ [timestamp]
   - Files read: [list]
@@ -141,7 +141,7 @@
 - Verify no Don'ts patterns are being introduced
 - Abort if misaligned with concept.md
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 3: Concept Alignment ✓ [timestamp]
   - concept.md checked: [yes/no]
@@ -160,7 +160,7 @@
 - **If new tool added**: Create minimal config
 - **If new tool added**: Update .gitignore immediately
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 4: Implementation ✓ [timestamp]
   - Files created: [list]
@@ -178,7 +178,7 @@
 - **Apply patterns from CLAUDE.local.md**
 - **Record new discoveries in CLAUDE.local.md**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 5: Environment Execution ✓ [timestamp]
   - Virtual env used: [yes/no]
@@ -194,7 +194,7 @@
 - Ensure every line has a purpose
 - Check if code is actually used
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 6: Code Minimalism Check ✓ [timestamp]
   - Redundant code removed: [yes/no]
@@ -209,7 +209,7 @@
 - Update all references
 - Maintain backward compatibility if possible
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 7: Dependency Check ✓ [timestamp]
   - Dependencies checked: [count]
@@ -221,14 +221,17 @@
 
 ### Task 8: Formatting & Linting (MANDATORY - NEVER SKIP)
 - **STOP** - This step is NOT optional
-- Run the project's formatter
-- Run the project's linter
+- **CRITICAL**: Always use local environment (virtual environment/local installation)
+- **Python Example**: `uv add ruff` → `uv run ruff check` → `uv run ruff format`
+- **JavaScript Example**: `npm install eslint prettier --save-dev` → `npm run lint` → `npm run format`
+- **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
+- **General**: Install formatter/linter locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
 - **FIX ALL ISSUES**
 - **RE-RUN THE LINTER** to verify
 - **VERIFY SUCCESS**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 8: Formatting & Linting ✓ [timestamp]
   - Formatter run: [command used]
@@ -245,7 +248,7 @@
 - Use pytest, hypothesis, pydantic when appropriate
 - Write minimal but comprehensive tests
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 9: Test Preparation ✓ [timestamp]
   - Testable functions: [count]
@@ -260,7 +263,7 @@
 - Name test files clearly
 - Group related tests
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 10: Test Organization ✓ [timestamp]
   - Test structure: [description]
@@ -274,7 +277,7 @@
 - No workarounds or test manipulation
 - Fix code until tests pass naturally
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 11: Test Execution ✓ [timestamp]
   - Tests run: [count]
@@ -290,7 +293,7 @@
 - Ensure no scope creep occurred
 - **Verify .gitignore is complete**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 12: Concept Re-alignment ✓ [timestamp]
   - Concept alignment: [verified/issues]
@@ -305,7 +308,7 @@
 - Fix any issues
 - Only proceed when clean
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 13: Pre-commit Validation ✓ [timestamp]
   - Pre-commit configured: [yes/no]
@@ -321,7 +324,7 @@
 - **Update CLAUDE.local.md with session learnings**
 - **NEVER update CLAUDE.md**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 14: Documentation Updates ✓ [timestamp]
   - concept.md updated: [yes/no]
@@ -339,7 +342,7 @@
 - **If ANY usage found**: Update references BEFORE deleting
 - **Document findings**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 15: File Usage Scanning ✓ [timestamp]
   - Files to check: [list]
@@ -358,7 +361,7 @@
 - **Delete unused files immediately** (after scanning)
 - **Update all imports and references**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 16: Naming Consistency Review ✓ [timestamp]
   - Confusing names found: [count]
@@ -377,7 +380,7 @@
 - **Verify cleanup**
 - **Update CLEANUP.md with session summary**
 
-**DEBUG ACTION**: Update BONSAI.md
+**ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 17: Cleanup Review & Execution ✓ [timestamp]
   - Files reviewed: [count]
@@ -395,15 +398,15 @@
 
 **FINAL CONFIRMATION**: 
 ```
-🎉 DEBUG: All 18 tasks completed successfully!
+🎉 All 18 tasks completed successfully!
 📊 Task Summary saved in BONSAI.md
 🧹 Project is clean and minimal
 ```
 
-## Debug Mode Features
+## BONSAI Execution Features
 
 ### BONSAI.md Structure
-The BONSAI.md file tracks task execution and serves as proof that the workflow is being followed:
+The BONSAI.md file tracks task execution and provides workflow debugging:
 
 ```markdown
 # BONSAI Task Execution Tracker
@@ -435,48 +438,37 @@ The BONSAI.md file tracks task execution and serves as proof that the workflow i
 ## Result: SUCCESS ✓
 ```
 
-### Debug Commands
-When in debug mode, these commands help track execution:
+### Task Progress Commands
+These commands help track workflow execution:
 
 - **"show task progress"** → Display current BONSAI.md
 - **"verify task X"** → Confirm specific task was executed
-- **"reset debug"** → Reset BONSAI.md content and start fresh (file persists)
+- **"reset task tracker"** → Reset BONSAI.md content and start fresh (file persists)
 
-### Common Issues Caught by Debug Mode
+### Common Workflow Issues
 
 1. **Skipped Linting** (Task 8)
-   - Often rushed through or skipped entirely
-   - Debug mode forces confirmation
+   - Critical task often bypassed
+   - BONSAI tracking ensures execution
 
 2. **Missing Cleanup** (Task 17)
    - Frequently forgotten at session end
-   - Debug mode makes it mandatory
+   - Mandatory task completion required
 
 3. **Ignored File Scanning** (Task 15)
    - Files deleted without usage check
-   - Debug mode requires grep confirmation
+   - Grep confirmation required
 
 4. **Concept Misalignment** (Tasks 3 & 12)
    - Changes drift from concept.md
-   - Debug mode verifies twice
+   - Dual verification checkpoints
 
-### Transitioning from Debug Mode
+## Remember
 
-Once confident that Claude Code follows the workflow:
-1. Switch back to regular CLAUDE.md
-2. Keep BONSAI.md for complex operations
-3. Use debug mode for troubleshooting
-
-## Remember (DEBUG VERSION)
-
-- **Every task must be confirmed** in BONSAI.md
-- **No task can be skipped** - all 18 must execute
+- **Every task must be executed** - all 18 tasks are mandatory
+- **No task can be skipped** - complete workflow required
 - **BONSAI.md content resets** at Task 0 for each operation (file persists for debugging)
-- **User sees confirmations** after each task
-- **Debug mode is temporary** - use until workflow is reliable
+- **User confirmation** provided after each task completion
+- **Task tracking** ensures comprehensive workflow execution
 
-All other rules from the original CLAUDE.md apply.
-
----
-
-*DEBUG NOTE: This version adds approximately 30 seconds to operations due to confirmation messages and file updates. Use regular CLAUDE.md once confident in task execution.*
+All template rules and principles apply consistently.
