@@ -51,6 +51,16 @@ Before writing ANY response, Claude MUST internally verify:
 - Any debugging request → COMPLIANCE CHECK REQUIRED
 - Any implementation request → COMPLIANCE CHECK REQUIRED
 - ANY technical work → COMPLIANCE CHECK REQUIRED
+- **ANY PROMPT AFTER AN INTERRUPTION** → COMPLIANCE CHECK REQUIRED
+- **ANY CONTINUATION REQUEST** → COMPLIANCE CHECK REQUIRED
+- **ANY CONTEXT-BASED PROMPT** → COMPLIANCE CHECK REQUIRED
+
+**🚨 INTERRUPTION ABSOLUTE RESET RULE 🚨**
+- **Claude Code crashes/API errors** → FULL RESET - START TASK 0
+- **User stops/interrupts session** → FULL RESET - START TASK 0  
+- **Context summaries provided** → FULL RESET - START TASK 0
+- **"Continue from previous"** → FULL RESET - START TASK 0
+- **EVERY PROMPT IS NEW** → COMPLIANCE CHECK REQUIRED
 
 **ONLY THESE BYPASS COMPLIANCE CHECK:**
 - Message starts with "Bypass:" → Skip compliance, normal behavior
@@ -640,10 +650,20 @@ Final Result Delivered (NO STOPS DURING EXECUTION)
 🔒 MANDATORY BONSAI COMPLIANCE CHECK:
 - [ ] Bypass check: Message starts with "Bypass:"? → [YES/NO]
 - [ ] Meta check: About CLAUDE.md itself? → [YES/NO]  
+- [ ] Interruption check: Is this after ANY interruption/break? → [YES/NO]
+- [ ] Context check: Is this a continuation request? → [YES/NO]
 - [ ] Technical/continuation check: Any other request? → [YES/NO]
 - [ ] Workflow requirement: Full BONSAI workflow required? → [YES/NO]
-- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START BONSAI WORKFLOW]
+- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START TASK 0 - FULL RESET]
 ```
+
+**🚨 CRITICAL INTERRUPTION OVERRIDE 🚨**
+IF ANY INTERRUPTION DETECTED → AUTOMATIC TASK 0 START
+- API errors/crashes → TASK 0
+- User interruptions → TASK 0  
+- Context summaries → TASK 0
+- "Continue from..." → TASK 0
+- ANY break in execution → TASK 0
 
 **IF BONSAI WORKFLOW REQUIRED, CONTINUE WITH**:
 ```
@@ -711,26 +731,61 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 - [x] No batch completions detected
 ```
 
-## Context Handling Rules - PREVENT CONFUSION
+## Context Handling Rules - ABSOLUTE RESET ENFORCEMENT
 
-**IMPORTANT**:
-- Previous conversation summaries DO NOT bypass BONSAI requirements
-- "Continuing from previous work" still requires full 18-task workflow
-- "Follow-up questions" about previous issues are NEW requests requiring BONSAI
-- Only "Bypass:" command or explicit CLAUDE.md meta-questions allow normal Claude Code behavior
-- **Context confusion** (treating continuations as exempt) is a major compliance failure
+**🚨 CRITICAL INTERRUPT & CONTEXT HANDLING 🚨**
 
-**Examples of requests that STILL require BONSAI workflow**:
-- "The solution isn't working, can you fix it?"
-- "I'm getting different errors now"
-- "How do I improve the performance?"
-- "Can you explain what you just did?"
-- "Add logging to see what's happening"
+**ABSOLUTE RULE**: EVERY PROMPT IS A NEW PROMPT - NO EXCEPTIONS
 
-**Examples of requests that DON'T require BONSAI workflow**:
-- "Bypass: How does the action system work?"
-- "How could it be that the prompt was not overwatched?" (meta-question about CLAUDE.md)
-- "Bypass: Update the CLAUDE.md with your suggestions"
+**INTERRUPTION SCENARIOS THAT REQUIRE FULL RESET**:
+- ❌ **Claude Code interrupts** (API errors, timeouts, crashes)
+- ❌ **User interrupts** (stop button, browser refresh, session break)  
+- ❌ **Context continuation** (summaries from previous conversations)
+- ❌ **"Continue from where we left off"** requests
+- ❌ **"Following up on the previous task"** requests
+- ❌ **ANY message after an interruption**
+
+**MANDATORY RESET PROTOCOL**:
+```
+🚨 INTERRUPTION DETECTED - MANDATORY FULL RESET
+→ COMPLIANCE CHECK REQUIRED
+→ START FROM TASK 0
+→ NO CONTINUATION ALLOWED
+→ PREVIOUS CONTEXT IGNORED
+```
+
+**ZERO TOLERANCE FOR BYPASS ATTEMPTS**:
+- ❌ **NEVER** assume "continue previous work"
+- ❌ **NEVER** jump to middle of task sequence
+- ❌ **NEVER** skip compliance check due to context
+- ❌ **NEVER** treat interruptions as "pauses"
+
+**EVERY PROMPT MUST BE TREATED AS:**
+1. **Fresh start** - regardless of previous context
+2. **New request** - requiring full compliance check
+3. **Task 0 initiation** - if BONSAI workflow required
+4. **Complete 18-task execution** - from beginning to end
+
+**INTERRUPTION EXAMPLES REQUIRING FULL RESET**:
+- "Continue changing the sequencer terminology" ← FULL RESET REQUIRED
+- "Finish updating the README.md" ← FULL RESET REQUIRED  
+- "The solution isn't working, can you fix it?" ← FULL RESET REQUIRED
+- "I'm getting different errors now" ← FULL RESET REQUIRED
+- "How do I improve the performance?" ← FULL RESET REQUIRED
+- "Can you explain what you just did?" ← FULL RESET REQUIRED
+- "Add logging to see what's happening" ← FULL RESET REQUIRED
+
+**ONLY THESE BYPASS FULL RESET**:
+- "Bypass: How does the action system work?" ← Normal Claude Code behavior
+- "How could it be that the prompt was not overwatched?" ← Meta-question about CLAUDE.md
+- "Bypass: Update the CLAUDE.md with your suggestions" ← Normal Claude Code behavior
+
+**CONTEXT CONFUSION IS FORBIDDEN**:
+- Previous conversation summaries are FOR INFORMATION ONLY
+- Summaries DO NOT continue workflows
+- Summaries DO NOT bypass compliance checks  
+- Summaries DO NOT allow task jumping
+- **EVERY PROMPT starts from Task 0 unless explicitly bypassed**
 
 ---
 
@@ -778,7 +833,6 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 - **.gitignore**: CRITICAL - Update immediately when adding tools/generating files
 
 ### Special Cases
-- **PROJECT-TRANSFER.md**: Guide for migrating existing projects (user provides path)
 - **migration/**: Temporary analysis during project transfers (rarely needed)
 - **CLEANUP.md**: Always present (in .gitignore), shows session history
 - **BONSAI.md**: Task execution tracker (add to .gitignore for local debugging)
@@ -2166,7 +2220,7 @@ The updated CLAUDE.md now provides developers with a complete visual language th
 
 ## 🌱 BONSAI it! - Transform Existing Projects
 
-**BONSAI it!** is a powerful transformation command that retrofits existing projects with BONSAI principles while minimizing disruption. Unlike PROJECT-TRANSFER.md which completely rewrites projects, "BONSAI it!" makes surgical changes to align with BONSAI philosophy.
+**BONSAI it!** is a powerful transformation command that retrofits existing projects with BONSAI principles while minimizing disruption. It makes surgical changes to align with BONSAI philosophy.
 
 ### Command Activation
 
