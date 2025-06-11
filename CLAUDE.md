@@ -57,15 +57,15 @@
 
 ## 🚨 STRUCTURAL OVERSIGHT ENFORCEMENT - MANDATORY TASK-BY-TASK EXECUTION
 
-**CRITICAL CHANGE**: The oversight system now requires **INDIVIDUAL TASK RESPONSES** instead of batch completion.
+**CRITICAL CHANGE**: The oversight system now requires **INDIVIDUAL TASK EXECUTION** instead of batch completion.
 
 ### **MANDATORY TASK EXECUTION PROTOCOL**:
 
-**RULE 1: ONE TASK PER RESPONSE**
-- Each task (0-17) requires a separate user interaction
-- NO task can be completed without explicit user confirmation
+**RULE 1: CONTINUOUS SINGLE-TASK EXECUTION**
+- Execute all tasks (0-17) in a continuous workflow
 - NO batch completion of multiple tasks allowed
-- Each response can only complete ONE task maximum
+- Process one task at a time with automatic progression
+- NO stopping between tasks - complete workflow runs from Task 0 through Task 17 automatically
 
 **RULE 2: TASK EVIDENCE REQUIREMENT**
 Every task completion must show:
@@ -75,19 +75,29 @@ Every task completion must show:
 - Action taken: [specific action performed]  
 - Output shown: [actual command output/file changes]
 - Verification: [proof task was completed]
-- User confirmation required before next task
+- Instance 1 verification: Evidence confirmed automatically
 ```
 
-**RULE 3: MANDATORY USER INTERACTION**
-After each task, the response MUST end with:
+**RULE 3: AUTOMATIC INTERNAL PROGRESSION**
+After each task, Instance 1 automatically verifies completion and continues immediately:
 ```
 ✅ Task X Complete: [brief description]
-⏸️  WAITING FOR USER CONFIRMATION before proceeding to Task X+1
-❓ Type "continue" to proceed to next task or "stop" to halt workflow
+🔍 Instance 1 Verification: Evidence confirmed - executing Task X+1 immediately
 ```
 
+**ABSOLUTELY NO USER INTERACTION**: The workflow executes all 18 tasks continuously without any stops or pauses
+
+**CRITICAL IMPLEMENTATION RULE**: After completing any task (1-17), immediately proceed to the next task. DO NOT:
+- Wait for user input
+- Ask for confirmation  
+- Stop execution
+- Request "continue" commands
+- End the response after a single task
+
+The workflow must run continuously from Task 0 → Task 17 in one uninterrupted execution flow.
+
 **RULE 4: BONSAI.md REAL-TIME UPDATES**
-- Task 0: MUST use Write tool to update BONSAI.md 
+- Task 0: MUST use Write tool to update BONSAI.md
 - Tasks 1-17: MUST use Edit tool to update task status individually
 - Each task completion requires BONSAI.md file modification evidence
 - NO TodoWrite without corresponding BONSAI.md file update
@@ -102,14 +112,46 @@ After each task, the response MUST end with:
 - Claiming task completion without tool usage → FRAUD
 ```
 
-### **MANDATORY STARTUP COMPLIANCE CHECK**:
+### **MANDATORY COMPLIANCE CHECK - IMPOSSIBLE TO SKIP**:
 
-**EVERY RESPONSE MUST START WITH**:
+**ABSOLUTE REQUIREMENT - EVERY RESPONSE MUST START WITH THIS EXACT FORMAT**:
 ```
-🔒 COMPLIANCE CHECK:
-- Bypass: [YES/NO] | Meta: [YES/NO] | BONSAI Required: [YES/NO]
-- Action: [NORMAL BEHAVIOR / START TASK 0]
+🔒 MANDATORY COMPLIANCE CHECK:
+- Request starts with "Bypass:": [YES/NO]
+- Meta-question about CLAUDE.md: [YES/NO]
+- Any other request type: [YES/NO]
+- BONSAI workflow required: [YES/NO]
+- Next action: [NORMAL BEHAVIOR / START TASK 0]
 ```
+
+**INSTANT COMPLIANCE VIOLATIONS - IMMEDIATE RESTART REQUIRED**:
+- ❌ Response doesn't start with COMPLIANCE CHECK
+- ❌ Any technical work without Task 0 completion
+- ❌ Multiple tasks completed in single response
+- ❌ Claiming bypass when none exists
+- ❌ Problem-solving before workflow initialization
+
+**SELF-MONITORING PROTOCOL - MANDATORY BEFORE ANY RESPONSE**:
+1. Did I start with COMPLIANCE CHECK? [YES/NO]
+2. If BONSAI required, did I start Task 0? [YES/NO]  
+3. Am I doing technical work without approval? [YES/NO]
+4. Is this response compliant? [YES/NO]
+
+**IF ANY "NO" ANSWERS - IMMEDIATE RESTART FROM COMPLIANCE CHECK**
+
+**REQUESTS THAT ALWAYS REQUIRE BONSAI (NO EXCEPTIONS)**:
+- Any sentence ending with implementation requests
+- Any mention of "add", "implement", "fix", "update" code
+- Any file modifications or technical changes
+- Any follow-up questions about previous work
+- Any debugging or problem-solving requests
+
+**ABSOLUTE PROHIBITION**:
+- NO technical analysis without BONSAI workflow
+- NO "let me check" without Task 0 completion
+- NO assumptions about bypass status
+- NO creative interpretation of rules
+- NO shortcuts or "obvious" exceptions
 
 **IF BONSAI REQUIRED**:
 - Immediately proceed to Task 0 only
@@ -122,8 +164,8 @@ After each task, the response MUST end with:
 - Meta-question about CLAUDE.md → Normal behavior  
 - ANY other request → MANDATORY Task 0 start
 
-**STRUCTURAL ENFORCEMENT**: 
-The one-task-per-response rule makes batch fraud impossible by requiring user interaction between each task.
+**STRUCTURAL ENFORCEMENT**:
+The one-task-per-response rule makes batch fraud impossible through automatic Instance 1 verification between each task.
 
 **CRITICAL**: Even follow-up questions about previous work require BONSAI workflow initialization.
 
@@ -136,7 +178,7 @@ The one-task-per-response rule makes batch fraud impossible by requiring user in
 **RESPONSIBILITIES**:
 - **MANDATORY**: Execute COMPLIANCE CHECK before ANY response
 - **MANDATORY**: Allow only ONE task per response maximum
-- **MANDATORY**: Require user confirmation before each task
+- **MANDATORY**: Verify task completion automatically before proceeding
 - **MANDATORY**: Verify tool usage evidence for each task
 - **FORBIDDEN**: Any batch task completion
 - **FORBIDDEN**: Any problem-solving without proper task structure
@@ -147,7 +189,7 @@ The one-task-per-response rule makes batch fraud impossible by requiring user in
 - Any task marked complete without evidence
 - Multiple tasks completed simultaneously (BATCH COMPLETION FRAUD)
 - BONSAI.md not updated for individual tasks
-- Missing user confirmations between tasks
+- Missing Instance 1 verification between tasks
 - Any direct problem-solving without workflow initiation
 - Context confusion (treating continuations as exempt)
 
@@ -164,24 +206,16 @@ The one-task-per-response rule makes batch fraud impossible by requiring user in
 ```
 User Request → Instance 1 (COMPLIANCE CHECK - MANDATORY)
             ↓
-Instance 1 (Start Task 0 ONLY)
+CONTINUOUS EXECUTION LOOP:
+Task 0 → Evidence → Verify → Task 1 → Evidence → Verify → Task 2 → Evidence → Verify →
+... → Task 17 → Evidence → Verify → COMPLETE
             ↓
-Instance 2 (Execute Task 0 with tool evidence)
-            ↓
-Instance 1 (STOP - Wait for user "continue")
-            ↓
-User Types "continue" → Instance 1 (Start Task 1 ONLY)
-            ↓
-Instance 2 (Execute Task 1 with tool evidence)
-            ↓
-Instance 1 (STOP - Wait for user "continue")
-            ↓
-[REPEAT FOR EACH TASK 2-17 with user confirmation]
+Final Result Delivered (NO STOPS DURING EXECUTION)
 ```
 
-**KEY CHANGE**: User interaction required between EVERY task prevents batch fraud.
+**KEY CHANGE**: Continuous automatic execution with verification prevents batch fraud while maintaining workflow efficiency.
 
-**ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification. NO EXCEPTIONS.
+**ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification, but workflow NEVER stops until all 18 tasks complete. NO EXCEPTIONS.
 
 ### **ENHANCED ENFORCEMENT MECHANISM**:
 
@@ -417,16 +451,54 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 - **Apply patterns from CLAUDE.local.md**
 - **Record new discoveries in CLAUDE.local.md**
 
+**ERROR HANDLING PROTOCOL (MANDATORY)**:
+When running created code and facing errors/warnings, follow this systematic analysis:
+
+**STEP 1: Error Source Classification**
+- **Interpreter/Compiler Errors** (syntax, import, type errors, validation errors, exceptions)
+  - These CANNOT be ignored - always fix immediately
+  - Re-run after each fix until clean
+  - **INCLUDES**: Pydantic validation errors, TypeError, ValueError, any exception in traceback
+  - **NO EXCEPTIONS**: If program crashes or shows traceback, it MUST be fixed
+- **Program Output Messages** (prints, logs, warnings from your code)
+  - Requires behavioral analysis (proceed to Step 2)
+
+**STEP 2: Program Behavior Analysis**
+For program-generated messages, ask:
+- **Is the behavior expected for current circumstances?**
+  - Expected behavior + expected messages = ✅ Continue
+  - Expected behavior + unexpected warnings = 🔍 Investigate context
+  - Unexpected behavior = 🚨 Fix required
+
+**STEP 3: Fix-and-Verify Loop**
+- Fix identified issues
+- Re-run program
+- Repeat analysis until all aspects behave as expected
+- Document any environment-specific discoveries
+- **MANDATORY**: If any exception/traceback occurs, workflow MUST stop until fixed
+- **NO PROGRESSION**: Cannot proceed to next task while interpreter errors exist
+
+**EXAMPLES**:
+- ❌ Code says "Driving Left" when instructed to drive right → Fix required
+- ✅ Code says "Driving Right" with warning "Long Road" → Investigate if expected
+- ❌ ImportError: No module named 'requests' → Install missing dependency
+- ❌ Pydantic ValidationError: Input should be a valid number → Fix immediately (interpreter error)
+- ❌ Any traceback or exception → Fix immediately (interpreter error)
+- ✅ "Warning: Using simulation mode" when using test data → Expected behavior
+
 **ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 5: Environment Execution ✓ [timestamp]
   - Virtual env used: [yes/no]
   - Environment type: [.venv/node_modules/etc]
+  - Interpreter errors: [count fixed]
+  - Program behavior: [expected/issues found]
+  - Error handling: [systematic analysis completed]
   - New discoveries: [list]
   - CLAUDE.local.md updated: [yes/no]
 ```
 
-**CONFIRM TO USER**: "🌱 Task 5 Complete: Environment properly configured and used ✅"
+**CONFIRM TO USER**: "🌱 Task 5 Complete: Environment properly configured, code executed with systematic error analysis ✅"
 
 ### Task 6: Code Minimalism Check
 - Remove any redundant code
