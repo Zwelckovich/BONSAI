@@ -37,6 +37,7 @@
 ### Session Management
 - **CLEANUP.md**: Persistent session tracker - Always in .gitignore
 - **BONSAI.md**: Task progress tracker - Reset content per operation (file persists)
+- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report - Always in .gitignore
 
 ### User-Facing Documents  
 - **README.md**: Manual for end users of your software
@@ -47,8 +48,10 @@
 - **migration/**: Temporary analysis during project transfers (rarely needed)
 - **CLEANUP.md**: Always present (in .gitignore), shows session history
 - **BONSAI.md**: Task execution tracker (add to .gitignore for local debugging)
+- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report (add to .gitignore)
 - **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
 - **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
+- **BONSAI it!**: Transform existing projects to BONSAI style (requires double confirmation)
 - **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
 
 ## Philosophy & Core Principles
@@ -960,6 +963,7 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 - **Ensure code is cross-platform**
 - **If new tool added**: Create minimal config
 - **If new tool added**: Update .gitignore immediately
+- **If "BONSAI it!" command**: Add BONSAI_IT_PROCESS.md to .gitignore
 
 **ACTION**: Update BONSAI.md
 ```markdown
@@ -1315,6 +1319,7 @@ These commands help track workflow execution:
 - **Every task must be executed** - all 18 tasks are mandatory
 - **No task can be skipped** - complete workflow required
 - **BONSAI.md content resets** at Task 0 for each operation (file persists for debugging)
+- **BONSAI_IT_PROCESS.md** must be added to .gitignore when using "BONSAI it!"
 - **User confirmation** provided after each task completion
 - **Task tracking** ensures comprehensive workflow execution
 
@@ -2058,3 +2063,279 @@ The BONSAI matplotlib theme ensures that all data visualizations maintain the sa
 Like a carefully pruned bonsai tree, BONSAI interfaces reveal their beauty through what's left out as much as what's included.
 
 The updated CLAUDE.md now provides developers with a complete visual language that matches the minimal, purposeful approach of BONSAI code. Whether building web apps, desktop software, mobile apps, command-line tools, or data analysis reports, teams can create interfaces that feel cohesive, professional, and meditative to use.
+
+## 🌱 BONSAI it! - Transform Existing Projects
+
+**BONSAI it!** is a powerful transformation command that retrofits existing projects with BONSAI principles while minimizing disruption. Unlike PROJECT-TRANSFER.md which completely rewrites projects, "BONSAI it!" makes surgical changes to align with BONSAI philosophy.
+
+### Command Activation
+
+When user types exactly: **"BONSAI it!"**
+
+### ⚠️ MANDATORY WARNING PROTOCOL
+
+**BEFORE ANY EXECUTION**, display this warning and require DOUBLE confirmation:
+
+```
+🚨 BONSAI TRANSFORMATION WARNING 🚨
+
+This process will modify your project to align with BONSAI principles:
+
+POTENTIAL IMPACTS:
+⚠️ CRITICAL CHANGES:
+  • Tool replacements (e.g., black → ruff, npm → yarn)
+  • Directory restructuring 
+  • Design system overhaul
+  • Configuration file modifications
+
+⚠️ RISKS:
+  • Loss of functionality if incompatible patterns exist
+  • Changed build processes
+  • Different design language
+  • Modified development workflows
+
+⚠️ BACKUP RECOMMENDATION:
+  • Commit all changes before proceeding
+  • Ensure you have a recent backup
+  • Consider testing on a branch first
+
+Type "I understand and want to proceed" to continue.
+```
+
+After first confirmation:
+```
+⚠️ FINAL CONFIRMATION REQUIRED ⚠️
+This action cannot be automatically undone.
+Type "BONSAI transform my project" to begin transformation.
+```
+
+### Transformation Process
+
+The process executes in three systematic phases:
+
+#### Phase 1: Concept Alignment
+1. **Backup Creation**
+   ```
+   - Create concept.md.bonsai_backup_[timestamp]
+   - Store original for rollback reference
+   ```
+
+2. **Concept.md Analysis & Modification**
+   - **REMOVE**: Directory structures, tooling choices, design specifications
+   - **PRESERVE**: Project-specific requirements (e.g., scikit-rf, chess engines)
+   - **ADD**: References to BONSAI guidelines in CLAUDE.md
+   
+   Example transformation:
+   ```markdown
+   <!-- BEFORE -->
+   ## Project Structure
+   src/
+   ├── components/
+   ├── controllers/
+   └── utils/
+   
+   ## Tools
+   - Formatter: black
+   - UI: Material-UI
+   
+   <!-- AFTER -->
+   ## Project Structure
+   See BONSAI structure guidelines in CLAUDE.md
+   
+   ## Tools  
+   See BONSAI tool standards in CLAUDE.md
+   Additional project-specific tools:
+   - scikit-rf (RF circuit analysis)
+   ```
+
+3. **Tool Migration Mapping**
+   ```
+   Common Replacements:
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   black + isort + flake8 → ruff
+   Material-UI → BONSAI design + Tailwind
+   Redux → zustand  
+   webpack → vite
+   npm → yarn/pnpm
+   unittest → pytest
+   Prettier (aggressive) → Prettier (minimal config)
+   ```
+
+#### Phase 2: Directory Reconstruction
+
+**Progressive Structure Migration**:
+
+1. **Detect Current Structure**
+   - Analyze existing organization
+   - Identify framework patterns
+   - Map file relationships
+
+2. **Apply BONSAI Progressive Structure**
+   ```
+   # Example: Overly complex structure
+   BEFORE:                      AFTER:
+   src/                         backend.py
+   ├── api/                     frontend.html
+   │   ├── routes/             README.md
+   │   ├── middleware/
+   │   └── controllers/
+   ├── models/
+   ├── services/
+   └── utils/
+   ```
+
+3. **Update Path References**
+   - Fix imports
+   - Update config files
+   - Maintain functionality
+
+#### Phase 3: Deep Integration
+
+1. **Design System Migration**
+   - Replace color schemes with BONSAI palette
+   - Update component styling
+   - Apply Dark Zen principles
+
+2. **Tooling Updates**
+   - Install BONSAI-preferred tools
+   - Create minimal configurations
+   - Update package.json/pyproject.toml scripts
+
+3. **Code Adjustments**
+   - Update formatter/linter configs
+   - Apply BONSAI code style
+   - Remove unnecessary abstractions
+
+### Process Documentation
+
+**BONSAI_IT_PROCESS.md** (auto-generated, add to .gitignore):
+
+```markdown
+# BONSAI Transformation Report
+Generated: [timestamp]
+Original Request: "BONSAI it!"
+
+## Compatibility Analysis
+- Framework: [detected framework]
+- Complexity: [LOW/MEDIUM/HIGH]
+- Risk Assessment: [details]
+
+## Phase 1: Concept Alignment
+### Backup Created
+- concept.md → concept.md.bonsai_backup_[timestamp]
+
+### Modifications
+- Removed: [list of removed sections]
+- Preserved: [project-specific tools/requirements]
+- Added: BONSAI references
+
+## Phase 2: Directory Reconstruction  
+### Structure Changes
+BEFORE:
+[tree output]
+
+AFTER:
+[tree output]
+
+### Path Updates
+- Updated imports: [count]
+- Fixed references: [count]
+- Maintained functionality: [YES/NO]
+
+## Phase 3: Deep Integration
+### Tool Migrations
+- black → ruff ✓
+- Material-UI → BONSAI design ✓
+- [other migrations]
+
+### Design Updates
+- Colors migrated: [count]
+- Components updated: [count]
+- Styling aligned: [YES/NO]
+
+### Issues Requiring Attention
+⚠️ MANUAL INTERVENTION NEEDED:
+- [Issue 1: description and suggested fix]
+- [Issue 2: description and suggested fix]
+
+### Verification Results
+- Build: [PASS/FAIL]
+- Tests: [X/Y passing]
+- Linting: [CLEAN/X issues]
+
+## Rollback Instructions
+If you need to undo this transformation:
+1. Restore concept.md from concept.md.bonsai_backup_[timestamp]
+2. Review file changes in git
+3. Restore previous tool configurations
+
+## Summary
+✅ Successfully Transformed:
+- Files modified: [count]
+- Tools migrated: [count]  
+- Structure aligned: [YES/NO]
+
+⚠️ Requires Attention:
+- [List of manual fixes needed]
+
+🌱 Welcome to the BONSAI garden! 
+Your project has been thoughtfully cultivated to grow with minimal, purposeful intention.
+
+[BONSAI seed symbol]
+```
+
+### Advanced Options
+
+**Partial Transformations** (when specified):
+- `BONSAI it! --tooling`: Only update development tools
+- `BONSAI it! --structure`: Only reorganize directories  
+- `BONSAI it! --design`: Only update visual styling
+
+### Exclusions
+
+**.bonsai-ignore** file support:
+```
+# Legacy code to preserve
+legacy/
+vendor/
+
+# Generated files
+*.generated.js
+*_pb2.py
+
+# Third-party integrations
+external-api-wrapper.js
+```
+
+### Critical Implementation Rules
+
+1. **Highest Priority**: Keep the application functional
+   - If functionality would break, document it instead of changing
+   - Preserve business logic completely
+   - Test after each phase
+
+2. **Progressive Enhancement**
+   - Start with least disruptive changes
+   - Build confidence with each phase
+   - Allow stopping between phases
+
+3. **Documentation First**
+   - Every change logged in BONSAI_IT_PROCESS.md
+   - Clear rollback instructions
+   - Known issues highlighted
+
+4. **Smart Detection**
+   - Recognize meta-frameworks (Next.js, Django, etc.)
+   - Identify CI/CD dependencies
+   - Check for hard tool dependencies
+
+### Implementation Within BONSAI Workflow
+
+When "BONSAI it!" is triggered, it executes WITHIN the standard 18-task workflow:
+- Task 0-3: Analysis and planning specific to transformation
+- Task 4: Execute Phase 1 (Concept Alignment)
+- Task 5-7: Execute Phase 2 (Directory Reconstruction)
+- Task 8-11: Execute Phase 3 (Deep Integration)
+- Task 12-17: Verification and documentation
+
+The command follows all BONSAI workflow rules while performing its specific transformation logic.
