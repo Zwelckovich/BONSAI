@@ -25,25 +25,54 @@
 - ❌ **INSTANT VIOLATION**: Starting BONSAI workflow when "Bypass:" prefix exists
 
 **ENFORCEMENT LOGIC:**
-- **"Bypass:" prefix detected** → IMMEDIATE normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
-- **Meta-question about CLAUDE.md** → IMMEDIATE normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
-- **ANY OTHER REQUEST** → IMMEDIATE Task 0 start and full 18-task BONSAI workflow
+- **"Bypass:" prefix detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **Meta-question about CLAUDE.md detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **ANY OTHER REQUEST detected in compliance check** → Task 0 start and full 18-task BONSAI workflow
 
-**CRITICAL BYPASS DETECTION:**
-- **ANY MESSAGE starting with "Bypass:"** = 100% GUARANTEED normal Claude Code behavior
-- **FORBIDDEN with "Bypass:"**: Task tool, BONSAI workflow, compliance escalation
+**CRITICAL BYPASS DETECTION (WITHIN COMPLIANCE CHECK):**
+- **ANY MESSAGE starting with "Bypass:"** = Normal Claude Code behavior after compliance check
+- **FORBIDDEN with "Bypass:"**: Task tool, BONSAI workflow
 - **REQUIRED with "Bypass:"**: Direct execution using appropriate tools (Bash, Read, Edit, etc.)
+- **MANDATORY**: Compliance check must run first to detect the bypass
 
 **IF YOU SKIP THIS CHECK = IMMEDIATE RESTART REQUIRED**
 
-**ADDITIONAL ENFORCEMENT MEASURES:**
+**ENHANCED ENFORCEMENT MEASURES:**
+
+## **HARDCODED RESPONSE TEMPLATE REQUIREMENT**
+
+**EVERY RESPONSE MUST LITERALLY START WITH THIS EXACT TEXT:**
+```
+🔒 MANDATORY COMPLIANCE CHECK:
+- Request starts with "Bypass:": [YES/NO]
+- Meta-question about CLAUDE.md: [YES/NO]
+- Any other request type: [YES/NO]
+- BONSAI workflow required: [YES/NO]
+- Next action: [NORMAL BEHAVIOR / START TASK 0]
+```
+
+**AUTOMATED TRIGGER DETECTION (WITHIN COMPLIANCE CHECK):**
+- **"Bypass:" at message start** → COMPLIANCE CHECK DETECTS: Normal behavior, bypass BONSAI
+- **Questions about "CLAUDE.md"** → COMPLIANCE CHECK DETECTS: Normal behavior, no workflow
+- **All other requests** → COMPLIANCE CHECK DETECTS: BONSAI workflow required
+
+**FAIL-SAFE DEFAULT LOGIC:**
+- **Default state**: BONSAI workflow required
+- **Exception handling**: Only bypass on explicit "Bypass:" prefix
+- **No memory reliance**: Template is hardcoded requirement, not optional
 
 **PRE-RESPONSE VERIFICATION PROTOCOL:**
 Before writing ANY response, Claude MUST internally verify:
 1. ✅ Did I read the mandatory compliance check requirement?
-2. ✅ Am I starting with the exact compliance check format?
-3. ✅ Have I determined the correct action (NORMAL/TASK 0)?
-4. ✅ Am I following through with that determined action?
+2. ✅ Am I starting with the exact hardcoded template?
+3. ✅ Have I performed automated trigger detection?
+4. ✅ Have I determined the correct action (NORMAL/TASK 0)?
+5. ✅ Am I following through with that determined action?
+
+**RESPONSE STRUCTURE ENFORCEMENT:**
+- Missing compliance check = INVALID RESPONSE
+- Must restart response with proper template
+- No exceptions for any reason whatsoever
 
 **AUTOMATIC TRIGGERS:**
 - Any file modification request → COMPLIANCE CHECK REQUIRED
@@ -62,9 +91,10 @@ Before writing ANY response, Claude MUST internally verify:
 - **"Continue from previous"** → FULL RESET - START TASK 0
 - **EVERY PROMPT IS NEW** → COMPLIANCE CHECK REQUIRED
 
-**ONLY THESE BYPASS COMPLIANCE CHECK:**
-- Message starts with "Bypass:" → Skip compliance, normal behavior
-- Meta-questions about CLAUDE.md itself → Skip compliance, normal behavior
+**COMPLIANCE CHECK IS NEVER BYPASSED:**
+- Message starts with "Bypass:" → Run compliance check, detect bypass, then normal behavior
+- Meta-questions about CLAUDE.md itself → Run compliance check, detect meta-question, then normal behavior
+- **CRITICAL**: The compliance check is the decision mechanism, never the thing being bypassed
 
 ## 🚨 STRUCTURAL OVERSIGHT ENFORCEMENT - MANDATORY TASK-BY-TASK EXECUTION
 
@@ -209,6 +239,10 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - **CREATE/UPDATE CLEANUP.md** to track all files created in this session
 - **Check CLAUDE.local.md for environment-specific patterns**
 - **Check Don'ts section to avoid prohibited tools/patterns**
+- **VERIFY BONSAI TOOLS AVAILABLE**: Check required tools are BONSAI-compliant before proceeding
+  - **Python projects**: Verify uv is available (`uv --version`) - STOP if missing
+  - **JavaScript projects**: Verify yarn/pnpm is available - STOP if missing
+  - **FORBIDDEN TOOLS**: pip, npm, virtualenv, pipenv, poetry (use uv/yarn/pnpm instead)
 - Identify files to modify/create
 - List required tools (only if not present and not in Don'ts)
 
@@ -217,6 +251,8 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - [x] Task 1: Plan Creation & Cleanup Tracking ✓ [timestamp]
   - Alias check: [result]
   - CLEANUP.md: [created/updated]
+  - BONSAI tools verified: [uv/yarn/pnpm available - YES/NO]
+  - FORBIDDEN tools detected: [pip/npm/virtualenv - MUST BE NONE]
   - Files to modify: [list]
   - Tools needed: [list]
 ```
@@ -277,11 +313,30 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 **CONFIRM TO USER**: "🌱 Task 4 Complete: Implementation done, [X] files created/modified ✅"
 
 ### Task 5: Environment Execution
-- **CRITICAL**: Always use virtual environment (never global Python/Node)
-- **Python**: Ensure `.venv` is active before any python/uv commands
-- **JavaScript**: Ensure node_modules exists before any npm/yarn commands
+- **CRITICAL**: Always use BONSAI-preferred tools (never global Python/Node)
+- **MANDATORY PYTHON**: Use `uv venv .venv` and `uv add package` (NEVER pip/venv/virtualenv)
+- **MANDATORY JAVASCRIPT**: Use `yarn` or `pnpm` (NEVER npm)
 - **Apply patterns from CLAUDE.local.md**
 - **Record new discoveries in CLAUDE.local.md**
+
+**PYTHON WORKFLOW (MANDATORY)**:
+```bash
+uv venv .venv
+source .venv/bin/activate
+uv add package1 package2          # Runtime dependencies
+uv add --dev pytest ruff          # Development dependencies
+uv run python script.py           # Execute with uv
+```
+
+**JAVASCRIPT WORKFLOW (MANDATORY)**:
+```bash
+yarn install                      # or: pnpm install
+yarn add package1 package2        # or: pnpm add package1 package2
+yarn add --dev eslint prettier    # or: pnpm add --dev eslint prettier
+yarn run script                   # or: pnpm run script
+```
+
+**ENFORCEMENT**: Instance 1 MUST verify BONSAI tool commands are used in BONSAI.md evidence before proceeding.
 
 **ERROR HANDLING PROTOCOL (MANDATORY)**:
 When running created code and facing errors/warnings, follow this systematic analysis:
@@ -321,8 +376,10 @@ For program-generated messages, ask:
 **ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 5: Environment Execution ✓ [timestamp]
-  - Virtual env used: [yes/no]
-  - Environment type: [.venv/node_modules/etc]
+  - BONSAI tool used: [uv/yarn/pnpm - SPECIFIC TOOL NAME REQUIRED]
+  - Commands executed: [exact commands with uv/yarn/pnpm]
+  - FORBIDDEN tools used: [MUST BE NONE - pip/npm/virtualenv]
+  - Environment type: [.venv created with uv / node_modules with yarn/pnpm]
   - Interpreter errors: [count fixed]
   - Program behavior: [expected/issues found]
   - Error handling: [systematic analysis completed]
@@ -618,6 +675,9 @@ IMMEDIATE ACTIONS:
 - Missing Instance 1 verification between tasks
 - Any direct problem-solving without workflow initiation
 - Context confusion (treating continuations as exempt)
+- **CRITICAL**: Non-BONSAI tools used (pip/npm/virtualenv/pipenv/poetry)
+- **CRITICAL**: Missing uv/yarn/pnpm verification in Task 1 evidence
+- **CRITICAL**: Missing BONSAI tool commands in Task 5 evidence
 
 ### **Instance 2: Technical Executor**
 **ROLE**: Technical implementation ONLY after Instance 1 approval
@@ -710,6 +770,13 @@ Task X Started → Instance 1 waits for evidence → Evidence provided → Insta
 - **RED FLAG**: Task completion claimed without Write tool evidence
 - **RED FLAG**: BONSAI.md content doesn't match current user request
 
+**CRITICAL BONSAI TOOL ENFORCEMENT**:
+- **RED FLAG**: Task 1 evidence missing uv/yarn/pnpm availability check
+- **RED FLAG**: Task 5 evidence shows pip/npm/virtualenv commands
+- **RED FLAG**: Task 5 evidence missing "uv venv" or "uv add" commands
+- **RED FLAG**: Any bash command using forbidden tools (pip install, npm install, python -m venv)
+- **IMMEDIATE STOP**: Workflow MUST restart if wrong tools detected
+
 **IMMEDIATE INTERVENTION PROTOCOL**:
 If Instance 1 detects violations:
 ```
@@ -718,6 +785,15 @@ VIOLATION: TodoWrite updated but BONSAI.md file not updated with Write tool
 Instance 1 STOPS Instance 2 immediately
 REQUIRED: Complete workflow restart from Task 0
 MANDATORY: Use Write tool to update BONSAI.md before any task completion
+```
+
+```
+🚨 BONSAI TOOL VIOLATION DETECTED
+VIOLATION: Forbidden tools used (pip/npm/virtualenv) instead of BONSAI tools (uv/yarn/pnpm)
+Instance 1 STOPS Instance 2 immediately
+REQUIRED: Complete workflow restart from Task 0
+MANDATORY: Install and use only BONSAI-approved tools
+EVIDENCE: Task 1 must show uv/yarn/pnpm availability, Task 5 must show BONSAI tool commands
 ```
 
 **END OF RESPONSE VERIFICATION (Instance 1)**:
@@ -840,6 +916,7 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 - **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
 - **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
 - **BONSAI it!**: Transform existing projects to BONSAI style (requires double confirmation)
+- **GROW!**: Execute multi-prompt orchestration from PROMPTS.md file (introduces temporary third instance)
 - **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
 
 ## Philosophy & Core Principles
@@ -2278,6 +2355,7 @@ The process executes in three systematic phases:
    - **REMOVE**: Directory structures, tooling choices, design specifications
    - **PRESERVE**: Project-specific requirements (e.g., scikit-rf, chess engines)
    - **ADD**: References to BONSAI guidelines in CLAUDE.md
+   - **MANDATORY**: Add BONSAI design system requirement
 
    Example transformation:
    ```markdown
@@ -2292,6 +2370,11 @@ The process executes in three systematic phases:
    - Formatter: black
    - UI: Material-UI
 
+   ## Design System
+   - Colors: Custom brand palette
+   - Typography: Custom fonts
+   - Logging: Basic console output
+
    <!-- AFTER -->
    ## Project Structure
    See BONSAI structure guidelines in CLAUDE.md
@@ -2300,6 +2383,15 @@ The process executes in three systematic phases:
    See BONSAI tool standards in CLAUDE.md
    Additional project-specific tools:
    - scikit-rf (RF circuit analysis)
+
+   ## Design & Visual Standards
+   **MANDATORY**: All visual elements follow BONSAI design system from CLAUDE.md
+   - **Color Palette**: Use BONSAI color system (dark zen aesthetic)
+   - **Typography**: BONSAI font guidelines (Quicksand/JetBrains Mono)
+   - **UI Components**: BONSAI component design principles
+   - **Logging Output**: Rich library with BONSAI color palette
+   - **Data Visualization**: BONSAI matplotlib theme
+   - **Console Styling**: BONSAI rich console integration
    ```
 
 3. **Tool Migration Mapping**
@@ -2347,12 +2439,15 @@ The process executes in three systematic phases:
 
 #### Phase 3: Deep Integration
 
-1. **Design System Migration**
-   - Replace color schemes with BONSAI palette
-   - Update component styling
-   - Apply Dark Zen principles
-   - **If matplotlib detected**: Apply BONSAI matplotlib theme and color palettes
-   - **If rich library detected**: Apply BONSAI colors to console logging and panels
+1. **Design System Migration (MANDATORY)**
+   - **Replace ALL color schemes** with BONSAI color palette
+   - **Update ALL component styling** to BONSAI design principles
+   - **Apply Dark Zen principles** throughout interface
+   - **MANDATORY matplotlib integration**: Apply BONSAI matplotlib theme and color palettes
+   - **MANDATORY rich library integration**: Apply BONSAI colors to console logging and panels
+   - **Typography updates**: Implement BONSAI font guidelines (Quicksand/JetBrains Mono)
+   - **Component redesign**: Apply BONSAI UI component principles
+   - **Logging transformation**: Replace standard logging with BONSAI rich console styling
 
 2. **Tooling Updates**
    - Install BONSAI-preferred tools
@@ -2476,6 +2571,42 @@ vendor/
 external-api-wrapper.js
 ```
 
+### Automatic Design System Integration
+
+**MANDATORY BONSAI DESIGN ENFORCEMENT**: Every "BONSAI it!" transformation automatically adds comprehensive design system requirements to concept.md:
+
+```markdown
+## Design & Visual Standards
+**MANDATORY**: All visual elements follow BONSAI design system from CLAUDE.md
+
+### Color System
+- **Primary Palette**: BONSAI color system (dark zen aesthetic)
+- **Background Colors**: BONSAI_background_deep through BONSAI_background_overlay
+- **Text Colors**: BONSAI_text_primary, secondary, muted hierarchy
+- **Accent Colors**: BONSAI green/red/blue/yellow families
+- **Semantic Colors**: Success, warning, error, info mappings
+
+### Typography
+- **Primary Font**: Quicksand (300-600 weights) for UI text
+- **Code Font**: JetBrains Mono (300-500 weights) for code display
+- **Hierarchy**: Consistent font-weight and size scaling
+- **Line Height**: 1.6-1.7 for comfortable reading
+
+### Visualization Standards
+- **Matplotlib**: BONSAI matplotlib theme (dark background, BONSAI colors)
+- **Rich Console**: BONSAI color palette for logging and terminal output
+- **Data Charts**: BONSAI color palettes (qualitative, sequential, diverging)
+- **UI Components**: BONSAI component design principles
+
+### Implementation Requirements
+- **NO custom color schemes** - use only BONSAI palette
+- **NO custom fonts** - use only BONSAI typography guidelines
+- **MANDATORY rich integration** - if logging exists, use BONSAI rich styling
+- **MANDATORY matplotlib theming** - if visualization exists, use BONSAI themes
+```
+
+**This design system section is AUTOMATICALLY added to every concept.md during "BONSAI it!" transformation**, ensuring consistent visual identity across all BONSAI projects.
+
 ### Critical Implementation Rules
 
 1. **Highest Priority**: Keep the application functional
@@ -2508,3 +2639,279 @@ When "BONSAI it!" is triggered, it executes WITHIN the standard 18-task workflow
 - Task 12-17: Verification and documentation
 
 The command follows all BONSAI workflow rules while performing its specific transformation logic.
+
+## 🌱 GROW! - Multi-Prompt Orchestration System
+
+**GROW!** introduces a temporary third instance "Orchestrator" that analyzes concept.md, generates a smart phase-based development plan, creates prompts for each phase, and executes them sequentially with full tracking and progress monitoring.
+
+### Command Activation
+
+**Standard Mode**: **"GROW!"**
+- Executes next available phase in sequence
+- Stops after completing current phase
+- User can continue with next "GROW!" command
+
+**Continuous Mode**: **"GROW! --ALL"**
+- Executes all phases automatically from first to last
+- No stops between phases
+- Completes entire project development in one execution
+
+### System Architecture
+
+**Triple-Instance System (Temporary)**:
+- **Instance 1**: BONSAI Compliance Overseer (existing)
+- **Instance 2**: Technical Executor (existing)  
+- **Instance 3**: Orchestrator (new, temporary)
+
+### Orchestration Process
+
+#### Phase 1: Analysis & Planning
+1. **Read concept.md** - Analyze project vision and requirements
+2. **Generate development phases** - Smart, natural progression (backend → testing → CLI → frontend, etc.)
+3. **Create phase prompts** - Each phase generates functional increment
+4. **Initialize GROW.md** - Document complete plan and prompts
+5. **Instance 3 Activation** - Temporary orchestrator starts
+
+#### Phase 2: Sequential Execution
+
+**Standard Mode (GROW!)**:
+- Execute next incomplete phase only
+- Stop after phase completion
+- Return control to user
+
+**Continuous Mode (GROW! --ALL)**:
+- Execute all phases from first incomplete to last phase
+- No user interaction between phases
+- Automatic progression through entire development plan
+
+**For each phase prompt in GROW.md:**
+
+1. **Instance 3 sends prompt** to Instance 1
+2. **Instance 1 performs compliance check** (standard BONSAI process)
+3. **Instance 2 executes task** (standard workflow or bypass behavior)
+4. **Instance 1 signals completion** to Instance 3 with summary
+5. **Instance 3 updates GROW.md** with results and progress
+6. **Phase validation** - Ensure phase is fully functional before proceeding
+7. **Mode check**: 
+   - Standard mode: Stop and return to user
+   - --ALL mode: Continue to next phase automatically
+
+#### Phase 3: Completion
+1. **Final summary** generated in GROW.md
+2. **Instance 3 deactivation** - Returns to dual-instance system
+3. **Results delivered** to user
+
+### GROW.md Enhanced Structure
+
+**Auto-generated planning and tracking file**:
+```markdown
+# GROW! Intelligent Development Plan
+## Project Analysis: [timestamp]
+## Source: concept.md
+
+### Concept Analysis
+- **Project Type**: [web app/CLI tool/library/API/etc.]
+- **Core Technology**: [Python/JavaScript/etc.]
+- **Complexity Level**: [Simple/Medium/Complex]
+- **Key Requirements**: [list from concept.md]
+
+### Development Phases (Human-Like Progression)
+
+#### Phase 1: [Foundation Phase Name]
+- **Goal**: [what this phase achieves]
+- **Deliverable**: [functional component]
+- **Justification**: [why this phase comes first]
+- **Estimated Complexity**: [SIMPLE/MEDIUM/COMPLEX]
+
+#### Phase 2: [Next Logical Phase]
+- **Goal**: [builds upon Phase 1]
+- **Deliverable**: [next functional increment]
+- **Dependencies**: [requires Phase 1 completion]
+- **Estimated Complexity**: [SIMPLE/MEDIUM/COMPLEX]
+
+[... additional phases ...]
+
+### Generated Prompts
+
+#### Phase 1 Prompt:
+```
+[Smart prompt for Phase 1 that will create fully functional foundation]
+```
+
+#### Phase 2 Prompt:
+```
+[Smart prompt for Phase 2 that builds upon Phase 1]
+```
+
+[... additional prompts ...]
+
+### Execution Log
+
+#### Phase 1: [Foundation Phase Name]
+- **Status**: ✅ COMPLETED / ⏳ RUNNING / ❌ FAILED
+- **Prompt**: [the actual prompt sent]
+- **Compliance Check**: [BYPASS/BONSAI]
+- **Workflow Type**: [Normal Claude Code / 18-Task BONSAI]
+- **Summary**: [Instance 1 completion summary]
+- **Files Modified**: [list]
+- **Validation**: [proof phase is functional]
+- **Timestamp**: [completion time]
+
+#### Phase 2: [Next Phase Name]
+- **Status**: ⏳ RUNNING
+- **Dependencies Met**: [Phase 1 ✅]
+[... etc ...]
+
+### Project Status
+- **Current Phase**: [X of Y]
+- **Overall Progress**: [percentage]
+- **Functional Status**: [each phase working status]
+- **Next Actions**: [what comes after completion]
+```
+
+### Error Handling Protocol
+
+**If Phase Fails**:
+1. Instance 3 logs error in GROW.md
+2. Marks phase as FAILED with reason
+3. **Dependency Check**: Determine if next phases can proceed
+4. **User Choice**: Fix current phase, skip to independent phase, or abort
+5. Maintains execution history for debugging
+
+**If concept.md Missing**:
+1. Instance 3 creates template concept.md
+2. Requests user to define project vision
+3. Continues analysis when concept.md is ready
+
+**Phase Validation Protocol**:
+1. Each phase must produce working, testable functionality
+2. Dependencies verified before proceeding to next phase
+3. No "placeholder" or "TODO" implementations allowed
+4. Each phase represents a complete development milestone
+
+### Integration with BONSAI Workflow
+
+**Critical Rule**: GROW! does NOT bypass compliance checks
+- Each generated phase prompt goes through Instance 1
+- Compliance check determines workflow type (BONSAI vs bypass)
+- Instance 3 orchestrates intelligent phase planning and prompt delivery
+- All existing BONSAI rules and Instance 1/2 behavior remain unchanged
+- Phase-based development follows BONSAI minimalism principles
+
+### Intelligent Phase Planning Examples
+
+**Example 1: Simple CLI Tool**
+Based on concept.md describing a "task management CLI":
+- **Phase 1**: Core task data structure and basic operations
+- **Phase 2**: File persistence and data validation  
+- **Phase 3**: Command-line interface and argument parsing
+- **Phase 4**: Testing suite and error handling
+
+**Example 2: Web Application**
+Based on concept.md describing a "user management web app":
+- **Phase 1**: Backend API with core user operations
+- **Phase 2**: Database integration and data validation
+- **Phase 3**: Authentication and authorization system
+- **Phase 4**: Frontend interface (HTML/CSS/JS)
+- **Phase 5**: Integration testing and deployment prep
+
+**Example 3: Python Library**
+Based on concept.md describing a "data processing library":
+- **Phase 1**: Core algorithms and data structures
+- **Phase 2**: Public API design and implementation
+- **Phase 3**: Comprehensive test suite
+- **Phase 4**: Documentation and examples
+- **Phase 5**: Package setup and distribution
+
+### Execution Mode Examples
+
+**Incremental Development (Standard)**:
+```
+User: GROW!
+→ Executes Phase 1 only, stops
+User: GROW!  
+→ Executes Phase 2 only, stops
+User: GROW!
+→ Executes Phase 3 only, stops
+[... continue manually for each phase]
+```
+
+**Complete Project Development (Continuous)**:
+```
+User: GROW! --ALL
+→ Executes Phase 1 → Phase 2 → Phase 3 → ... → Final Phase
+→ Complete project delivered in single execution
+→ No manual intervention required between phases
+```
+
+**Resume from Middle (Continuous)**:
+```
+# If Phases 1-2 already complete
+User: GROW! --ALL
+→ Detects completed phases, starts from Phase 3
+→ Executes Phase 3 → Phase 4 → ... → Final Phase
+→ Completes remaining development automatically
+```
+
+### Smart Phase Generation Process
+
+**Instance 3 Analysis Workflow**:
+1. **Parse concept.md** - Extract project type, technology, requirements
+2. **Identify natural phases** - Determine logical development progression
+3. **Validate dependencies** - Ensure each phase builds functionally on previous
+4. **Generate phase prompts** - Create specific, actionable prompts for each phase
+5. **Estimate complexity** - Assess time/effort for realistic planning
+
+**Phase Generation Principles**:
+- **Foundation First**: Always start with core functionality
+- **Incremental Value**: Each phase adds working features
+- **Natural Dependencies**: Backend before frontend, core before extensions
+- **Testable Milestones**: Every phase produces verifiable functionality
+- **BONSAI Alignment**: Minimal viable implementation at each step
+
+**Human-Like Development Simulation**:
+- How would a developer naturally approach this project?
+- What would they build first to validate the concept?
+- Which components need to work before others can be built?
+- When would they add testing, documentation, deployment?
+
+### Security & Safety
+
+**Safeguards**:
+- Each generated prompt still requires compliance check
+- No automatic bypass of safety measures
+- User can review generated plan in GROW.md before execution
+- Progress tracked in GROW.md for accountability
+- Can abort execution at any point
+- Phase validation ensures working functionality at each step
+
+**Limitations**:
+- Maximum 10 phases per project (keeps development focused)
+- Each phase prompt subject to standard Claude Code limits
+- Instance 3 deactivates after completion (no persistent state)
+- Requires well-defined concept.md for effective phase planning
+
+### File Management
+
+**Auto-generated Files**:
+- **GROW.md**: Comprehensive plan and execution log (can commit to repo for project history)
+- **concept.md**: User maintains (project vision document)
+
+**Cleanup**:
+- GROW.md persists as project development history
+- Instance 3 fully deactivates after session
+- System returns to standard dual-instance operation
+- All phase deliverables remain as functional project components
+
+### Remember
+
+**GROW! extends BONSAI with intelligent orchestration**:
+- Compliance checks remain mandatory for every phase
+- Workflow rules still apply to each generated prompt
+- Analyzes concept.md to create smart development phases
+- Simulates natural human development progression
+- Ensures each phase produces working functionality
+- Provides comprehensive planning and execution tracking
+- Temporary third instance for intelligent coordination only
+
+The GROW! system enables sophisticated project development automation while maintaining all BONSAI safety, quality, and minimalism standards. Each phase represents a complete, functional milestone in the project's natural evolution.
