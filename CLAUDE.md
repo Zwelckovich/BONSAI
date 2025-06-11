@@ -169,6 +169,443 @@ The one-task-per-response rule makes batch fraud impossible through automatic In
 
 **CRITICAL**: Even follow-up questions about previous work require BONSAI workflow initialization.
 
+## Backend/Frontend Structure Rules
+
+### Structure Decision Hierarchy
+
+When determining project structure for backend/frontend applications:
+
+1. **User's Existing Structure** (if user wrote >60% of code)
+   - Detect and document in CLAUDE.local.md
+   - Preserve their organization patterns
+   - Make minimal changes for compliance
+
+2. **concept.md Specifications** (if defined)
+   - Follow explicit structure guidelines
+   - Example: "Use src/ for all source files"
+   - Overrides BONSAI defaults
+
+3. **BONSAI Minimal Structure** (default)
+   - Start with single files
+   - Split only when complexity demands
+   - Feature-based, not type-based organization
+
+### Structure Detection & Persistence
+
+**CRITICAL**: Once a structure decision is recorded in CLAUDE.local.md, it MUST NOT be changed unless:
+- No structure decision exists yet in CLAUDE.local.md
+- User explicitly requests: "Change to BONSAI structure" or "Use structure from concept.md"
+
+On first backend/frontend operation:
+1. **Check CLAUDE.local.md FIRST** - If structure decision exists, use it
+2. If no decision recorded:
+   - Scan for existing structure patterns
+   - Check concept.md for structure specifications  
+   - Make decision based on hierarchy above
+3. Document decision in CLAUDE.local.md:
+
+```markdown
+## Project Structure Decision
+### Date: 2024-01-15
+### Structure Type: [User Custom|concept.md|BONSAI]
+### LOCKED: Do not change unless user explicitly requests
+
+### Detected Pattern:
+- Backend: [description]
+- Frontend: [description]  
+- Reasoning: [why this choice]
+
+### Structure Rules:
+- API endpoints: [location]
+- Components: [location]
+- Shared code: [location]
+- Tests: [location]
+```
+
+### Environment Placement (BONSAI Style)
+
+#### Single Technology Projects
+```
+project/
+├── .venv/              # Python venv at root
+├── node_modules/       # Node deps at root
+├── main.py            # Or index.js
+└── README.md
+```
+
+#### Full-Stack Projects - Progressive Evolution
+
+**Stage 1: Both in Root (Start here)**
+```
+project/
+├── .venv/              # Python backend env
+├── node_modules/       # Frontend deps
+├── backend.py          # Backend code
+├── frontend.html       # Frontend code
+├── package.json        # Frontend deps
+├── pyproject.toml      # Backend deps
+└── README.md
+```
+
+**Stage 2: Split When Needed (Only if conflicts)**
+```
+project/
+├── backend/
+│   ├── .venv/          # Python env
+│   ├── main.py
+│   └── pyproject.toml
+├── frontend/
+│   ├── node_modules/   # Node deps
+│   ├── index.html
+│   └── package.json
+└── README.md
+```
+
+**Environment Rules**:
+- Start with environments at project root
+- Only move into subdirectories when actual conflicts occur
+- Never create empty directory structures preemptively
+- Document environment locations in CLAUDE.local.md
+
+### BONSAI Default Structures
+
+#### Progressive Backend Evolution (Python/FastAPI)
+```
+# Stage 1: Single file
+main.py                 # Everything here
+
+# Stage 2: Minimal split (>200 lines)
+backend/
+├── main.py            # Entry point & routes
+└── models.py          # Data models
+
+# Stage 3: Feature split (>500 lines)
+backend/
+├── main.py            # Entry point
+├── api.py             # Routes/endpoints
+├── models.py          # Data models
+└── auth.py            # Only if auth complex
+```
+
+#### Progressive Frontend Evolution (React)
+```
+# Stage 1: Single file
+index.html             # React inline
+
+# Stage 2: Minimal split
+frontend/
+├── index.html         
+├── app.js             # Extracted JS
+└── styles.css         # Extracted CSS
+
+# Stage 3: Component split (>3 components)
+frontend/
+├── index.html
+├── App.jsx            # Main component
+├── components/        # Feature components
+│   ├── Auth.jsx
+│   └── Dashboard.jsx
+└── api.js             # API calls
+```
+
+#### Full-Stack Progressive Evolution
+```
+# Stage 1: Two files (Start here!)
+project/
+├── backend.py         # Entire backend
+├── frontend.html      # Entire frontend
+└── README.md
+
+# Stage 2: Static assets extracted
+project/
+├── backend.py         
+├── index.html         
+├── static/
+│   ├── app.js
+│   └── styles.css
+└── README.md
+
+# Stage 3: Backend/Frontend split (only when truly needed)
+project/
+├── backend/
+│   ├── .venv/         # Moved from root
+│   ├── main.py
+│   └── models.py
+├── frontend/
+│   ├── node_modules/  # Moved from root
+│   ├── index.html
+│   └── src/
+│       └── App.jsx
+└── README.md
+```
+
+### Anti-Patterns to Avoid
+
+❌ **Premature Folder Structure**
+```
+src/
+├── controllers/
+├── models/
+├── views/
+├── utils/
+├── helpers/
+├── middleware/
+├── services/
+└── repositories/
+```
+*Why bad*: Empty folders, single-file folders, over-organization
+
+✅ **BONSAI Approach**
+```
+api.py          # All endpoints here until it's too big
+models.py       # All models here until it's too big
+```
+
+### When to Create Folders
+
+Only create a folder when:
+- You have 3+ files of similar purpose
+- Files are clearly related by feature
+- It improves code discovery
+- It reduces naming conflicts
+
+Examples:
+- `auth_login.py`, `auth_register.py`, `auth_reset.py` → `auth/`
+- `UserModel.js`, `PostModel.js`, `CommentModel.js` → `models/`
+
+## Best Practices & Preferred Tools
+
+### Python
+- **Package Manager**: uv (replaces pip, pipenv, poetry)
+- **Linter/Formatter**: ruff (replaces black, isort, flake8)
+- **Type Checker**: pyright (only when needed)
+- **Testing**: pytest + hypothesis (when complexity justifies)
+
+#### Ruff Philosophy
+Ruff should catch real errors and promote clean code, not enforce arbitrary restrictions:
+- ✅ Catch actual bugs (undefined names, syntax errors)
+- ✅ Promote cross-platform code (pathlib usage)
+- ✅ Encourage modern Python (pyupgrade)
+- ❌ Don't enforce arbitrary limits (line length, arg count)
+- ❌ Don't require documentation everywhere
+- ❌ Don't be dogmatic about style preferences
+
+#### Minimal Ruff Configuration (pyproject.toml):
+```toml
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "UP", # pyupgrade
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "PIE", # flake8-pie
+    "PTH", # flake8-use-pathlib
+]
+
+ignore = [
+    "E501", # line too long (let formatter handle)
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "B904", # raise without from in except
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "F811"]  # Allow unused imports in tests
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__"]
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+useLibraryCodeForTypes = true
+```
+
+### JavaScript/React
+- **Package Manager**: yarn (or pnpm for better performance)
+- **Build Tool**: vite (always - not "when needed")
+- **Framework**: React 18+ with TypeScript
+- **State Management**: zustand (simpler than Redux)
+- **Server State**: @tanstack/react-query
+- **Formatter**: prettier
+- **Linter**: eslint (minimal rules)
+- **Testing**: vitest + @testing-library/react
+- **Scripts**: Use `node scripts/build.js` not shell scripts
+
+#### Vite Configuration (minimal):
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
+  }
+})
+```
+
+#### TypeScript Configuration (when needed):
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
+```
+
+#### Prettier Configuration (.prettierrc):
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "trailingComma": "es5"
+}
+```
+
+#### ESLint Configuration (minimal):
+```json
+// .eslintrc.json
+{
+  "extends": [
+    "eslint:recommended",
+    "@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
+}
+```
+
+### Framework-Specific Minimal Structures
+
+#### FastAPI Minimal
+```python
+# main.py - Everything in one file until complexity demands split
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
+
+# Add more endpoints here
+# Split to api.py when >10 endpoints
+# Split to models.py when >3 models
+```
+
+#### Express Minimal
+```javascript
+// server.js - Everything in one file
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello World' })
+})
+
+app.listen(3000)
+// Split when file exceeds 200 lines
+```
+
+#### React Minimal
+```html
+<!-- index.html - Start with everything inline -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        function App() {
+            return React.createElement('h1', null, 'Hello World')
+        }
+        ReactDOM.render(React.createElement(App), document.getElementById('root'))
+    </script>
+</body>
+</html>
+<!-- Extract to app.js when logic exceeds 50 lines -->
+```
+
+### Tool Introduction Triggers
+
+#### **pytest**: Add when ANY of these complexity indicators are met:
+- **Mathematical Logic**: Functions with calculations, formulas, or mathematical operations
+- **Validation Logic**: Data validation, type checking, or error handling beyond simple checks
+- **Class Methods**: Any class with 3+ methods or complex state management
+- **Combinatorial Functions**: Functions generating combinations, permutations, or nested iterations
+- **File I/O Operations**: JSON serialization, file loading, or data persistence
+- **Edge Cases**: Functions that need testing with boundary conditions or invalid inputs
+- **Configuration Logic**: Parameter configuration, sweep generation, or complex object creation
+
+#### **pydantic**: Data validation needed or external API integration
+
+#### **hypothesis**: Property-based testing for complex edge cases
+- Add when pytest tests become repetitive for testing ranges
+- Useful for testing mathematical functions with many possible inputs  
+- **Trigger**: When you find yourself writing >5 similar test cases for the same function
+
+#### **pre-commit**: Add when ANY of these collaboration indicators are met:
+- **Repository has 4+ core files** (excluding configs like .gitignore, pyproject.toml)
+- **Multiple contributors** working on the project
+- **Production deployment** planned or active
+- **Complex formatting rules** that must be enforced consistently
+- **Security-sensitive code** that needs automatic scanning
+
+#### **type hints**: Function used in 3+ places or has 3+ parameters
+
+#### **docker**: Deployment or complex dependencies
+#### **CI/CD**: Automated deployment or team collaboration
+
+### Tool Addition Protocol
+When adding new tools:
+1. **Check Don'ts section** - User may have specified alternatives
+2. **Start minimal** - Only essential configuration
+3. **Document trigger** - Why was this tool added now?
+4. **Update .gitignore** - Add tool-specific ignore patterns
+5. **Record in CLAUDE.local.md** - Tool-specific environment behaviors
+
+### Cross-Platform Considerations
+- **Python**: Always use `pathlib.Path` over string concatenation
+- **Node.js**: Use `path.join()` and avoid shell-specific commands in npm scripts
+- **Scripts**: Prefer Node.js scripts over shell scripts for cross-platform compatibility
+- **Environment**: Use `.env` files with consistent variable names across platforms
+
 ## 🚨 ENHANCED DUAL-INSTANCE OVERSIGHT SYSTEM
 
 **MANDATORY PROTOCOL**: Claude Code operates with a strict dual-instance system with ZERO-TOLERANCE compliance enforcement.
