@@ -380,6 +380,8 @@ Examples:
 - **Linter/Formatter**: ruff (replaces black, isort, flake8)
 - **Type Checker**: pyright (only when needed)
 - **Testing**: pytest + hypothesis (when complexity justifies)
+- **Data Validation**: pydantic (type-safe data models and validation)
+- **CLI Enhancement**: rich (beautiful terminal output, progress bars, logging)
 
 #### Ruff Philosophy
 Ruff should catch real errors and promote clean code, not enforce arbitrary restrictions:
@@ -508,6 +510,81 @@ export default defineConfig({
 }
 ```
 
+### Python Tool Examples
+
+#### Pydantic Minimal Usage
+```python
+# When you need data validation beyond basic types
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class UserConfig(BaseModel):
+    name: str = Field(min_length=1, max_length=50)
+    email: str = Field(pattern=r'^[^@]+@[^@]+\.[^@]+$')
+    age: Optional[int] = Field(None, ge=0, le=150)
+    
+    class Config:
+        # Automatic validation from dict/JSON
+        extra = "forbid"  # Reject unknown fields
+
+# Usage
+config = UserConfig.model_validate({
+    "name": "John",
+    "email": "john@example.com", 
+    "age": 30
+})
+```
+
+#### Rich Minimal Usage (BONSAI-Aligned)
+```python
+# BONSAI-styled CLI output using rich
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.table import Table
+from rich.text import Text
+import time
+
+console = Console()
+
+# BONSAI color palette (muted, sophisticated)
+BONSAI_COLORS = {
+    'success': '#7c9885',      # BONSAI_green_primary
+    'info': '#82a4c7',         # BONSAI_blue_primary  
+    'warning': '#c7a882',      # BONSAI_yellow_primary
+    'error': '#c78289',        # BONSAI_red_primary
+    'muted': '#8b92a5',        # BONSAI_text_muted
+    'primary': '#e6e8eb',      # BONSAI_text_primary
+}
+
+# Zen-like messaging (no aggressive styling)
+console.print("→ Processing data...", style=BONSAI_COLORS['info'])
+console.print("✗ Error occurred", style=BONSAI_COLORS['error'])  # No "bold"
+console.print("✓ Operation complete", style=BONSAI_COLORS['success'])
+
+# Minimal progress indicator
+with Progress(
+    SpinnerColumn(),
+    TextColumn("[progress.description]{task.description}"),
+    transient=True,  # Disappears when done (minimal)
+) as progress:
+    task = progress.add_task("Processing...", total=100)
+    for i in range(100):
+        progress.update(task, advance=1)
+        time.sleep(0.01)
+
+# BONSAI-styled table (minimal, readable)
+table = Table(title="Results", show_header=True, header_style=BONSAI_COLORS['primary'])
+table.add_column("Task", style=BONSAI_COLORS['primary'], no_wrap=True)
+table.add_column("Status", style=BONSAI_COLORS['muted'])
+
+# Use BONSAI symbols and muted colors
+table.add_row("Data processing", Text("✓ Complete", style=BONSAI_COLORS['success']))
+table.add_row("Validation", Text("→ Running", style=BONSAI_COLORS['info']))
+table.add_row("Cleanup", Text("⏳ Pending", style=BONSAI_COLORS['muted']))
+
+console.print(table)
+```
+
 ### Framework-Specific Minimal Structures
 
 #### FastAPI Minimal
@@ -573,7 +650,21 @@ app.listen(3000)
 - **Edge Cases**: Functions that need testing with boundary conditions or invalid inputs
 - **Configuration Logic**: Parameter configuration, sweep generation, or complex object creation
 
-#### **pydantic**: Data validation needed or external API integration
+#### **pydantic**: Add when ANY of these data handling scenarios arise:
+- **API Integration**: External APIs requiring structured data validation
+- **Configuration Management**: Complex settings, environment variables, or config files
+- **Data Models**: Classes representing business entities with validation rules
+- **Type Safety**: Need runtime validation of data types beyond static type hints
+- **Serialization**: JSON/dict conversion with automatic validation
+- **Input Validation**: User input, file parsing, or data transformation pipelines
+
+#### **rich**: Add when building CLI applications that need:
+- **Progress Indicators**: Long-running operations, file processing, data migration
+- **Structured Logging**: Better than print() for debugging and user feedback
+- **Error Display**: Beautiful tracebacks and error formatting
+- **Tables/Lists**: Displaying data in organized, readable formats
+- **Interactive Elements**: Prompts, confirmations, or status displays
+- **Professional CLI**: When your tool will be used by others or in production
 
 #### **hypothesis**: Property-based testing for complex edge cases
 - Add when pytest tests become repetitive for testing ranges
