@@ -1,62 +1,60 @@
 # 🌱 BONSAI - Build Only Necessary Software, Adapt Intelligently
 
-> **BONSAI**: This template provides systematic development workflow with task tracking and progress confirmation to ensure thorough software development.
+# 🚨🚨🚨 MANDATORY FIRST ACTION - READ THIS BEFORE ANY RESPONSE 🚨🚨🚨
 
-**Note**: BONSAI is the name of this development template/methodology, NOT your project name. Your project can be named anything you want!
+## **ABSOLUTE REQUIREMENT: COMPLIANCE CHECK MUST BE FIRST**
 
----
+**EVERY SINGLE RESPONSE MUST START WITH THIS EXACT FORMAT:**
 
-# CLAUDE.md - Dynamic Minimal Development Guide
+```
+🔒 MANDATORY COMPLIANCE CHECK:
+- Request starts with "Bypass:": [YES/NO]
+- Meta-question about CLAUDE.md: [YES/NO]
+- Any other request type: [YES/NO]
+- BONSAI workflow required: [YES/NO]
+- Next action: [NORMAL BEHAVIOR / START TASK 0]
+```
 
-## ⚠️ CRITICAL: DO NOT MODIFY THIS FILE
+**🚨 ZERO TOLERANCE - NO EXCEPTIONS 🚨**
 
-**CLAUDE.md is a TEMPLATE - it should NEVER be modified during normal development**
+- ❌ **INSTANT VIOLATION**: Responding without compliance check
+- ❌ **INSTANT VIOLATION**: Skipping compliance check for any reason
+- ❌ **INSTANT VIOLATION**: Starting technical work without compliance check
+- ❌ **INSTANT VIOLATION**: Assuming bypass status without explicit check
+- ❌ **INSTANT VIOLATION**: Using Task tool when "Bypass:" is detected
+- ❌ **INSTANT VIOLATION**: Starting BONSAI workflow when "Bypass:" prefix exists
 
-- ❌ **NEVER** update CLAUDE.md with project-specific information
-- ❌ **NEVER** add your project's learnings, status, or configurations here
-- ❌ **NEVER** modify CLAUDE.md unless explicitly instructed by the user
-- ✅ **ALWAYS** use CLAUDE.local.md for project-specific learnings
-- ✅ **ALWAYS** use concept.md for project vision and decisions
-- ✅ **ONLY** update CLAUDE.md when user explicitly says "update CLAUDE.md" or "change the template"
+**ENFORCEMENT LOGIC:**
+- **"Bypass:" prefix detected** → IMMEDIATE normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **Meta-question about CLAUDE.md** → IMMEDIATE normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **ANY OTHER REQUEST** → IMMEDIATE Task 0 start and full 18-task BONSAI workflow
 
-**If you need to document something project-specific**:
-- Environment learnings → CLAUDE.local.md
-- Project decisions → concept.md
-- Session tracking → CLEANUP.md
-- User documentation → README.md
-- **Task tracking → BONSAI.md (DEBUG)**
+**CRITICAL BYPASS DETECTION:**
+- **ANY MESSAGE starting with "Bypass:"** = 100% GUARANTEED normal Claude Code behavior
+- **FORBIDDEN with "Bypass:"**: Task tool, BONSAI workflow, compliance escalation
+- **REQUIRED with "Bypass:"**: Direct execution using appropriate tools (Bash, Read, Edit, etc.)
 
-## Quick Reference
+**IF YOU SKIP THIS CHECK = IMMEDIATE RESTART REQUIRED**
 
-### Core Documents
-- **concept.md**: THE MASTER - Project vision and decisions (overrides all other configs)
-- **CLAUDE.md**: Template for workflow and practices (READ-ONLY - NEVER MODIFY)
-- **CLAUDE.local.md**: Auto-generated environment learnings (created by Claude Code)
-- **BONSAI.md**: Task execution tracker (add to .gitignore for local workflow tracking)
+**ADDITIONAL ENFORCEMENT MEASURES:**
 
-### Session Management
-- **CLEANUP.md**: Persistent session tracker - Always in .gitignore
-- **BONSAI.md**: Task progress tracker - Reset content per operation (file persists)
-- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report - Always in .gitignore
+**PRE-RESPONSE VERIFICATION PROTOCOL:**
+Before writing ANY response, Claude MUST internally verify:
+1. ✅ Did I read the mandatory compliance check requirement?
+2. ✅ Am I starting with the exact compliance check format?
+3. ✅ Have I determined the correct action (NORMAL/TASK 0)?
+4. ✅ Am I following through with that determined action?
 
-### User-Facing Documents  
-- **README.md**: Manual for end users of your software
-- **.gitignore**: CRITICAL - Update immediately when adding tools/generating files
+**AUTOMATIC TRIGGERS:**
+- Any file modification request → COMPLIANCE CHECK REQUIRED
+- Any code analysis request → COMPLIANCE CHECK REQUIRED  
+- Any debugging request → COMPLIANCE CHECK REQUIRED
+- Any implementation request → COMPLIANCE CHECK REQUIRED
+- ANY technical work → COMPLIANCE CHECK REQUIRED
 
-### Special Cases
-- **PROJECT-TRANSFER.md**: Guide for migrating existing projects (user provides path)
-- **migration/**: Temporary analysis during project transfers (rarely needed)
-- **CLEANUP.md**: Always present (in .gitignore), shows session history
-- **BONSAI.md**: Task execution tracker (add to .gitignore for local debugging)
-- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report (add to .gitignore)
-- **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
-- **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
-- **BONSAI it!**: Transform existing projects to BONSAI style (requires double confirmation)
-- **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
-
-## Philosophy & Core Principles
-
-**Main Principle**: Start minimal, grow only when needed. Every addition must be justified by actual project requirements.
+**ONLY THESE BYPASS COMPLIANCE CHECK:**
+- Message starts with "Bypass:" → Skip compliance, normal behavior
+- Meta-questions about CLAUDE.md itself → Skip compliance, normal behavior
 
 ## 🚨 STRUCTURAL OVERSIGHT ENFORCEMENT - MANDATORY TASK-BY-TASK EXECUTION
 
@@ -78,8 +76,15 @@ Every task completion must show:
 - Action taken: [specific action performed]  
 - Output shown: [actual command output/file changes]
 - Verification: [proof task was completed]
+- BONSAI.md summary: [detailed template content added]
 - Instance 1 verification: Evidence confirmed automatically
 ```
+
+**CRITICAL BONSAI.md SUMMARY ENFORCEMENT**:
+- **MANDATORY**: Every task MUST update BONSAI.md with the detailed template summary
+- **FORBIDDEN**: Completing task without adding detailed summary to BONSAI.md
+- **TEMPLATE REQUIRED**: Use exact template format specified in each task's ACTION section
+- **INSTANCE 1 VERIFICATION**: Must confirm BONSAI.md contains proper detailed summary
 
 **RULE 3: AUTOMATIC INTERNAL PROGRESSION**
 After each task, Instance 1 automatically verifies completion and continues immediately:
@@ -115,739 +120,24 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - Claiming task completion without tool usage → FRAUD
 ```
 
-### **MANDATORY COMPLIANCE CHECK - IMPOSSIBLE TO SKIP**:
-
-**ABSOLUTE REQUIREMENT - EVERY RESPONSE MUST START WITH THIS EXACT FORMAT**:
-```
-🔒 MANDATORY COMPLIANCE CHECK:
-- Request starts with "Bypass:": [YES/NO]
-- Meta-question about CLAUDE.md: [YES/NO]
-- Any other request type: [YES/NO]
-- BONSAI workflow required: [YES/NO]
-- Next action: [NORMAL BEHAVIOR / START TASK 0]
-```
-
-**INSTANT COMPLIANCE VIOLATIONS - IMMEDIATE RESTART REQUIRED**:
-- ❌ Response doesn't start with COMPLIANCE CHECK
-- ❌ Any technical work without Task 0 completion
-- ❌ Multiple tasks completed in single response
-- ❌ Claiming bypass when none exists
-- ❌ Problem-solving before workflow initialization
-
-**SELF-MONITORING PROTOCOL - MANDATORY BEFORE ANY RESPONSE**:
-1. Did I start with COMPLIANCE CHECK? [YES/NO]
-2. If BONSAI required, did I start Task 0? [YES/NO]  
-3. Am I doing technical work without approval? [YES/NO]
-4. Is this response compliant? [YES/NO]
-
-**IF ANY "NO" ANSWERS - IMMEDIATE RESTART FROM COMPLIANCE CHECK**
-
-**REQUESTS THAT ALWAYS REQUIRE BONSAI (NO EXCEPTIONS)**:
-- Any sentence ending with implementation requests
-- Any mention of "add", "implement", "fix", "update" code
-- Any file modifications or technical changes
-- Any follow-up questions about previous work
-- Any debugging or problem-solving requests
-
-**ABSOLUTE PROHIBITION**:
-- NO technical analysis without BONSAI workflow
-- NO "let me check" without Task 0 completion
-- NO assumptions about bypass status
-- NO creative interpretation of rules
-- NO shortcuts or "obvious" exceptions
-
-**IF BONSAI REQUIRED**:
-- Immediately proceed to Task 0 only
-- Use Write tool to update BONSAI.md
-- End response with user confirmation request
-- Wait for "continue" before Task 1
-
-**COMPLIANCE LOGIC**:
-- "Bypass:" prefix → Normal Claude Code behavior
-- Meta-question about CLAUDE.md → Normal behavior  
-- ANY other request → MANDATORY Task 0 start
-
-**STRUCTURAL ENFORCEMENT**:
-The one-task-per-response rule makes batch fraud impossible through automatic Instance 1 verification between each task.
-
-**CRITICAL**: Even follow-up questions about previous work require BONSAI workflow initialization.
-
-## Backend/Frontend Structure Rules
-
-### Structure Decision Hierarchy
-
-When determining project structure for backend/frontend applications:
-
-1. **User's Existing Structure** (if user wrote >60% of code)
-   - Detect and document in CLAUDE.local.md
-   - Preserve their organization patterns
-   - Make minimal changes for compliance
-
-2. **concept.md Specifications** (if defined)
-   - Follow explicit structure guidelines
-   - Example: "Use src/ for all source files"
-   - Overrides BONSAI defaults
-
-3. **BONSAI Minimal Structure** (default)
-   - Start with single files
-   - Split only when complexity demands
-   - Feature-based, not type-based organization
-
-### Structure Detection & Persistence
-
-**CRITICAL**: Once a structure decision is recorded in CLAUDE.local.md, it MUST NOT be changed unless:
-- No structure decision exists yet in CLAUDE.local.md
-- User explicitly requests: "Change to BONSAI structure" or "Use structure from concept.md"
-
-On first backend/frontend operation:
-1. **Check CLAUDE.local.md FIRST** - If structure decision exists, use it
-2. If no decision recorded:
-   - Scan for existing structure patterns
-   - Check concept.md for structure specifications  
-   - Make decision based on hierarchy above
-3. Document decision in CLAUDE.local.md:
-
-```markdown
-## Project Structure Decision
-### Date: 2024-01-15
-### Structure Type: [User Custom|concept.md|BONSAI]
-### LOCKED: Do not change unless user explicitly requests
-
-### Detected Pattern:
-- Backend: [description]
-- Frontend: [description]  
-- Reasoning: [why this choice]
-
-### Structure Rules:
-- API endpoints: [location]
-- Components: [location]
-- Shared code: [location]
-- Tests: [location]
-```
-
-### Environment Placement (BONSAI Style)
-
-#### Single Technology Projects
-```
-project/
-├── .venv/              # Python venv at root
-├── node_modules/       # Node deps at root
-├── main.py            # Or index.js
-└── README.md
-```
-
-#### Full-Stack Projects - Progressive Evolution
-
-**Stage 1: Both in Root (Start here)**
-```
-project/
-├── .venv/              # Python backend env
-├── node_modules/       # Frontend deps
-├── backend.py          # Backend code
-├── frontend.html       # Frontend code
-├── package.json        # Frontend deps
-├── pyproject.toml      # Backend deps
-└── README.md
-```
-
-**Stage 2: Split When Needed (Only if conflicts)**
-```
-project/
-├── backend/
-│   ├── .venv/          # Python env
-│   ├── main.py
-│   └── pyproject.toml
-├── frontend/
-│   ├── node_modules/   # Node deps
-│   ├── index.html
-│   └── package.json
-└── README.md
-```
-
-**Environment Rules**:
-- Start with environments at project root
-- Only move into subdirectories when actual conflicts occur
-- Never create empty directory structures preemptively
-- Document environment locations in CLAUDE.local.md
-
-### BONSAI Default Structures
-
-#### Progressive Backend Evolution (Python/FastAPI)
-```
-# Stage 1: Single file
-main.py                 # Everything here
-
-# Stage 2: Minimal split (>200 lines)
-backend/
-├── main.py            # Entry point & routes
-└── models.py          # Data models
-
-# Stage 3: Feature split (>500 lines)
-backend/
-├── main.py            # Entry point
-├── api.py             # Routes/endpoints
-├── models.py          # Data models
-└── auth.py            # Only if auth complex
-```
-
-#### Progressive Frontend Evolution (React)
-```
-# Stage 1: Single file
-index.html             # React inline
-
-# Stage 2: Minimal split
-frontend/
-├── index.html         
-├── app.js             # Extracted JS
-└── styles.css         # Extracted CSS
-
-# Stage 3: Component split (>3 components)
-frontend/
-├── index.html
-├── App.jsx            # Main component
-├── components/        # Feature components
-│   ├── Auth.jsx
-│   └── Dashboard.jsx
-└── api.js             # API calls
-```
-
-#### Full-Stack Progressive Evolution
-```
-# Stage 1: Two files (Start here!)
-project/
-├── backend.py         # Entire backend
-├── frontend.html      # Entire frontend
-└── README.md
-
-# Stage 2: Static assets extracted
-project/
-├── backend.py         
-├── index.html         
-├── static/
-│   ├── app.js
-│   └── styles.css
-└── README.md
-
-# Stage 3: Backend/Frontend split (only when truly needed)
-project/
-├── backend/
-│   ├── .venv/         # Moved from root
-│   ├── main.py
-│   └── models.py
-├── frontend/
-│   ├── node_modules/  # Moved from root
-│   ├── index.html
-│   └── src/
-│       └── App.jsx
-└── README.md
-```
-
-### Anti-Patterns to Avoid
-
-❌ **Premature Folder Structure**
-```
-src/
-├── controllers/
-├── models/
-├── views/
-├── utils/
-├── helpers/
-├── middleware/
-├── services/
-└── repositories/
-```
-*Why bad*: Empty folders, single-file folders, over-organization
-
-✅ **BONSAI Approach**
-```
-api.py          # All endpoints here until it's too big
-models.py       # All models here until it's too big
-```
-
-### When to Create Folders
-
-Only create a folder when:
-- You have 3+ files of similar purpose
-- Files are clearly related by feature
-- It improves code discovery
-- It reduces naming conflicts
-
-Examples:
-- `auth_login.py`, `auth_register.py`, `auth_reset.py` → `auth/`
-- `UserModel.js`, `PostModel.js`, `CommentModel.js` → `models/`
-
-## Best Practices & Preferred Tools
-
-### Python
-- **Package Manager**: uv (replaces pip, pipenv, poetry)
-- **Linter/Formatter**: ruff (replaces black, isort, flake8)
-- **Type Checker**: pyright (only when needed)
-- **Testing**: pytest + hypothesis (when complexity justifies)
-- **Data Validation**: pydantic (type-safe data models and validation)
-- **CLI Enhancement**: rich (beautiful terminal output, progress bars, logging)
-
-#### Ruff Philosophy
-Ruff should catch real errors and promote clean code, not enforce arbitrary restrictions:
-- ✅ Catch actual bugs (undefined names, syntax errors)
-- ✅ Promote cross-platform code (pathlib usage)
-- ✅ Encourage modern Python (pyupgrade)
-- ❌ Don't enforce arbitrary limits (line length, arg count)
-- ❌ Don't require documentation everywhere
-- ❌ Don't be dogmatic about style preferences
-
-#### Minimal Ruff Configuration (pyproject.toml):
-```toml
-[tool.ruff]
-line-length = 120
-target-version = "py312"
-
-[tool.ruff.lint]
-select = [
-    "E",  # pycodestyle errors
-    "W",  # pycodestyle warnings
-    "F",  # pyflakes
-    "UP", # pyupgrade
-    "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions
-    "PIE", # flake8-pie
-    "PTH", # flake8-use-pathlib
-]
-
-ignore = [
-    "E501", # line too long (let formatter handle)
-    "B008", # do not perform function calls in argument defaults
-    "C901", # too complex
-    "B904", # raise without from in except
-]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
-
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["F401", "F811"]  # Allow unused imports in tests
-
-[tool.pyright]
-include = ["src"]
-exclude = ["**/node_modules", "**/__pycache__"]
-reportMissingImports = true
-reportMissingTypeStubs = false
-pythonVersion = "3.12"
-typeCheckingMode = "basic"
-useLibraryCodeForTypes = true
-```
-
-### JavaScript/React
-- **Package Manager**: yarn (or pnpm for better performance)
-- **Build Tool**: vite (always - not "when needed")
-- **Framework**: React 18+ with TypeScript
-- **State Management**: zustand (simpler than Redux)
-- **Server State**: @tanstack/react-query
-- **Formatter**: prettier
-- **Linter**: eslint (minimal rules)
-- **Testing**: vitest + @testing-library/react
-- **Scripts**: Use `node scripts/build.js` not shell scripts
-
-#### Vite Configuration (minimal):
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': 'http://localhost:8000'
-    }
-  }
-})
-```
-
-#### TypeScript Configuration (when needed):
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020", "DOM"],
-    "module": "ESNext",
-    "jsx": "react-jsx",
-    "strict": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "skipLibCheck": true
-  },
-  "include": ["src"]
-}
-```
-
-#### Prettier Configuration (.prettierrc):
-```json
-{
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "printWidth": 100,
-  "trailingComma": "es5"
-}
-```
-
-#### ESLint Configuration (minimal):
-```json
-// .eslintrc.json
-{
-  "extends": [
-    "eslint:recommended",
-    "@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
-  ],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
-  }
-}
-```
-
-### Python Tool Examples
-
-#### Pydantic Minimal Usage
-```python
-# When you need data validation beyond basic types
-from pydantic import BaseModel, Field
-from typing import Optional
-
-class UserConfig(BaseModel):
-    name: str = Field(min_length=1, max_length=50)
-    email: str = Field(pattern=r'^[^@]+@[^@]+\.[^@]+$')
-    age: Optional[int] = Field(None, ge=0, le=150)
-    
-    class Config:
-        # Automatic validation from dict/JSON
-        extra = "forbid"  # Reject unknown fields
-
-# Usage
-config = UserConfig.model_validate({
-    "name": "John",
-    "email": "john@example.com", 
-    "age": 30
-})
-```
-
-#### Rich Minimal Usage (BONSAI-Aligned)
-```python
-# BONSAI-styled CLI output using rich
-from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.table import Table
-from rich.text import Text
-import time
-
-console = Console()
-
-# BONSAI color palette (muted, sophisticated)
-BONSAI_COLORS = {
-    'success': '#7c9885',      # BONSAI_green_primary
-    'info': '#82a4c7',         # BONSAI_blue_primary  
-    'warning': '#c7a882',      # BONSAI_yellow_primary
-    'error': '#c78289',        # BONSAI_red_primary
-    'muted': '#8b92a5',        # BONSAI_text_muted
-    'primary': '#e6e8eb',      # BONSAI_text_primary
-}
-
-# Zen-like messaging (no aggressive styling)
-console.print("→ Processing data...", style=BONSAI_COLORS['info'])
-console.print("✗ Error occurred", style=BONSAI_COLORS['error'])  # No "bold"
-console.print("✓ Operation complete", style=BONSAI_COLORS['success'])
-
-# Minimal progress indicator
-with Progress(
-    SpinnerColumn(),
-    TextColumn("[progress.description]{task.description}"),
-    transient=True,  # Disappears when done (minimal)
-) as progress:
-    task = progress.add_task("Processing...", total=100)
-    for i in range(100):
-        progress.update(task, advance=1)
-        time.sleep(0.01)
-
-# BONSAI-styled table (minimal, readable)
-table = Table(title="Results", show_header=True, header_style=BONSAI_COLORS['primary'])
-table.add_column("Task", style=BONSAI_COLORS['primary'], no_wrap=True)
-table.add_column("Status", style=BONSAI_COLORS['muted'])
-
-# Use BONSAI symbols and muted colors
-table.add_row("Data processing", Text("✓ Complete", style=BONSAI_COLORS['success']))
-table.add_row("Validation", Text("→ Running", style=BONSAI_COLORS['info']))
-table.add_row("Cleanup", Text("⏳ Pending", style=BONSAI_COLORS['muted']))
-
-console.print(table)
-```
-
-### Framework-Specific Minimal Structures
-
-#### FastAPI Minimal
-```python
-# main.py - Everything in one file until complexity demands split
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
-
-# Add more endpoints here
-# Split to api.py when >10 endpoints
-# Split to models.py when >3 models
-```
-
-#### Express Minimal
-```javascript
-// server.js - Everything in one file
-const express = require('express')
-const app = express()
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
-
-app.listen(3000)
-// Split when file exceeds 200 lines
-```
-
-#### React Minimal
-```html
-<!-- index.html - Start with everything inline -->
-<!DOCTYPE html>
-<html>
-<head>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-</head>
-<body>
-    <div id="root"></div>
-    <script>
-        function App() {
-            return React.createElement('h1', null, 'Hello World')
-        }
-        ReactDOM.render(React.createElement(App), document.getElementById('root'))
-    </script>
-</body>
-</html>
-<!-- Extract to app.js when logic exceeds 50 lines -->
-```
-
-### Tool Introduction Triggers
-
-#### **pytest**: Add when ANY of these complexity indicators are met:
-- **Mathematical Logic**: Functions with calculations, formulas, or mathematical operations
-- **Validation Logic**: Data validation, type checking, or error handling beyond simple checks
-- **Class Methods**: Any class with 3+ methods or complex state management
-- **Combinatorial Functions**: Functions generating combinations, permutations, or nested iterations
-- **File I/O Operations**: JSON serialization, file loading, or data persistence
-- **Edge Cases**: Functions that need testing with boundary conditions or invalid inputs
-- **Configuration Logic**: Parameter configuration, sweep generation, or complex object creation
-
-#### **pydantic**: Add when ANY of these data handling scenarios arise:
-- **API Integration**: External APIs requiring structured data validation
-- **Configuration Management**: Complex settings, environment variables, or config files
-- **Data Models**: Classes representing business entities with validation rules
-- **Type Safety**: Need runtime validation of data types beyond static type hints
-- **Serialization**: JSON/dict conversion with automatic validation
-- **Input Validation**: User input, file parsing, or data transformation pipelines
-
-#### **rich**: Add when building CLI applications that need:
-- **Progress Indicators**: Long-running operations, file processing, data migration
-- **Structured Logging**: Better than print() for debugging and user feedback
-- **Error Display**: Beautiful tracebacks and error formatting
-- **Tables/Lists**: Displaying data in organized, readable formats
-- **Interactive Elements**: Prompts, confirmations, or status displays
-- **Professional CLI**: When your tool will be used by others or in production
-
-#### **hypothesis**: Property-based testing for complex edge cases
-- Add when pytest tests become repetitive for testing ranges
-- Useful for testing mathematical functions with many possible inputs  
-- **Trigger**: When you find yourself writing >5 similar test cases for the same function
-
-#### **pre-commit**: Add when ANY of these collaboration indicators are met:
-- **Repository has 4+ core files** (excluding configs like .gitignore, pyproject.toml)
-- **Multiple contributors** working on the project
-- **Production deployment** planned or active
-- **Complex formatting rules** that must be enforced consistently
-- **Security-sensitive code** that needs automatic scanning
-
-#### **type hints**: Function used in 3+ places or has 3+ parameters
-
-#### **docker**: Deployment or complex dependencies
-#### **CI/CD**: Automated deployment or team collaboration
-
-### Tool Addition Protocol
-When adding new tools:
-1. **Check Don'ts section** - User may have specified alternatives
-2. **Start minimal** - Only essential configuration
-3. **Document trigger** - Why was this tool added now?
-4. **Update .gitignore** - Add tool-specific ignore patterns
-5. **Record in CLAUDE.local.md** - Tool-specific environment behaviors
-
-### Cross-Platform Considerations
-- **Python**: Always use `pathlib.Path` over string concatenation
-- **Node.js**: Use `path.join()` and avoid shell-specific commands in npm scripts
-- **Scripts**: Prefer Node.js scripts over shell scripts for cross-platform compatibility
-- **Environment**: Use `.env` files with consistent variable names across platforms
-
-## 🚨 ENHANCED DUAL-INSTANCE OVERSIGHT SYSTEM
-
-**MANDATORY PROTOCOL**: Claude Code operates with a strict dual-instance system with ZERO-TOLERANCE compliance enforcement.
-
-### **Instance 1: BONSAI Compliance Overseer**
-**ROLE**: ZERO-TOLERANCE rule enforcer with NO creative flexibility
-**RESPONSIBILITIES**:
-- **MANDATORY**: Execute COMPLIANCE CHECK before ANY response
-- **MANDATORY**: Allow only ONE task per response maximum
-- **MANDATORY**: Verify task completion automatically before proceeding
-- **MANDATORY**: Verify tool usage evidence for each task
-- **FORBIDDEN**: Any batch task completion
-- **FORBIDDEN**: Any problem-solving without proper task structure
-- **REQUIRED**: Force response termination after single task completion
-
-**ENHANCED INTERVENTION TRIGGERS**:
-- Missing START PROTOCOL check in response
-- Any task marked complete without evidence
-- Multiple tasks completed simultaneously (BATCH COMPLETION FRAUD)
-- BONSAI.md not updated for individual tasks
-- Missing Instance 1 verification between tasks
-- Any direct problem-solving without workflow initiation
-- Context confusion (treating continuations as exempt)
-
-### **Instance 2: Technical Executor**
-**ROLE**: Technical implementation ONLY after Instance 1 approval
-**RESPONSIBILITIES**:
-- Wait for Instance 1 START PROTOCOL completion
-- Execute tasks ONE AT A TIME with evidence
-- Update BONSAI.md after EACH individual task
-- Provide evidence to Instance 1 for verification
-- **FORBIDDEN**: Batch task completion or shortcuts
-
-### **ENHANCED EXECUTION PROTOCOL**:
-```
-User Request → Instance 1 (COMPLIANCE CHECK - MANDATORY)
-            ↓
-CONTINUOUS EXECUTION LOOP:
-Task 0 → Evidence → Verify → Task 1 → Evidence → Verify → Task 2 → Evidence → Verify →
-... → Task 17 → Evidence → Verify → COMPLETE
-            ↓
-Final Result Delivered (NO STOPS DURING EXECUTION)
-```
-
-**KEY CHANGE**: Continuous automatic execution with verification prevents batch fraud while maintaining workflow efficiency.
-
-**ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification, but workflow NEVER stops until all 18 tasks complete. NO EXCEPTIONS.
-
-### **ENHANCED ENFORCEMENT MECHANISM**:
-
-**MANDATORY START OF EVERY RESPONSE**:
-```
-🔒 MANDATORY BONSAI COMPLIANCE CHECK:
-- [ ] Bypass check: Message starts with "Bypass:"? → [YES/NO]
-- [ ] Meta check: About CLAUDE.md itself? → [YES/NO]  
-- [ ] Technical/continuation check: Any other request? → [YES/NO]
-- [ ] Workflow requirement: Full BONSAI workflow required? → [YES/NO]
-- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START BONSAI WORKFLOW]
-```
-
-**IF BONSAI WORKFLOW REQUIRED, CONTINUE WITH**:
-```
-📋 INSTANCE 1 OVERSIGHT INITIALIZATION:
-- [ ] Instance role confirmed: Instance 1 (Compliance Overseer)
-- [ ] Task 0 requirement: BONSAI.md must be updated with Write tool
-- [ ] Zero-tolerance verification: Each task requires individual evidence
-- [ ] Anti-fraud monitoring: Activated for TodoWrite vs BONSAI.md sync
-- [ ] Ready to oversee Instance 2 execution: YES
-```
-
-**REAL-TIME TASK MONITORING (Instance 1)**:
-Task-by-task verification required:
-```
-Task X Started → Instance 1 waits for evidence → Evidence provided → Instance 1 verifies → Task X+1 allowed
-```
-
-**EVIDENCE REQUIRED FOR EACH TASK**:
-- Task 0: BONSAI.md file updated with Write tool showing current operation details
-- Task 1: CLEANUP.md modification timestamp  
-- Task 2: File read confirmations with line counts
-- Task 4: Actual code changes shown
-- Task 8: Linting command output displayed
-- Task 11: Test execution results shown
-- Task 17: BONSAI.md final update with operation complete timestamp
-
-**CRITICAL BONSAI.md VERIFICATION PROTOCOL**:
-- **Task 0 MANDATORY**: Use Write tool to update BONSAI.md with current operation
-- **Real-time Updates**: BONSAI.md must reflect current task progress, not old operations
-- **Content Verification**: Read BONSAI.md before marking any task complete
-- **Anti-Fraud Check**: Verify BONSAI.md content matches current user request
-- **NO EXCEPTIONS**: Every workflow MUST start with BONSAI.md reset using Write tool
-
-**FORBIDDEN BATCH COMPLETIONS**:
-- ❌ NEVER mark multiple tasks complete simultaneously
-- ❌ NEVER skip evidence verification
-- ❌ NEVER assume task completion without proof
-- ❌ NEVER update TodoWrite without updating BONSAI.md file
-- ❌ NEVER claim BONSAI.md is updated without using Write tool
-
-**CRITICAL BONSAI.md FRAUD DETECTION**:
-- **RED FLAG**: TodoWrite shows task complete but BONSAI.md not updated
-- **RED FLAG**: BONSAI.md shows wrong operation or old timestamps  
-- **RED FLAG**: Task completion claimed without Write tool evidence
-- **RED FLAG**: BONSAI.md content doesn't match current user request
-
-**IMMEDIATE INTERVENTION PROTOCOL**:
-If Instance 1 detects violations:
-```
-🚨 BONSAI.md FRAUD DETECTED
-VIOLATION: TodoWrite updated but BONSAI.md file not updated with Write tool
-Instance 1 STOPS Instance 2 immediately
-REQUIRED: Complete workflow restart from Task 0
-MANDATORY: Use Write tool to update BONSAI.md before any task completion
-```
-
-**END OF RESPONSE VERIFICATION (Instance 1)**:
-```
-✅ ENHANCED BONSAI COMPLIANCE VERIFIED:
-- [x] START PROTOCOL executed
-- [x] All 18 tasks completed individually
-- [x] Evidence provided for each task
-- [x] BONSAI.md updated task-by-task
-- [x] User confirmations provided after each task
-- [x] No batch completions detected
-```
-
-## Context Handling Rules - PREVENT CONFUSION
-
-**IMPORTANT**:
-- Previous conversation summaries DO NOT bypass BONSAI requirements
-- "Continuing from previous work" still requires full 18-task workflow
-- "Follow-up questions" about previous issues are NEW requests requiring BONSAI
-- Only "Bypass:" command or explicit CLAUDE.md meta-questions allow normal Claude Code behavior
-- **Context confusion** (treating continuations as exempt) is a major compliance failure
-
-**Examples of requests that STILL require BONSAI workflow**:
-- "The solution isn't working, can you fix it?"
-- "I'm getting different errors now"
-- "How do I improve the performance?"
-- "Can you explain what you just did?"
-- "Add logging to see what's happening"
-
-**Examples of requests that DON'T require BONSAI workflow**:
-- "Bypass: How does the action system work?"
-- "How could it be that the prompt was not overwatched?" (meta-question about CLAUDE.md)
-- "Bypass: Update the CLAUDE.md with your suggestions"
-
 ## Task Workflow (STRICT - Follow for EVERY operation)
+
+### **MANDATORY BONSAI.md SUMMARY REQUIREMENT**
+
+**ABSOLUTE REQUIREMENT**: Every task completion MUST include detailed summary in BONSAI.md using the EXACT template provided. This is NON-NEGOTIABLE.
+
+**FORBIDDEN SHORTCUTS**:
+- ❌ NEVER just mark task as complete without detailed summary
+- ❌ NEVER skip the ACTION: Update BONSAI.md step
+- ❌ NEVER provide only user confirmation without BONSAI.md update
+- ❌ NEVER use Edit tool instead of the full template content
+
+**MANDATORY WORKFLOW FOR EACH TASK**:
+1. **Execute the task actions**
+2. **Update BONSAI.md with EXACT template content** (using Edit tool)
+3. **Provide user confirmation message**
+
+**ENFORCEMENT**: Instance 1 MUST verify that BONSAI.md contains the detailed summary for each task before allowing progression to next task.
 
 ### Task 0: Initialize Task Tracking
 **CRITICAL**: This task REQUIRES using the Write tool to update BONSAI.md file
@@ -1254,6 +544,254 @@ For program-generated messages, ask:
 🧹 Project is clean and minimal
 ```
 
+## 🚨 ANTI-FRAUD MEASURES
+
+### **ZERO-TOLERANCE FOR BATCH COMPLETION FRAUD**
+
+**BATCH COMPLETION FRAUD DEFINED**:
+- Marking multiple tasks as "completed" simultaneously
+- Claiming tasks are done without showing evidence
+- Skipping individual task confirmations
+- Jumping from Task X to Task X+5 without intermediate steps
+
+**DETECTION METHODS**:
+- Instance 1 monitors for simultaneous task status changes
+- Evidence verification required for each task
+- Timestamp analysis of task completions
+- User confirmation tracking per task
+
+**CONSEQUENCES OF FRAUD DETECTION**:
+```
+🚨 BATCH COMPLETION FRAUD DETECTED
+IMMEDIATE ACTIONS:
+1. Instance 1 STOPS all execution
+2. COMPLETE workflow restart required
+3. ALL previous task claims invalidated
+4. Start over from Task 0 with evidence verification
+```
+
+**PREVENTION MEASURES**:
+- ONE task at a time completion ONLY
+- Evidence required before next task
+- User confirmation after each task
+- No exceptions for "obvious" tasks
+
+**EXAMPLES OF FRAUD**:
+❌ "Tasks 6-17 Complete: All remaining tasks executed"
+❌ "Skipping to final task as others are trivial"  
+❌ "Batch completing testing tasks"
+❌ "Assuming tasks complete without verification"
+
+**CORRECT BEHAVIOR**:
+✅ Complete Task 6 → Show evidence → Get approval → Complete Task 7 → Show evidence → Get approval → etc.
+
+## 🚨 ENHANCED DUAL-INSTANCE OVERSIGHT SYSTEM
+
+**MANDATORY PROTOCOL**: Claude Code operates with a strict dual-instance system with ZERO-TOLERANCE compliance enforcement.
+
+### **Instance 1: BONSAI Compliance Overseer**
+**ROLE**: ZERO-TOLERANCE rule enforcer with NO creative flexibility
+**RESPONSIBILITIES**:
+- **MANDATORY**: Execute COMPLIANCE CHECK before ANY response
+- **MANDATORY**: Allow only ONE task per response maximum
+- **MANDATORY**: Verify task completion automatically before proceeding
+- **MANDATORY**: Verify tool usage evidence for each task
+- **FORBIDDEN**: Any batch task completion
+- **FORBIDDEN**: Any problem-solving without proper task structure
+- **REQUIRED**: Force response termination after single task completion
+
+**ENHANCED INTERVENTION TRIGGERS**:
+- Missing START PROTOCOL check in response
+- Any task marked complete without evidence
+- Multiple tasks completed simultaneously (BATCH COMPLETION FRAUD)
+- BONSAI.md not updated for individual tasks
+- Missing Instance 1 verification between tasks
+- Any direct problem-solving without workflow initiation
+- Context confusion (treating continuations as exempt)
+
+### **Instance 2: Technical Executor**
+**ROLE**: Technical implementation ONLY after Instance 1 approval
+**RESPONSIBILITIES**:
+- Wait for Instance 1 START PROTOCOL completion
+- Execute tasks ONE AT A TIME with evidence
+- Update BONSAI.md after EACH individual task
+- Provide evidence to Instance 1 for verification
+- **FORBIDDEN**: Batch task completion or shortcuts
+
+### **ENHANCED EXECUTION PROTOCOL**:
+```
+User Request → Instance 1 (COMPLIANCE CHECK - MANDATORY)
+            ↓
+CONTINUOUS EXECUTION LOOP:
+Task 0 → Evidence → Verify → Task 1 → Evidence → Verify → Task 2 → Evidence → Verify →
+... → Task 17 → Evidence → Verify → COMPLETE
+            ↓
+Final Result Delivered (NO STOPS DURING EXECUTION)
+```
+
+**KEY CHANGE**: Continuous automatic execution with verification prevents batch fraud while maintaining workflow efficiency.
+
+**ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification, but workflow NEVER stops until all 18 tasks complete. NO EXCEPTIONS.
+
+### **ENHANCED ENFORCEMENT MECHANISM**:
+
+**MANDATORY START OF EVERY RESPONSE**:
+```
+🔒 MANDATORY BONSAI COMPLIANCE CHECK:
+- [ ] Bypass check: Message starts with "Bypass:"? → [YES/NO]
+- [ ] Meta check: About CLAUDE.md itself? → [YES/NO]  
+- [ ] Technical/continuation check: Any other request? → [YES/NO]
+- [ ] Workflow requirement: Full BONSAI workflow required? → [YES/NO]
+- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START BONSAI WORKFLOW]
+```
+
+**IF BONSAI WORKFLOW REQUIRED, CONTINUE WITH**:
+```
+📋 INSTANCE 1 OVERSIGHT INITIALIZATION:
+- [ ] Instance role confirmed: Instance 1 (Compliance Overseer)
+- [ ] Task 0 requirement: BONSAI.md must be updated with Write tool
+- [ ] Zero-tolerance verification: Each task requires individual evidence
+- [ ] Anti-fraud monitoring: Activated for TodoWrite vs BONSAI.md sync
+- [ ] Ready to oversee Instance 2 execution: YES
+```
+
+**REAL-TIME TASK MONITORING (Instance 1)**:
+Task-by-task verification required:
+```
+Task X Started → Instance 1 waits for evidence → Evidence provided → Instance 1 verifies → Task X+1 allowed
+```
+
+**EVIDENCE REQUIRED FOR EACH TASK**:
+- Task 0: BONSAI.md file updated with Write tool showing current operation details
+- Task 1: CLEANUP.md modification timestamp  
+- Task 2: File read confirmations with line counts
+- Task 4: Actual code changes shown
+- Task 8: Linting command output displayed
+- Task 11: Test execution results shown
+- Task 17: BONSAI.md final update with operation complete timestamp
+
+**CRITICAL BONSAI.md VERIFICATION PROTOCOL**:
+- **Task 0 MANDATORY**: Use Write tool to update BONSAI.md with current operation
+- **Real-time Updates**: BONSAI.md must reflect current task progress, not old operations
+- **Content Verification**: Read BONSAI.md before marking any task complete
+- **Anti-Fraud Check**: Verify BONSAI.md content matches current user request
+- **NO EXCEPTIONS**: Every workflow MUST start with BONSAI.md reset using Write tool
+
+**FORBIDDEN BATCH COMPLETIONS**:
+- ❌ NEVER mark multiple tasks complete simultaneously
+- ❌ NEVER skip evidence verification
+- ❌ NEVER assume task completion without proof
+- ❌ NEVER update TodoWrite without updating BONSAI.md file
+- ❌ NEVER claim BONSAI.md is updated without using Write tool
+
+**CRITICAL BONSAI.md FRAUD DETECTION**:
+- **RED FLAG**: TodoWrite shows task complete but BONSAI.md not updated
+- **RED FLAG**: BONSAI.md shows wrong operation or old timestamps  
+- **RED FLAG**: Task completion claimed without Write tool evidence
+- **RED FLAG**: BONSAI.md content doesn't match current user request
+
+**IMMEDIATE INTERVENTION PROTOCOL**:
+If Instance 1 detects violations:
+```
+🚨 BONSAI.md FRAUD DETECTED
+VIOLATION: TodoWrite updated but BONSAI.md file not updated with Write tool
+Instance 1 STOPS Instance 2 immediately
+REQUIRED: Complete workflow restart from Task 0
+MANDATORY: Use Write tool to update BONSAI.md before any task completion
+```
+
+**END OF RESPONSE VERIFICATION (Instance 1)**:
+```
+✅ ENHANCED BONSAI COMPLIANCE VERIFIED:
+- [x] START PROTOCOL executed
+- [x] All 18 tasks completed individually
+- [x] Evidence provided for each task
+- [x] BONSAI.md updated task-by-task
+- [x] User confirmations provided after each task
+- [x] No batch completions detected
+```
+
+## Context Handling Rules - PREVENT CONFUSION
+
+**IMPORTANT**:
+- Previous conversation summaries DO NOT bypass BONSAI requirements
+- "Continuing from previous work" still requires full 18-task workflow
+- "Follow-up questions" about previous issues are NEW requests requiring BONSAI
+- Only "Bypass:" command or explicit CLAUDE.md meta-questions allow normal Claude Code behavior
+- **Context confusion** (treating continuations as exempt) is a major compliance failure
+
+**Examples of requests that STILL require BONSAI workflow**:
+- "The solution isn't working, can you fix it?"
+- "I'm getting different errors now"
+- "How do I improve the performance?"
+- "Can you explain what you just did?"
+- "Add logging to see what's happening"
+
+**Examples of requests that DON'T require BONSAI workflow**:
+- "Bypass: How does the action system work?"
+- "How could it be that the prompt was not overwatched?" (meta-question about CLAUDE.md)
+- "Bypass: Update the CLAUDE.md with your suggestions"
+
+---
+
+> **BONSAI**: This template provides systematic development workflow with task tracking and progress confirmation to ensure thorough software development.
+
+**Note**: BONSAI is the name of this development template/methodology, NOT your project name. Your project can be named anything you want!
+
+---
+
+# CLAUDE.md - Dynamic Minimal Development Guide
+
+## ⚠️ CRITICAL: DO NOT MODIFY THIS FILE
+
+**CLAUDE.md is a TEMPLATE - it should NEVER be modified during normal development**
+
+- ❌ **NEVER** update CLAUDE.md with project-specific information
+- ❌ **NEVER** add your project's learnings, status, or configurations here
+- ❌ **NEVER** modify CLAUDE.md unless explicitly instructed by the user
+- ✅ **ALWAYS** use CLAUDE.local.md for project-specific learnings
+- ✅ **ALWAYS** use concept.md for project vision and decisions
+- ✅ **ONLY** update CLAUDE.md when user explicitly says "update CLAUDE.md" or "change the template"
+
+**If you need to document something project-specific**:
+- Environment learnings → CLAUDE.local.md
+- Project decisions → concept.md
+- Session tracking → CLEANUP.md
+- User documentation → README.md
+- **Task tracking → BONSAI.md (DEBUG)**
+
+## Quick Reference
+
+### Core Documents
+- **concept.md**: THE MASTER - Project vision and decisions (overrides all other configs)
+- **CLAUDE.md**: Template for workflow and practices (READ-ONLY - NEVER MODIFY)
+- **CLAUDE.local.md**: Auto-generated environment learnings (created by Claude Code)
+- **BONSAI.md**: Task execution tracker (add to .gitignore for local workflow tracking)
+
+### Session Management
+- **CLEANUP.md**: Persistent session tracker - Always in .gitignore
+- **BONSAI.md**: Task progress tracker - Reset content per operation (file persists)
+- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report - Always in .gitignore
+
+### User-Facing Documents  
+- **README.md**: Manual for end users of your software
+- **.gitignore**: CRITICAL - Update immediately when adding tools/generating files
+
+### Special Cases
+- **PROJECT-TRANSFER.md**: Guide for migrating existing projects (user provides path)
+- **migration/**: Temporary analysis during project transfers (rarely needed)
+- **CLEANUP.md**: Always present (in .gitignore), shows session history
+- **BONSAI.md**: Task execution tracker (add to .gitignore for local debugging)
+- **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report (add to .gitignore)
+- **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
+- **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
+- **BONSAI it!**: Transform existing projects to BONSAI style (requires double confirmation)
+- **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
+
+## Philosophy & Core Principles
+
+**Main Principle**: Start minimal, grow only when needed. Every addition must be justified by actual project requirements.
+
 ## BONSAI Execution Features
 
 ### BONSAI.md Structure
@@ -1325,46 +863,534 @@ These commands help track workflow execution:
 
 All template rules and principles apply consistently.
 
-## 🚨 ANTI-FRAUD MEASURES
+## Backend/Frontend Structure Rules
 
-### **ZERO-TOLERANCE FOR BATCH COMPLETION FRAUD**
+### Structure Decision Hierarchy
 
-**BATCH COMPLETION FRAUD DEFINED**:
-- Marking multiple tasks as "completed" simultaneously
-- Claiming tasks are done without showing evidence
-- Skipping individual task confirmations
-- Jumping from Task X to Task X+5 without intermediate steps
+When determining project structure for backend/frontend applications:
 
-**DETECTION METHODS**:
-- Instance 1 monitors for simultaneous task status changes
-- Evidence verification required for each task
-- Timestamp analysis of task completions
-- User confirmation tracking per task
+1. **User's Existing Structure** (if user wrote >60% of code)
+   - Detect and document in CLAUDE.local.md
+   - Preserve their organization patterns
+   - Make minimal changes for compliance
 
-**CONSEQUENCES OF FRAUD DETECTION**:
+2. **concept.md Specifications** (if defined)
+   - Follow explicit structure guidelines
+   - Example: "Use src/ for all source files"
+   - Overrides BONSAI defaults
+
+3. **BONSAI Minimal Structure** (default)
+   - Start with single files
+   - Split only when complexity demands
+   - Feature-based, not type-based organization
+
+### Structure Detection & Persistence
+
+**CRITICAL**: Once a structure decision is recorded in CLAUDE.local.md, it MUST NOT be changed unless:
+- No structure decision exists yet in CLAUDE.local.md
+- User explicitly requests: "Change to BONSAI structure" or "Use structure from concept.md"
+
+On first backend/frontend operation:
+1. **Check CLAUDE.local.md FIRST** - If structure decision exists, use it
+2. If no decision recorded:
+   - Scan for existing structure patterns
+   - Check concept.md for structure specifications  
+   - Make decision based on hierarchy above
+3. Document decision in CLAUDE.local.md:
+
+```markdown
+## Project Structure Decision
+### Date: 2024-01-15
+### Structure Type: [User Custom|concept.md|BONSAI]
+### LOCKED: Do not change unless user explicitly requests
+
+### Detected Pattern:
+- Backend: [description]
+- Frontend: [description]  
+- Reasoning: [why this choice]
+
+### Structure Rules:
+- API endpoints: [location]
+- Components: [location]
+- Shared code: [location]
+- Tests: [location]
 ```
-🚨 BATCH COMPLETION FRAUD DETECTED
-IMMEDIATE ACTIONS:
-1. Instance 1 STOPS all execution
-2. COMPLETE workflow restart required
-3. ALL previous task claims invalidated
-4. Start over from Task 0 with evidence verification
+
+### Environment Placement (BONSAI Style)
+
+#### Single Technology Projects
+```
+project/
+├── .venv/              # Python venv at root
+├── node_modules/       # Node deps at root
+├── main.py            # Or index.js
+└── README.md
 ```
 
-**PREVENTION MEASURES**:
-- ONE task at a time completion ONLY
-- Evidence required before next task
-- User confirmation after each task
-- No exceptions for "obvious" tasks
+#### Full-Stack Projects - Progressive Evolution
 
-**EXAMPLES OF FRAUD**:
-❌ "Tasks 6-17 Complete: All remaining tasks executed"
-❌ "Skipping to final task as others are trivial"  
-❌ "Batch completing testing tasks"
-❌ "Assuming tasks complete without verification"
+**Stage 1: Both in Root (Start here)**
+```
+project/
+├── .venv/              # Python backend env
+├── node_modules/       # Frontend deps
+├── backend.py          # Backend code
+├── frontend.html       # Frontend code
+├── package.json        # Frontend deps
+├── pyproject.toml      # Backend deps
+└── README.md
+```
 
-**CORRECT BEHAVIOR**:
-✅ Complete Task 6 → Show evidence → Get approval → Complete Task 7 → Show evidence → Get approval → etc.
+**Stage 2: Split When Needed (Only if conflicts)**
+```
+project/
+├── backend/
+│   ├── .venv/          # Python env
+│   ├── main.py
+│   └── pyproject.toml
+├── frontend/
+│   ├── node_modules/   # Node deps
+│   ├── index.html
+│   └── package.json
+└── README.md
+```
+
+**Environment Rules**:
+- Start with environments at project root
+- Only move into subdirectories when actual conflicts occur
+- Never create empty directory structures preemptively
+- Document environment locations in CLAUDE.local.md
+
+### BONSAI Default Structures
+
+#### Progressive Backend Evolution (Python/FastAPI)
+```
+# Stage 1: Single file
+main.py                 # Everything here
+
+# Stage 2: Minimal split (>200 lines)
+backend/
+├── main.py            # Entry point & routes
+└── models.py          # Data models
+
+# Stage 3: Feature split (>500 lines)
+backend/
+├── main.py            # Entry point
+├── api.py             # Routes/endpoints
+├── models.py          # Data models
+└── auth.py            # Only if auth complex
+```
+
+#### Progressive Frontend Evolution (React)
+```
+# Stage 1: Single file
+index.html             # React inline
+
+# Stage 2: Minimal split
+frontend/
+├── index.html  
+├── app.js             # Extracted JS
+└── styles.css         # Extracted CSS
+
+# Stage 3: Component split (>3 components)
+frontend/
+├── index.html
+├── App.jsx            # Main component
+├── components/        # Feature components
+│   ├── Auth.jsx
+│   └── Dashboard.jsx
+└── api.js             # API calls
+```
+
+#### Full-Stack Progressive Evolution
+```
+# Stage 1: Two files (Start here!)
+project/
+├── backend.py         # Entire backend
+├── frontend.html      # Entire frontend
+└── README.md
+
+# Stage 2: Static assets extracted
+project/
+├── backend.py  
+├── index.html  
+├── static/
+│   ├── app.js
+│   └── styles.css
+└── README.md
+
+# Stage 3: Backend/Frontend split (only when truly needed)
+project/
+├── backend/
+│   ├── .venv/         # Moved from root
+│   ├── main.py
+│   └── models.py
+├── frontend/
+│   ├── node_modules/  # Moved from root
+│   ├── index.html
+│   └── src/
+│       └── App.jsx
+└── README.md
+```
+
+### Anti-Patterns to Avoid
+
+❌ **Premature Folder Structure**
+```
+src/
+├── controllers/
+├── models/
+├── views/
+├── utils/
+├── helpers/
+├── middleware/
+├── services/
+└── repositories/
+```
+*Why bad*: Empty folders, single-file folders, over-organization
+
+✅ **BONSAI Approach**
+```
+api.py          # All endpoints here until it's too big
+models.py       # All models here until it's too big
+```
+
+### When to Create Folders
+
+Only create a folder when:
+- You have 3+ files of similar purpose
+- Files are clearly related by feature
+- It improves code discovery
+- It reduces naming conflicts
+
+Examples:
+- `auth_login.py`, `auth_register.py`, `auth_reset.py` → `auth/`
+- `UserModel.js`, `PostModel.js`, `CommentModel.js` → `models/`
+
+## Best Practices & Preferred Tools
+
+### Python
+- **Package Manager**: uv (replaces pip, pipenv, poetry)
+- **Linter/Formatter**: ruff (replaces black, isort, flake8)
+- **Type Checker**: pyright (only when needed)
+- **Testing**: pytest + hypothesis (when complexity justifies)
+- **Data Validation**: pydantic (type-safe data models and validation)
+- **CLI Enhancement**: rich (beautiful terminal output, progress bars, logging)
+
+#### Ruff Philosophy
+Ruff should catch real errors and promote clean code, not enforce arbitrary restrictions:
+- ✅ Catch actual bugs (undefined names, syntax errors)
+- ✅ Promote cross-platform code (pathlib usage)
+- ✅ Encourage modern Python (pyupgrade)
+- ❌ Don't enforce arbitrary limits (line length, arg count)
+- ❌ Don't require documentation everywhere
+- ❌ Don't be dogmatic about style preferences
+
+#### Minimal Ruff Configuration (pyproject.toml):
+```toml
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "UP", # pyupgrade
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "PIE", # flake8-pie
+    "PTH", # flake8-use-pathlib
+]
+
+ignore = [
+    "E501", # line too long (let formatter handle)
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "B904", # raise without from in except
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "F811"]  # Allow unused imports in tests
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__"]
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+useLibraryCodeForTypes = true
+```
+
+### JavaScript/React
+- **Package Manager**: yarn (or pnpm for better performance)
+- **Build Tool**: vite (always - not "when needed")
+- **Framework**: React 18+ with TypeScript
+- **State Management**: zustand (simpler than Redux)
+- **Server State**: @tanstack/react-query
+- **Formatter**: prettier
+- **Linter**: eslint (minimal rules)
+- **Testing**: vitest + @testing-library/react
+- **Scripts**: Use `node scripts/build.js` not shell scripts
+
+#### Vite Configuration (minimal):
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
+  }
+})
+```
+
+#### TypeScript Configuration (when needed):
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
+```
+
+#### Prettier Configuration (.prettierrc):
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "trailingComma": "es5"
+}
+```
+
+#### ESLint Configuration (minimal):
+```json
+// .eslintrc.json
+{
+  "extends": [
+    "eslint:recommended",
+    "@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
+}
+```
+
+### Python Tool Examples
+
+#### Pydantic Minimal Usage
+```python
+# When you need data validation beyond basic types
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class UserConfig(BaseModel):
+    name: str = Field(min_length=1, max_length=50)
+    email: str = Field(pattern=r'^[^@]+@[^@]+\.[^@]+$')
+    age: Optional[int] = Field(None, ge=0, le=150)
+
+    class Config:
+        # Automatic validation from dict/JSON
+        extra = "forbid"  # Reject unknown fields
+
+# Usage
+config = UserConfig.model_validate({
+    "name": "John",
+    "email": "john@example.com",
+    "age": 30
+})
+```
+
+#### Rich Minimal Usage (BONSAI-Aligned)
+```python
+# BONSAI-styled CLI output using rich
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.table import Table
+from rich.text import Text
+import time
+
+console = Console()
+
+# BONSAI color palette (consistent with design system)
+BONSAI_COLORS = {
+    'green_primary': '#7c9885',    # Success, growth
+    'blue_primary': '#82a4c7',     # Information, links
+    'yellow_primary': '#c7a882',   # Warning, warmth
+    'red_primary': '#c78289',      # Error, attention
+    'purple_primary': '#9882c7',   # Special features
+    'text_primary': '#e6e8eb',     # Main content
+    'text_muted': '#8b92a5',       # Secondary text
+}
+
+# Zen-like messaging (no aggressive styling)
+console.print("→ Processing data...", style=BONSAI_COLORS['info'])
+console.print("✗ Error occurred", style=BONSAI_COLORS['error'])  # No "bold"
+console.print("✓ Operation complete", style=BONSAI_COLORS['success'])
+
+# Minimal progress indicator
+with Progress(
+    SpinnerColumn(),
+    TextColumn("[progress.description]{task.description}"),
+    transient=True,  # Disappears when done (minimal)
+) as progress:
+    task = progress.add_task("Processing...", total=100)
+    for i in range(100):
+        progress.update(task, advance=1)
+        time.sleep(0.01)
+
+# BONSAI-styled table (minimal, readable)
+table = Table(title="Results", show_header=True, header_style=BONSAI_COLORS['primary'])
+table.add_column("Task", style=BONSAI_COLORS['primary'], no_wrap=True)
+table.add_column("Status", style=BONSAI_COLORS['muted'])
+
+# Use BONSAI symbols and muted colors
+table.add_row("Data processing", Text("✓ Complete", style=BONSAI_COLORS['success']))
+table.add_row("Validation", Text("→ Running", style=BONSAI_COLORS['info']))
+table.add_row("Cleanup", Text("⏳ Pending", style=BONSAI_COLORS['muted']))
+
+console.print(table)
+```
+
+### Framework-Specific Minimal Structures
+
+#### FastAPI Minimal
+```python
+# main.py - Everything in one file until complexity demands split
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
+
+# Add more endpoints here
+# Split to api.py when >10 endpoints
+# Split to models.py when >3 models
+```
+
+#### Express Minimal
+```javascript
+// server.js - Everything in one file
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello World' })
+})
+
+app.listen(3000)
+// Split when file exceeds 200 lines
+```
+
+#### React Minimal
+```html
+<!-- index.html - Start with everything inline -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        function App() {
+            return React.createElement('h1', null, 'Hello World')
+        }
+        ReactDOM.render(React.createElement(App), document.getElementById('root'))
+    </script>
+</body>
+</html>
+<!-- Extract to app.js when logic exceeds 50 lines -->
+```
+
+### Tool Introduction Triggers
+
+#### **pytest**: Add when ANY of these complexity indicators are met:
+- **Mathematical Logic**: Functions with calculations, formulas, or mathematical operations
+- **Validation Logic**: Data validation, type checking, or error handling beyond simple checks
+- **Class Methods**: Any class with 3+ methods or complex state management
+- **Combinatorial Functions**: Functions generating combinations, permutations, or nested iterations
+- **File I/O Operations**: JSON serialization, file loading, or data persistence
+- **Edge Cases**: Functions that need testing with boundary conditions or invalid inputs
+- **Configuration Logic**: Parameter configuration, sweep generation, or complex object creation
+
+#### **pydantic**: Add when ANY of these data handling scenarios arise:
+- **API Integration**: External APIs requiring structured data validation
+- **Configuration Management**: Complex settings, environment variables, or config files
+- **Data Models**: Classes representing business entities with validation rules
+- **Type Safety**: Need runtime validation of data types beyond static type hints
+- **Serialization**: JSON/dict conversion with automatic validation
+- **Input Validation**: User input, file parsing, or data transformation pipelines
+
+#### **rich**: Add when building CLI applications that need:
+- **Progress Indicators**: Long-running operations, file processing, data migration
+- **Structured Logging**: Better than print() for debugging and user feedback
+- **Error Display**: Beautiful tracebacks and error formatting
+- **Tables/Lists**: Displaying data in organized, readable formats
+- **Interactive Elements**: Prompts, confirmations, or status displays
+- **Professional CLI**: When your tool will be used by others or in production
+
+#### **hypothesis**: Property-based testing for complex edge cases
+- Add when pytest tests become repetitive for testing ranges
+- Useful for testing mathematical functions with many possible inputs  
+- **Trigger**: When you find yourself writing >5 similar test cases for the same function
+
+#### **pre-commit**: Add when ANY of these collaboration indicators are met:
+- **Repository has 4+ core files** (excluding configs like .gitignore, pyproject.toml)
+- **Multiple contributors** working on the project
+- **Production deployment** planned or active
+- **Complex formatting rules** that must be enforced consistently
+- **Security-sensitive code** that needs automatic scanning
+
+#### **type hints**: Function used in 3+ places or has 3+ parameters
+
+#### **docker**: Deployment or complex dependencies
+#### **CI/CD**: Automated deployment or team collaboration
+
+### Tool Addition Protocol
+When adding new tools:
+1. **Check Don'ts section** - User may have specified alternatives
+2. **Start minimal** - Only essential configuration
+3. **Document trigger** - Why was this tool added now?
+4. **Update .gitignore** - Add tool-specific ignore patterns
+5. **Record in CLAUDE.local.md** - Tool-specific environment behaviors
+
+### Cross-Platform Considerations
+- **Python**: Always use `pathlib.Path` over string concatenation
+- **Node.js**: Use `path.join()` and avoid shell-specific commands in npm scripts
+- **Scripts**: Prefer Node.js scripts over shell scripts for cross-platform compatibility
+- **Environment**: Use `.env` files with consistent variable names across platforms
 
 ## Design Philosophy
 
@@ -1596,7 +1622,7 @@ BONSAI_STYLE = {
     'savefig.facecolor': '#0a0e14',
     'savefig.edgecolor': '#0a0e14',
     'savefig.dpi': 300,
-    
+
     # Axes styling
     'axes.facecolor': '#151922',
     'axes.edgecolor': '#2d3441',
@@ -1612,13 +1638,13 @@ BONSAI_STYLE = {
     'axes.spines.bottom': True,
     'axes.spines.top': False,
     'axes.spines.right': False,
-    
+
     # Grid styling
     'grid.color': '#2d3441',
     'grid.linestyle': '-',
     'grid.linewidth': 0.5,
     'grid.alpha': 0.6,
-    
+
     # Ticks
     'xtick.color': '#b8bcc8',
     'xtick.labelsize': 9,
@@ -1630,7 +1656,7 @@ BONSAI_STYLE = {
     'ytick.direction': 'out',
     'ytick.major.size': 4,
     'ytick.minor.size': 2,
-    
+
     # Legend
     'legend.facecolor': '#1e242e',
     'legend.edgecolor': '#2d3441',
@@ -1638,20 +1664,20 @@ BONSAI_STYLE = {
     'legend.framealpha': 0.95,
     'legend.fancybox': True,
     'legend.shadow': False,
-    
+
     # Lines and markers
     'lines.linewidth': 2.0,
     'lines.markersize': 6,
     'lines.markeredgewidth': 0,
-    
+
     # Font settings (fallback to system fonts if Quicksand not available)
     'font.family': ['Quicksand', 'DejaVu Sans', 'Liberation Sans', 'Arial', 'sans-serif'],
     'font.size': 10,
     'font.weight': 'normal',
-    
+
     # Text
     'text.color': '#e6e8eb',
-    
+
     # Patch (bars, areas, etc.)
     'patch.linewidth': 0.5,
     'patch.facecolor': '#7c9885',
@@ -1738,25 +1764,25 @@ Then use: `plt.style.use('bonsai')`
 BONSAI_COLORS = {
     # Primary accent colors
     'green_primary': '#7c9885',
-    'red_primary': '#c78289', 
+    'red_primary': '#c78289',
     'blue_primary': '#82a4c7',
     'yellow_primary': '#c7a882',
     'purple_primary': '#9882c7',
     'orange_primary': '#c7975c',
     'teal_primary': '#5cc7a8',
-    
+
     # Secondary variants
     'green_secondary': '#9db4a6',
     'red_secondary': '#d4999f',
     'blue_secondary': '#9bb5d4',
     'yellow_secondary': '#d4b99b',
-    
+
     # Muted variants
     'green_muted': '#677a70',
     'red_muted': '#a56b71',
     'blue_muted': '#6b8aa5',
     'yellow_muted': '#a5906b',
-    
+
     # Text colors
     'text_primary': '#e6e8eb',
     'text_secondary': '#b8bcc8',
@@ -1847,11 +1873,11 @@ width = 0.35
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Use BONSAI colors
-bars1 = ax.bar(x - width/2, values1, width, 
-               color=BONSAI_COLORS['green_primary'], 
+bars1 = ax.bar(x - width/2, values1, width,
+               color=BONSAI_COLORS['green_primary'],
                label='Series 1', alpha=0.9)
 bars2 = ax.bar(x + width/2, values2, width,
-               color=BONSAI_COLORS['blue_primary'], 
+               color=BONSAI_COLORS['blue_primary'],
                label='Series 2', alpha=0.9)
 
 ax.set_title('BONSAI Style Bar Chart', fontsize=16, pad=20)
@@ -1914,8 +1940,8 @@ ax2.set_ylabel('Count')
 ax3 = plt.subplot(2, 2, 3)
 x_scatter = np.random.randn(100)
 y_scatter = x_scatter + np.random.randn(100) * 0.5
-scatter = ax3.scatter(x_scatter, y_scatter, 
-                     c=y_scatter, cmap='bonsai_green', 
+scatter = ax3.scatter(x_scatter, y_scatter,
+                     c=y_scatter, cmap='bonsai_green',
                      alpha=0.7, s=50)
 ax3.set_title('Correlation Analysis')
 ax3.set_xlabel('Variable X')
@@ -1940,7 +1966,7 @@ plt.show()
 def apply_bonsai_style():
     """Quick function to apply BONSAI styling to matplotlib."""
     plt.rcParams.update(BONSAI_STYLE)
-    
+
 def bonsai_color(name):
     """Get BONSAI color by name."""
     return BONSAI_COLORS.get(name, BONSAI_COLORS['green_primary'])
@@ -1954,7 +1980,7 @@ def set_bonsai_palette(ax, palette_type='qualitative'):
     elif palette_type == 'diverging':
         ax.set_prop_cycle(color=BONSAI_DIVERGING)
 
-def save_bonsai_plot(filename, dpi=300, bbox_inches='tight', 
+def save_bonsai_plot(filename, dpi=300, bbox_inches='tight',
                      facecolor='#0a0e14', edgecolor='none'):
     """Save plot with BONSAI styling optimized for dark backgrounds."""
     plt.savefig(filename, dpi=dpi, bbox_inches=bbox_inches,
@@ -1989,14 +2015,14 @@ cat_values = np.random.randint(20, 100, len(categories))
 
 # Create comprehensive report
 fig = plt.figure(figsize=(16, 12))
-fig.suptitle('Monthly Performance Report', 
+fig.suptitle('Monthly Performance Report',
              fontsize=24, fontweight='normal', y=0.95)
 
 # Main time series (takes up top half)
 ax1 = plt.subplot(2, 2, (1, 2))
-ax1.plot(dates, values, color=BONSAI_COLORS['green_primary'], 
+ax1.plot(dates, values, color=BONSAI_COLORS['green_primary'],
          linewidth=2.5, alpha=0.9)
-ax1.fill_between(dates, values, alpha=0.2, 
+ax1.fill_between(dates, values, alpha=0.2,
                 color=BONSAI_COLORS['green_primary'])
 ax1.set_title('Performance Trend Over Time', fontsize=16, pad=15)
 ax1.set_ylabel('Performance Metric')
@@ -2004,7 +2030,7 @@ ax1.grid(True, alpha=0.3)
 
 # Category breakdown
 ax2 = plt.subplot(2, 2, 3)
-bars = ax2.bar(categories, cat_values, 
+bars = ax2.bar(categories, cat_values,
                color=BONSAI_QUALITATIVE[:len(categories)], alpha=0.9)
 ax2.set_title('Category Performance', fontsize=16, pad=15)
 ax2.set_ylabel('Value')
@@ -2013,8 +2039,8 @@ ax2.tick_params(axis='x', rotation=45)
 # Distribution analysis
 ax3 = plt.subplot(2, 2, 4)
 hist_data = np.random.normal(50, 15, 1000)
-n, bins, patches = ax3.hist(hist_data, bins=20, 
-                           color=BONSAI_COLORS['blue_primary'], 
+n, bins, patches = ax3.hist(hist_data, bins=20,
+                           color=BONSAI_COLORS['blue_primary'],
                            alpha=0.8, edgecolor='none')
 ax3.set_title('Value Distribution', fontsize=16, pad=15)
 ax3.set_xlabel('Value Range')
@@ -2029,6 +2055,74 @@ plt.show()
 
 The BONSAI matplotlib theme ensures that all data visualizations maintain the same sophisticated, eye-friendly aesthetic as the rest of your project. The dark background reduces eye strain during long analysis sessions, while the carefully chosen accent colors provide clear visual hierarchy without being overwhelming.
 
+### BONSAI Rich Console Integration
+
+For Python projects using the Rich library for console output, apply the BONSAI color palette to maintain visual consistency between data visualizations and console logging.
+
+#### Rich Console Setup
+
+**BONSAI Color Palette for Rich**
+```python
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.panel import Panel
+
+# BONSAI color palette for Rich console output
+BONSAI_COLORS = {
+    'green_primary': '#7c9885',
+    'red_primary': '#c78289',
+    'blue_primary': '#82a4c7',
+    'yellow_primary': '#c7a882',
+    'purple_primary': '#9882c7',
+    'orange_primary': '#c7975c',
+    'teal_primary': '#5cc7a8',
+    'text_primary': '#e6e8eb',
+    'text_secondary': '#b8bcc8',
+    'text_muted': '#8b92a5',
+}
+```
+
+**Rich Logging Integration**
+```python
+# Apply BONSAI colors to Rich logging
+console_handler = RichHandler(
+    console=Console(),
+    show_time=True,
+    show_path=False,
+    rich_tracebacks=True,
+    markup=True,
+    keywords=[
+        f"[bold {BONSAI_COLORS['red_primary']}]ERROR[/]",
+        f"[bold {BONSAI_COLORS['yellow_primary']}]WARNING[/]",
+        f"[bold {BONSAI_COLORS['green_primary']}]INFO[/]",
+        f"[bold {BONSAI_COLORS['blue_primary']}]DEBUG[/]",
+        f"[bold {BONSAI_COLORS['purple_primary']}]SCPI[/]",
+    ],
+)
+```
+
+**Rich Panel Styling**
+```python
+# BONSAI-styled Rich panels
+def create_bonsai_panel(content, title):
+    return Panel(
+        content,
+        title=f"[bold {BONSAI_COLORS['green_primary']}]{title}[/bold {BONSAI_COLORS['green_primary']}]",
+        border_style=BONSAI_COLORS['green_primary'],
+    )
+
+# Usage with BONSAI colors
+console = Console()
+session_info = ""
+for key, value in data.items():
+    session_info += f"[bold {BONSAI_COLORS['blue_primary']}]{key}:[/bold {BONSAI_COLORS['blue_primary']}] {value}\n"
+
+panel = create_bonsai_panel(session_info.strip(), "System Information")
+console.print(panel)
+```
+
+The BONSAI Rich console integration ensures that terminal output, logging messages, and panels use the same sophisticated color palette as data visualizations, creating a cohesive professional experience.
+
 ### Implementation Guidelines
 
 **When Creating Interfaces**
@@ -2040,9 +2134,10 @@ The BONSAI matplotlib theme ensures that all data visualizations maintain the sa
 
 **When Building CLIs**
 1. **Use semantic colors** - green for success, red for errors, etc.
-2. **Provide clear visual hierarchy** - timestamps, levels, messages
-3. **Include progress indicators** - use BONSAI_green_primary for progress
-4. **Make errors scannable** - use consistent symbols and colors
+2. **Apply BONSAI Rich integration** - if using Rich library, apply BONSAI color palette
+3. **Provide clear visual hierarchy** - timestamps, levels, messages
+4. **Include progress indicators** - use BONSAI_green_primary for progress
+5. **Make errors scannable** - use consistent symbols and colors
 
 **When Designing Data Views**
 1. **Prioritize readability** - data should be instantly comprehensible
@@ -2064,6 +2159,11 @@ Like a carefully pruned bonsai tree, BONSAI interfaces reveal their beauty throu
 
 The updated CLAUDE.md now provides developers with a complete visual language that matches the minimal, purposeful approach of BONSAI code. Whether building web apps, desktop software, mobile apps, command-line tools, or data analysis reports, teams can create interfaces that feel cohesive, professional, and meditative to use.
 
+**BONSAI integration covers:**
+- **Matplotlib**: Dark zen themes and sophisticated color palettes for data visualization
+- **Rich Console**: BONSAI colors for logging, panels, and terminal output
+- **UI Frameworks**: Design principles and color systems for web and desktop applications
+
 ## 🌱 BONSAI it! - Transform Existing Projects
 
 **BONSAI it!** is a powerful transformation command that retrofits existing projects with BONSAI principles while minimizing disruption. Unlike PROJECT-TRANSFER.md which completely rewrites projects, "BONSAI it!" makes surgical changes to align with BONSAI philosophy.
@@ -2084,7 +2184,7 @@ This process will modify your project to align with BONSAI principles:
 POTENTIAL IMPACTS:
 ⚠️ CRITICAL CHANGES:
   • Tool replacements (e.g., black → ruff, npm → yarn)
-  • Directory restructuring 
+  • Directory restructuring
   • Design system overhaul
   • Configuration file modifications
 
@@ -2124,7 +2224,7 @@ The process executes in three systematic phases:
    - **REMOVE**: Directory structures, tooling choices, design specifications
    - **PRESERVE**: Project-specific requirements (e.g., scikit-rf, chess engines)
    - **ADD**: References to BONSAI guidelines in CLAUDE.md
-   
+
    Example transformation:
    ```markdown
    <!-- BEFORE -->
@@ -2133,15 +2233,15 @@ The process executes in three systematic phases:
    ├── components/
    ├── controllers/
    └── utils/
-   
+
    ## Tools
    - Formatter: black
    - UI: Material-UI
-   
+
    <!-- AFTER -->
    ## Project Structure
    See BONSAI structure guidelines in CLAUDE.md
-   
+
    ## Tools  
    See BONSAI tool standards in CLAUDE.md
    Additional project-specific tools:
@@ -2160,6 +2260,7 @@ The process executes in three systematic phases:
    unittest → pytest
    Prettier (aggressive) → Prettier (minimal config)
    matplotlib (default theme) → BONSAI matplotlib theme
+   rich (default colors) → BONSAI rich color palette
    ```
 
 #### Phase 2: Directory Reconstruction
@@ -2197,6 +2298,7 @@ The process executes in three systematic phases:
    - Update component styling
    - Apply Dark Zen principles
    - **If matplotlib detected**: Apply BONSAI matplotlib theme and color palettes
+   - **If rich library detected**: Apply BONSAI colors to console logging and panels
 
 2. **Tooling Updates**
    - Install BONSAI-preferred tools
@@ -2208,6 +2310,7 @@ The process executes in three systematic phases:
    - Apply BONSAI code style
    - Remove unnecessary abstractions
    - **If matplotlib used**: Replace default styling with BONSAI theme application
+   - **If rich used**: Update console colors and panel styling with BONSAI palette
 
 ### Process Documentation
 
@@ -2221,7 +2324,9 @@ Original Request: "BONSAI it!"
 ## Compatibility Analysis
 - Framework: [detected framework]
 - Matplotlib usage: [YES/NO - files using matplotlib]
+- Rich library usage: [YES/NO - files using rich console/logging]
 - Data visualization patterns: [count of .py files with plt/matplotlib imports]
+- Console output patterns: [count of .py files with rich imports]
 - Complexity: [LOW/MEDIUM/HIGH]
 - Risk Assessment: [details]
 
@@ -2252,12 +2357,14 @@ AFTER:
 - black → ruff ✓
 - Material-UI → BONSAI design ✓
 - matplotlib → BONSAI matplotlib theme ✓
+- rich → BONSAI rich color palette ✓
 - [other migrations]
 
 ### Design Updates
 - Colors migrated: [count]
 - Components updated: [count]
 - Matplotlib theme applied: [YES/NO/N/A]
+- Rich console colors applied: [YES/NO/N/A]
 - BONSAI color palettes integrated: [YES/NO/N/A]
 - Styling aligned: [YES/NO]
 
@@ -2286,7 +2393,7 @@ If you need to undo this transformation:
 ⚠️ Requires Attention:
 - [List of manual fixes needed]
 
-🌱 Welcome to the BONSAI garden! 
+🌱 Welcome to the BONSAI garden!
 Your project has been thoughtfully cultivated to grow with minimal, purposeful intention.
 
 [BONSAI seed symbol]
