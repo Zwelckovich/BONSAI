@@ -832,3 +832,701 @@ IMMEDIATE ACTIONS:
 
 **CORRECT BEHAVIOR**:
 ✅ Complete Task 6 → Show evidence → Get approval → Complete Task 7 → Show evidence → Get approval → etc.
+
+## Design Philosophy
+
+**BONSAI design extends minimalism to the visual realm** - every pixel serves a purpose, every color conveys meaning, every interaction feels intentional.
+
+### Core Design Principles
+
+**Purposeful Aesthetics**: Like BONSAI code that does exactly what's needed, BONSAI interfaces show exactly what users need to see. No decorative elements, no visual noise - only purposeful design that guides attention naturally.
+
+**Dark Zen Approach**: Eye-friendly dark themes that reduce fatigue and energy consumption. Interfaces should feel like meditation in motion - calming, focused, and effortless to use.
+
+**Progressive Disclosure**: Start with essential information, reveal complexity only when needed. Like growing a bonsai tree, interfaces should unfold their capabilities gradually.
+
+### BONSAI Color System
+
+The BONSAI color palette provides a sophisticated, muted aesthetic designed for minimal interfaces and eye comfort. These colors apply to:
+- **User Interfaces** (web, desktop, mobile)
+- **Command Line Interfaces** and terminal output
+- **Program logs and console output**
+- **Data visualizations and charts**
+- **Documentation and reports**
+
+#### Background Colors
+```css
+--BONSAI_background_deep: #0a0e14;        /* Main application background, deepest layer */
+--BONSAI_background_primary: #151922;     /* Primary containers, cards, panels */
+--BONSAI_background_secondary: #1e242e;   /* Secondary containers, nested elements */
+--BONSAI_background_elevated: #232933;    /* Elevated surfaces, dropdowns, tooltips */
+--BONSAI_background_overlay: #2a3040;     /* Modal overlays, highest elevation */
+```
+
+#### Text Colors
+```css
+--BONSAI_text_primary: #e6e8eb;       /* Main headings, primary content */
+--BONSAI_text_secondary: #b8bcc8;     /* Body text, secondary information */
+--BONSAI_text_muted: #8b92a5;         /* Labels, captions, metadata */
+--BONSAI_text_disabled: #6b7280;      /* Disabled text, inactive elements */
+--BONSAI_text_inverted: #0a0e14;      /* Text on light backgrounds, buttons */
+```
+
+#### Border Colors
+```css
+--BONSAI_border_subtle: #2d3441;      /* Gentle separations, zen garden style */
+--BONSAI_border_primary: #3d4455;     /* Standard borders */
+--BONSAI_border_accent: #4a5568;      /* Hover states, focus indicators */
+--BONSAI_border_strong: #5a6578;      /* Strong emphasis, active states */
+```
+
+#### Core Accent Colors
+
+**Green Family (Nature, Growth, Success)**
+```css
+--BONSAI_green_primary: #7c9885;      /* Primary brand color, success states */
+--BONSAI_green_secondary: #9db4a6;    /* Hover states, lighter accents */
+--BONSAI_green_tertiary: #a8c0b1;     /* Subtle backgrounds, very light accents */
+--BONSAI_green_muted: #677a70;        /* Darker variant, borders, inactive states */
+--BONSAI_green_glow: rgba(124, 152, 133, 0.15); /* Alpha overlays */
+```
+
+**Red Family (Attention, Errors)**
+```css
+--BONSAI_red_primary: #c78289;        /* Error states, destructive actions */
+--BONSAI_red_secondary: #d4999f;      /* Hover states, lighter error backgrounds */
+--BONSAI_red_tertiary: #dfa8ad;       /* Very subtle error backgrounds */
+--BONSAI_red_muted: #a56b71;          /* Darker variant, borders */
+--BONSAI_red_glow: rgba(199, 130, 137, 0.15); /* Alpha overlays */
+```
+
+**Blue Family (Information, Links)**
+```css
+--BONSAI_blue_primary: #82a4c7;       /* Information states, links, cool accents */
+--BONSAI_blue_secondary: #9bb5d4;     /* Hover states, lighter info backgrounds */
+--BONSAI_blue_tertiary: #adc2db;      /* Very subtle info backgrounds */
+--BONSAI_blue_muted: #6b8aa5;         /* Darker variant, borders */
+--BONSAI_blue_glow: rgba(130, 164, 199, 0.15); /* Alpha overlays */
+```
+
+**Yellow Family (Warning, Warmth)**
+```css
+--BONSAI_yellow_primary: #c7a882;     /* Warning states, warm accents */
+--BONSAI_yellow_secondary: #d4b99b;   /* Hover states, lighter warning backgrounds */
+--BONSAI_yellow_tertiary: #dbc5ad;    /* Very subtle warning backgrounds */
+--BONSAI_yellow_muted: #a5906b;       /* Darker variant, borders */
+--BONSAI_yellow_glow: rgba(199, 168, 130, 0.15); /* Alpha overlays */
+```
+
+#### Extended Palette
+```css
+--BONSAI_purple_primary: #9882c7;     /* Creative elements, special features */
+--BONSAI_orange_primary: #c7975c;     /* Notifications, energy, calls-to-action */
+--BONSAI_teal_primary: #5cc7a8;       /* Fresh, modern accents, progress */
+```
+
+#### Semantic Aliases
+```css
+--BONSAI_success: var(--BONSAI_green_primary);
+--BONSAI_success_bg: var(--BONSAI_green_glow);
+--BONSAI_warning: var(--BONSAI_yellow_primary);
+--BONSAI_warning_bg: var(--BONSAI_yellow_glow);
+--BONSAI_error: var(--BONSAI_red_primary);
+--BONSAI_error_bg: var(--BONSAI_red_glow);
+--BONSAI_info: var(--BONSAI_blue_primary);
+--BONSAI_info_bg: var(--BONSAI_blue_glow);
+```
+
+### Dark Zen UI Principles
+
+**Visual Harmony**
+- **Color Temperature**: Warm grays and sage greens create calm, meditative interfaces
+- **Breathing Space**: Generous whitespace (2rem-3rem sections) prevents visual overwhelm
+- **Gentle Transitions**: 0.3s ease transitions feel organic, not mechanical
+- **Purposeful Glow**: Subtle shadows and glows guide attention naturally
+
+**Unique Elements**
+- **Quantum Metrics**: Status indicators with soft glows show system health
+- **Organic Charts**: Data visualization that feels alive and responsive
+- **Zen Controls**: Toggle switches and buttons that feel meditative to interact with
+- **Terminal Zen**: Code display elevated beyond basic terminal styling
+
+**Navigation Philosophy**
+- **Zen Garden Separation**: Borders appear through light, not heavy lines
+- **Progressive Disclosure**: Show essential, reveal advanced on interaction
+- **Natural Grouping**: Related functions flow together like garden paths
+- **Peaceful Hierarchy**: No shouting colors or aggressive visual weight
+
+### Typography Guidelines
+
+**Font Selection**
+- **Primary**: Quicksand (300-600 weights) - unique yet readable, modern minimalism
+- **Code**: JetBrains Mono (300-500 weights) - optimized for developer comfort
+- **Line Height**: 1.6-1.7 for comfortable reading
+- **Letter Spacing**: Subtle (0.02em-0.1em) for breathing room
+
+**Hierarchy**
+- **Headings**: font-weight: 300-500 (never bold unless necessary)
+- **Body**: font-weight: 400, comfortable contrast
+- **Captions**: font-weight: 300, muted colors
+- **Code**: monospace, slightly smaller than body text
+
+### Layout Principles
+
+**Spacing System**
+- **Base Unit**: 8px
+- **Common Increments**: 8, 16, 24, 32, 48, 64px
+- **Container Padding**: 2rem (32px) minimum
+- **Section Gaps**: 3rem (48px) for clear separation
+
+**Component Design**
+- **Border Radius**: 6-16px for modern softness
+- **Card Elevation**: Subtle 1px borders, minimal shadows
+- **Interactive States**: Transform: translateY(-1px) for lift effect
+- **Focus Indicators**: BONSAI_green_primary with soft glow
+
+### Interface Design Examples
+
+The following design examples demonstrate BONSAI principles in action. **These are inspirational templates only** - your actual implementation may be:
+- **Any technology**: HTML, React, Vue, Qt, Flutter, SwiftUI, etc.
+- **Any layout**: Single page, multi-page, desktop app, mobile app
+- **Any navigation**: Sidebar, top nav, tabs, drawer, etc.
+- **Any components**: The specific buttons, forms, and widgets depend on your project needs
+
+**The examples show the aesthetic and principles, not prescriptive layouts.**
+
+#### Example 1: Quantum Dashboard
+**Concept**: Real-time system monitoring with crystalline clarity
+- **Metric Cards**: Elevated surfaces with subtle status indicators
+- **Zen Terminal**: Mac-style window chrome with color-coded logs
+- **Breathing Layout**: Generous spacing prevents visual stress
+- **Status Indicators**: Soft glowing dots instead of harsh icons
+
+#### Example 2: Organic Data Flow
+**Concept**: Living data visualization that breathes with your metrics
+- **Organic Charts**: Data bars that feel alive and responsive
+- **Pill Controls**: Rounded selection buttons with smooth transitions
+- **Gradient Overlays**: Subtle visual interest without distraction
+- **Hover Interactions**: Gentle lift effects and soft glows
+
+#### Example 3: Zen Control Center
+**Concept**: Intuitive system controls that feel like meditation in motion
+- **Toggle Switches**: Smooth, satisfying interactions
+- **Grouped Sections**: Related controls flow together naturally
+- **Descriptive Labels**: Clear purpose for every setting
+- **Action Buttons**: Primary/secondary hierarchy with gentle elevation
+
+#### CLI and Program Output Styling
+
+**Terminal Color Usage**
+```bash
+# Success messages - use BONSAI_green_primary
+echo -e "\033[38;2;124;152;133m✓ Operation completed successfully\033[0m"
+
+# Warning messages - use BONSAI_yellow_primary  
+echo -e "\033[38;2;199;168;130m⚠ Warning: High memory usage detected\033[0m"
+
+# Error messages - use BONSAI_red_primary
+echo -e "\033[38;2;199;130;137m✗ Error: Connection failed\033[0m"
+
+# Info messages - use BONSAI_blue_primary
+echo -e "\033[38;2;130;164;199m→ Processing request...\033[0m"
+
+# Muted text - use BONSAI_text_muted
+echo -e "\033[38;2;139;146;165m[2025-06-11 14:32:15]\033[0m"
+```
+
+**Log File Formatting**
+- Use BONSAI colors for log levels
+- Maintain readability in both terminals and log viewers
+- Apply consistent timestamp formatting
+- Use symbols (✓ ⚠ ✗ →) for quick visual scanning
+
+### BONSAI Matplotlib Theme
+
+For Python data visualization projects, use the BONSAI matplotlib theme to create charts that align with the design philosophy.
+
+#### Quick Setup
+
+**Option 1: Direct Style Application**
+```python
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+# BONSAI matplotlib configuration
+BONSAI_STYLE = {
+    # Figure and background
+    'figure.facecolor': '#0a0e14',
+    'figure.edgecolor': '#0a0e14',
+    'figure.figsize': [10, 6],
+    'figure.dpi': 100,
+    'savefig.facecolor': '#0a0e14',
+    'savefig.edgecolor': '#0a0e14',
+    'savefig.dpi': 300,
+    
+    # Axes styling
+    'axes.facecolor': '#151922',
+    'axes.edgecolor': '#2d3441',
+    'axes.linewidth': 1.0,
+    'axes.grid': True,
+    'axes.axisbelow': True,
+    'axes.labelcolor': '#e6e8eb',
+    'axes.labelsize': 11,
+    'axes.titlesize': 14,
+    'axes.titleweight': 'normal',
+    'axes.titlecolor': '#e6e8eb',
+    'axes.spines.left': True,
+    'axes.spines.bottom': True,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    
+    # Grid styling
+    'grid.color': '#2d3441',
+    'grid.linestyle': '-',
+    'grid.linewidth': 0.5,
+    'grid.alpha': 0.6,
+    
+    # Ticks
+    'xtick.color': '#b8bcc8',
+    'xtick.labelsize': 9,
+    'xtick.direction': 'out',
+    'xtick.major.size': 4,
+    'xtick.minor.size': 2,
+    'ytick.color': '#b8bcc8',
+    'ytick.labelsize': 9,
+    'ytick.direction': 'out',
+    'ytick.major.size': 4,
+    'ytick.minor.size': 2,
+    
+    # Legend
+    'legend.facecolor': '#1e242e',
+    'legend.edgecolor': '#2d3441',
+    'legend.fontsize': 9,
+    'legend.framealpha': 0.95,
+    'legend.fancybox': True,
+    'legend.shadow': False,
+    
+    # Lines and markers
+    'lines.linewidth': 2.0,
+    'lines.markersize': 6,
+    'lines.markeredgewidth': 0,
+    
+    # Font settings (fallback to system fonts if Quicksand not available)
+    'font.family': ['Quicksand', 'DejaVu Sans', 'Liberation Sans', 'Arial', 'sans-serif'],
+    'font.size': 10,
+    'font.weight': 'normal',
+    
+    # Text
+    'text.color': '#e6e8eb',
+    
+    # Patch (bars, areas, etc.)
+    'patch.linewidth': 0.5,
+    'patch.facecolor': '#7c9885',
+    'patch.edgecolor': '#677a70',
+    'patch.force_edgecolor': False,
+}
+
+# Apply the style
+plt.rcParams.update(BONSAI_STYLE)
+```
+
+**Option 2: Style File (.mplstyle)**
+Save as `bonsai.mplstyle` in your project or matplotlib config directory:
+```
+# BONSAI matplotlib style
+figure.facecolor: 0a0e14
+figure.edgecolor: 0a0e14
+figure.figsize: 10, 6
+figure.dpi: 100
+savefig.facecolor: 0a0e14
+savefig.edgecolor: 0a0e14
+savefig.dpi: 300
+
+axes.facecolor: 151922
+axes.edgecolor: 2d3441
+axes.linewidth: 1.0
+axes.grid: True
+axes.axisbelow: True
+axes.labelcolor: e6e8eb
+axes.labelsize: 11
+axes.titlesize: 14
+axes.titleweight: normal
+axes.titlecolor: e6e8eb
+axes.spines.left: True
+axes.spines.bottom: True
+axes.spines.top: False
+axes.spines.right: False
+
+grid.color: 2d3441
+grid.linestyle: -
+grid.linewidth: 0.5
+grid.alpha: 0.6
+
+xtick.color: b8bcc8
+xtick.labelsize: 9
+xtick.direction: out
+xtick.major.size: 4
+xtick.minor.size: 2
+ytick.color: b8bcc8
+ytick.labelsize: 9
+ytick.direction: out
+ytick.major.size: 4
+ytick.minor.size: 2
+
+legend.facecolor: 1e242e
+legend.edgecolor: 2d3441
+legend.fontsize: 9
+legend.framealpha: 0.95
+legend.fancybox: True
+legend.shadow: False
+
+lines.linewidth: 2.0
+lines.markersize: 6
+lines.markeredgewidth: 0
+
+font.family: Quicksand, DejaVu Sans, Liberation Sans, Arial, sans-serif
+font.size: 10
+font.weight: normal
+
+text.color: e6e8eb
+
+patch.linewidth: 0.5
+patch.facecolor: 7c9885
+patch.edgecolor: 677a70
+patch.force_edgecolor: False
+```
+
+Then use: `plt.style.use('bonsai')`
+
+#### BONSAI Color Palettes
+
+```python
+# BONSAI color palettes for matplotlib
+BONSAI_COLORS = {
+    # Primary accent colors
+    'green_primary': '#7c9885',
+    'red_primary': '#c78289', 
+    'blue_primary': '#82a4c7',
+    'yellow_primary': '#c7a882',
+    'purple_primary': '#9882c7',
+    'orange_primary': '#c7975c',
+    'teal_primary': '#5cc7a8',
+    
+    # Secondary variants
+    'green_secondary': '#9db4a6',
+    'red_secondary': '#d4999f',
+    'blue_secondary': '#9bb5d4',
+    'yellow_secondary': '#d4b99b',
+    
+    # Muted variants
+    'green_muted': '#677a70',
+    'red_muted': '#a56b71',
+    'blue_muted': '#6b8aa5',
+    'yellow_muted': '#a5906b',
+    
+    # Text colors
+    'text_primary': '#e6e8eb',
+    'text_secondary': '#b8bcc8',
+    'text_muted': '#8b92a5',
+}
+
+# Create color lists for different chart types
+BONSAI_QUALITATIVE = [
+    '#7c9885',  # green_primary
+    '#82a4c7',  # blue_primary
+    '#c7a882',  # yellow_primary
+    '#c78289',  # red_primary
+    '#9882c7',  # purple_primary
+    '#c7975c',  # orange_primary
+    '#5cc7a8',  # teal_primary
+]
+
+BONSAI_SEQUENTIAL_GREEN = [
+    '#677a70',  # green_muted
+    '#7c9885',  # green_primary
+    '#9db4a6',  # green_secondary
+    '#a8c0b1',  # green_tertiary
+]
+
+BONSAI_DIVERGING = [
+    '#c78289',  # red_primary
+    '#d4999f',  # red_secondary
+    '#8b92a5',  # text_muted (neutral)
+    '#9bb5d4',  # blue_secondary
+    '#82a4c7',  # blue_primary
+]
+
+# Register custom colormaps
+from matplotlib.colors import LinearSegmentedColormap
+
+# BONSAI Green colormap
+bonsai_green_cmap = LinearSegmentedColormap.from_list(
+    'bonsai_green', BONSAI_SEQUENTIAL_GREEN, N=256
+)
+plt.register_cmap('bonsai_green', bonsai_green_cmap)
+
+# BONSAI Diverging colormap
+bonsai_div_cmap = LinearSegmentedColormap.from_list(
+    'bonsai_diverging', BONSAI_DIVERGING, N=256
+)
+plt.register_cmap('bonsai_diverging', bonsai_div_cmap)
+```
+
+#### Usage Examples
+
+**Basic Line Plot**
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Apply BONSAI style
+plt.rcParams.update(BONSAI_STYLE)
+
+# Sample data
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+# Create plot
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(x, y1, color=BONSAI_COLORS['green_primary'], label='sin(x)', linewidth=2)
+ax.plot(x, y2, color=BONSAI_COLORS['blue_primary'], label='cos(x)', linewidth=2)
+
+ax.set_title('BONSAI Style Line Plot', fontsize=16, pad=20)
+ax.set_xlabel('X Values')
+ax.set_ylabel('Y Values')
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+**Multi-series Bar Chart**
+```python
+# Sample data
+categories = ['Category A', 'Category B', 'Category C', 'Category D']
+values1 = [23, 45, 56, 78]
+values2 = [65, 43, 32, 56]
+
+x = np.arange(len(categories))
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Use BONSAI colors
+bars1 = ax.bar(x - width/2, values1, width, 
+               color=BONSAI_COLORS['green_primary'], 
+               label='Series 1', alpha=0.9)
+bars2 = ax.bar(x + width/2, values2, width,
+               color=BONSAI_COLORS['blue_primary'], 
+               label='Series 2', alpha=0.9)
+
+ax.set_title('BONSAI Style Bar Chart', fontsize=16, pad=20)
+ax.set_xlabel('Categories')
+ax.set_ylabel('Values')
+ax.set_xticks(x)
+ax.set_xticklabels(categories)
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+**Heatmap with Custom Colormap**
+```python
+import seaborn as sns
+
+# Sample correlation matrix
+data = np.random.randn(10, 10)
+corr_matrix = np.corrcoef(data)
+
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Use BONSAI diverging colormap
+heatmap = ax.imshow(corr_matrix, cmap='bonsai_diverging', aspect='auto')
+ax.set_title('BONSAI Style Heatmap', fontsize=16, pad=20)
+
+# Add colorbar
+cbar = plt.colorbar(heatmap, ax=ax)
+cbar.ax.yaxis.set_tick_params(color=BONSAI_COLORS['text_secondary'])
+
+plt.tight_layout()
+plt.show()
+```
+
+**Subplot Dashboard**
+```python
+# Create a dashboard-style layout
+fig = plt.figure(figsize=(15, 10))
+fig.suptitle('BONSAI Data Dashboard', fontsize=20, y=0.98)
+
+# Line plot
+ax1 = plt.subplot(2, 2, 1)
+x = np.linspace(0, 10, 50)
+y = np.sin(x) + np.random.normal(0, 0.1, 50)
+ax1.plot(x, y, color=BONSAI_COLORS['green_primary'], linewidth=2, alpha=0.8)
+ax1.fill_between(x, y, alpha=0.3, color=BONSAI_COLORS['green_primary'])
+ax1.set_title('Time Series Data')
+ax1.set_ylabel('Values')
+
+# Bar chart
+ax2 = plt.subplot(2, 2, 2)
+categories = ['A', 'B', 'C', 'D', 'E']
+values = [23, 45, 56, 78, 32]
+bars = ax2.bar(categories, values, color=BONSAI_QUALITATIVE[:len(categories)])
+ax2.set_title('Category Distribution')
+ax2.set_ylabel('Count')
+
+# Scatter plot
+ax3 = plt.subplot(2, 2, 3)
+x_scatter = np.random.randn(100)
+y_scatter = x_scatter + np.random.randn(100) * 0.5
+scatter = ax3.scatter(x_scatter, y_scatter, 
+                     c=y_scatter, cmap='bonsai_green', 
+                     alpha=0.7, s=50)
+ax3.set_title('Correlation Analysis')
+ax3.set_xlabel('Variable X')
+ax3.set_ylabel('Variable Y')
+
+# Pie chart with BONSAI colors
+ax4 = plt.subplot(2, 2, 4)
+sizes = [30, 25, 20, 15, 10]
+labels = ['Segment 1', 'Segment 2', 'Segment 3', 'Segment 4', 'Segment 5']
+wedges, texts, autotexts = ax4.pie(sizes, labels=labels, autopct='%1.1f%%',
+                                  colors=BONSAI_QUALITATIVE[:len(sizes)],
+                                  textprops={'color': BONSAI_COLORS['text_primary']})
+ax4.set_title('Market Share')
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
+```
+
+#### Utility Functions
+
+```python
+def apply_bonsai_style():
+    """Quick function to apply BONSAI styling to matplotlib."""
+    plt.rcParams.update(BONSAI_STYLE)
+    
+def bonsai_color(name):
+    """Get BONSAI color by name."""
+    return BONSAI_COLORS.get(name, BONSAI_COLORS['green_primary'])
+
+def set_bonsai_palette(ax, palette_type='qualitative'):
+    """Set color cycle for axes using BONSAI colors."""
+    if palette_type == 'qualitative':
+        ax.set_prop_cycle(color=BONSAI_QUALITATIVE)
+    elif palette_type == 'green':
+        ax.set_prop_cycle(color=BONSAI_SEQUENTIAL_GREEN)
+    elif palette_type == 'diverging':
+        ax.set_prop_cycle(color=BONSAI_DIVERGING)
+
+def save_bonsai_plot(filename, dpi=300, bbox_inches='tight', 
+                     facecolor='#0a0e14', edgecolor='none'):
+    """Save plot with BONSAI styling optimized for dark backgrounds."""
+    plt.savefig(filename, dpi=dpi, bbox_inches=bbox_inches,
+                facecolor=facecolor, edgecolor=edgecolor)
+
+# Example usage
+def create_bonsai_figure(figsize=(10, 6)):
+    """Create a figure with BONSAI styling applied."""
+    apply_bonsai_style()
+    fig, ax = plt.subplots(figsize=figsize)
+    set_bonsai_palette(ax)
+    return fig, ax
+```
+
+#### Integration Example
+
+```python
+# Complete example: BONSAI-styled analysis report
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Apply BONSAI theme
+apply_bonsai_style()
+
+# Sample data
+np.random.seed(42)
+dates = pd.date_range('2024-01-01', periods=100, freq='D')
+values = np.cumsum(np.random.randn(100)) + 100
+categories = ['Product A', 'Product B', 'Product C', 'Product D']
+cat_values = np.random.randint(20, 100, len(categories))
+
+# Create comprehensive report
+fig = plt.figure(figsize=(16, 12))
+fig.suptitle('Monthly Performance Report', 
+             fontsize=24, fontweight='normal', y=0.95)
+
+# Main time series (takes up top half)
+ax1 = plt.subplot(2, 2, (1, 2))
+ax1.plot(dates, values, color=BONSAI_COLORS['green_primary'], 
+         linewidth=2.5, alpha=0.9)
+ax1.fill_between(dates, values, alpha=0.2, 
+                color=BONSAI_COLORS['green_primary'])
+ax1.set_title('Performance Trend Over Time', fontsize=16, pad=15)
+ax1.set_ylabel('Performance Metric')
+ax1.grid(True, alpha=0.3)
+
+# Category breakdown
+ax2 = plt.subplot(2, 2, 3)
+bars = ax2.bar(categories, cat_values, 
+               color=BONSAI_QUALITATIVE[:len(categories)], alpha=0.9)
+ax2.set_title('Category Performance', fontsize=16, pad=15)
+ax2.set_ylabel('Value')
+ax2.tick_params(axis='x', rotation=45)
+
+# Distribution analysis
+ax3 = plt.subplot(2, 2, 4)
+hist_data = np.random.normal(50, 15, 1000)
+n, bins, patches = ax3.hist(hist_data, bins=20, 
+                           color=BONSAI_COLORS['blue_primary'], 
+                           alpha=0.8, edgecolor='none')
+ax3.set_title('Value Distribution', fontsize=16, pad=15)
+ax3.set_xlabel('Value Range')
+ax3.set_ylabel('Frequency')
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.92])
+
+# Save with BONSAI styling
+save_bonsai_plot('bonsai_report.png')
+plt.show()
+```
+
+The BONSAI matplotlib theme ensures that all data visualizations maintain the same sophisticated, eye-friendly aesthetic as the rest of your project. The dark background reduces eye strain during long analysis sessions, while the carefully chosen accent colors provide clear visual hierarchy without being overwhelming.
+
+### Implementation Guidelines
+
+**When Creating Interfaces**
+1. **Start with content structure** - what information is essential?
+2. **Apply BONSAI colors** - use the palette consistently
+3. **Add generous spacing** - let the interface breathe
+4. **Implement gentle interactions** - subtle hover effects and transitions
+5. **Test in dark environments** - ensure comfort during extended use
+
+**When Building CLIs**
+1. **Use semantic colors** - green for success, red for errors, etc.
+2. **Provide clear visual hierarchy** - timestamps, levels, messages
+3. **Include progress indicators** - use BONSAI_green_primary for progress
+4. **Make errors scannable** - use consistent symbols and colors
+
+**When Designing Data Views**
+1. **Prioritize readability** - data should be instantly comprehensible
+2. **Use muted accent colors** - let the data be the hero
+3. **Provide contextual information** - trends, comparisons, metadata
+4. **Enable progressive disclosure** - summary → details → full data
+
+**When Creating Data Visualizations**
+1. **Apply BONSAI matplotlib theme** - consistent with UI design language
+2. **Use semantic color palettes** - qualitative for categories, sequential for continuous data
+3. **Maintain dark background aesthetic** - reduces eye strain during analysis
+4. **Create publication-ready outputs** - professional quality for reports and presentations
+
+### Remember
+
+**BONSAI design is about intention, not restriction.** Every color choice, every spacing decision, every interaction should serve the user's goal. The interface should feel like a natural extension of the minimal, purposeful code underneath.
+
+Like a carefully pruned bonsai tree, BONSAI interfaces reveal their beauty through what's left out as much as what's included.
+
+The updated CLAUDE.md now provides developers with a complete visual language that matches the minimal, purposeful approach of BONSAI code. Whether building web apps, desktop software, mobile apps, command-line tools, or data analysis reports, teams can create interfaces that feel cohesive, professional, and meditative to use.
