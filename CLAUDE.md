@@ -2159,6 +2159,7 @@ The process executes in three systematic phases:
    npm → yarn/pnpm
    unittest → pytest
    Prettier (aggressive) → Prettier (minimal config)
+   matplotlib (default theme) → BONSAI matplotlib theme
    ```
 
 #### Phase 2: Directory Reconstruction
@@ -2195,6 +2196,7 @@ The process executes in three systematic phases:
    - Replace color schemes with BONSAI palette
    - Update component styling
    - Apply Dark Zen principles
+   - **If matplotlib detected**: Apply BONSAI matplotlib theme and color palettes
 
 2. **Tooling Updates**
    - Install BONSAI-preferred tools
@@ -2205,6 +2207,7 @@ The process executes in three systematic phases:
    - Update formatter/linter configs
    - Apply BONSAI code style
    - Remove unnecessary abstractions
+   - **If matplotlib used**: Replace default styling with BONSAI theme application
 
 ### Process Documentation
 
@@ -2217,6 +2220,8 @@ Original Request: "BONSAI it!"
 
 ## Compatibility Analysis
 - Framework: [detected framework]
+- Matplotlib usage: [YES/NO - files using matplotlib]
+- Data visualization patterns: [count of .py files with plt/matplotlib imports]
 - Complexity: [LOW/MEDIUM/HIGH]
 - Risk Assessment: [details]
 
@@ -2246,11 +2251,14 @@ AFTER:
 ### Tool Migrations
 - black → ruff ✓
 - Material-UI → BONSAI design ✓
+- matplotlib → BONSAI matplotlib theme ✓
 - [other migrations]
 
 ### Design Updates
 - Colors migrated: [count]
 - Components updated: [count]
+- Matplotlib theme applied: [YES/NO/N/A]
+- BONSAI color palettes integrated: [YES/NO/N/A]
 - Styling aligned: [YES/NO]
 
 ### Issues Requiring Attention
