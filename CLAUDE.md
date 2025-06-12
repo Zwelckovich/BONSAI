@@ -521,19 +521,23 @@ For program-generated messages, ask:
 **CONFIRM TO USER**: "🌱 Task 12 Complete: Concept re-alignment verified ✅"
 
 ### Task 13: Pre-commit Validation
-- **CRITICAL**: Always use local environment (virtual environment/local installation)
-- **Python Example**: `uv add pre-commit --dev` → `uv run pre-commit install` → `uv run pre-commit run --all-files`
-- **JavaScript Example**: `npm install --save-dev pre-commit` → `npx pre-commit install` → `npx pre-commit run --all-files`
-- **Any Language**: Install in project's local environment, never globally
-- Run pre-commit hooks (if configured)
-- Fix any issues
-- Only proceed when clean
+- **Check collaboration indicators first**: Apply tool introduction triggers from Best Practices section
+- **Pre-commit triggers**: Repository has 4+ core files, multiple contributors, production deployment, complex formatting rules, or security-sensitive code
+- **If triggers met**: Install and configure pre-commit using local environment
+  - **Python Example**: `uv add pre-commit --dev` → `uv run pre-commit install` → `uv run pre-commit run --all-files`
+  - **JavaScript Example**: `npm install --save-dev pre-commit` → `npx pre-commit install` → `npx pre-commit run --all-files`
+  - **Any Language**: Install in project's local environment, never globally
+- **If triggers not met**: Skip pre-commit installation (single contributor, simple project)
+- **If already configured**: Run existing hooks and fix any issues
+- **Only proceed when clean or N/A**
 
 **ACTION**: Update BONSAI.md
 ```markdown
 - [x] Task 13: Pre-commit Validation ✓ [timestamp]
-  - Pre-commit configured: [yes/no]
-  - Hooks run: [list/none]
+  - Collaboration indicators: [4+ files: yes/no, contributors: count, deployment: yes/no, complexity: assessment]
+  - Pre-commit triggers met: [yes/no]
+  - Pre-commit configured: [yes/no/skipped]
+  - Hooks run: [list/none/N/A]
   - Status: [clean/N/A]
 ```
 
@@ -1788,22 +1792,22 @@ BONSAI_STYLE = {
     'axes.spines.right': False,
 
     # Grid styling
-    'grid.color': '#2d3441',
+    'grid.color': '#4a5568',
     'grid.linestyle': '-',
-    'grid.linewidth': 0.5,
-    'grid.alpha': 0.6,
+    'grid.linewidth': 0.8,
+    'grid.alpha': 0.8,
 
     # Ticks
-    'xtick.color': '#b8bcc8',
-    'xtick.labelsize': 9,
+    'xtick.color': '#e6e8eb',
+    'xtick.labelsize': 10,
     'xtick.direction': 'out',
-    'xtick.major.size': 4,
-    'xtick.minor.size': 2,
-    'ytick.color': '#b8bcc8',
-    'ytick.labelsize': 9,
+    'xtick.major.size': 5,
+    'xtick.minor.size': 3,
+    'ytick.color': '#e6e8eb',
+    'ytick.labelsize': 10,
     'ytick.direction': 'out',
-    'ytick.major.size': 4,
-    'ytick.minor.size': 2,
+    'ytick.major.size': 5,
+    'ytick.minor.size': 3,
 
     # Legend
     'legend.facecolor': '#1e242e',
@@ -1818,8 +1822,8 @@ BONSAI_STYLE = {
     'lines.markersize': 6,
     'lines.markeredgewidth': 0,
 
-    # Font settings (fallback to system fonts if Quicksand not available)
-    'font.family': ['Quicksand', 'DejaVu Sans', 'Liberation Sans', 'Arial', 'sans-serif'],
+    # Font settings
+    'font.family': ['DejaVu Sans', 'sans-serif'],
     'font.size': 10,
     'font.weight': 'normal',
 
@@ -1864,21 +1868,21 @@ axes.spines.bottom: True
 axes.spines.top: False
 axes.spines.right: False
 
-grid.color: 2d3441
+grid.color: 4a5568
 grid.linestyle: -
-grid.linewidth: 0.5
-grid.alpha: 0.6
+grid.linewidth: 0.8
+grid.alpha: 0.8
 
-xtick.color: b8bcc8
-xtick.labelsize: 9
+xtick.color: e6e8eb
+xtick.labelsize: 10
 xtick.direction: out
-xtick.major.size: 4
-xtick.minor.size: 2
-ytick.color: b8bcc8
-ytick.labelsize: 9
+xtick.major.size: 5
+xtick.minor.size: 3
+ytick.color: e6e8eb
+ytick.labelsize: 10
 ytick.direction: out
-ytick.major.size: 4
-ytick.minor.size: 2
+ytick.major.size: 5
+ytick.minor.size: 3
 
 legend.facecolor: 1e242e
 legend.edgecolor: 2d3441
@@ -1891,7 +1895,7 @@ lines.linewidth: 2.0
 lines.markersize: 6
 lines.markeredgewidth: 0
 
-font.family: Quicksand, DejaVu Sans, Liberation Sans, Arial, sans-serif
+font.family: DejaVu Sans, sans-serif
 font.size: 10
 font.weight: normal
 
