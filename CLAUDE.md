@@ -23,15 +23,23 @@
 - ❌ **INSTANT VIOLATION**: Assuming bypass status without explicit check
 - ❌ **INSTANT VIOLATION**: Using Task tool when "Bypass:" is detected
 - ❌ **INSTANT VIOLATION**: Starting BONSAI workflow when "Bypass:" prefix exists
+- ❌ **INSTANT VIOLATION**: Starting BONSAI workflow when "GROW!" command detected
+- ❌ **INSTANT VIOLATION**: Starting BONSAI workflow when "BONSAI it!" command detected
 
 **ENFORCEMENT LOGIC:**
 - **"Bypass:" prefix detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
 - **Meta-question about CLAUDE.md detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **"GROW!" or "GROW! --ALL" detected in compliance check** → Activate Instance 3 Orchestrator (NO STANDARD BONSAI WORKFLOW)
+- **"BONSAI it!" detected in compliance check** → Execute BONSAI transformation process (NO STANDARD WORKFLOW)
 - **ANY OTHER REQUEST detected in compliance check** → Task 0 start and full 18-task BONSAI workflow
 
-**CRITICAL BYPASS DETECTION (WITHIN COMPLIANCE CHECK):**
+**CRITICAL SPECIAL COMMAND DETECTION (WITHIN COMPLIANCE CHECK):**
 - **ANY MESSAGE starting with "Bypass:"** = Normal Claude Code behavior after compliance check
 - **FORBIDDEN with "Bypass:"**: Task tool, BONSAI workflow
+- **ANY MESSAGE containing "GROW!" or "GROW! --ALL"** = Instance 3 Orchestrator activation
+- **FORBIDDEN with "GROW!"**: Standard BONSAI workflow, Task tool (until orchestrator delegates)
+- **ANY MESSAGE containing "BONSAI it!"** = BONSAI transformation process
+- **FORBIDDEN with "BONSAI it!"**: Standard BONSAI workflow (uses specialized transformation workflow)
 - **REQUIRED with "Bypass:"**: Direct execution using appropriate tools (Bash, Read, Edit, etc.)
 - **MANDATORY**: Compliance check must run first to detect the bypass
 
@@ -46,14 +54,18 @@
 🔒 MANDATORY COMPLIANCE CHECK:
 - Request starts with "Bypass:": [YES/NO]
 - Meta-question about CLAUDE.md: [YES/NO]
+- GROW! command detected: [YES/NO]
+- BONSAI it! command detected: [YES/NO]
 - Any other request type: [YES/NO]
 - BONSAI workflow required: [YES/NO]
-- Next action: [NORMAL BEHAVIOR / START TASK 0]
+- Next action: [NORMAL BEHAVIOR / START TASK 0 / ACTIVATE ORCHESTRATOR / BONSAI IT! TRANSFORMATION]
 ```
 
 **AUTOMATED TRIGGER DETECTION (WITHIN COMPLIANCE CHECK):**
 - **"Bypass:" at message start** → COMPLIANCE CHECK DETECTS: Normal behavior, bypass BONSAI
 - **Questions about "CLAUDE.md"** → COMPLIANCE CHECK DETECTS: Normal behavior, no workflow
+- **"GROW!" or "GROW! --ALL" detected** → COMPLIANCE CHECK DETECTS: Activate Instance 3 Orchestrator
+- **"BONSAI it!" detected** → COMPLIANCE CHECK DETECTS: BONSAI transformation process
 - **All other requests** → COMPLIANCE CHECK DETECTS: BONSAI workflow required
 
 **FAIL-SAFE DEFAULT LOGIC:**
@@ -239,10 +251,11 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - **CREATE/UPDATE CLEANUP.md** to track all files created in this session
 - **Check CLAUDE.local.md for environment-specific patterns**
 - **Check Don'ts section to avoid prohibited tools/patterns**
-- **VERIFY BONSAI TOOLS AVAILABLE**: Check required tools are BONSAI-compliant before proceeding
-  - **Python projects**: Verify uv is available (`uv --version`) - STOP if missing
-  - **JavaScript projects**: Verify yarn/pnpm is available - STOP if missing
+- **VERIFY BONSAI TOOLS AVAILABLE**: Check required tools are BONSAI-compliant ONLY when actual code exists
+  - **Python projects**: Verify uv is available (`uv --version`) - ONLY if .py files exist or will be created
+  - **JavaScript projects**: Verify yarn/pnpm is available - ONLY if package.json exists or will be created
   - **FORBIDDEN TOOLS**: pip, npm, virtualenv, pipenv, poetry (use uv/yarn/pnpm instead)
+  - **CRITICAL**: Skip tool verification for concept-only or documentation-only operations
 - Identify files to modify/create
 - List required tools (only if not present and not in Don'ts)
 
@@ -251,7 +264,7 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - [x] Task 1: Plan Creation & Cleanup Tracking ✓ [timestamp]
   - Alias check: [result]
   - CLEANUP.md: [created/updated]
-  - BONSAI tools verified: [uv/yarn/pnpm available - YES/NO]
+  - BONSAI tools verified: [uv/yarn/pnpm available - YES/NO/N/A - concept/docs only]
   - FORBIDDEN tools detected: [pip/npm/virtualenv - MUST BE NONE]
   - Files to modify: [list]
   - Tools needed: [list]
@@ -660,12 +673,13 @@ IMMEDIATE ACTIONS:
 **ROLE**: ZERO-TOLERANCE rule enforcer with NO creative flexibility
 **RESPONSIBILITIES**:
 - **MANDATORY**: Execute COMPLIANCE CHECK before ANY response
-- **MANDATORY**: Allow only ONE task per response maximum
+- **MANDATORY**: Allow only ONE task per response maximum (EXCEPT GROW! --ALL mode)
 - **MANDATORY**: Verify task completion automatically before proceeding
 - **MANDATORY**: Verify tool usage evidence for each task
-- **FORBIDDEN**: Any batch task completion
+- **FORBIDDEN**: Any batch task completion (EXCEPT GROW! --ALL mode)
 - **FORBIDDEN**: Any problem-solving without proper task structure
-- **REQUIRED**: Force response termination after single task completion
+- **REQUIRED**: Force response termination after single task completion (EXCEPT GROW! --ALL mode)
+- **🚨 GROW! --ALL MODE OVERRIDE**: Execute ALL 18 tasks continuously without stopping between tasks
 
 **ENHANCED INTERVENTION TRIGGERS**:
 - Missing START PROTOCOL check in response
@@ -703,6 +717,8 @@ Final Result Delivered (NO STOPS DURING EXECUTION)
 
 **ZERO-TOLERANCE RULE**: Every task must be completed individually with evidence verification, but workflow NEVER stops until all 18 tasks complete. NO EXCEPTIONS.
 
+**🚨 GROW! --ALL MODE ENFORCEMENT**: When GROW! --ALL is active, Instance 1 MUST oversee continuous execution of all 18 tasks without returning control to user until phase completion. This is the ONLY exception to single-task-per-response rule.
+
 ### **ENHANCED ENFORCEMENT MECHANISM**:
 
 **MANDATORY START OF EVERY RESPONSE**:
@@ -710,11 +726,12 @@ Final Result Delivered (NO STOPS DURING EXECUTION)
 🔒 MANDATORY BONSAI COMPLIANCE CHECK:
 - [ ] Bypass check: Message starts with "Bypass:"? → [YES/NO]
 - [ ] Meta check: About CLAUDE.md itself? → [YES/NO]  
+- [ ] GROW! --ALL check: Is this GROW! --ALL mode execution? → [YES/NO]
 - [ ] Interruption check: Is this after ANY interruption/break? → [YES/NO]
 - [ ] Context check: Is this a continuation request? → [YES/NO]
 - [ ] Technical/continuation check: Any other request? → [YES/NO]
 - [ ] Workflow requirement: Full BONSAI workflow required? → [YES/NO]
-- [ ] Next action: [ALLOW NORMAL BEHAVIOR / START TASK 0 - FULL RESET]
+- [ ] Execution mode: [NORMAL BEHAVIOR / START TASK 0 / CONTINUOUS 18-TASK EXECUTION]
 ```
 
 **🚨 CRITICAL INTERRUPTION OVERRIDE 🚨**
@@ -2340,11 +2357,38 @@ This action cannot be automatically undone.
 Type "BONSAI transform my project" to begin transformation.
 ```
 
+### 🚨 CRITICAL TRANSFORMATION LOGIC 🚨
+
+**MANDATORY EXECUTION RULES - 100% COMPLIANCE REQUIRED:**
+
+1. **concept.md exists + NO CODE**: Only modify concept.md, create NO files
+2. **NO concept.md + CODE exists**: Only modify existing code, do NOT create concept.md  
+3. **NO concept.md + NO CODE**: Do NOTHING, create NO files
+4. **concept.md exists + CODE exists**: Modify concept.md + transform existing code
+
+**CODE DETECTION CRITERIA:**
+- Any .py, .js, .ts, .html, .css files
+- Any package.json, pyproject.toml, requirements.txt files
+- Any src/, lib/, app/ directories with code files
+
+**FORBIDDEN ACTIONS when NO CODE detected:**
+- ❌ Creating .gitignore
+- ❌ Creating pyproject.toml, package.json, or ANY config files
+- ❌ Creating ANY new files whatsoever
+- ❌ Executing Phase 2 or Phase 3
+- ✅ ONLY modify existing concept.md (if it exists)
+
 ### Transformation Process
 
 The process executes in three systematic phases:
 
 #### Phase 1: Concept Alignment
+
+**Step 1: Concept.md Assessment**
+- **If concept.md exists**: Create backup and modify existing file
+- **If concept.md missing**: Skip to Step 2 (code structure assessment)
+
+**When concept.md exists:**
 1. **Backup Creation**
    ```
    - Create concept.md.bonsai_backup_[timestamp]
@@ -2356,6 +2400,10 @@ The process executes in three systematic phases:
    - **PRESERVE**: Project-specific requirements (e.g., scikit-rf, chess engines)
    - **ADD**: References to BONSAI guidelines in CLAUDE.md
    - **MANDATORY**: Add BONSAI design system requirement
+
+**Step 2: Code Structure Assessment**
+- **If existing code structure present**: Apply BONSAI structure adaptation in Phase 2
+- **If no code structure exists**: Skip Phase 2 AND Phase 3 (no transformation needed)
 
    Example transformation:
    ```markdown
@@ -2409,7 +2457,10 @@ The process executes in three systematic phases:
    rich (default colors) → BONSAI rich color palette
    ```
 
-#### Phase 2: Directory Reconstruction
+#### Phase 2: Directory Reconstruction (Conditional)
+
+**🚨 CRITICAL RULE: Execute ONLY if existing code structure detected**
+**If no code files exist (.py, .js, .html, package.json, pyproject.toml, etc.), SKIP Phase 2 entirely**
 
 **Progressive Structure Migration**:
 
@@ -2437,9 +2488,12 @@ The process executes in three systematic phases:
    - Update config files
    - Maintain functionality
 
-#### Phase 3: Deep Integration
+#### Phase 3: Deep Integration (Conditional)
 
-1. **Design System Migration (MANDATORY)**
+**🚨 CRITICAL RULE: Execute ONLY if existing code structure detected**
+**If no code files exist, SKIP Phase 3 entirely - DO NOT create any configuration files**
+
+1. **Design System Migration (MANDATORY - only if code exists)**
    - **Replace ALL color schemes** with BONSAI color palette
    - **Update ALL component styling** to BONSAI design principles
    - **Apply Dark Zen principles** throughout interface
@@ -2471,7 +2525,9 @@ Generated: [timestamp]
 Original Request: "BONSAI it!"
 
 ## Compatibility Analysis
-- Framework: [detected framework]
+- concept.md exists: [YES/NO]
+- Existing code structure: [YES/NO - code files detected]
+- Framework: [detected framework/NONE]
 - Matplotlib usage: [YES/NO - files using matplotlib]
 - Rich library usage: [YES/NO - files using rich console/logging]
 - Data visualization patterns: [count of .py files with plt/matplotlib imports]
@@ -2480,23 +2536,35 @@ Original Request: "BONSAI it!"
 - Risk Assessment: [details]
 
 ## Phase 1: Concept Alignment
-### Backup Created
+### Step 1: Concept.md Assessment
+- concept.md found: [YES/NO]
+- Action taken: [BACKUP_AND_MODIFY/SKIP_TO_STEP_2]
+
+### Backup Created (if concept.md exists)
 - concept.md → concept.md.bonsai_backup_[timestamp]
 
-### Modifications
+### Modifications (if concept.md exists)
 - Removed: [list of removed sections]
 - Preserved: [project-specific tools/requirements]
 - Added: BONSAI references
 
-## Phase 2: Directory Reconstruction  
-### Structure Changes
+### Step 2: Code Structure Assessment  
+- Existing code detected: [YES/NO]
+- Phase 2 required: [YES/NO]
+
+## Phase 2: Directory Reconstruction (Conditional)
+### Execution Status
+- Phase executed: [YES/NO - based on code structure detection]
+- Reason: [Code structure found/No code structure to transform]
+
+### Structure Changes (if executed)
 BEFORE:
 [tree output]
 
 AFTER:
 [tree output]
 
-### Path Updates
+### Path Updates (if executed)
 - Updated imports: [count]
 - Fixed references: [count]
 - Maintained functionality: [YES/NO]
@@ -2689,12 +2757,19 @@ The command follows all BONSAI workflow rules while performing its specific tran
 1. **Instance 3 sends prompt** to Instance 1
 2. **Instance 1 performs compliance check** (standard BONSAI process)
 3. **Instance 2 executes task** (standard workflow or bypass behavior)
-4. **Instance 1 signals completion** to Instance 3 with summary
-5. **Instance 3 updates GROW.md** with results and progress
-6. **Phase validation** - Ensure phase is fully functional before proceeding
-7. **Mode check**: 
+4. **CRITICAL --ALL MODE**: Instance 2 MUST complete ALL 18 tasks continuously without stopping
+5. **Instance 1 signals completion** to Instance 3 with summary ONLY after all 18 tasks complete
+6. **Instance 3 updates GROW.md** with results and progress
+7. **Phase validation** - Ensure phase is fully functional before proceeding
+8. **Mode check**: 
    - Standard mode: Stop and return to user
    - --ALL mode: Continue to next phase automatically
+
+**🚨 CRITICAL --ALL MODE EXECUTION FIX**:
+- **MANDATORY**: When GROW! --ALL is active, Instance 2 MUST execute all 18 tasks in continuous sequence
+- **FORBIDDEN**: Stopping workflow after any single task completion in --ALL mode
+- **REQUIRED**: Instance 1 must oversee continuous execution until all 18 tasks complete
+- **NO EXCEPTIONS**: --ALL mode means complete phase execution, not partial task execution
 
 #### Phase 3: Completion
 1. **Final summary** generated in GROW.md
