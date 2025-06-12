@@ -81,6 +81,94 @@ Before writing ANY response, Claude MUST internally verify:
 4. ✅ Have I determined the correct action (NORMAL/TASK 0)?
 5. ✅ Am I following through with that determined action?
 
+**ENHANCED PRE-RESPONSE MANDATORY VERIFICATION:**
+```
+🚨 INTERNAL CHECKLIST (MUST COMPLETE BEFORE ANY OUTPUT):
+1. Have I read the compliance check requirement? [YES/NO]
+2. Am I about to write the compliance check template first? [YES/NO] 
+3. If NO to #2 → STOP and restart response with compliance check
+4. If YES to #2 → Proceed with compliance check template
+
+CRITICAL: This verification happens BEFORE any text output to user
+FAILURE: Any response not starting with compliance check = INVALID RESPONSE
+```
+
+**MANDATORY RESPONSE OPENING ENFORCEMENT:**
+```
+Claude MUST start EVERY response with these exact characters:
+🔒 MANDATORY COMPLIANCE CHECK:
+
+FORBIDDEN RESPONSE OPENINGS:
+❌ Starting with any other text
+❌ Starting with tool calls  
+❌ Starting with explanations
+❌ Starting with "You're right" or "Excellent question"
+❌ Starting with "Looking at" or analysis
+❌ Starting with technical content
+❌ ANY RESPONSE not beginning with "🔒 MANDATORY COMPLIANCE CHECK:"
+
+ENFORCEMENT: If response doesn't start with compliance check = RESTART RESPONSE
+```
+
+**AUTOMATIC SELF-CORRECTION TRIGGERS:**
+```
+Before outputting any response, Claude MUST check:
+- Does my response start with "🔒 MANDATORY COMPLIANCE CHECK:"? 
+  - If NO → Delete all text and start over with compliance check
+  - If YES → Continue with response
+
+SELF-CORRECTION PATTERNS:
+If Claude catches itself starting a response with:
+- "You're absolutely right" → DELETE and restart with compliance check
+- "Excellent question" → DELETE and restart with compliance check  
+- "Looking at the code" → DELETE and restart with compliance check
+- ANY tool call → DELETE and restart with compliance check
+- ANY content before compliance check → DELETE and restart with compliance check
+```
+
+**MANDATORY RESPONSE STRUCTURE LOCK:**
+```
+EVERY response MUST follow this exact order:
+1. 🔒 MANDATORY COMPLIANCE CHECK: [template]
+2. [Action based on compliance check result]
+3. [No other content allowed before steps 1-2]
+
+STRUCTURE VIOLATIONS:
+❌ Tool calls before compliance check
+❌ Text before compliance check  
+❌ Analysis before compliance check
+❌ Explanations before compliance check
+
+CONSEQUENCE: Any structure violation = RESTART RESPONSE FROM STEP 1
+```
+
+**META-COMPLIANCE ENFORCEMENT:**
+```
+META-RULE: COMPLIANCE WITH COMPLIANCE RULES
+
+Even when Claude "knows" the request type:
+✅ STILL REQUIRED: Compliance check first
+❌ FORBIDDEN: Skipping compliance check because "it's obviously a bypass"
+❌ FORBIDDEN: Mental shortcuts that skip the template
+❌ FORBIDDEN: Pattern recognition that bypasses systematic checking
+
+ABSOLUTE RULE: The compliance check template is not conditional on content analysis
+ABSOLUTE RULE: Compliance check ALWAYS happens first, regardless of certainty about outcome
+```
+
+**COMPLIANCE FAILURE RECOVERY PROTOCOL:**
+```
+If Claude realizes mid-response that compliance check was skipped:
+
+IMMEDIATE ACTIONS:
+1. STOP current response immediately
+2. Output: "🚨 COMPLIANCE VIOLATION DETECTED - RESTARTING RESPONSE"
+3. Start new response with proper compliance check template
+4. Continue with corrected workflow
+
+NO EXCEPTIONS: Never continue a response that started without compliance check
+```
+
 **RESPONSE STRUCTURE ENFORCEMENT:**
 - Missing compliance check = INVALID RESPONSE
 - Must restart response with proper template
@@ -170,6 +258,89 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - "Quality checks passed" without showing evidence → FRAUD
 - Multiple ✅ checkmarks in single response → FRAUD
 - Claiming task completion without tool usage → FRAUD
+```
+
+**RULE 6: MANDATORY RESPONSE COMPLETION VERIFICATION**
+Before ending ANY response in BONSAI workflow, Claude MUST verify:
+```
+🔒 RESPONSE END VERIFICATION:
+- [ ] All 18 tasks completed? If NO → CONTINUE WORKFLOW IMMEDIATELY
+- [ ] Task 17 marked complete in BONSAI.md? If NO → CONTINUE WORKFLOW IMMEDIATELY
+- [ ] Final "Operation Complete" timestamp added? If NO → CONTINUE WORKFLOW IMMEDIATELY
+- [ ] Current task number: [X/18] - if X < 18 → CONTINUE WORKFLOW IMMEDIATELY
+```
+
+**FORBIDDEN RESPONSE ENDINGS**:
+```
+❌ ABSOLUTE VIOLATIONS - RESTART REQUIRED:
+- Ending response after Task 1-16 (only Task 17 completion allows response end)
+- Providing user summary before Task 17 complete
+- Any text like "Summary:", "Conclusion:", "Results:" before Task 17
+- "The fix is working, so I'm done" without completing all 18 tasks
+- "Technical problem solved" without workflow completion
+- "Testing passed" without remaining task execution
+```
+
+**RULE 7: WORKFLOW LOCK MECHANISM**
+Once Task 0 starts, Claude enters "WORKFLOW LOCK MODE":
+```
+🔒 WORKFLOW LOCK ACTIVE:
+- ✅ ONLY valid next action: Execute Task N+1 immediately
+- ❌ FORBIDDEN: User summaries, explanations, status updates
+- ❌ FORBIDDEN: Ending response before Task 17
+- ❌ FORBIDDEN: Any text not related to current task execution
+- ❌ FORBIDDEN: Problem-solving tunnel vision shortcuts
+
+🔓 UNLOCK CONDITION: Only unlocks after Task 17 completion verification
+```
+
+**RULE 8: HARDCODED TASK PROGRESSION TEMPLATE**
+After each task completion, Claude MUST immediately output this exact template:
+```
+✅ Task X Complete: [brief description]
+🔍 Instance 1 Verification: Evidence confirmed - executing Task X+1 immediately
+
+[MANDATORY: Immediately start Task X+1 without any pause or user interaction]
+```
+**NO EXCEPTIONS**: This template is hardcoded requirement, not optional
+
+**RULE 9: MANDATORY PROGRESS CHECKPOINTS**
+```
+🚨 CHECKPOINT VERIFICATION REQUIRED:
+- Task 5: Verify tasks 0-5 complete before continuing to Task 6
+- Task 10: Verify tasks 0-10 complete before continuing to Task 11
+- Task 15: Verify tasks 0-15 complete before continuing to Task 16
+- Task 17: Verify all tasks 0-17 complete before ending response
+
+❌ CHECKPOINT FAILURE: If any task missing → restart from Task 0
+```
+
+**RULE 10: ANTI-SHORTCUT BEHAVIORAL ENFORCEMENT**
+```
+🚨 COMMON VIOLATION PATTERNS CLAUDE MUST AVOID:
+❌ "The fix is working, so I'm done" → IGNORE AND CONTINUE WORKFLOW
+❌ "Technical problem solved" → IGNORE AND CONTINUE WORKFLOW
+❌ "User's immediate need met" → IGNORE AND CONTINUE WORKFLOW
+❌ "Testing passed" → IGNORE AND CONTINUE WORKFLOW
+❌ "Primary issue resolved" → IGNORE AND CONTINUE WORKFLOW
+❌ "Implementation complete" → IGNORE AND CONTINUE WORKFLOW
+
+🔒 ABSOLUTE RULE: Technical success ≠ workflow completion
+🔒 ABSOLUTE REQUIREMENT: All 18 tasks required regardless of early success
+```
+
+**RULE 11: INSTANCE 1 AUTOMATIC INTERVENTION TRIGGERS**
+Instance 1 monitors for these phrases and forces workflow continuation:
+```
+🚨 AUTO-INTERVENTION TRIGGERS:
+- "Summary:" → BLOCK and continue workflow immediately
+- "The fix is complete" → BLOCK and continue workflow immediately
+- "Testing shows" → BLOCK and continue workflow immediately
+- "✅ [anything] Complete" without immediate Task N+1 → BLOCK and continue workflow immediately
+- "Issue resolved" → BLOCK and continue workflow immediately
+- "Working correctly" → BLOCK and continue workflow immediately
+
+⚡ INTERVENTION ACTION: Force immediate next task execution without user interaction
 ```
 
 ## Task Workflow (STRICT - Follow for EVERY operation)
