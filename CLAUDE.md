@@ -308,8 +308,8 @@ After each task completion, Claude MUST immediately output this exact template:
 ```
 🚨 CHECKPOINT VERIFICATION REQUIRED:
 - Task 5: Verify tasks 0-5 complete before continuing to Task 6
-- Task 10: Verify tasks 0-10 complete before continuing to Task 11
-- Task 15: Verify tasks 0-15 complete before continuing to Task 16
+- Task 9: Verify tasks 0-9 complete before continuing to Task 10
+- Task 12: Verify tasks 0-12 complete before continuing to Task 13
 - Task 17: Verify all tasks 0-17 complete before ending response
 
 ❌ CHECKPOINT FAILURE: If any task missing → restart from Task 0
@@ -385,11 +385,11 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - [ ] Task 5: Environment Execution
 - [ ] Task 6: Code Minimalism Check
 - [ ] Task 7: Dependency Check
-- [ ] Task 8: Formatting & Linting
-- [ ] Task 9: Test Preparation
-- [ ] Task 10: Test Organization
-- [ ] Task 11: Test Execution
-- [ ] Task 12: Concept Re-alignment
+- [ ] Task 8: Test Preparation
+- [ ] Task 9: Test Organization
+- [ ] Task 10: Test Execution
+- [ ] Task 11: Concept Re-alignment
+- [ ] Task 12: Formatting & Linting
 - [ ] Task 13: Pre-commit Validation
 - [ ] Task 14: Documentation Updates
 - [ ] Task 15: File Usage Scanning
@@ -603,11 +603,74 @@ For program-generated messages, ask:
 
 **CONFIRM TO USER**: "🌱 Task 7 Complete: Dependencies checked and updated ✅"
 
-### Task 8: Formatting & Linting (MANDATORY - NEVER SKIP)
+### Task 8: Test Preparation
+- Check if functions are testable
+- Use pytest, hypothesis, pydantic when appropriate
+- Write minimal but comprehensive tests
+
+**ACTION**: Update BONSAI.md
+```markdown
+- [x] Task 8: Test Preparation ✓ [timestamp]
+  - Testable functions: [count]
+  - Test framework: [pytest/none/other]
+  - Tests written: [count]
+```
+
+**CONFIRM TO USER**: "🌱 Task 8 Complete: Tests prepared ✅"
+
+### Task 9: Test Organization
+- Mirror source structure in tests/
+- Name test files clearly
+- Group related tests
+
+**ACTION**: Update BONSAI.md
+```markdown
+- [x] Task 9: Test Organization ✓ [timestamp]
+  - Test structure: [description]
+  - Test files: [list]
+```
+
+**CONFIRM TO USER**: "🌱 Task 9 Complete: Tests organized ✅"
+
+### Task 10: Test Execution
+- Run all tests
+- No workarounds or test manipulation
+- Fix code until tests pass naturally
+- **EVIDENCE REQUIRED**: Display actual test execution output and results
+- **INSTANCE 1 VERIFICATION**: Confirm test results shown before proceeding
+
+**ACTION**: Update BONSAI.md
+```markdown
+- [x] Task 10: Test Execution ✓ [timestamp]
+  - Tests run: [count]
+  - Tests passed: [count]
+  - Tests failed: [count]
+  - All passing: [yes/no]
+```
+
+**CONFIRM TO USER**: "🌱 Task 10 Complete: All tests passing ✅"
+
+### Task 11: Concept Re-alignment
+- Review all changes against `concept.md`
+- Ensure no scope creep occurred
+- **Verify .gitignore is complete**
+
+**ACTION**: Update BONSAI.md
+```markdown
+- [x] Task 11: Concept Re-alignment ✓ [timestamp]
+  - Concept alignment: [verified/issues]
+  - Scope creep: [none/detected]
+  - .gitignore complete: [yes/no]
+```
+
+**CONFIRM TO USER**: "🌱 Task 11 Complete: Concept re-alignment verified ✅"
+
+### Task 12: Formatting & Linting (MANDATORY - NEVER SKIP)
 - **STOP** - This step is NOT optional
 - **CRITICAL**: Always use local environment (virtual environment/local installation)
-- **Python Example**: `uv add ruff` → `uv run ruff check` → `uv run ruff format`
-- **JavaScript Example**: `npm install eslint prettier --save-dev` → `npm run lint` → `npm run format`
+- **FORMAT FIRST, THEN LINT** - Correct order to avoid formatting conflicts
+- **Python Example**: `uv add ruff` → `uv run ruff format` → `uv run ruff check`
+- **JavaScript Example**: `npm install eslint prettier --save-dev` → `npm run format` → `npm run lint`
 - **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
 - **General**: Install formatter/linter locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
@@ -619,7 +682,7 @@ For program-generated messages, ask:
 
 **ACTION**: Update BONSAI.md
 ```markdown
-- [x] Task 8: Formatting & Linting ✓ [timestamp]
+- [x] Task 12: Formatting & Linting ✓ [timestamp]
   - Formatter run: [command used]
   - Linter run: [command used]
   - Issues found: [count]
@@ -627,69 +690,7 @@ For program-generated messages, ask:
   - Final status: [clean/issues remaining]
 ```
 
-**CONFIRM TO USER**: "🌱 Task 8 Complete: Formatting and linting passed with 0 issues ✅"
-
-### Task 9: Test Preparation
-- Check if functions are testable
-- Use pytest, hypothesis, pydantic when appropriate
-- Write minimal but comprehensive tests
-
-**ACTION**: Update BONSAI.md
-```markdown
-- [x] Task 9: Test Preparation ✓ [timestamp]
-  - Testable functions: [count]
-  - Test framework: [pytest/none/other]
-  - Tests written: [count]
-```
-
-**CONFIRM TO USER**: "🌱 Task 9 Complete: Tests prepared ✅"
-
-### Task 10: Test Organization
-- Mirror source structure in tests/
-- Name test files clearly
-- Group related tests
-
-**ACTION**: Update BONSAI.md
-```markdown
-- [x] Task 10: Test Organization ✓ [timestamp]
-  - Test structure: [description]
-  - Test files: [list]
-```
-
-**CONFIRM TO USER**: "🌱 Task 10 Complete: Tests organized ✅"
-
-### Task 11: Test Execution
-- Run all tests
-- No workarounds or test manipulation
-- Fix code until tests pass naturally
-- **EVIDENCE REQUIRED**: Display actual test execution output and results
-- **INSTANCE 1 VERIFICATION**: Confirm test results shown before proceeding
-
-**ACTION**: Update BONSAI.md
-```markdown
-- [x] Task 11: Test Execution ✓ [timestamp]
-  - Tests run: [count]
-  - Tests passed: [count]
-  - Tests failed: [count]
-  - All passing: [yes/no]
-```
-
-**CONFIRM TO USER**: "🌱 Task 11 Complete: All tests passing ✅"
-
-### Task 12: Concept Re-alignment
-- Review all changes against `concept.md`
-- Ensure no scope creep occurred
-- **Verify .gitignore is complete**
-
-**ACTION**: Update BONSAI.md
-```markdown
-- [x] Task 12: Concept Re-alignment ✓ [timestamp]
-  - Concept alignment: [verified/issues]
-  - Scope creep: [none/detected]
-  - .gitignore complete: [yes/no]
-```
-
-**CONFIRM TO USER**: "🌱 Task 12 Complete: Concept re-alignment verified ✅"
+**CONFIRM TO USER**: "🌱 Task 12 Complete: Formatting and linting passed with 0 issues ✅"
 
 ### Task 13: Pre-commit Validation
 - **Check collaboration indicators first**: Apply tool introduction triggers from Best Practices section
@@ -938,8 +939,8 @@ Task X Started → Instance 1 waits for evidence → Evidence provided → Insta
 - Task 1: CLEANUP.md modification timestamp  
 - Task 2: File read confirmations with line counts
 - Task 4: Actual code changes shown
-- Task 8: Linting command output displayed
-- Task 11: Test execution results shown
+- Task 10: Test execution results shown
+- Task 12: Linting command output displayed
 - Task 17: BONSAI.md final update with operation complete timestamp
 
 **CRITICAL BONSAI.md VERIFICATION PROTOCOL**:
@@ -1159,7 +1160,7 @@ These commands help track workflow execution:
 
 ### Common Workflow Issues
 
-1. **Skipped Linting** (Task 8)
+1. **Skipped Linting** (Task 12)
    - Critical task often bypassed
    - BONSAI tracking ensures execution
 
@@ -1171,7 +1172,7 @@ These commands help track workflow execution:
    - Files deleted without usage check
    - Grep confirmation required
 
-4. **Concept Misalignment** (Tasks 3 & 12)
+4. **Concept Misalignment** (Tasks 3 & 11)
    - Changes drift from concept.md
    - Dual verification checkpoints
 
@@ -1398,6 +1399,7 @@ Examples:
 - **Type Checker**: pyright (only when needed)
 - **Testing**: pytest + hypothesis (when complexity justifies)
 - **Data Validation**: pydantic (type-safe data models and validation)
+- **Data Processing**: pandas (for data manipulation and analysis)
 - **CLI Enhancement**: rich (beautiful terminal output, progress bars, logging)
 
 #### Ruff Philosophy
@@ -1709,11 +1711,17 @@ When adding new tools:
 4. **Update .gitignore** - Add tool-specific ignore patterns
 5. **Record in CLAUDE.local.md** - Tool-specific environment behaviors
 
+### Database
+- **SQL Database**: SQLite (file-based, zero-config, cross-platform)
+- **NoSQL/Document**: Start with JSON files, move to SQLite when relationships needed
+- **Data Analysis**: Use pandas for data manipulation before/after database operations
+
 ### Cross-Platform Considerations
 - **Python**: Always use `pathlib.Path` over string concatenation
 - **Node.js**: Use `path.join()` and avoid shell-specific commands in npm scripts
 - **Scripts**: Prefer Node.js scripts over shell scripts for cross-platform compatibility
 - **Environment**: Use `.env` files with consistent variable names across platforms
+- **Database**: SQLite works identically across all platforms
 
 ## Design Philosophy
 
@@ -2876,10 +2884,10 @@ external-api-wrapper.js
 
 When "BONSAI it!" is triggered, it executes WITHIN the standard 18-task workflow:
 - Task 0-3: Analysis and planning specific to transformation
-- Task 4: Execute Phase 1 (Concept Alignment)
-- Task 5-7: Execute Phase 2 (Directory Reconstruction)
-- Task 8-11: Execute Phase 3 (Deep Integration)
-- Task 12-17: Verification and documentation
+- Task 4-7: Execute Phases 1-2 (Implementation and environment setup)
+- Task 8-11: Execute Phase 3 (Testing and concept validation)
+- Task 12: Formatting & Linting (after all changes)
+- Task 13-17: Final validation and documentation
 
 The command follows all BONSAI workflow rules while performing its specific transformation logic.
 
