@@ -2995,6 +2995,11 @@ The command follows all BONSAI workflow rules while performing its specific tran
 4. **CRITICAL --ALL MODE**: Instance 2 MUST complete ALL 18 tasks continuously without stopping
 5. **Instance 1 signals completion** to Instance 3 with summary ONLY after all 18 tasks complete
 6. **Instance 3 updates GROW.md** with results and progress
+   - **🚨 MANDATORY VERIFICATION**: Instance 3 MUST update GROW.md after EVERY phase completion
+   - **🚨 ENFORCEMENT TRIGGER**: If Instance 3 fails to update GROW.md, Instance 1 MUST intervene and force update
+   - **🚨 VERIFICATION PROTOCOL**: Instance 1 must verify GROW.md shows phase as COMPLETED before proceeding
+   - **🚨 HARDCODED CHECK**: Before continuing to next phase, Instance 1 MUST read GROW.md and confirm current phase status is "✅ COMPLETED"
+   - **🚨 AUTOMATIC CORRECTION**: If GROW.md is not updated, Instance 1 MUST automatically update it with completion status
 7. **Phase validation** - Ensure phase is fully functional before proceeding
 8. **Mode check**: 
    - Standard mode: Stop and return to user
@@ -3007,6 +3012,14 @@ The command follows all BONSAI workflow rules while performing its specific tran
 - **NO EXCEPTIONS**: --ALL mode means complete phase execution, not partial task execution
 
 #### Phase 3: Completion
+
+**🚨 MANDATORY DUAL-VERIFICATION BEFORE PHASE PROGRESSION**:
+1. **Instance 2 Completion**: Verify BONSAI.md shows all 18 tasks complete
+2. **Instance 3 Documentation**: Verify GROW.md shows current phase as "✅ COMPLETED"
+3. **Cross-Reference Check**: Verify phase completion timestamps match between BONSAI.md and GROW.md
+4. **BLOCKING RULE**: No phase progression allowed until BOTH verifications pass
+
+**Final Phase Completion**:
 1. **Final summary** generated in GROW.md
 2. **Instance 3 deactivation** - Returns to dual-instance system
 3. **Results delivered** to user
@@ -3092,6 +3105,13 @@ The command follows all BONSAI workflow rules while performing its specific tran
 1. Instance 3 creates template concept.md
 2. Requests user to define project vision
 3. Continues analysis when concept.md is ready
+
+**🚨 GROW.md UPDATE FAILURE RECOVERY**:
+- **Detection**: If Instance 1 detects GROW.md is not updated after phase completion
+- **Automatic Action**: Instance 1 immediately updates GROW.md with completion details
+- **Evidence Required**: Extract completion details from BONSAI.md for GROW.md update
+- **No User Intervention**: Recovery happens automatically without user notification
+- **Logging**: Record recovery action in both BONSAI.md and GROW.md
 
 **Phase Validation Protocol**:
 1. Each phase must produce working, testable functionality
