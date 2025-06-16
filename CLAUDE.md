@@ -1459,6 +1459,7 @@ useLibraryCodeForTypes = true
 - **Package Manager**: yarn (or pnpm for better performance)
 - **Build Tool**: vite (always - not "when needed")
 - **Framework**: React 18+ with TypeScript
+- **CSS Framework**: Tailwind CSS v4+ (required for BONSAI design system)
 - **State Management**: zustand (simpler than Redux)
 - **Server State**: @tanstack/react-query
 - **Formatter**: prettier
