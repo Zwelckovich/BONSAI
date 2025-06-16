@@ -1108,6 +1108,11 @@ EVIDENCE: Task 1 must show uv/yarn/pnpm availability, Task 5 must show BONSAI to
 - **BONSAI_IT_PROCESS.md**: BONSAI it! transformation report (add to .gitignore)
 - **Don'ts Section**: User-defined patterns/tools to avoid (check before adding anything)
 - **Command Aliases**: User-defined shortcuts - type exactly (e.g., just "c/p" not "please c/p")
+  - **"c/p"**: Commit and push (works in both normal and bypass mode)
+    - **MANDATORY**: Always use BONSAI commit template format
+    - **Template**: Use structured commit messages with proper types and descriptions
+    - **Format**: `<type>: <description>` (feat, fix, refactor, docs, style, test, chore, perf, clean)
+    - **Footer**: Always include Claude Code attribution
 - **BONSAI it!**: Transform existing projects to BONSAI style (requires double confirmation)
 - **GROW!**: Execute multi-prompt orchestration from PROMPTS.md file (introduces temporary third instance)
 - **Bypass:**: Bypass BONSAI workflow and enable normal Claude Code behavior without dual-instance oversight
@@ -1723,6 +1728,52 @@ When adding new tools:
 - **Scripts**: Prefer Node.js scripts over shell scripts for cross-platform compatibility
 - **Environment**: Use `.env` files with consistent variable names across platforms
 - **Database**: SQLite works identically across all platforms
+
+### BONSAI Git Commit Template
+
+**MANDATORY for all "c/p" commands** (including "Bypass: c/p"):
+
+```
+# 🌱 BONSAI Commit Template
+# 
+# Format: <type>: <description>
+#
+# Types (choose one):
+#   feat     - New feature or functionality
+#   fix      - Bug fix or correction
+#   refactor - Code improvement without changing functionality
+#   docs     - Documentation changes
+#   style    - Code style/formatting (no logic changes)
+#   test     - Adding or updating tests
+#   chore    - Maintenance tasks, dependencies, tooling
+#   perf     - Performance improvements
+#   clean    - Code cleanup, removing unused code
+#
+# Guidelines:
+# - Use present tense, imperative mood ("Add feature" not "Added feature")
+# - Keep subject line under 50 characters
+# - Separate subject from body with blank line
+# - Use body to explain what and why, not how
+# - Reference issues/PRs when relevant (#123)
+#
+# Example:
+# feat: Add user authentication with JWT tokens
+# 
+# Implements secure login/logout functionality using JSON Web Tokens.
+# Includes password hashing and session management.
+# 
+# Closes #45
+#
+# 🤖 Generated with [Claude Code](https://claude.ai/code)
+# 
+# Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+**Usage Rules:**
+- **Always** follow this template format for commit messages
+- **Choose appropriate type** from the provided list
+- **Include Claude Code attribution** footer in all commits
+- **Apply consistently** whether in BONSAI workflow or bypass mode
 
 ## Design Philosophy
 
