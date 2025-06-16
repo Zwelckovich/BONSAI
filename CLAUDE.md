@@ -85,7 +85,7 @@ Before writing ANY response, Claude MUST internally verify:
 ```
 🚨 INTERNAL CHECKLIST (MUST COMPLETE BEFORE ANY OUTPUT):
 1. Have I read the compliance check requirement? [YES/NO]
-2. Am I about to write the compliance check template first? [YES/NO] 
+2. Am I about to write the compliance check template first? [YES/NO]
 3. If NO to #2 → STOP and restart response with compliance check
 4. If YES to #2 → Proceed with compliance check template
 
@@ -113,7 +113,7 @@ ENFORCEMENT: If response doesn't start with compliance check = RESTART RESPONSE
 **AUTOMATIC SELF-CORRECTION TRIGGERS:**
 ```
 Before outputting any response, Claude MUST check:
-- Does my response start with "🔒 MANDATORY COMPLIANCE CHECK:"? 
+- Does my response start with "🔒 MANDATORY COMPLIANCE CHECK:"?
   - If NO → Delete all text and start over with compliance check
   - If YES → Continue with response
 
@@ -124,6 +124,12 @@ If Claude catches itself starting a response with:
 - "Looking at the code" → DELETE and restart with compliance check
 - ANY tool call → DELETE and restart with compliance check
 - ANY content before compliance check → DELETE and restart with compliance check
+- **Direct technical responses to "Bypass:" messages** → DELETE and restart with compliance check
+- **Immediate file edits after "Bypass:"** → DELETE and restart with compliance check
+
+BYPASS-SPECIFIC VIOLATIONS:
+- Responding to "Bypass: Update CLAUDE.md" without compliance check → CRITICAL VIOLATION
+- Any response to "Bypass:" that doesn't start with compliance check → CRITICAL VIOLATION
 ```
 
 **MANDATORY RESPONSE STRUCTURE LOCK:**
@@ -154,6 +160,13 @@ Even when Claude "knows" the request type:
 
 ABSOLUTE RULE: The compliance check template is not conditional on content analysis
 ABSOLUTE RULE: Compliance check ALWAYS happens first, regardless of certainty about outcome
+
+🚨 BYPASS DETECTION STRENGTHENING:
+- Seeing "Bypass:" does NOT mean "skip compliance check"
+- Seeing "Bypass:" means "run compliance check, detect bypass IN the check"
+- The compliance check is the ONLY authorized way to process bypass commands
+- NO shortcuts allowed, even when bypass intent is obvious
+- Compliance check template MUST be the first thing output, always
 ```
 
 **COMPLIANCE FAILURE RECOVERY PROTOCOL:**
@@ -196,6 +209,25 @@ NO EXCEPTIONS: Never continue a response that started without compliance check
 - Meta-questions about CLAUDE.md itself → Run compliance check, detect meta-question, then normal behavior
 - **CRITICAL**: The compliance check is the decision mechanism, never the thing being bypassed
 
+**🚨 BYPASS HANDLING ENFORCEMENT 🚨:**
+```
+ABSOLUTE RULE: "Bypass:" does NOT mean skip compliance check
+ABSOLUTE RULE: Compliance check is HOW we detect "Bypass:"
+ABSOLUTE RULE: NO shortcuts allowed, even for obvious bypasses
+
+CORRECT FLOW:
+1. ALWAYS start with compliance check template
+2. IN the compliance check, detect "Bypass:"
+3. Set next action to NORMAL BEHAVIOR
+4. THEN execute normal Claude Code behavior
+
+INCORRECT FLOW (VIOLATION):
+1. See "Bypass:" in message
+2. Skip compliance check
+3. Go directly to normal behavior
+4. ❌ THIS IS A CRITICAL VIOLATION ❌
+```
+
 ## 🚨 STRUCTURAL OVERSIGHT ENFORCEMENT - MANDATORY TASK-BY-TASK EXECUTION
 
 **CRITICAL CHANGE**: The oversight system now requires **INDIVIDUAL TASK EXECUTION** instead of batch completion.
@@ -203,10 +235,12 @@ NO EXCEPTIONS: Never continue a response that started without compliance check
 ### **MANDATORY TASK EXECUTION PROTOCOL**:
 
 **RULE 1: CONTINUOUS SINGLE-TASK EXECUTION**
-- Execute all tasks (0-17) in a continuous workflow
-- NO batch completion of multiple tasks allowed
-- Process one task at a time with automatic progression
-- NO stopping between tasks - complete workflow runs from Task 0 through Task 17 automatically
+- Execute all tasks (0-17) in a continuous workflow, ONE TASK AT A TIME
+- NO batch completion of multiple tasks allowed EVER
+- Process one task at a time with individual evidence verification
+- Automatically progress to next task ONLY after current task evidence is confirmed
+- **FORBIDDEN**: Using Task tool or any method to complete multiple tasks simultaneously
+- **MANDATORY**: Each task requires individual tool usage and evidence documentation
 
 **RULE 2: TASK EVIDENCE REQUIREMENT**
 Every task completion must show:
@@ -258,6 +292,8 @@ The workflow must run continuously from Task 0 → Task 17 in one uninterrupted 
 - "Quality checks passed" without showing evidence → FRAUD
 - Multiple ✅ checkmarks in single response → FRAUD
 - Claiming task completion without tool usage → FRAUD
+- **Using Task tool to "complete remaining tasks"** → FRAUD
+- **Any attempt to batch multiple tasks with a single tool call** → FRAUD
 ```
 
 **RULE 6: MANDATORY RESPONSE COMPLETION VERIFICATION**
@@ -339,8 +375,26 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - "✅ [anything] Complete" without immediate Task N+1 → BLOCK and continue workflow immediately
 - "Issue resolved" → BLOCK and continue workflow immediately
 - "Working correctly" → BLOCK and continue workflow immediately
+- **"Complete remaining tasks" → BLOCK and force individual task execution**
+- **Task tool usage during BONSAI workflow → BLOCK and restart with individual tasks**
 
 ⚡ INTERVENTION ACTION: Force immediate next task execution without user interaction
+```
+
+**RULE 12: TASK TOOL PROHIBITION DURING BONSAI WORKFLOW**
+```
+🚨 ABSOLUTE PROHIBITION:
+- **NEVER use Task tool during BONSAI workflow execution**
+- **Task tool bypasses individual task evidence requirements**
+- **Task tool violates one-task-at-a-time principle**
+- **Any Task tool usage = immediate workflow violation**
+
+✅ CORRECT APPROACH: Execute each task individually using appropriate tools:
+- Task 5: Use Bash tool for environment execution
+- Task 6: Use Read tool for code review
+- Task 10: Use Bash tool for test execution
+- Task 12: Use Bash tool for linting
+- Task 14: Use Edit tool for documentation updates
 ```
 
 ## Task Workflow (STRICT - Follow for EVERY operation)
@@ -1735,7 +1789,7 @@ When adding new tools:
 
 ```
 # 🌱 BONSAI Commit Template
-# 
+#
 # Format: <type>: <description>
 #
 # Types (choose one):
@@ -1758,14 +1812,14 @@ When adding new tools:
 #
 # Example:
 # feat: Add user authentication with JWT tokens
-# 
+#
 # Implements secure login/logout functionality using JSON Web Tokens.
 # Includes password hashing and session management.
-# 
+#
 # Closes #45
 #
 # 🤖 Generated with [Claude Code](https://claude.ai/code)
-# 
+#
 # Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
@@ -3001,7 +3055,7 @@ The command follows all BONSAI workflow rules while performing its specific tran
    - **🚨 HARDCODED CHECK**: Before continuing to next phase, Instance 1 MUST read GROW.md and confirm current phase status is "✅ COMPLETED"
    - **🚨 AUTOMATIC CORRECTION**: If GROW.md is not updated, Instance 1 MUST automatically update it with completion status
 7. **Phase validation** - Ensure phase is fully functional before proceeding
-8. **Mode check**: 
+8. **Mode check**:
    - Standard mode: Stop and return to user
    - --ALL mode: Continue to next phase automatically
 
