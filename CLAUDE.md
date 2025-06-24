@@ -530,6 +530,12 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 **CONFIRM TO USER**: "🌱 Task 3 Complete: Concept alignment verified ✅"
 
 ### Task 4: Implementation
+- **FIRST**: Check Best Practices section for package-specific templates and examples
+  - **Rich logging**: Use BONSAI Rich integration template for console output
+  - **React + Tailwind**: Use BONSAI React + Tailwind WebUI template for professional interfaces
+  - **matplotlib**: Apply BONSAI matplotlib theme for data visualization
+  - **pydantic**: Use BONSAI minimal usage patterns for data validation
+  - **Other packages**: Look for established BONSAI patterns before implementing
 - Write minimal code that solves the problem
 - **ADD every new file to CLEANUP.md immediately upon creation**
 - No premature optimization
@@ -1718,6 +1724,954 @@ app.listen(3000)
 </html>
 <!-- Extract to app.js when logic exceeds 50 lines -->
 ```
+
+### BONSAI React + Tailwind CSS Professional WebUI Template
+
+**Complete Professional Interface System** - Extracted from real-world implementation:
+
+#### Project Setup (Vite + React + Tailwind)
+
+**package.json**:
+```json
+{
+  "name": "bonsai-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1",
+    "axios": "^1.7.7",
+    "zustand": "^4.5.5",
+    "react-plotly.js": "^2.6.0",
+    "plotly.js": "^2.35.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "tailwindcss": "^3.4.13",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20"
+  }
+}
+```
+
+**vite.config.js**:
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
+  }
+})
+```
+
+**tailwind.config.js** (Complete BONSAI Color System):
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // BONSAI Background Colors
+        'bonsai-bg-deep': '#0a0e14',
+        'bonsai-bg-primary': '#151922',
+        'bonsai-bg-secondary': '#1e242e',
+        'bonsai-bg-elevated': '#232933',
+        'bonsai-bg-overlay': '#2a3040',
+        
+        // BONSAI Text Colors
+        'bonsai-text-primary': '#e6e8eb',
+        'bonsai-text-secondary': '#b8bcc8',
+        'bonsai-text-muted': '#8b92a5',
+        'bonsai-text-disabled': '#6b7280',
+        'bonsai-text-inverted': '#0a0e14',
+        
+        // BONSAI Border Colors
+        'bonsai-border-subtle': '#2d3441',
+        'bonsai-border-primary': '#3d4455',
+        'bonsai-border-accent': '#4a5568',
+        'bonsai-border-strong': '#5a6578',
+        
+        // BONSAI Core Accent Colors
+        'bonsai-green-primary': '#7c9885',
+        'bonsai-green-secondary': '#9db4a6',
+        'bonsai-green-tertiary': '#a8c0b1',
+        'bonsai-green-muted': '#677a70',
+        'bonsai-green-glow': 'rgba(124, 152, 133, 0.15)',
+        
+        'bonsai-red-primary': '#c78289',
+        'bonsai-red-secondary': '#d4999f',
+        'bonsai-red-muted': '#a56b71',
+        
+        'bonsai-blue-primary': '#82a4c7',
+        'bonsai-blue-secondary': '#9bb5d4',
+        'bonsai-blue-muted': '#6b8aa5',
+        
+        'bonsai-yellow-primary': '#c7a882',
+        'bonsai-yellow-secondary': '#d4b99b',
+        'bonsai-yellow-muted': '#a5906b',
+        
+        'bonsai-purple-primary': '#9882c7',
+        'bonsai-orange-primary': '#c7975c',
+        'bonsai-teal-primary': '#5cc7a8',
+      },
+      fontFamily: {
+        'sans': ['Quicksand', 'system-ui', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'Monaco', 'monospace'],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      borderRadius: {
+        'xl': '12px',
+        '2xl': '16px',
+        '3xl': '24px',
+      },
+      transitionDuration: {
+        '300': '300ms',
+        '500': '500ms',
+        '700': '700ms',
+      },
+      boxShadow: {
+        'glow-sm': '0 0 10px rgba(124, 152, 133, 0.3)',
+        'glow': '0 0 20px rgba(124, 152, 133, 0.4)',
+        'glow-lg': '0 0 30px rgba(124, 152, 133, 0.5)',
+        'bonsai': '0 8px 32px rgba(10, 14, 20, 0.3)',
+        'bonsai-lg': '0 20px 60px rgba(10, 14, 20, 0.4)',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'scale-in': 'scaleIn 0.2s ease-out',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 5px rgba(124, 152, 133, 0.3)' },
+          '50%': { boxShadow: '0 0 20px rgba(124, 152, 133, 0.6)' },
+        },
+      },
+      backdropBlur: {
+        'xs': '2px',
+      }
+    },
+  },
+  plugins: [],
+}
+```
+
+**src/index.css** (Complete BONSAI Component System):
+```css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* BONSAI Global Styles */
+@layer base {
+  html {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  
+  code, pre {
+    font-family: 'JetBrains Mono', Monaco, monospace;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Enhanced Custom scrollbar for dark theme with smooth interactions */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: theme('colors.bonsai-bg-secondary');
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, theme('colors.bonsai-border-accent'), theme('colors.bonsai-border-primary'));
+    border-radius: 8px;
+    border: 2px solid theme('colors.bonsai-bg-secondary');
+    transition: all 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, theme('colors.bonsai-green-primary'), theme('colors.bonsai-green-muted'));
+    transform: scale(1.05);
+  }
+  
+  /* Enhanced page transitions and animations */
+  * {
+    transition-property: transform, opacity, box-shadow, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Subtle background pattern for visual interest */
+  body {
+    background-image: radial-gradient(circle at 25% 25%, theme('colors.bonsai-bg-primary') 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, theme('colors.bonsai-bg-secondary') 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  /* Enhanced BONSAI Button Components with Visual Polish */
+  .btn-primary {
+    @apply bg-bonsai-green-primary text-bonsai-text-inverted px-6 py-3 rounded-xl font-medium transition-all duration-300 ease-out transform hover:bg-bonsai-green-secondary hover:scale-105 hover:shadow-lg hover:shadow-bonsai-green-primary/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-bonsai-green-primary focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply bg-bonsai-bg-elevated text-bonsai-text-primary border border-bonsai-border-primary px-6 py-3 rounded-xl font-medium transition-all duration-300 ease-out transform hover:bg-bonsai-bg-overlay hover:border-bonsai-border-accent hover:scale-105 hover:shadow-md active:scale-95;
+  }
+  
+  .btn-correct {
+    @apply bg-bonsai-green-primary text-bonsai-text-inverted px-4 py-2 rounded-lg font-medium transition-all duration-300 ease-out transform hover:bg-bonsai-green-secondary hover:scale-105 hover:shadow-lg hover:shadow-bonsai-green-primary/30 active:scale-95;
+  }
+  
+  .btn-wrong {
+    @apply bg-bonsai-red-primary text-bonsai-text-inverted px-4 py-2 rounded-lg font-medium transition-all duration-300 ease-out transform hover:bg-bonsai-red-secondary hover:scale-105 hover:shadow-lg hover:shadow-bonsai-red-primary/30 active:scale-95;
+  }
+  
+  /* Enhanced BONSAI Card Components with Depth and Visual Interest */
+  .card {
+    @apply bg-bonsai-bg-primary border border-bonsai-border-subtle rounded-2xl p-6 transition-all duration-300 ease-out hover:border-bonsai-border-primary hover:shadow-xl hover:shadow-bonsai-bg-deep/20 hover:transform hover:translate-y-[-2px] backdrop-blur-sm;
+  }
+  
+  .card-elevated {
+    @apply bg-bonsai-bg-elevated border border-bonsai-border-primary rounded-2xl p-6 shadow-xl shadow-bonsai-bg-deep/40 backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:shadow-bonsai-bg-deep/60 hover:transform hover:translate-y-[-3px];
+  }
+  
+  /* Enhanced BONSAI Input Components with Focus States */
+  .input-field {
+    @apply bg-bonsai-bg-secondary border border-bonsai-border-primary rounded-xl px-4 py-3 text-bonsai-text-primary placeholder-bonsai-text-muted focus:outline-none focus:border-bonsai-green-primary focus:ring-2 focus:ring-bonsai-green-primary/30 focus:shadow-lg focus:shadow-bonsai-green-primary/10 transition-all duration-300 ease-out;
+  }
+  
+  /* Enhanced BONSAI Navigation with Smooth Interactions */
+  .nav-link {
+    @apply text-bonsai-text-secondary hover:text-bonsai-text-primary transition-all duration-300 ease-out px-4 py-2 rounded-lg hover:bg-bonsai-bg-secondary relative overflow-hidden;
+  }
+  
+  .nav-link-active {
+    @apply text-bonsai-green-primary bg-bonsai-bg-secondary shadow-inner border-l-2 border-bonsai-green-primary;
+  }
+  
+  /* New Enhanced Components for Visual Polish */
+  .confidence-badge {
+    @apply px-3 py-1 rounded-full text-xs font-semibold transition-all duration-300 ease-out backdrop-blur-sm border;
+  }
+  
+  .confidence-high {
+    @apply bg-bonsai-green-primary/20 text-bonsai-green-primary border-bonsai-green-primary/30 shadow-lg shadow-bonsai-green-primary/20;
+  }
+  
+  .confidence-medium {
+    @apply bg-bonsai-yellow-primary/20 text-bonsai-yellow-primary border-bonsai-yellow-primary/30 shadow-lg shadow-bonsai-yellow-primary/20;
+  }
+  
+  .confidence-low {
+    @apply bg-bonsai-red-primary/20 text-bonsai-red-primary border-bonsai-red-primary/30 shadow-lg shadow-bonsai-red-primary/20;
+  }
+  
+  .metric-card {
+    @apply bg-gradient-to-br from-bonsai-bg-elevated to-bonsai-bg-secondary border border-bonsai-border-primary rounded-xl p-4 transition-all duration-300 ease-out hover:from-bonsai-bg-overlay hover:to-bonsai-bg-elevated hover:border-bonsai-border-accent hover:shadow-lg backdrop-blur-sm;
+  }
+  
+  .glow-effect {
+    @apply relative before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r before:from-transparent before:via-bonsai-green-primary/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500;
+  }
+}
+```
+
+#### Professional Navigation Layout (Layout.jsx)
+
+**Left Navigation with Animations and Active States**:
+```jsx
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
+
+const Layout = ({ children }) => {
+  const location = useLocation()
+  
+  const navItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/analytics', label: 'Analytics', icon: '📈' },
+    { path: '/settings', label: 'Settings', icon: '⚙️' }
+  ]
+  
+  const isActive = (path) => location.pathname === path || (path === '/dashboard' && location.pathname === '/')
+  
+  return (
+    <div className="flex min-h-screen animate-fade-in">
+      {/* Enhanced Sidebar Navigation with Visual Polish */}
+      <nav className="w-64 bg-gradient-to-b from-bonsai-bg-primary to-bonsai-bg-secondary border-r border-bonsai-border-subtle flex flex-col shadow-bonsai backdrop-blur-sm">
+        {/* Enhanced Logo/Title with Glow Effect */}
+        <div className="p-6 border-b border-bonsai-border-subtle relative">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-bonsai-green-primary flex items-center justify-center shadow-glow-sm">
+              <span className="text-lg">🌱</span>
+            </div>
+            <h1 className="text-xl font-semibold text-bonsai-text-primary tracking-wide">
+              Your App
+            </h1>
+          </div>
+          <p className="text-sm text-bonsai-text-muted">
+            Professional Dashboard
+          </p>
+        </div>
+        
+        {/* Enhanced Navigation Links with Micro-interactions */}
+        <div className="flex-1 p-4">
+          <ul className="space-y-3">
+            {navItems.map((item, index) => (
+              <li key={item.path} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
+                <Link
+                  to={item.path}
+                  className={`nav-link flex items-center gap-3 w-full relative group transition-all duration-300 ease-out ${
+                    isActive(item.path) 
+                      ? 'nav-link-active shadow-lg transform scale-105' 
+                      : 'hover:transform hover:translate-x-2'
+                  }`}
+                >
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300 group-hover:bg-bonsai-bg-elevated group-hover:shadow-md">
+                    <span className="text-lg transition-transform duration-300 group-hover:scale-110">{item.icon}</span>
+                  </div>
+                  <span className="font-medium">{item.label}</span>
+                  {isActive(item.path) && (
+                    <div className="absolute right-0 w-1 h-full bg-gradient-to-b from-bonsai-green-primary to-bonsai-green-secondary rounded-l-full shadow-glow-sm"></div>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        {/* Enhanced Footer with Subtle Branding */}
+        <div className="p-4 border-t border-bonsai-border-subtle relative">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-2 h-2 rounded-full bg-bonsai-green-primary animate-pulse-glow"></div>
+            <p className="text-xs text-bonsai-text-muted font-medium">
+              Built with BONSAI principles
+            </p>
+          </div>
+          <p className="text-xs text-bonsai-text-disabled">
+            Minimal • Purposeful • Beautiful
+          </p>
+        </div>
+      </nav>
+      
+      {/* Enhanced Main Content with Background Pattern */}
+      <main className="flex-1 bg-bonsai-bg-deep relative overflow-hidden">
+        {/* Subtle background pattern for visual depth */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-bonsai-green-primary rounded-full mix-blend-multiply filter blur-xl"></div>
+          <div className="absolute top-40 right-20 w-96 h-96 bg-bonsai-blue-primary rounded-full mix-blend-multiply filter blur-xl"></div>
+          <div className="absolute bottom-20 left-40 w-80 h-80 bg-bonsai-purple-primary rounded-full mix-blend-multiply filter blur-xl"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-6xl mx-auto p-6 min-h-screen">
+          <div className="animate-slide-up">
+            {children}
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export default Layout
+```
+
+#### Analytics Dashboard Page (DashboardPage.jsx)
+
+**Professional Metrics Display with Smooth Transitions**:
+```jsx
+import React, { useState, useEffect } from 'react'
+import Plot from 'react-plotly.js'
+
+const DashboardPage = () => {
+  const [analytics, setAnalytics] = useState({
+    total_revenue: 125420.50,
+    growth_rate: 12.5,
+    active_users: 2847,
+    conversion_rate: 3.2
+  })
+
+  // BONSAI Plotly theme configuration
+  const BONSAI_PLOTLY_THEME = {
+    paper_bgcolor: '#0a0e14',     // BONSAI_background_deep
+    plot_bgcolor: '#151922',      // BONSAI_background_primary
+    font: { 
+      family: 'Quicksand, sans-serif',
+      color: '#e6e8eb',           // BONSAI_text_primary
+      size: 12
+    },
+    colorway: [                   // BONSAI color palette
+      '#7c9885',                  // green_primary
+      '#82a4c7',                  // blue_primary  
+      '#c7a882',                  // yellow_primary
+      '#c78289',                  // red_primary
+      '#9882c7'                   // purple_primary
+    ],
+    xaxis: {
+      gridcolor: '#4a5568',       // BONSAI_border_accent
+      gridwidth: 0.8,
+      linecolor: '#4a5568',
+      tickcolor: '#4a5568',
+      color: '#b8bcc8'            // BONSAI_text_secondary
+    },
+    yaxis: {
+      gridcolor: '#4a5568',
+      gridwidth: 0.8,
+      linecolor: '#4a5568',
+      tickcolor: '#4a5568',
+      color: '#b8bcc8'
+    },
+    margin: { t: 40, r: 20, b: 40, l: 60 }
+  }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount)
+  }
+
+  return (
+    <div className="space-y-8 animate-fade-in">
+      {/* Enhanced Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bonsai-green-primary to-bonsai-green-secondary flex items-center justify-center shadow-glow">
+              <span className="text-xl">📊</span>
+            </div>
+            <h1 className="text-3xl font-bold text-bonsai-text-primary">
+              Analytics Dashboard
+            </h1>
+          </div>
+          <p className="text-bonsai-text-muted">
+            Track your key performance metrics and insights
+          </p>
+        </div>
+        
+        <button className="btn-primary shadow-glow transform hover:shadow-glow-lg">
+          <span className="flex items-center gap-2">
+            <span className="text-lg">📈</span>
+            Generate Report
+          </span>
+        </button>
+      </div>
+
+      {/* Enhanced Analytics Dashboard */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Enhanced Revenue Metric */}
+        <div className="metric-card text-center glow-effect animate-scale-in">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-6 h-6 rounded-full bg-bonsai-green-primary/20 flex items-center justify-center">
+              <span className="text-sm">💰</span>
+            </div>
+            <h3 className="text-sm font-medium text-bonsai-text-muted">Total Revenue</h3>
+          </div>
+          <div className="text-3xl font-bold text-bonsai-green-primary mb-2">
+            {formatCurrency(analytics.total_revenue)}
+          </div>
+          <div className="text-xs text-bonsai-text-muted">
+            +{analytics.growth_rate}% from last month
+          </div>
+        </div>
+        
+        {/* Users Metric */}
+        <div className="card text-center">
+          <h3 className="text-sm text-bonsai-text-muted mb-2">Active Users</h3>
+          <div className="text-2xl font-semibold text-bonsai-blue-primary">
+            {analytics.active_users.toLocaleString()}
+          </div>
+          <div className="text-sm text-bonsai-text-muted mt-1">
+            Online now
+          </div>
+        </div>
+        
+        {/* Conversion Rate */}
+        <div className="card text-center">
+          <h3 className="text-sm text-bonsai-text-muted mb-2">Conversion Rate</h3>
+          <div className="text-2xl font-semibold text-bonsai-yellow-primary">
+            {analytics.conversion_rate}%
+          </div>
+          <div className="text-sm text-bonsai-text-muted mt-1">
+            Last 30 days
+          </div>
+        </div>
+        
+        {/* Performance Score */}
+        <div className="card text-center">
+          <h3 className="text-sm text-bonsai-text-muted mb-2">Performance</h3>
+          <div className="text-2xl font-semibold text-bonsai-purple-primary">
+            Excellent
+          </div>
+          <div className="text-sm text-bonsai-text-muted mt-1">
+            System health: 99.2%
+          </div>
+        </div>
+      </div>
+
+      {/* Charts Section */}
+      <div className="space-y-6">
+        {/* Revenue Trend Chart */}
+        <div className="card">
+          <h2 className="text-lg font-semibold text-bonsai-text-primary mb-4">
+            Revenue Trend Over Time
+          </h2>
+          <Plot
+            data={[
+              {
+                x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                y: [45000, 52000, 48000, 61000, 55000, 67000],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Revenue',
+                line: { 
+                  color: '#7c9885', 
+                  width: 3,
+                  shape: 'spline'
+                },
+                marker: { 
+                  color: '#7c9885', 
+                  size: 6,
+                  line: { color: '#677a70', width: 1 }
+                },
+                fill: 'tonexty',
+                fillcolor: 'rgba(124, 152, 133, 0.1)'
+              }
+            ]}
+            layout={{
+              ...BONSAI_PLOTLY_THEME,
+              title: '',
+              xaxis: {
+                ...BONSAI_PLOTLY_THEME.xaxis,
+                title: 'Month'
+              },
+              yaxis: {
+                ...BONSAI_PLOTLY_THEME.yaxis,
+                title: 'Revenue ($)',
+                tickformat: '$,.0f'
+              },
+              hovermode: 'x unified',
+              hoverlabel: {
+                bgcolor: '#232933',
+                bordercolor: '#4a5568',
+                font: { color: '#e6e8eb' }
+              }
+            }}
+            style={{ width: '100%', height: '400px' }}
+            config={{ 
+              displayModeBar: false,
+              responsive: true
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default DashboardPage
+```
+
+#### Data Grid with Action Buttons (DataPage.jsx)
+
+**Professional Data Display with Highlighting and Animations**:
+```jsx
+import React, { useState, useEffect } from 'react'
+
+const DataPage = () => {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      name: 'Project Alpha',
+      status: 'active',
+      priority: 'high',
+      progress: 85,
+      value: 125000,
+      confidence: 92.5
+    },
+    {
+      id: 2,
+      name: 'Project Beta',
+      status: 'pending',
+      priority: 'medium',
+      progress: 45,
+      value: 75000,
+      confidence: 67.3
+    },
+    {
+      id: 3,
+      name: 'Project Gamma',
+      status: 'completed',
+      priority: 'low',
+      progress: 100,
+      value: 200000,
+      confidence: 95.1
+    }
+  ])
+
+  const [processingId, setProcessingId] = useState(null)
+
+  const handleAction = async (itemId, action) => {
+    setProcessingId(itemId)
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    setItems(items.map(item => 
+      item.id === itemId 
+        ? { ...item, status: action === 'approve' ? 'active' : 'rejected' }
+        : item
+    ))
+    
+    setProcessingId(null)
+  }
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'active': return 'text-bonsai-green-primary'
+      case 'pending': return 'text-bonsai-yellow-primary'
+      case 'completed': return 'text-bonsai-blue-primary'
+      case 'rejected': return 'text-bonsai-red-primary'
+      default: return 'text-bonsai-text-muted'
+    }
+  }
+
+  const getPriorityBorder = (priority) => {
+    switch (priority) {
+      case 'high': return 'border-l-bonsai-red-primary'
+      case 'medium': return 'border-l-bonsai-yellow-primary'
+      case 'low': return 'border-l-bonsai-green-primary'
+      default: return 'border-l-bonsai-border-subtle'
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-bonsai-text-primary">
+            Project Management
+          </h1>
+          <p className="text-bonsai-text-muted mt-1">
+            {items.length} projects • {items.filter(i => i.status === 'active').length} active
+          </p>
+        </div>
+      </div>
+
+      {/* Items List with Enhanced Styling */}
+      <div className="space-y-6">
+        {items.map((item, index) => (
+          <div 
+            key={item.id} 
+            className={`card hover:border-bonsai-border-accent hover:shadow-bonsai-lg transform transition-all duration-500 ease-out animate-scale-in border-l-4 ${getPriorityBorder(item.priority)} bg-gradient-to-r from-bonsai-green-primary/5 to-transparent`}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <div className="flex items-center justify-between">
+              {/* Project Info */}
+              <div className="flex-1">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-4">
+                    <div className="text-lg font-medium text-bonsai-text-primary">
+                      {item.name}
+                    </div>
+                    <div className={`confidence-badge ${
+                      item.confidence >= 90 
+                        ? 'confidence-high'
+                        : item.confidence >= 70
+                        ? 'confidence-medium'
+                        : 'confidence-low'
+                    }`}>
+                      {item.confidence.toFixed(1)}% Confidence
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-sm text-bonsai-text-muted mb-2">
+                  💼 {item.priority.toUpperCase()} Priority • 📊 {item.progress}% Complete • 💰 ${item.value.toLocaleString()}
+                </div>
+                
+                {/* Enhanced Project Details Display */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-4">
+                  <div className="metric-card">
+                    <span className="text-bonsai-text-muted text-xs font-medium">Status</span>
+                    <div className={`font-semibold text-sm mt-1 ${getStatusColor(item.status)}`}>
+                      {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                    </div>
+                  </div>
+                  
+                  <div className="metric-card">
+                    <span className="text-bonsai-text-muted text-xs font-medium">Progress</span>
+                    <div className="mt-2">
+                      <div className="w-full bg-bonsai-bg-secondary rounded-full h-2">
+                        <div 
+                          className="bg-bonsai-green-primary h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${item.progress}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-xs text-bonsai-text-muted mt-1 block">{item.progress}%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="metric-card">
+                    <span className="text-bonsai-text-muted text-xs font-medium">Value</span>
+                    <span className="text-bonsai-blue-primary font-semibold text-lg block mt-1">
+                      ${item.value.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Enhanced Action Buttons */}
+              <div className="flex flex-col items-end gap-4 ml-6">
+                <div className="flex flex-col gap-3">
+                  <button 
+                    onClick={() => handleAction(item.id, 'approve')}
+                    className={`btn-correct min-w-[120px] shadow-lg relative overflow-hidden group ${
+                      processingId === item.id ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={processingId === item.id}
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {processingId === item.id ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Approve
+                        </>
+                      )}
+                    </span>
+                  </button>
+                  
+                  <button 
+                    onClick={() => handleAction(item.id, 'reject')}
+                    className={`btn-wrong min-w-[120px] shadow-lg relative overflow-hidden group ${
+                      processingId === item.id ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={processingId === item.id}
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {processingId === item.id ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Reject
+                        </>
+                      )}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default DataPage
+```
+
+#### State Management (useAppStore.js)
+
+**Zustand Store with Professional State Management**:
+```javascript
+import { create } from 'zustand'
+
+const useAppStore = create((set, get) => ({
+  // App state
+  items: [],
+  analytics: null,
+  currentUser: null,
+  loading: false,
+  error: null,
+
+  // Actions
+  setItems: (items) => set({ items }),
+  setAnalytics: (analytics) => set({ analytics }),
+  setCurrentUser: (user) => set({ currentUser: user }),
+  setLoading: (loading) => set({ loading }),
+  setError: (error) => set({ error }),
+
+  // Add item with optimistic updates
+  addItem: (item) => set((state) => ({
+    items: [...state.items, item]
+  })),
+
+  // Update item
+  updateItem: (id, updates) => set((state) => ({
+    items: state.items.map(item => 
+      item.id === id ? { ...item, ...updates } : item
+    )
+  })),
+
+  // Remove item
+  removeItem: (id) => set((state) => ({
+    items: state.items.filter(item => item.id !== id)
+  })),
+
+  // Clear error
+  clearError: () => set({ error: null }),
+
+  // Reset store
+  reset: () => set({
+    items: [],
+    analytics: null,
+    currentUser: null,
+    loading: false,
+    error: null
+  })
+}))
+
+export default useAppStore
+```
+
+#### API Service Layer (api.js)
+
+**Professional API Integration with Error Handling**:
+```javascript
+import axios from 'axios'
+
+// Create axios instance with default config
+const api = axios.create({
+  baseURL: '/api',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+
+// Request interceptor for auth tokens
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('authToken')
+      window.location.href = '/login'
+    }
+    return Promise.reject(error)
+  }
+)
+
+// API endpoints
+export const itemsAPI = {
+  getAll: () => api.get('/items'),
+  getById: (id) => api.get(`/items/${id}`),
+  create: (data) => api.post('/items', data),
+  update: (id, data) => api.put(`/items/${id}`, data),
+  delete: (id) => api.delete(`/items/${id}`)
+}
+
+export const analyticsAPI = {
+  getOverview: () => api.get('/analytics/overview'),
+  getMetrics: (period) => api.get(`/analytics/metrics?period=${period}`)
+}
+
+export const authAPI = {
+  login: (credentials) => api.post('/auth/login', credentials),
+  logout: () => api.post('/auth/logout'),
+  profile: () => api.get('/auth/profile')
+}
+
+export default api
+```
+
+#### Key Features Captured
+
+**1. Left Navigation with Animations**:
+- Smooth navigation link animations
+- Active state highlighting with glow effects
+- Icon animations on hover
+- Staggered entrance animations
+
+**2. Smooth Page Transitions**:
+- fade-in animations for entire pages
+- slide-up animations for content blocks
+- scale-in animations for cards
+
+**3. Enhanced Component Blocks**:
+- Professional metric cards with hover effects
+- Confidence badges with color coding
+- Progress bars with smooth animations
+- Gradient backgrounds and glow effects
+
+**4. Progressive Block Building**:
+- Staggered animations (animationDelay)
+- Content blocks that animate in sequence
+- Hover states that enhance visual feedback
+
+**5. Perfect Plotly Integration**:
+- Complete BONSAI theme configuration
+- Dark background with BONSAI colors
+- Professional chart styling
+- Responsive design
+
+This template provides everything needed to build professional, visually stunning interfaces that match the BONSAI design system perfectly. All animations, colors, and interactions are production-ready and can be customized for any project.
 
 ### Tool Introduction Triggers
 
