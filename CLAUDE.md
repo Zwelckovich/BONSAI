@@ -29,7 +29,7 @@
 **ENFORCEMENT LOGIC:**
 
 - **"Bypass:" prefix detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
-- **Meta-question about CLAUDE.md detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
+- **Meta-question about CLAUDE.md template/structure detected in compliance check** → Normal Claude Code behavior (NO BONSAI, NO TASK TOOL)
 - **"GROW!" or "GROW! --ALL" detected in compliance check** → Activate Instance 3 Orchestrator (NO STANDARD BONSAI WORKFLOW)
 - **"BONSAI it!" detected in compliance check** → Execute BONSAI transformation process (NO STANDARD WORKFLOW)
 - **ANY OTHER REQUEST detected in compliance check** → Task 0 start and full 18-task BONSAI workflow
@@ -67,16 +67,53 @@
 **AUTOMATED TRIGGER DETECTION (WITHIN COMPLIANCE CHECK):**
 
 - **"Bypass:" at message start** → COMPLIANCE CHECK DETECTS: Normal behavior, bypass BONSAI
-- **Questions about "CLAUDE.md"** → COMPLIANCE CHECK DETECTS: Normal behavior, no workflow
+- **Questions about CLAUDE.md template/structure only** → COMPLIANCE CHECK DETECTS: Normal behavior, no workflow
 - **"GROW!" or "GROW! --ALL" detected** → COMPLIANCE CHECK DETECTS: Activate Instance 3 Orchestrator
 - **"BONSAI it!" detected** → COMPLIANCE CHECK DETECTS: BONSAI transformation process
-- **All other requests** → COMPLIANCE CHECK DETECTS: BONSAI workflow required
+- **All other requests (including questions about using BONSAI workflow)** → COMPLIANCE CHECK DETECTS: BONSAI workflow required
 
 **FAIL-SAFE DEFAULT LOGIC:**
 
 - **Default state**: BONSAI workflow required
 - **Exception handling**: Only bypass on explicit "Bypass:" prefix
 - **No memory reliance**: Template is hardcoded requirement, not optional
+
+**BONSAI WORKFLOW ACTIVATION EXAMPLES:**
+
+✅ **These trigger BONSAI workflow:**
+- "Help me implement a new feature"
+- "Add user authentication to my app"
+- "Fix this bug in my code"
+- "Using the plan mode and accepting the BONSAI flow is not triggered how can we change it?"
+- "Create a data processing pipeline"
+- "Optimize my application performance"
+- "Set up testing for my project"
+- Any development, debugging, or implementation request
+
+❌ **These use normal behavior (no BONSAI):**
+- "Bypass: How does this function work?"
+- "What does this section of CLAUDE.md mean?" (template structure questions)
+- "How is CLAUDE.md organized?" (template structure questions)
+- "GROW!" or "BONSAI it!" (special commands)
+
+🎯 **Key Distinction:**
+- Questions ABOUT the CLAUDE.md template structure = Normal behavior
+- Questions about HOW TO USE BONSAI workflow = BONSAI workflow required
+
+**PLAN MODE INTEGRATION:**
+
+📋 **Plan Mode + BONSAI Workflow:**
+- Plan mode is compatible with BONSAI workflow
+- User can request planning for BONSAI development tasks
+- After plan approval, BONSAI workflow (Task 0-17) executes normally
+- Plan mode does NOT bypass compliance check - it's a presentation mode
+- exit_plan_mode tool transitions from planning to execution
+
+🔄 **Plan Mode Flow:**
+1. User requests development work (triggers BONSAI compliance check)
+2. If complex task detected → Present plan using exit_plan_mode tool
+3. User approves plan → Execute full 18-task BONSAI workflow
+4. Plan mode enables better user understanding before execution
 
 **PRE-RESPONSE VERIFICATION PROTOCOL:**
 Before writing ANY response, Claude MUST internally verify:
