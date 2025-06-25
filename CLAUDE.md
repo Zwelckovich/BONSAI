@@ -10,9 +10,10 @@
 🔒 MANDATORY COMPLIANCE CHECK:
 - Request starts with "Bypass:": [YES/NO]
 - Meta-question about CLAUDE.md: [YES/NO]
+- Plan mode detected: [YES/NO]
 - Any other request type: [YES/NO]
 - BONSAI workflow required: [YES/NO]
-- Next action: [NORMAL BEHAVIOR / START TASK 0]
+- Next action: [NORMAL BEHAVIOR / PRESENT PLAN / START TASK 0]
 ```
 
 **🚨 ZERO TOLERANCE - NO EXCEPTIONS 🚨**
@@ -57,17 +58,19 @@
 🔒 MANDATORY COMPLIANCE CHECK:
 - Request starts with "Bypass:": [YES/NO]
 - Meta-question about CLAUDE.md: [YES/NO]
+- Plan mode detected: [YES/NO]
 - GROW! command detected: [YES/NO]
 - BONSAI it! command detected: [YES/NO]
 - Any other request type: [YES/NO]
 - BONSAI workflow required: [YES/NO]
-- Next action: [NORMAL BEHAVIOR / START TASK 0 / ACTIVATE ORCHESTRATOR / BONSAI IT! TRANSFORMATION]
+- Next action: [NORMAL BEHAVIOR / PRESENT PLAN / START TASK 0 / ACTIVATE ORCHESTRATOR / BONSAI IT! TRANSFORMATION]
 ```
 
 **AUTOMATED TRIGGER DETECTION (WITHIN COMPLIANCE CHECK):**
 
 - **"Bypass:" at message start** → COMPLIANCE CHECK DETECTS: Normal behavior, bypass BONSAI
 - **Questions about CLAUDE.md template/structure only** → COMPLIANCE CHECK DETECTS: Normal behavior, no workflow
+- **Plan mode system reminders present** → COMPLIANCE CHECK DETECTS: Present plan before execution
 - **"GROW!" or "GROW! --ALL" detected** → COMPLIANCE CHECK DETECTS: Activate Instance 3 Orchestrator
 - **"BONSAI it!" detected** → COMPLIANCE CHECK DETECTS: BONSAI transformation process
 - **All other requests (including questions about using BONSAI workflow)** → COMPLIANCE CHECK DETECTS: BONSAI workflow required
@@ -469,6 +472,15 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 ## Task Workflow (STRICT - Follow for EVERY operation)
 
+### **🚨 CRITICAL WORKFLOW RULE - ZERO TOLERANCE**
+
+**EVERY TASK HAS TWO MANDATORY STEPS**:
+1. **Execute the task actions**
+2. **🚨 UPDATE BONSAI.md WITH EXACT TEMPLATE CONTENT** (using Edit tool)
+3. **Provide user confirmation message**
+
+**🚨 THE ACTION STEP CANNOT BE SKIPPED UNDER ANY CIRCUMSTANCES**
+
 ### **MANDATORY BONSAI.md SUMMARY REQUIREMENT**
 
 **ABSOLUTE REQUIREMENT**: Every task completion MUST include detailed summary in BONSAI.md using the EXACT template provided. This is NON-NEGOTIABLE.
@@ -480,11 +492,17 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - ❌ NEVER provide only user confirmation without BONSAI.md update
 - ❌ NEVER use Edit tool instead of the full template content
 
-**MANDATORY WORKFLOW FOR EACH TASK**:
+**🚨 MANDATORY WORKFLOW FOR EACH TASK - ZERO TOLERANCE ENFORCEMENT**:
 
 1. **Execute the task actions**
-2. **Update BONSAI.md with EXACT template content** (using Edit tool)
+2. **🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md with EXACT template content (using Edit tool)
 3. **Provide user confirmation message**
+
+**🚨 CRITICAL REQUIREMENT**: The ACTION step is NOT optional. The detailed template content MUST be added to BONSAI.md using the Edit tool before proceeding to the next task.
+
+**🚨 VIOLATION DETECTION**: Instance 1 MUST verify BONSAI.md contains the exact template content before allowing task progression.
+
+**🚨 FORBIDDEN**: Skipping the ACTION step or only providing user confirmations without updating BONSAI.md.
 
 **ENFORCEMENT**: Instance 1 MUST verify that BONSAI.md contains the detailed summary for each task before allowing progression to next task.
 
@@ -565,7 +583,14 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - Identify files to modify/create
 - List required tools (only if not present and not in Don'ts)
 
-**ACTION**: Update BONSAI.md
+**🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md
+
+**CRITICAL REQUIREMENT**: This ACTION step is NOT optional. The detailed template content MUST be added to BONSAI.md using the Edit tool before proceeding to the next task.
+
+**Instance 1 MANDATORY VERIFICATION**: 
+- Confirm BONSAI.md was updated with Edit tool
+- Verify template content matches required format
+- Block next task if ACTION step not completed
 
 ```markdown
 - [x] Task 1: Plan Creation & Cleanup Tracking ✓ [timestamp]
@@ -585,7 +610,12 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - Understand current structure and dependencies
 - **Check CLEANUP.md status**
 
-**ACTION**: Update BONSAI.md
+**🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md
+
+**Instance 1 MANDATORY VERIFICATION**: 
+- Confirm BONSAI.md was updated with Edit tool
+- Verify template content matches required format
+- Block next task if ACTION step not completed
 
 ```markdown
 - [x] Task 2: File Reading ✓ [timestamp]
@@ -604,7 +634,12 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - Verify no Don'ts patterns are being introduced
 - Abort if misaligned with concept.md
 
-**ACTION**: Update BONSAI.md
+**🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md
+
+**Instance 1 MANDATORY VERIFICATION**: 
+- Confirm BONSAI.md was updated with Edit tool
+- Verify template content matches required format
+- Block next task if ACTION step not completed
 
 ```markdown
 - [x] Task 3: Concept Alignment ✓ [timestamp]
