@@ -1,1 +1,1 @@
-Bypass: $ARGUMENTS
+Bypass: Think hard. $ARGUMENTS
