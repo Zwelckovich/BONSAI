@@ -496,7 +496,8 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 1. **Execute the task actions**
 2. **🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md with EXACT template content (using Edit tool)
-3. **Provide user confirmation message**
+3. **🚨 THINK HARD**: Before proceeding, carefully analyze the decisions made and their implications
+4. **Provide user confirmation message**
 
 **🚨 CRITICAL REQUIREMENT**: The ACTION step is NOT optional. The detailed template content MUST be added to BONSAI.md using the Edit tool before proceeding to the next task.
 
@@ -587,7 +588,7 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 **CRITICAL REQUIREMENT**: This ACTION step is NOT optional. The detailed template content MUST be added to BONSAI.md using the Edit tool before proceeding to the next task.
 
-**Instance 1 MANDATORY VERIFICATION**: 
+**Instance 1 MANDATORY VERIFICATION**:
 - Confirm BONSAI.md was updated with Edit tool
 - Verify template content matches required format
 - Block next task if ACTION step not completed
@@ -612,7 +613,7 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 **🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md
 
-**Instance 1 MANDATORY VERIFICATION**: 
+**Instance 1 MANDATORY VERIFICATION**:
 - Confirm BONSAI.md was updated with Edit tool
 - Verify template content matches required format
 - Block next task if ACTION step not completed
@@ -636,7 +637,7 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 **🚨 MANDATORY ACTION - NO EXCEPTIONS**: Update BONSAI.md
 
-**Instance 1 MANDATORY VERIFICATION**: 
+**Instance 1 MANDATORY VERIFICATION**:
 - Confirm BONSAI.md was updated with Edit tool
 - Verify template content matches required format
 - Block next task if ACTION step not completed
@@ -4374,6 +4375,8 @@ When "BONSAI it!" is triggered, it executes WITHIN the standard 18-task workflow
 - Task 12: Formatting & Linting (after all changes)
 - Task 13-17: Final validation and documentation
 
+**🚨 THINK HARD REQUIREMENT**: At each phase completion, carefully analyze the transformation decisions made, their impact on the project, and potential consequences before proceeding to the next phase.
+
 The command follows all BONSAI workflow rules while performing its specific transformation logic.
 
 ## 🌱 GROW! - Multi-Prompt Orchestration System
@@ -4428,9 +4431,9 @@ The command follows all BONSAI workflow rules while performing its specific tran
 
 **For each phase prompt in GROW.md:**
 
-1. **Instance 3 sends prompt** to Instance 1
-2. **Instance 1 performs compliance check** (standard BONSAI process)
-3. **Instance 2 executes task** (standard workflow or bypass behavior)
+1. **Instance 3 reads phase prompt** from GROW.md and immediately switches to Instance 1 role
+2. **Instance 1 processes phase prompt** as if it were a direct user request (immediate compliance check)
+3. **Instance 2 executes phase prompt content** (standard workflow or bypass behavior based on prompt content)
 4. **CRITICAL --ALL MODE**: Instance 2 MUST complete ALL 18 tasks continuously without stopping
 5. **Instance 1 signals completion** to Instance 3 with summary ONLY after all 18 tasks complete
 6. **Instance 3 updates GROW.md** with results and progress
@@ -4439,8 +4442,9 @@ The command follows all BONSAI workflow rules while performing its specific tran
    - **🚨 VERIFICATION PROTOCOL**: Instance 1 must verify GROW.md shows phase as COMPLETED before proceeding
    - **🚨 HARDCODED CHECK**: Before continuing to next phase, Instance 1 MUST read GROW.md and confirm current phase status is "✅ COMPLETED"
    - **🚨 AUTOMATIC CORRECTION**: If GROW.md is not updated, Instance 1 MUST automatically update it with completion status
-7. **Phase validation** - Ensure phase is fully functional before proceeding
-8. **Mode check**:
+7. **🚨 THINK HARD**: Carefully analyze the phase execution, decisions made, and their implications before proceeding
+8. **Phase validation** - Ensure phase is fully functional before proceeding
+9. **Mode check**:
    - Standard mode: Stop and return to user
    - --ALL mode: Continue to next phase automatically
 
