@@ -1981,6 +1981,36 @@ app.listen(3000);
 
 #### Project Setup (Vite + React + Tailwind)
 
+**🚨 CRITICAL TAILWIND CSS v4 COMPATIBILITY WARNING 🚨**
+
+```
+⚠️ TAILWIND CSS v4 CONFIGURATION REQUIREMENTS:
+
+If using Tailwind CSS v4, you MUST use the new configuration format:
+
+❌ OLD v3 FORMAT (will cause "unknown utility class" errors):
+- @tailwind base; @tailwind components; @tailwind utilities;
+- JavaScript tailwind.config.js files
+- CSS custom properties in config files
+
+✅ NEW v4 FORMAT (required):
+- @import "tailwindcss";
+- @theme directive in CSS files
+- CSS custom properties defined in @theme blocks
+- theme() functions for referencing colors
+
+SYMPTOMS OF v3/v4 MISMATCH:
+- Error: "Cannot apply unknown utility class `bg-bonsai-green-primary`"
+- Utility classes not recognized despite installation
+- White background with no styling
+
+SOLUTION:
+1. Replace @tailwind directives with @import "tailwindcss"
+2. Move color definitions to @theme directive in CSS
+3. Remove JavaScript tailwind.config.js file (v4 doesn't use it)
+4. Use theme() functions in CSS for color references
+```
+
 **package.json**:
 
 ```json
