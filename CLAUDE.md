@@ -804,6 +804,9 @@ For program-generated messages, ask:
 - Check if functions are testable
 - Use pytest, hypothesis, pydantic when appropriate
 - Write minimal but comprehensive tests
+- **Configure test coverage** with coverage.py and pytest-cov
+- Set coverage thresholds and exclude patterns
+- **Generate coverage reports** to identify untested code
 
 **ACTION**: Update BONSAI.md
 
@@ -812,9 +815,11 @@ For program-generated messages, ask:
   - Testable functions: [count]
   - Test framework: [pytest/none/other]
   - Tests written: [count]
+  - Coverage configured: [yes/no]
+  - Coverage threshold: [percentage]
 ```
 
-**CONFIRM TO USER**: "🌱 Task 8 Complete: Tests prepared ✅"
+**CONFIRM TO USER**: "🌱 Task 8 Complete: Tests prepared with coverage analysis ✅"
 
 ### Task 9: Test Organization
 
@@ -1688,9 +1693,16 @@ Examples:
 - **Linter/Formatter**: ruff (replaces black, isort, flake8)
 - **Type Checker**: pyright (only when needed)
 - **Testing**: pytest + hypothesis (when complexity justifies)
+- **Coverage**: coverage.py + pytest-cov (test coverage analysis and reporting)
 - **Data Validation**: pydantic (type-safe data models and validation)
 - **Data Processing**: pandas (for data manipulation and analysis)
-- **CLI Enhancement**: rich (beautiful terminal output, progress bars, logging)
+- **Web Scraping**: requests_html2 (modern web scraping with JavaScript support)
+- **CLI Tools**: typer (modern, type-safe CLI framework)
+- **Terminal UIs**: textual (BONSAI-styled terminal user interfaces)
+- **Progress Bars**: tqdm (CLI progress indicators with BONSAI colors)
+- **Logging**: loguru (beautiful, structured logging with BONSAI colors)
+- **Data Cleaning**: janitor (pandas dataframe cleaning utilities)
+- **Console Output**: rich (beautiful terminal output, panels, tables)
 
 #### Ruff Philosophy
 
@@ -1907,6 +1919,498 @@ table.add_row("Validation", Text("→ Running", style=BONSAI_COLORS['info']))
 table.add_row("Cleanup", Text("⏳ Pending", style=BONSAI_COLORS['muted']))
 
 console.print(table)
+```
+
+#### Typer CLI Framework (BONSAI-Aligned)
+
+```python
+# BONSAI-styled CLI with Typer - modern, type-safe command line interfaces
+import typer
+from typing import Optional
+from pathlib import Path
+from rich.console import Console
+
+# Initialize Typer app with BONSAI principles
+app = typer.Typer(
+    name="bonsai-tool",
+    help="BONSAI CLI tool - minimal, purposeful, beautiful",
+    add_completion=False,  # Keep minimal unless needed
+    rich_markup_mode="rich"  # Enable rich formatting
+)
+
+console = Console()
+
+@app.command()
+def process(
+    input_file: Path = typer.Argument(..., help="Input file to process"),
+    output_dir: Optional[Path] = typer.Option(None, help="Output directory"),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable verbose output"),
+    force: bool = typer.Option(False, "--force", "-f", help="Force overwrite existing files")
+):
+    """Process files with BONSAI efficiency."""
+    if verbose:
+        console.print(f"→ Processing {input_file}", style="#82a4c7")  # BONSAI blue
+
+    try:
+        # Your processing logic here
+        console.print("✓ Processing complete", style="#7c9885")  # BONSAI green
+    except Exception as e:
+        console.print(f"✗ Error: {e}", style="#c78289")  # BONSAI red
+        raise typer.Exit(1)
+
+if __name__ == "__main__":
+    app()
+```
+
+#### Textual Terminal UI (BONSAI-Styled)
+
+```python
+# BONSAI-styled Terminal UI with Textual - beautiful, responsive TUIs
+from textual.app import App, ComposeResult
+from textual.containers import Container, Horizontal
+from textual.widgets import Header, Footer, Static, Button, DataTable
+from textual.css import DEFAULT_CSS
+
+class BonsaiApp(App):
+    """A BONSAI-styled terminal application."""
+
+    # BONSAI CSS theme
+    CSS = """
+    Screen {
+        background: #0a0e14;  /* BONSAI background deep */
+    }
+
+    Header {
+        background: #151922;  /* BONSAI background primary */
+        color: #e6e8eb;       /* BONSAI text primary */
+        dock: top;
+        height: 3;
+    }
+
+    Footer {
+        background: #151922;
+        color: #8b92a5;       /* BONSAI text muted */
+        dock: bottom;
+        height: 3;
+    }
+
+    Button {
+        background: #7c9885;  /* BONSAI green primary */
+        color: #0a0e14;       /* BONSAI text inverted */
+        border: solid #677a70; /* BONSAI green muted */
+        margin: 1 2;
+    }
+
+    Button:hover {
+        background: #9db4a6;  /* BONSAI green secondary */
+    }
+
+    DataTable {
+        background: #1e242e;  /* BONSAI background secondary */
+        color: #e6e8eb;
+    }
+    """
+
+    TITLE = "BONSAI Terminal Interface"
+    SUB_TITLE = "Minimal • Purposeful • Beautiful"
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Container(
+            Horizontal(
+                Button("Process", id="process"),
+                Button("Analyze", id="analyze"),
+                Button("Export", id="export"),
+                classes="button-container"
+            ),
+            DataTable(id="results"),
+            classes="main-container"
+        )
+        yield Footer()
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """Handle button presses with BONSAI responsiveness."""
+        if event.button.id == "process":
+            self.query_one(DataTable).add_row("Task", "✓ Completed", key="task1")
+
+if __name__ == "__main__":
+    BonsaiApp().run()
+```
+
+#### tqdm Progress Bars (BONSAI Colors)
+
+```python
+# BONSAI-styled progress bars with tqdm - beautiful CLI progress indicators
+from tqdm import tqdm
+import time
+from rich.console import Console
+
+# BONSAI color configuration for tqdm
+BONSAI_TQDM_CONFIG = {
+    'bar_format': '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]',
+    'colour': '#7c9885',      # BONSAI green primary
+    'leave': True,            # Keep progress bar visible when complete
+    'dynamic_ncols': True,    # Adjust to terminal width
+    'smoothing': 0.1,         # Smooth rate estimation
+}
+
+def bonsai_progress(iterable, desc="Processing", **kwargs):
+    """BONSAI-styled progress bar wrapper."""
+    config = {**BONSAI_TQDM_CONFIG, **kwargs}
+    return tqdm(iterable, desc=f"→ {desc}", **config)
+
+# Usage examples
+console = Console()
+
+# Basic progress bar
+data = range(100)
+for item in bonsai_progress(data, desc="Processing data"):
+    time.sleep(0.01)  # Simulate work
+
+# Multiple progress bars
+console.print("🌱 BONSAI Multi-stage Processing", style="#7c9885")
+
+stages = [
+    ("Reading files", 50),
+    ("Processing data", 100),
+    ("Generating output", 25)
+]
+
+for stage_name, stage_size in stages:
+    for _ in bonsai_progress(range(stage_size), desc=stage_name):
+        time.sleep(0.005)
+
+console.print("✓ All stages completed", style="#7c9885")
+
+# Manual progress bar updates
+with tqdm(total=100, desc="→ Custom task", **BONSAI_TQDM_CONFIG) as pbar:
+    for i in range(10):
+        # Simulate variable work chunks
+        time.sleep(0.1)
+        pbar.update(10)
+        pbar.set_postfix_str(f"Step {i+1}/10")
+```
+
+#### Loguru Logging (BONSAI-Styled)
+
+```python
+# BONSAI-styled logging with loguru - beautiful, structured logging
+from loguru import logger
+import sys
+from pathlib import Path
+
+# Remove default handler and configure BONSAI styling
+logger.remove()
+
+# Configure BONSAI-specific log levels with exact hex colors
+logger.level("DEBUG", color="<fg #8b92a5>")      # BONSAI text_muted
+logger.level("INFO", color="<fg #e6e8eb>")       # BONSAI text_primary  
+logger.level("SUCCESS", color="<fg #7c9885>")    # BONSAI green_primary
+logger.level("WARNING", color="<fg #c7a882>")    # BONSAI yellow_primary
+logger.level("ERROR", color="<fg #c78289>")      # BONSAI red_primary
+logger.level("CRITICAL", color="<fg #c78289>")   # BONSAI red_primary
+logger.level("SCPI", no=5, color="<fg #9882c7>")    # BONSAI purple_primary (SCPI commands)
+logger.level("DATA", no=15, color="<fg #82a4c7>")   # BONSAI blue_primary (data operations)
+
+# BONSAI console handler with actual BONSAI hex colors
+logger.add(
+    sys.stderr,
+    format="<fg #7c9885>{time:HH:mm:ss}</fg #7c9885> | <level>{level: <8}</level> | <fg #82a4c7>{name}</fg #82a4c7>:<fg #82a4c7>{function}</fg #82a4c7>:<fg #82a4c7>{line}</fg #82a4c7> - <level>{message}</level>",
+    level="INFO",
+    colorize=True,
+    enqueue=True,  # Thread-safe logging
+    backtrace=True,
+    diagnose=True
+)
+
+# BONSAI file handler for production logs
+logger.add(
+    "logs/bonsai-{time:YYYY-MM-DD}.log",
+    format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}",
+    level="DEBUG",
+    rotation="1 day",     # Rotate daily
+    retention="30 days",  # Keep 30 days
+    compression="gz",     # Compress old logs
+    enqueue=True
+)
+
+# Usage examples
+def setup_bonsai_logging(app_name: str, log_level: str = "INFO"):
+    """Setup BONSAI logging for an application."""
+    logger.remove()
+
+    # Configure BONSAI level colors first
+    logger.level("DEBUG", color="<fg #8b92a5>")      # BONSAI text_muted
+    logger.level("INFO", color="<fg #e6e8eb>")       # BONSAI text_primary  
+    logger.level("SUCCESS", color="<fg #7c9885>")    # BONSAI green_primary
+    logger.level("WARNING", color="<fg #c7a882>")    # BONSAI yellow_primary
+    logger.level("ERROR", color="<fg #c78289>")      # BONSAI red_primary
+    logger.level("CRITICAL", color="<fg #c78289>")   # BONSAI red_primary
+
+    # Console handler with actual BONSAI hex colors
+    logger.add(
+        sys.stderr,
+        format="<fg #7c9885>{time:HH:mm:ss}</fg #7c9885> | <level>{level: <8}</level> | <fg #82a4c7>{extra[app]}</fg #82a4c7> - <level>{message}</level>",
+        level=log_level,
+        colorize=True,
+        filter=lambda record: record["extra"].get("app") == app_name
+    )
+
+    return logger.bind(app=app_name)
+
+# Application usage
+app_logger = setup_bonsai_logging("bonsai-tool")
+
+app_logger.info("🌱 BONSAI application starting")
+app_logger.debug("Configuration loaded successfully")
+app_logger.warning("High memory usage detected")
+app_logger.error("Connection failed, retrying...")
+app_logger.success("✓ Operation completed successfully")
+
+# Custom SCPI logging for measurement tools
+app_logger.log("SCPI", "MEAS:SCAL:CURR:DC? (simulated)")
+app_logger.log("DATA", "Processing 1024 measurement points")
+
+# Structured logging with context
+with logger.contextualize(user_id=123, session="abc"):
+    app_logger.info("User action performed", action="data_export")
+```
+
+#### Janitor Data Cleaning (Pandas Enhancement)
+
+```python
+# BONSAI-styled data cleaning with janitor - elegant dataframe operations
+import pandas as pd
+import janitor  # Import adds methods to pandas
+from loguru import logger
+
+# Setup BONSAI logging for data operations
+logger.remove()
+logger.add(sys.stderr, level="INFO", colorize=True)
+
+def bonsai_clean_dataframe(df: pd.DataFrame, name: str = "dataframe") -> pd.DataFrame:
+    """BONSAI approach to dataframe cleaning - minimal, purposeful operations."""
+
+    logger.info(f"🌱 Cleaning {name}: {df.shape[0]} rows, {df.shape[1]} columns")
+
+    cleaned_df = (
+        df
+        .clean_names()                    # Standardize column names
+        .remove_empty()                   # Remove empty rows/columns
+        .drop_duplicates()               # Remove duplicate rows
+        .rename_column('old_name', 'new_name')  # Rename specific columns
+        .coalesce('col1', 'col2', target_column_name='merged')  # Merge columns
+    )
+
+    # Log cleaning results
+    rows_removed = df.shape[0] - cleaned_df.shape[0]
+    cols_removed = df.shape[1] - cleaned_df.shape[1]
+
+    if rows_removed > 0:
+        logger.info(f"→ Removed {rows_removed} rows")
+    if cols_removed > 0:
+        logger.info(f"→ Removed {cols_removed} empty columns")
+
+    logger.success(f"✓ Cleaned {name}: {cleaned_df.shape[0]} rows, {cleaned_df.shape[1]} columns")
+
+    return cleaned_df
+
+# Example usage with BONSAI principles
+def process_measurement_data(file_path: Path) -> pd.DataFrame:
+    """Process measurement data with BONSAI cleaning pipeline."""
+
+    # Load data
+    logger.info(f"→ Loading data from {file_path}")
+    df = pd.read_csv(file_path)
+
+    # BONSAI cleaning pipeline - minimal, purposeful steps
+    cleaned_df = (
+        df
+        .clean_names()                    # snake_case columns
+        .remove_empty()                   # Remove empty data
+        .filter_string('voltage', 'V')   # Keep only voltage columns
+        .rename_columns({                 # Standardize naming
+            'timestamp': 'time',
+            'measured_voltage': 'voltage'
+        })
+        .convert_excel_date('time')       # Fix date formats
+        .round_to_fraction('voltage', denominator=1000)  # Round to mV precision
+    )
+
+    # Validate results
+    required_columns = ['time', 'voltage']
+    missing_cols = [col for col in required_columns if col not in cleaned_df.columns]
+
+    if missing_cols:
+        logger.error(f"✗ Missing required columns: {missing_cols}")
+        raise ValueError(f"Required columns missing: {missing_cols}")
+
+    logger.success(f"✓ Data processing complete: {len(cleaned_df)} measurements")
+    return cleaned_df
+
+# Usage example
+if __name__ == "__main__":
+    data_file = Path("measurements.csv")
+    processed_data = process_measurement_data(data_file)
+
+    # Additional BONSAI-style operations
+    summary_stats = (
+        processed_data
+        .describe()
+        .round(3)
+        .clean_names()
+    )
+
+    logger.info("📊 Summary statistics computed")
+```
+
+#### Coverage.py + pytest-cov (Test Coverage Analysis)
+
+```python
+# BONSAI-styled test coverage configuration and usage
+# pyproject.toml configuration
+[tool.coverage.run]
+source = ["src", "your_package"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "*/migrations/*",
+    "*/settings/*",
+    "*/manage.py",
+    "*/__pycache__/*",
+    "*/node_modules/*"
+]
+branch = true
+parallel = true
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
+# BONSAI minimal coverage commands
+# Install coverage tools
+# uv add --dev coverage pytest-cov
+
+# Run tests with coverage
+# uv run pytest --cov=src --cov-report=html --cov-report=term-missing --cov-report=xml
+
+# Coverage checking in CI/testing
+from pathlib import Path
+import subprocess
+import sys
+from loguru import logger
+
+def check_coverage_threshold(minimum_coverage: float = 80.0) -> bool:
+    """BONSAI approach to coverage validation - minimal, clear reporting."""
+
+    logger.info(f"🧪 Checking test coverage (minimum: {minimum_coverage}%)")
+
+    try:
+        # Run coverage report and capture output
+        result = subprocess.run(
+            ["uv", "run", "coverage", "report", "--format=total"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
+        current_coverage = float(result.stdout.strip())
+
+        if current_coverage >= minimum_coverage:
+            logger.success(f"✓ Coverage: {current_coverage:.1f}% (meets {minimum_coverage}% threshold)")
+            return True
+        else:
+            logger.error(f"✗ Coverage: {current_coverage:.1f}% (below {minimum_coverage}% threshold)")
+            logger.info("→ Run: uv run coverage html")
+            logger.info("→ Open: htmlcov/index.html")
+            return False
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"✗ Coverage check failed: {e}")
+        return False
+    except ValueError as e:
+        logger.error(f"✗ Could not parse coverage output: {e}")
+        return False
+
+def generate_coverage_reports() -> None:
+    """Generate all BONSAI coverage reports for analysis."""
+
+    logger.info("📊 Generating coverage reports")
+
+    # HTML report for detailed analysis
+    subprocess.run(["uv", "run", "coverage", "html"], check=True)
+    html_report = Path("htmlcov/index.html")
+
+    # Terminal report for quick overview
+    subprocess.run(["uv", "run", "coverage", "report", "--show-missing"], check=True)
+
+    # XML report for CI/CD integration
+    subprocess.run(["uv", "run", "coverage", "xml"], check=True)
+    xml_report = Path("coverage.xml")
+
+    logger.success(f"✓ Reports generated:")
+    logger.info(f"  → HTML: {html_report.absolute()}")
+    logger.info(f"  → XML: {xml_report.absolute()}")
+    logger.info(f"  → Terminal: displayed above")
+
+# Integration with pytest for BONSAI workflow
+def run_tests_with_coverage(test_path: str = "tests/") -> bool:
+    """BONSAI test execution with coverage analysis."""
+
+    logger.info("🧪 Running tests with coverage analysis")
+
+    try:
+        # Run pytest with coverage
+        cmd = [
+            "uv", "run", "pytest",
+            f"--cov=src",
+            "--cov-report=html",
+            "--cov-report=term-missing",
+            "--cov-report=xml",
+            "--cov-branch",
+            test_path
+        ]
+
+        result = subprocess.run(cmd, check=True)
+
+        logger.success("✓ Tests completed with coverage analysis")
+
+        # Check coverage threshold
+        coverage_ok = check_coverage_threshold(80.0)
+
+        return coverage_ok
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"✗ Tests failed: {e}")
+        return False
+
+# Usage example
+if __name__ == "__main__":
+    # BONSAI coverage workflow
+    success = run_tests_with_coverage()
+
+    if success:
+        logger.success("🌱 All tests pass with adequate coverage")
+        generate_coverage_reports()
+    else:
+        logger.error("🚨 Tests or coverage requirements not met")
+        sys.exit(1)
 ```
 
 ### Framework-Specific Minimal Structures
@@ -3045,12 +3549,12 @@ This template provides everything needed to build professional, visually stunnin
 
 #### **rich**: Add when building CLI applications that need
 
-- **Progress Indicators**: Long-running operations, file processing, data migration
-- **Structured Logging**: Better than print() for debugging and user feedback
+- **Progress Indicators**: Long-running operations, file processing, data migration (NOTE: prefer tqdm for simple progress bars)
 - **Error Display**: Beautiful tracebacks and error formatting
 - **Tables/Lists**: Displaying data in organized, readable formats
 - **Interactive Elements**: Prompts, confirmations, or status displays
 - **Professional CLI**: When your tool will be used by others or in production
+- **Console Output**: Formatted text, panels, and visual elements (NOT for logging - use loguru)
 
 #### **hypothesis**: Property-based testing for complex edge cases
 
@@ -3840,7 +4344,7 @@ The BONSAI matplotlib theme ensures that all data visualizations maintain the sa
 
 ### BONSAI Rich Console Integration
 
-For Python projects using the Rich library for console output, apply the BONSAI color palette to maintain visual consistency between data visualizations and console logging.
+For Python projects using the Rich library for console output and visual elements, apply the BONSAI color palette to maintain visual consistency between data visualizations and console interfaces.
 
 #### Rich Console Setup
 
@@ -3848,8 +4352,9 @@ For Python projects using the Rich library for console output, apply the BONSAI 
 
 ```python
 from rich.console import Console
-from rich.logging import RichHandler
 from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
 
 # BONSAI color palette for Rich console output
 BONSAI_COLORS = {
@@ -3864,26 +4369,6 @@ BONSAI_COLORS = {
     'text_secondary': '#b8bcc8',
     'text_muted': '#8b92a5',
 }
-```
-
-**Rich Logging Integration**
-
-```python
-# Apply BONSAI colors to Rich logging
-console_handler = RichHandler(
-    console=Console(),
-    show_time=True,
-    show_path=False,
-    rich_tracebacks=True,
-    markup=True,
-    keywords=[
-        f"[bold {BONSAI_COLORS['red_primary']}]ERROR[/]",
-        f"[bold {BONSAI_COLORS['yellow_primary']}]WARNING[/]",
-        f"[bold {BONSAI_COLORS['green_primary']}]INFO[/]",
-        f"[bold {BONSAI_COLORS['blue_primary']}]DEBUG[/]",
-        f"[bold {BONSAI_COLORS['purple_primary']}]SCPI[/]",
-    ],
-)
 ```
 
 **Rich Panel Styling**
@@ -3907,7 +4392,7 @@ panel = create_bonsai_panel(session_info.strip(), "System Information")
 console.print(panel)
 ```
 
-The BONSAI Rich console integration ensures that terminal output, logging messages, and panels use the same sophisticated color palette as data visualizations, creating a cohesive professional experience.
+The BONSAI Rich console integration ensures that terminal output, panels, tables, and visual elements use the same sophisticated color palette as data visualizations, creating a cohesive professional experience.
 
 ### Implementation Guidelines
 
