@@ -1732,6 +1732,7 @@ select = [
     "C4", # flake8-comprehensions
     "PIE", # flake8-pie
     "PTH", # flake8-use-pathlib
+    "I",  # isort
 ]
 
 ignore = [
@@ -1740,6 +1741,11 @@ ignore = [
     "C901", # too complex
     "B904", # raise without from in except
 ]
+
+[tool.ruff.lint.isort]
+# Minimal, practical settings only
+combine-as-imports = true
+force-single-line = false
 
 [tool.ruff.format]
 quote-style = "double"
