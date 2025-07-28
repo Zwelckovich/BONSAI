@@ -1703,6 +1703,11 @@ Examples:
 - **Logging**: loguru (beautiful, structured logging with BONSAI colors)
 - **Data Cleaning**: janitor (pandas dataframe cleaning utilities)
 - **Console Output**: rich (beautiful terminal output, panels, tables)
+- **Shell Commands**: sh (execute shell commands as Python functions)
+- **Nested Data Access**: glom (pythonic path-based access to nested data structures)
+- **Utility Collection**: boltons (over 250 BSD-licensed pure Python utilities)
+- **Date Parsing**: dateparser (parse human-readable dates in any language)
+- **Debug Printing**: icecream (sweet and colorful debugging with minimal code)
 
 #### Ruff Philosophy
 
