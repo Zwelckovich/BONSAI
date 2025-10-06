@@ -1697,6 +1697,7 @@ Examples:
 - **Data Validation**: pydantic (type-safe data models and validation)
 - **Data Processing**: polars (fast, memory-efficient dataframe library with lazy evaluation)
 - **Data Processing Fallback**: pandas (for special operations not yet in polars, e.g., HDF5, Excel with complex formatting)
+- **AI/ML Platform**: mlflow (experiment tracking, model registry, deployment, and lifecycle management)
 - **Web Scraping**: requests_html2 (modern web scraping with JavaScript support)
 - **CLI Tools**: typer (modern, type-safe CLI framework)
 - **Terminal UIs**: textual (BONSAI-styled terminal user interfaces)
