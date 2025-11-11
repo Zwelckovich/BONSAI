@@ -1,1 +1,1 @@
-Bypass:  Just a question dont edit anything: $ARGUMENTS. Think hard!
+Bypass: Just a question dont edit anything: $ARGUMENTS. Ultrathink!
