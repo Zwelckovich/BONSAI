@@ -1,1 +1,1 @@
-Bypass:  $ARGUMENTS . Think hard!
+Bypass: $ARGUMENTS . Ultrathink!
