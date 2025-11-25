@@ -874,34 +874,42 @@ For program-generated messages, ask:
 
 **CONFIRM TO USER**: "🌱 Task 11 Complete: Concept re-alignment verified ✅"
 
-### Task 12: Formatting & Linting (MANDATORY - NEVER SKIP)
+### Task 12: Formatting, Linting & Type Checking (MANDATORY - NEVER SKIP)
 
 - **STOP** - This step is NOT optional
 - **CRITICAL**: Always use local environment (virtual environment/local installation)
-- **FORMAT FIRST, THEN LINT** - Correct order to avoid formatting conflicts
-- **Python Example**: `uv add ruff` → `uv run ruff format` → `uv run ruff check`
+- **ORDER**: Format → Lint → Type Check (correct order to avoid conflicts)
+- **Python Example**:
+  - `uv run ruff format` → `uv run ruff check` → `uv run pyright`
 - **JavaScript Example**: `npm install eslint prettier --save-dev` → `npm run format` → `npm run lint`
 - **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
-- **General**: Install formatter/linter locally, run with local environment
+- **General**: Install formatter/linter/type-checker locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
-- **FIX ALL ISSUES**
-- **RE-RUN THE LINTER** to verify
+- **FIX ALL ISSUES** (formatting, linting, AND type errors)
+- **RE-RUN ALL TOOLS** to verify
 - **VERIFY SUCCESS**
-- **EVIDENCE REQUIRED**: Display actual linting command output
-- **INSTANCE 1 VERIFICATION**: Confirm linting results shown before proceeding
+- **EVIDENCE REQUIRED**: Display actual formatting, linting, AND type checking command output
+- **INSTANCE 1 VERIFICATION**: Confirm all results shown before proceeding
+
+**TYPE CHECKING NOTES**:
+- **Python**: Use `uv run pyright` for static type analysis
+- Pyright catches errors that ruff doesn't: type mismatches, missing attributes, incompatible returns
+- VSCode/Pylance uses the same engine - pyright ensures CI catches what IDE shows
+- Fix type errors OR add appropriate type: ignore comments with justification
 
 **ACTION**: Update BONSAI.md
 
 ```markdown
-- [x] Task 12: Formatting & Linting ✓ [timestamp]
+- [x] Task 12: Formatting, Linting & Type Checking ✓ [timestamp]
   - Formatter run: [command used]
   - Linter run: [command used]
-  - Issues found: [count]
+  - Type checker run: [command used - pyright for Python]
+  - Issues found: [count by category]
   - Issues fixed: [count]
   - Final status: [clean/issues remaining]
 ```
 
-**CONFIRM TO USER**: "🌱 Task 12 Complete: Formatting and linting passed with 0 issues ✅"
+**CONFIRM TO USER**: "🌱 Task 12 Complete: Formatting, linting, and type checking passed ✅"
 
 ### Task 13: Pre-commit Validation
 
@@ -913,6 +921,10 @@ For program-generated messages, ask:
   - **Any Language**: Install in project's local environment, never globally
 - **If triggers not met**: Skip pre-commit installation (single contributor, simple project)
 - **If already configured**: Run existing hooks and fix any issues
+- **Recommended pre-commit hooks for Python**:
+  - `ruff` (formatting and linting)
+  - `ruff-format` (formatting only)
+  - `pyright` (type checking) - catches type errors before commit
 - **Only proceed when clean or N/A**
 
 **ACTION**: Update BONSAI.md
@@ -922,7 +934,7 @@ For program-generated messages, ask:
   - Collaboration indicators: [4+ files: yes/no, contributors: count, deployment: yes/no, complexity: assessment]
   - Pre-commit triggers met: [yes/no]
   - Pre-commit configured: [yes/no/skipped]
-  - Hooks run: [list/none/N/A]
+  - Hooks run: [list including pyright if Python/none/N/A]
   - Status: [clean/N/A]
 ```
 
