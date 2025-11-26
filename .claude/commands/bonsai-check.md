@@ -21,6 +21,7 @@ Check these categories:
 **Python Core:**
 - Package Manager: uv vs pip/pipenv/poetry
 - Formatter: ruff vs black/isort/flake8
+- Type Checker: pyright vs mypy/no type checking
 - Testing: pytest vs unittest
 - Data Validation: pydantic vs dataclasses
 - Data Processing: polars vs pandas (pandas only for fallback operations)
@@ -35,7 +36,9 @@ Check these categories:
 **Check these files:**
 1. Scan all .py files for imports
 2. Check pyproject.toml dependencies
-3. Verify usage patterns in code
+3. Check pyproject.toml for [tool.pyright] configuration
+4. Verify usage patterns in code
+5. Run `uv run pyright` and report any type errors
 
 ### 📊 Detailed Findings
 
