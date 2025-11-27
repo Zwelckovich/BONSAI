@@ -703,7 +703,7 @@ uv run python script.py           # Execute with uv
 ```bash
 yarn install                      # or: pnpm install
 yarn add package1 package2        # or: pnpm add package1 package2
-yarn add --dev eslint prettier    # or: pnpm add --dev eslint prettier
+yarn add --dev @biomejs/biome     # or: pnpm add --dev @biomejs/biome
 yarn run script                   # or: pnpm run script
 ```
 
@@ -881,7 +881,7 @@ For program-generated messages, ask:
 - **ORDER**: Format → Lint → Type Check (correct order to avoid conflicts)
 - **Python Example**:
   - `uv run ruff format` → `uv run ruff check` → `uv run pyright`
-- **JavaScript Example**: `npm install eslint prettier --save-dev` → `npm run format` → `npm run lint`
+- **JavaScript Example**: `yarn add --dev @biomejs/biome` → `yarn biome check --write .`
 - **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
 - **General**: Install formatter/linter/type-checker locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
@@ -1797,8 +1797,7 @@ useLibraryCodeForTypes = true
 - **CSS Framework**: Tailwind CSS v4+ (required for BONSAI design system)
 - **State Management**: zustand (simpler than Redux)
 - **Server State**: @tanstack/react-query
-- **Formatter**: prettier
-- **Linter**: eslint (minimal rules)
+- **Formatter/Linter**: biome (replaces eslint + prettier - unified, fast, minimal config)
 - **Testing**: vitest + @testing-library/react
 - **Scripts**: Use `node scripts/build.js` not shell scripts
 
@@ -1839,35 +1838,37 @@ export default defineConfig({
 }
 ```
 
-#### Prettier Configuration (.prettierrc)
+#### Biome Configuration (biome.json)
 
 ```json
 {
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "printWidth": 100,
-  "trailingComma": "es5"
-}
-```
-
-#### ESLint Configuration (minimal)
-
-```json
-// .eslintrc.json
-{
-  "extends": [
-    "eslint:recommended",
-    "@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
-  ],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { "argsIgnorePattern": "^_" }
-    ]
+  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
+      },
+      "style": {
+        "noParameterAssign": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "es5"
+    }
   }
 }
 ```
@@ -2597,7 +2598,8 @@ SOLUTION:
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -2613,10 +2615,7 @@ SOLUTION:
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.4.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.3",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
+    "@biomejs/biome": "^1.9.0",
     "tailwindcss": "^3.4.13",
     "postcss": "^8.4.47",
     "autoprefixer": "^10.4.20"
@@ -4664,12 +4663,12 @@ The process executes in three systematic phases:
    Common Replacements:
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    black + isort + flake8 → ruff
+   eslint + prettier → biome
    Material-UI → BONSAI design + Tailwind
    Redux → zustand
    webpack → vite
    npm → yarn/pnpm
    unittest → pytest
-   Prettier (aggressive) → Prettier (minimal config)
    matplotlib (default theme) → BONSAI matplotlib theme
    rich (default colors) → BONSAI rich color palette
    ```
