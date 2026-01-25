@@ -701,10 +701,13 @@ uv run python script.py           # Execute with uv
 **JAVASCRIPT WORKFLOW (MANDATORY)**:
 
 ```bash
-yarn install                      # or: pnpm install
+corepack enable                   # Enable corepack (one-time setup)
+yarn init -2                      # Initialize yarn 2 for new projects
+# Add to .yarnrc.yml: nodeLinker: node-modules (for traditional mode)
+yarn                              # Install deps (shorter than yarn install)
 yarn add package1 package2        # or: pnpm add package1 package2
-yarn add --dev @biomejs/biome     # or: pnpm add --dev @biomejs/biome
-yarn run script                   # or: pnpm run script
+yarn add -D @biomejs/biome        # -D shorthand for --dev (or: pnpm add -D)
+yarn script                       # No 'run' needed in yarn 2 (or: pnpm script)
 ```
 
 **ENFORCEMENT**: Instance 1 MUST verify BONSAI tool commands are used in BONSAI.md evidence before proceeding.
@@ -880,8 +883,8 @@ For program-generated messages, ask:
 - **CRITICAL**: Always use local environment (virtual environment/local installation)
 - **ORDER**: Format → Lint → Type Check (correct order to avoid conflicts)
 - **Python Example**:
-  - `uv run ruff format` → `uv run ruff check` → `uv run pyright`
-- **JavaScript Example**: `yarn add --dev @biomejs/biome` → `yarn biome check --write .`
+  - `uv run ruff format` → `uv run ruff check` → `uv run ty check`
+- **JavaScript Example**: `yarn add -D @biomejs/biome` → `yarn biome check --write .`
 - **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
 - **General**: Install formatter/linter/type-checker locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
@@ -892,9 +895,9 @@ For program-generated messages, ask:
 - **INSTANCE 1 VERIFICATION**: Confirm all results shown before proceeding
 
 **TYPE CHECKING NOTES**:
-- **Python**: Use `uv run pyright` for static type analysis
-- Pyright catches errors that ruff doesn't: type mismatches, missing attributes, incompatible returns
-- VSCode/Pylance uses the same engine - pyright ensures CI catches what IDE shows
+- **Python**: Use `uv run ty check` for static type analysis (Astral's type checker)
+- ty catches errors that ruff doesn't: type mismatches, missing attributes, incompatible returns
+- ty is part of the Astral stack (ruff + ty) - unified Python tooling
 - Fix type errors OR add appropriate type: ignore comments with justification
 
 **ACTION**: Update BONSAI.md
@@ -903,7 +906,7 @@ For program-generated messages, ask:
 - [x] Task 12: Formatting, Linting & Type Checking ✓ [timestamp]
   - Formatter run: [command used]
   - Linter run: [command used]
-  - Type checker run: [command used - pyright for Python]
+  - Type checker run: [command used - ty for Python]
   - Issues found: [count by category]
   - Issues fixed: [count]
   - Final status: [clean/issues remaining]
@@ -924,7 +927,7 @@ For program-generated messages, ask:
 - **Recommended pre-commit hooks for Python**:
   - `ruff` (formatting and linting)
   - `ruff-format` (formatting only)
-  - `pyright` (type checking) - catches type errors before commit
+  - `ty` (type checking) - catches type errors before commit
 - **Only proceed when clean or N/A**
 
 **ACTION**: Update BONSAI.md
@@ -934,7 +937,7 @@ For program-generated messages, ask:
   - Collaboration indicators: [4+ files: yes/no, contributors: count, deployment: yes/no, complexity: assessment]
   - Pre-commit triggers met: [yes/no]
   - Pre-commit configured: [yes/no/skipped]
-  - Hooks run: [list including pyright if Python/none/N/A]
+  - Hooks run: [list including ty if Python/none/N/A]
   - Status: [clean/N/A]
 ```
 
@@ -1703,7 +1706,7 @@ Examples:
 
 - **Package Manager**: uv (replaces pip, pipenv, poetry)
 - **Linter/Formatter**: ruff (replaces black, isort, flake8)
-- **Type Checker**: pyright (only when needed)
+- **Type Checker**: ty (Astral's type checker - part of ruff ecosystem)
 - **Testing**: pytest + hypothesis (replaces unittest - modern, fixture-based testing)
 - **Coverage**: coverage.py + pytest-cov (test coverage analysis and reporting)
 - **Data Validation**: pydantic (replaces dataclasses - runtime validation, JSON serialization)
@@ -1779,14 +1782,18 @@ line-ending = "auto"
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["F401", "F811"]  # Allow unused imports in tests
 
-[tool.pyright]
+# ty uses subsections (NOT flat [tool.ty] keys)
+# See: https://docs.astral.sh/ty/reference/configuration/
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.ty.src]
 include = ["src"]
-exclude = ["**/node_modules", "**/__pycache__"]
-reportMissingImports = true
-reportMissingTypeStubs = false
-pythonVersion = "3.12"
-typeCheckingMode = "basic"
-useLibraryCodeForTypes = true
+exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+
+# Optional: configure rule severity
+# [tool.ty.rules]
+# unresolved-import = "warn"
 ```
 
 ### JavaScript/React
