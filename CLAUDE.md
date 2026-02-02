@@ -578,8 +578,8 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - **Check Don'ts section to avoid prohibited tools/patterns**
 - **VERIFY BONSAI TOOLS AVAILABLE**: Check required tools are BONSAI-compliant ONLY when actual code exists
   - **Python projects**: Verify uv is available (`uv --version`) - ONLY if .py files exist or will be created
-  - **JavaScript projects**: Verify yarn/pnpm is available - ONLY if package.json exists or will be created
-  - **FORBIDDEN TOOLS**: pip, npm, virtualenv, pipenv, poetry (use uv/yarn/pnpm instead)
+  - **JavaScript projects**: Verify bun is available (`bun --version`) - ONLY if package.json exists or will be created
+  - **FORBIDDEN TOOLS**: pip, npm, yarn, pnpm, virtualenv, pipenv, poetry (use uv/bun instead)
   - **CRITICAL**: Skip tool verification for concept-only or documentation-only operations
 - Identify files to modify/create
 - List required tools (only if not present and not in Don'ts)
@@ -597,8 +597,8 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 - [x] Task 1: Plan Creation & Cleanup Tracking ✓ [timestamp]
   - Alias check: [result]
   - CLEANUP.md: [created/updated]
-  - BONSAI tools verified: [uv/yarn/pnpm available - YES/NO/N/A - concept/docs only]
-  - FORBIDDEN tools detected: [pip/npm/virtualenv - MUST BE NONE]
+  - BONSAI tools verified: [uv/bun available - YES/NO/N/A - concept/docs only]
+  - FORBIDDEN tools detected: [pip/npm/yarn/pnpm/virtualenv - MUST BE NONE]
   - Files to modify: [list]
   - Tools needed: [list]
 ```
@@ -684,7 +684,7 @@ Instance 1 monitors for these phrases and forces workflow continuation:
 
 - **CRITICAL**: Always use BONSAI-preferred tools (never global Python/Node)
 - **MANDATORY PYTHON**: Use `uv venv .venv` and `uv add package` (NEVER pip/venv/virtualenv)
-- **MANDATORY JAVASCRIPT**: Use `yarn` or `pnpm` (NEVER npm)
+- **MANDATORY JAVASCRIPT**: Use `bun` (NEVER npm/yarn/pnpm)
 - **Apply patterns from CLAUDE.local.md**
 - **Record new discoveries in CLAUDE.local.md**
 
@@ -701,13 +701,10 @@ uv run python script.py           # Execute with uv
 **JAVASCRIPT WORKFLOW (MANDATORY)**:
 
 ```bash
-corepack enable                   # Enable corepack (one-time setup)
-yarn init -2                      # Initialize yarn 2 for new projects
-# Add to .yarnrc.yml: nodeLinker: node-modules (for traditional mode)
-yarn                              # Install deps (shorter than yarn install)
-yarn add package1 package2        # or: pnpm add package1 package2
-yarn add -D @biomejs/biome        # -D shorthand for --dev (or: pnpm add -D)
-yarn script                       # No 'run' needed in yarn 2 (or: pnpm script)
+bun install                       # Install dependencies
+bun add package1 package2         # Add runtime dependencies
+bun add -d @biomejs/biome         # -d shorthand for --dev
+bun run script                    # Execute scripts
 ```
 
 **ENFORCEMENT**: Instance 1 MUST verify BONSAI tool commands are used in BONSAI.md evidence before proceeding.
@@ -755,10 +752,10 @@ For program-generated messages, ask:
 
 ```markdown
 - [x] Task 5: Environment Execution ✓ [timestamp]
-  - BONSAI tool used: [uv/yarn/pnpm - SPECIFIC TOOL NAME REQUIRED]
-  - Commands executed: [exact commands with uv/yarn/pnpm]
-  - FORBIDDEN tools used: [MUST BE NONE - pip/npm/virtualenv]
-  - Environment type: [.venv created with uv / node_modules with yarn/pnpm]
+  - BONSAI tool used: [uv/bun - SPECIFIC TOOL NAME REQUIRED]
+  - Commands executed: [exact commands with uv/bun]
+  - FORBIDDEN tools used: [MUST BE NONE - pip/npm/yarn/pnpm/virtualenv]
+  - Environment type: [.venv created with uv / node_modules with bun]
   - Interpreter errors: [count fixed]
   - Program behavior: [expected/issues found]
   - Error handling: [systematic analysis completed]
@@ -884,7 +881,7 @@ For program-generated messages, ask:
 - **ORDER**: Format → Lint → Type Check (correct order to avoid conflicts)
 - **Python Example**:
   - `uv run ruff format` → `uv run ruff check` → `uv run ty check`
-- **JavaScript Example**: `yarn add -D @biomejs/biome` → `yarn biome check --write .`
+- **JavaScript Example**: `bun add -d @biomejs/biome` → `bun run biome check --write .`
 - **Rust Example**: `cargo install rustfmt clippy` → `cargo fmt` → `cargo clippy`
 - **General**: Install formatter/linter/type-checker locally, run with local environment
 - **READ THE ENTIRE OUTPUT**
@@ -1112,7 +1109,7 @@ IMMEDIATE ACTIONS:
 - Any direct problem-solving without workflow initiation
 - Context confusion (treating continuations as exempt)
 - **CRITICAL**: Non-BONSAI tools used (pip/npm/virtualenv/pipenv/poetry)
-- **CRITICAL**: Missing uv/yarn/pnpm verification in Task 1 evidence
+- **CRITICAL**: Missing uv/bun verification in Task 1 evidence
 - **CRITICAL**: Missing BONSAI tool commands in Task 5 evidence
 
 ### **Instance 2: Technical Executor**
@@ -1222,7 +1219,7 @@ Task X Started → Instance 1 waits for evidence → Evidence provided → Insta
 
 **CRITICAL BONSAI TOOL ENFORCEMENT**:
 
-- **RED FLAG**: Task 1 evidence missing uv/yarn/pnpm availability check
+- **RED FLAG**: Task 1 evidence missing uv/bun availability check
 - **RED FLAG**: Task 5 evidence shows pip/npm/virtualenv commands
 - **RED FLAG**: Task 5 evidence missing "uv venv" or "uv add" commands
 - **RED FLAG**: Any bash command using forbidden tools (pip install, npm install, python -m venv)
@@ -1241,11 +1238,11 @@ MANDATORY: Use Write tool to update BONSAI.md before any task completion
 
 ```
 🚨 BONSAI TOOL VIOLATION DETECTED
-VIOLATION: Forbidden tools used (pip/npm/virtualenv) instead of BONSAI tools (uv/yarn/pnpm)
+VIOLATION: Forbidden tools used (pip/npm/yarn/pnpm/virtualenv) instead of BONSAI tools (uv/bun)
 Instance 1 STOPS Instance 2 immediately
 REQUIRED: Complete workflow restart from Task 0
 MANDATORY: Install and use only BONSAI-approved tools
-EVIDENCE: Task 1 must show uv/yarn/pnpm availability, Task 5 must show BONSAI tool commands
+EVIDENCE: Task 1 must show uv/bun availability, Task 5 must show BONSAI tool commands
 ```
 
 **END OF RESPONSE VERIFICATION (Instance 1)**:
@@ -1798,7 +1795,7 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 
 ### JavaScript/React
 
-- **Package Manager**: yarn (or pnpm for better performance)
+- **Package Manager**: bun (BONSAI-preferred, fastest)
 - **Build Tool**: vite (always - not "when needed")
 - **Framework**: React 18+ with TypeScript
 - **CSS Framework**: Tailwind CSS v4+ (required for BONSAI design system)
@@ -4535,7 +4532,7 @@ This process will modify your project to align with BONSAI principles:
 
 POTENTIAL IMPACTS:
 ⚠️ CRITICAL CHANGES:
-  • Tool replacements (e.g., black → ruff, npm → yarn)
+  • Tool replacements (e.g., black → ruff, npm → bun)
   • Directory restructuring
   • Design system overhaul
   • Configuration file modifications
@@ -4674,7 +4671,7 @@ The process executes in three systematic phases:
    Material-UI → BONSAI design + Tailwind
    Redux → zustand
    webpack → vite
-   npm → yarn/pnpm
+   npm → bun
    unittest → pytest
    matplotlib (default theme) → BONSAI matplotlib theme
    rich (default colors) → BONSAI rich color palette
