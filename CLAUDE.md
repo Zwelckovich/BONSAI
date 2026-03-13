@@ -1796,8 +1796,8 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 ### JavaScript/React
 
 - **Package Manager**: bun (BONSAI-preferred, fastest)
-- **Build Tool**: vite (always - not "when needed")
-- **Framework**: React 18+ with TypeScript
+- **Build Tool**: vite 8+ with rolldown (Rust-based bundler — always, not "when needed")
+- **Framework**: React 19.2+ with TypeScript
 - **CSS Framework**: Tailwind CSS v4+ (required for BONSAI design system)
 - **State Management**: zustand (simpler than Redux)
 - **Server State**: @tanstack/react-query
@@ -2531,11 +2531,11 @@ app.listen(3000);
   <head>
     <script
       crossorigin
-      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      src="https://unpkg.com/react@19/umd/react.production.min.js"
     ></script>
     <script
       crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@19/umd/react-dom.production.min.js"
     ></script>
   </head>
   <body>
@@ -2544,10 +2544,9 @@ app.listen(3000);
       function App() {
         return React.createElement("h1", null, "Hello World");
       }
-      ReactDOM.render(
-        React.createElement(App),
+      ReactDOM.createRoot(
         document.getElementById("root"),
-      );
+      ).render(React.createElement(App));
     </script>
   </body>
 </html>
@@ -2560,34 +2559,25 @@ app.listen(3000);
 
 #### Project Setup (Vite + React + Tailwind)
 
-**🚨 CRITICAL TAILWIND CSS v4 COMPATIBILITY WARNING 🚨**
+**Tailwind CSS v4 Configuration (BONSAI Standard)**:
 
 ```
-⚠️ TAILWIND CSS v4 CONFIGURATION REQUIREMENTS:
+BONSAI uses Tailwind CSS v4+ with CSS-native configuration:
 
-If using Tailwind CSS v4, you MUST use the new configuration format:
+✅ REQUIRED v4 FORMAT:
+- @import "tailwindcss"; (single import)
+- @theme { } directive in CSS files for custom tokens
+- @keyframes in CSS (not JS config)
+- No tailwind.config.js file needed
 
-❌ OLD v3 FORMAT (will cause "unknown utility class" errors):
+❌ FORBIDDEN v3 FORMAT (will cause errors):
 - @tailwind base; @tailwind components; @tailwind utilities;
 - JavaScript tailwind.config.js files
-- CSS custom properties in config files
+- postcss/autoprefixer as separate dependencies
 
-✅ NEW v4 FORMAT (required):
-- @import "tailwindcss";
-- @theme directive in CSS files
-- CSS custom properties defined in @theme blocks
-- theme() functions for referencing colors
-
-SYMPTOMS OF v3/v4 MISMATCH:
-- Error: "Cannot apply unknown utility class `bg-bonsai-green-primary`"
-- Utility classes not recognized despite installation
-- White background with no styling
-
-SOLUTION:
-1. Replace @tailwind directives with @import "tailwindcss"
-2. Move color definitions to @theme directive in CSS
-3. Remove JavaScript tailwind.config.js file (v4 doesn't use it)
-4. Use theme() functions in CSS for color references
+TROUBLESHOOTING v3/v4 MISMATCH:
+- Error: "Cannot apply unknown utility class" → Move colors to @theme block
+- White background with no styling → Replace @tailwind directives with @import "tailwindcss"
 ```
 
 **package.json**:
@@ -2606,8 +2596,8 @@ SOLUTION:
     "lint:fix": "biome check --write ."
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-router-dom": "^6.26.1",
     "axios": "^1.7.7",
     "zustand": "^4.5.5",
@@ -2615,14 +2605,12 @@ SOLUTION:
     "plotly.js": "^2.35.2"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.1",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "vite": "^8.0.0",
     "@biomejs/biome": "^1.9.0",
-    "tailwindcss": "^3.4.13",
-    "postcss": "^8.4.47",
-    "autoprefixer": "^10.4.20"
+    "tailwindcss": "^4.1.0"
   }
 }
 ```
@@ -2644,123 +2632,112 @@ export default defineConfig({
 });
 ```
 
-**tailwind.config.js** (Complete BONSAI Color System):
+**BONSAI Theme** (CSS @theme block — add to `src/index.css` after `@import "tailwindcss"`):
 
-```javascript
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
-  theme: {
-    extend: {
-      colors: {
-        // BONSAI Background Colors
-        "bonsai-bg-deep": "#0a0e14",
-        "bonsai-bg-primary": "#151922",
-        "bonsai-bg-secondary": "#1e242e",
-        "bonsai-bg-elevated": "#232933",
-        "bonsai-bg-overlay": "#2a3040",
+Tailwind CSS v4 uses CSS-native `@theme` directives instead of JavaScript config files. No `tailwind.config.js` needed.
 
-        // BONSAI Text Colors
-        "bonsai-text-primary": "#e6e8eb",
-        "bonsai-text-secondary": "#b8bcc8",
-        "bonsai-text-muted": "#8b92a5",
-        "bonsai-text-disabled": "#6b7280",
-        "bonsai-text-inverted": "#0a0e14",
+```css
+@theme {
+  /* BONSAI Background Colors */
+  --color-bonsai-bg-deep: #0a0e14;
+  --color-bonsai-bg-primary: #151922;
+  --color-bonsai-bg-secondary: #1e242e;
+  --color-bonsai-bg-elevated: #232933;
+  --color-bonsai-bg-overlay: #2a3040;
 
-        // BONSAI Border Colors
-        "bonsai-border-subtle": "#2d3441",
-        "bonsai-border-primary": "#3d4455",
-        "bonsai-border-accent": "#4a5568",
-        "bonsai-border-strong": "#5a6578",
+  /* BONSAI Text Colors */
+  --color-bonsai-text-primary: #e6e8eb;
+  --color-bonsai-text-secondary: #b8bcc8;
+  --color-bonsai-text-muted: #8b92a5;
+  --color-bonsai-text-disabled: #6b7280;
+  --color-bonsai-text-inverted: #0a0e14;
 
-        // BONSAI Core Accent Colors
-        "bonsai-green-primary": "#7c9885",
-        "bonsai-green-secondary": "#9db4a6",
-        "bonsai-green-tertiary": "#a8c0b1",
-        "bonsai-green-muted": "#677a70",
-        "bonsai-green-glow": "rgba(124, 152, 133, 0.15)",
+  /* BONSAI Border Colors */
+  --color-bonsai-border-subtle: #2d3441;
+  --color-bonsai-border-primary: #3d4455;
+  --color-bonsai-border-accent: #4a5568;
+  --color-bonsai-border-strong: #5a6578;
 
-        "bonsai-red-primary": "#c78289",
-        "bonsai-red-secondary": "#d4999f",
-        "bonsai-red-muted": "#a56b71",
+  /* BONSAI Core Accent Colors — Green (Nature, Growth, Success) */
+  --color-bonsai-green-primary: #7c9885;
+  --color-bonsai-green-secondary: #9db4a6;
+  --color-bonsai-green-tertiary: #a8c0b1;
+  --color-bonsai-green-muted: #677a70;
+  --color-bonsai-green-glow: rgba(124, 152, 133, 0.15);
 
-        "bonsai-blue-primary": "#82a4c7",
-        "bonsai-blue-secondary": "#9bb5d4",
-        "bonsai-blue-muted": "#6b8aa5",
+  /* Red (Attention, Errors) */
+  --color-bonsai-red-primary: #c78289;
+  --color-bonsai-red-secondary: #d4999f;
+  --color-bonsai-red-muted: #a56b71;
 
-        "bonsai-yellow-primary": "#c7a882",
-        "bonsai-yellow-secondary": "#d4b99b",
-        "bonsai-yellow-muted": "#a5906b",
+  /* Blue (Information, Links) */
+  --color-bonsai-blue-primary: #82a4c7;
+  --color-bonsai-blue-secondary: #9bb5d4;
+  --color-bonsai-blue-muted: #6b8aa5;
 
-        "bonsai-purple-primary": "#9882c7",
-        "bonsai-orange-primary": "#c7975c",
-        "bonsai-teal-primary": "#5cc7a8",
-      },
-      fontFamily: {
-        sans: ["Quicksand", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "Monaco", "monospace"],
-      },
-      spacing: {
-        18: "4.5rem",
-        88: "22rem",
-        128: "32rem",
-      },
-      borderRadius: {
-        xl: "12px",
-        "2xl": "16px",
-        "3xl": "24px",
-      },
-      transitionDuration: {
-        300: "300ms",
-        500: "500ms",
-        700: "700ms",
-      },
-      boxShadow: {
-        "glow-sm": "0 0 10px rgba(124, 152, 133, 0.3)",
-        glow: "0 0 20px rgba(124, 152, 133, 0.4)",
-        "glow-lg": "0 0 30px rgba(124, 152, 133, 0.5)",
-        bonsai: "0 8px 32px rgba(10, 14, 20, 0.3)",
-        "bonsai-lg": "0 20px 60px rgba(10, 14, 20, 0.4)",
-      },
-      animation: {
-        "fade-in": "fadeIn 0.5s ease-out",
-        "slide-up": "slideUp 0.3s ease-out",
-        "scale-in": "scaleIn 0.2s ease-out",
-        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        slideUp: {
-          "0%": { transform: "translateY(20px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
-        scaleIn: {
-          "0%": { transform: "scale(0.95)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
-        },
-        pulseGlow: {
-          "0%, 100%": { boxShadow: "0 0 5px rgba(124, 152, 133, 0.3)" },
-          "50%": { boxShadow: "0 0 20px rgba(124, 152, 133, 0.6)" },
-        },
-      },
-      backdropBlur: {
-        xs: "2px",
-      },
-    },
-  },
-  plugins: [],
-};
+  /* Yellow (Warning, Warmth) */
+  --color-bonsai-yellow-primary: #c7a882;
+  --color-bonsai-yellow-secondary: #d4b99b;
+  --color-bonsai-yellow-muted: #a5906b;
+
+  /* Extended Palette */
+  --color-bonsai-purple-primary: #9882c7;
+  --color-bonsai-orange-primary: #c7975c;
+  --color-bonsai-teal-primary: #5cc7a8;
+
+  /* Fonts */
+  --font-sans: "Quicksand", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Monaco, monospace;
+
+  /* Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-128: 32rem;
+
+  /* Border Radius */
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+
+  /* Box Shadows */
+  --shadow-glow-sm: 0 0 10px rgba(124, 152, 133, 0.3);
+  --shadow-glow: 0 0 20px rgba(124, 152, 133, 0.4);
+  --shadow-glow-lg: 0 0 30px rgba(124, 152, 133, 0.5);
+  --shadow-bonsai: 0 8px 32px rgba(10, 14, 20, 0.3);
+  --shadow-bonsai-lg: 0 20px 60px rgba(10, 14, 20, 0.4);
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-scale-in: scaleIn 0.2s ease-out;
+  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(124, 152, 133, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(124, 152, 133, 0.6); }
+}
 ```
 
 **src/index.css** (Complete BONSAI Component System):
 
 ```css
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
 /* BONSAI Global Styles */
 @layer base {
