@@ -1,1 +1,24 @@
-Bypass: [TASK] Analyze codebase for dead code and quality issues. Find all code files (.py, .js, .ts, .html, .css, .jsx, .tsx) excluding docs (.md, .pdf, .txt). Also exclude virtual environments (venv, .venv, etc.). Create CODECHECK.md with file list. For each file, analyze and document: unused functions (defined but never called), empty/stub functions, dead code (unreachable/obsolete logic), unused imports/variables. Update CODECHECK.md after each file to track progress across context compactions. Cross-reference function usage across entire codebase before flagging as unused. Write final summary with actionable recommendations. RULES: Only modify CODECHECK.md (read-only analysis of source files). Ultrathink!
+Bypass: Analyze the codebase for dead code and quality issues. $ARGUMENTS
+
+<scope>
+Include: .py, .js, .ts, .html, .css, .jsx, .tsx files
+Exclude: docs (.md, .pdf, .txt), virtual environments (.venv, venv, node_modules)
+</scope>
+
+<process>
+1. Find all code files matching scope and create CODECHECK.md with file list
+2. For each file, analyze and document:
+   - Unused functions (defined but never called)
+   - Empty/stub functions
+   - Dead code (unreachable or obsolete logic)
+   - Unused imports and variables
+3. Cross-reference function usage across entire codebase before flagging as unused
+4. Update CODECHECK.md after each file (preserves progress across context compactions)
+5. Write final summary with actionable recommendations
+</process>
+
+<constraints>
+Only modify CODECHECK.md. All source files are read-only during analysis.
+</constraints>
+
+Ultrathink!
