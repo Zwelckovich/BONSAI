@@ -1,1 +1,3 @@
-Bypass: Just a question dont edit anything: $ARGUMENTS. Ultrathink!
+Bypass: Answer this question without editing any files: $ARGUMENTS
+
+Ultrathink!
