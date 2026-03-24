@@ -1796,7 +1796,7 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 ### JavaScript/React
 
 - **Package Manager**: bun (BONSAI-preferred, fastest)
-- **Build Tool**: vite 8+ with rolldown (Rust-based bundler — always, not "when needed")
+- **Build Tool**: vite 8+ with rolldown (Rust-based bundler — always, not "when needed"). For React + Tailwind v4, also wire **`@tailwindcss/vite`** in `vite.config` (see **Vite + Tailwind v4 (mandatory wiring)** below); skipping it breaks styling even when `index.css` uses `@import "tailwindcss"`.
 - **Framework**: React 19.2+ with TypeScript
 - **CSS Framework**: Tailwind CSS v4+ (required for BONSAI design system)
 - **State Management**: zustand (simpler than Redux)
@@ -1805,15 +1805,24 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 - **Testing**: vitest + @testing-library/react
 - **Scripts**: Use `node scripts/build.js` not shell scripts
 
-#### Vite Configuration (minimal)
+#### Vite + Tailwind v4 (mandatory wiring)
+
+**Do not omit this when the stack is React + Tailwind CSS v4 + Vite** (BONSAI default for professional UI):
+
+- **`vite` must be 8.x** (`^8.0.0` or newer). Older majors skip the current Rolldown-backed pipeline and invite version skew with `@vitejs/plugin-react` and Tailwind v4 tooling.
+- **Register `@tailwindcss/vite` in `vite.config`**. Tailwind v4 is driven through the Vite plugin; CSS that uses `@import "tailwindcss"` will not apply utilities reliably if `plugins` only lists `react()`. Typical failure: unstyled UI, “missing” layout/colors, custom `@theme` tokens ignored.
+- **Plugin order**: use `[tailwindcss(), react()]` (Tailwind first, then React), unless a specific dependency doc says otherwise.
+
+#### Vite Configuration (minimal, React + Tailwind v4)
 
 ```typescript
 // vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
   server: {
     port: 3000,
     proxy: {
@@ -2569,6 +2578,7 @@ BONSAI uses Tailwind CSS v4+ with CSS-native configuration:
 - @theme { } directive in CSS files for custom tokens
 - @keyframes in CSS (not JS config)
 - No tailwind.config.js file needed
+- vite.config: import tailwindcss from "@tailwindcss/vite" and add tailwindcss() to plugins alongside @vitejs/plugin-react (Vite 8+)
 
 ❌ FORBIDDEN v3 FORMAT (will cause errors):
 - @tailwind base; @tailwind components; @tailwind utilities;
@@ -2578,6 +2588,7 @@ BONSAI uses Tailwind CSS v4+ with CSS-native configuration:
 TROUBLESHOOTING v3/v4 MISMATCH:
 - Error: "Cannot apply unknown utility class" → Move colors to @theme block
 - White background with no styling → Replace @tailwind directives with @import "tailwindcss"
+- Styling still absent with correct CSS → vite.config is missing @tailwindcss/vite (plugins must include tailwindcss(), not react() alone); confirm vite is ^8 and devDependency @tailwindcss/vite is installed
 ```
 
 **package.json**:
@@ -2607,7 +2618,8 @@ TROUBLESHOOTING v3/v4 MISMATCH:
   "devDependencies": {
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react": "^4.5.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "@vitejs/plugin-react": "^6.0.0",
     "vite": "^8.0.0",
     "@biomejs/biome": "^1.9.0",
     "tailwindcss": "^4.1.0"
@@ -2615,14 +2627,15 @@ TROUBLESHOOTING v3/v4 MISMATCH:
 }
 ```
 
-**vite.config.js**:
+**vite.config.ts** (TypeScript; use `.ts` for new projects — must include Tailwind v4 Vite plugin):
 
-```javascript
+```typescript
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
   server: {
     port: 3000,
     proxy: {
