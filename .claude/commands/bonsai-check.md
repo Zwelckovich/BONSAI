@@ -33,12 +33,25 @@ Check these categories:
 - Web Framework: FastAPI vs Flask
 - CLI Tools: typer vs argparse
 
+**JavaScript/React Frontend:**
+- Package Manager: bun vs npm/yarn/pnpm
+- Build Tool: vite 8+ with rolldown (Rust-based bundler) vs webpack/parcel/older vite
+- CSS Framework: Tailwind CSS v4+ with @tailwindcss/vite plugin vs older CSS frameworks
+- Vite Config: Must include both tailwindcss() and react() plugins (Tailwind first)
+- Formatter/Linter: biome vs eslint+prettier
+- State Management: zustand vs Redux
+- Server State: @tanstack/react-query
+
 **Check these files:**
 1. Scan all .py files for imports
 2. Check pyproject.toml dependencies
 3. Check pyproject.toml for [tool.pyright] configuration
 4. Verify usage patterns in code
 5. Run `uv run pyright` and report any type errors
+6. Check package.json for bun lockfile (bun.lock vs package-lock.json/yarn.lock)
+7. Check package.json for vite version (must be ^8.0.0+) and rolldown usage
+8. Check vite.config.ts/js for @tailwindcss/vite plugin and correct plugin order
+9. Check for forbidden package managers (npm/yarn/pnpm lock files)
 
 ### 📊 Detailed Findings
 
