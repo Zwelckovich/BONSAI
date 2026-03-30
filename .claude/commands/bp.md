@@ -1,3 +1,0 @@
-Bypass: $ARGUMENTS
-
-Ultrathink!
