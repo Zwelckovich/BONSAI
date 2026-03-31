@@ -49,6 +49,8 @@ Determine what needs to happen and select the appropriate mode.
 4. Identify all files to modify/create
 5. Verify BONSAI tools are available (only if code files involved):
    - Python: `uv --version` (never pip/pipenv/poetry)
+   - Python dev tools: `uv run ruff --version && uv run ty --version` — if missing, run `uv add --dev ruff ty`
+   - Python testing: `uv run pytest --version` — if missing, run `uv add --dev pytest`
    - JavaScript: `bun --version` (never npm/yarn/pnpm)
 6. Create or update `CLEANUP.md` with new session timestamp
 

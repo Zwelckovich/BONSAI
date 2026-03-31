@@ -44,6 +44,7 @@ If `concept.md` already exists, read it and confirm alignment.
 - Verify `uv` is available: `uv --version`
 - Create `pyproject.toml` with BONSAI ruff + ty config if it doesn't exist
 - Create `.venv` if not present: `uv venv .venv`
+- Install core dev tools: `uv add --dev pytest ruff ty` (config without installation causes runtime failures)
 
 **For JavaScript projects:**
 - Verify `bun` is available: `bun --version`

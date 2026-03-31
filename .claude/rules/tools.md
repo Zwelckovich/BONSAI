@@ -35,7 +35,7 @@
 uv venv .venv
 source .venv/bin/activate
 uv add package1 package2          # Runtime dependencies
-uv add --dev pytest ruff          # Development dependencies
+uv add --dev pytest ruff ty       # Development dependencies
 uv run python script.py           # Execute with uv
 
 # Quality checks
@@ -72,8 +72,14 @@ line-ending = "auto"
 python-version = "3.13"
 
 [tool.ty.src]
-include = ["src"]
+# Do NOT set `include` for flat root layouts — ty auto-discovers .py files.
+# Only set `include = ["src"]` if using an src/ layout.
 exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+
+[tool.pytest.ini_options]
+# Required when tests/ imports root-level modules (flat root layout).
+# Remove if using an src/ layout with proper packaging.
+pythonpath = ["."]
 ```
 
 ## JavaScript / React
