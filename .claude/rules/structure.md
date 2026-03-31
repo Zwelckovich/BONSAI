@@ -35,6 +35,13 @@ project/
 └── README.md
 ```
 
+**Flat root + tests/ caveat**: When Python modules live at root and tests live in `tests/`, pytest cannot import root modules by default. Add to pyproject.toml:
+```toml
+[tool.pytest.ini_options]
+pythonpath = ["."]
+```
+Also omit `[tool.ty.src] include` — ty auto-discovers `.py` files without it. Only set `include = ["src"]` for src/ layouts.
+
 ### Full-Stack Progressive Evolution
 
 **Stage 1: Both in Root (Start here)**

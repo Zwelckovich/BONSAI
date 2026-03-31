@@ -11,6 +11,17 @@ description: >
 
 Run the complete Python formatting, linting, and type checking pipeline.
 
+## Prerequisites
+
+Before running the pipeline, verify ruff and ty are installed as dev dependencies:
+```bash
+uv run ruff --version && uv run ty --version
+```
+If either is missing (`program not found`), install them:
+```bash
+uv add --dev ruff ty
+```
+
 ## Pipeline (execute in this order)
 
 ### 1. Format
