@@ -161,6 +161,11 @@ Only add tools when evidence demands it:
 3. **Minimal configuration** — Convention over configuration
 4. **Local solutions** — Solve locally before reaching for external services
 
+## Windows (Git Bash) Caveats
+
+- `fastapi dev` crashes due to Rich console rendering (`LegacyWindowsTerm`) — use `uv run uvicorn main:app --host 127.0.0.1 --port 8000` instead
+- Always check `CLAUDE.local.md` for OS before generating run commands in GROW.md phases
+
 ## Forbidden Tools
 
 Never use these — always use the BONSAI alternative:

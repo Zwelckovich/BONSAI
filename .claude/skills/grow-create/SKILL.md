@@ -21,6 +21,8 @@ Read `concept.md` and extract:
 - Key requirements and features
 - Complexity level
 
+Read `CLAUDE.local.md` if it exists — check the OS and shell environment. Adapt run commands accordingly (e.g., on Windows Git Bash, use `uv run uvicorn main:app` instead of `fastapi dev`).
+
 If `concept.md` doesn't exist, ask the user to create one first (or run `/bonsai-init`).
 
 ### 2. Generate Development Phases

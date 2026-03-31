@@ -52,7 +52,8 @@ Determine what needs to happen and select the appropriate mode.
    - Python dev tools: `uv run ruff --version && uv run ty --version` — if missing, run `uv add --dev ruff ty`
    - Python testing: `uv run pytest --version` — if missing, run `uv add --dev pytest`
    - JavaScript: `bun --version` (never npm/yarn/pnpm)
-6. Create or update `CLEANUP.md` with new session timestamp
+6. **Read `CLEANUP.md`** if it exists — you must Read before you can Edit it later. If it doesn't exist, you'll Write it fresh.
+7. Create or update `CLEANUP.md` with new session timestamp
 
 Output: State the selected mode and task list clearly.
 
@@ -71,10 +72,11 @@ This prevents blind modifications and ensures you understand the codebase contex
 Write the actual code changes. The BONSAI philosophy applies: minimal, justified, purposeful.
 
 1. Write minimal code that solves the problem — no premature optimization
-2. Add every new file to `CLEANUP.md` immediately upon creation
-3. Use `pathlib` for Python file operations (cross-platform)
-4. Update `.gitignore` if new tools or generated files are added
-5. No unused imports, no unused variables, no dead code
+2. **Lint after writing**: After writing each code file, run `uv run ruff check <file>` (Python) or `bun run biome check <file>` (JS/TS) to catch missing imports and obvious errors immediately — don't wait for Task 5
+3. Add every new file to `CLEANUP.md` immediately upon creation
+4. Use `pathlib` for Python file operations (cross-platform)
+5. Update `.gitignore` if new tools or generated files are added
+6. No unused imports, no unused variables, no dead code
 
 ## Task 4: Run and Verify
 
@@ -130,7 +132,8 @@ Write and run tests to verify the implementation is correct.
 2. **JavaScript**: Use vitest (or custom framework from CLAUDE.local.md)
 3. Mirror source structure in `tests/` directory
 4. Write minimal but comprehensive tests — cover the happy path and key edge cases
-5. Run tests: `uv run pytest` or `bun run vitest`
+5. **Lint test files**: After writing each test file, run `uv run ruff check <file>` (Python) or `bun run biome check <file>` (JS/TS) to catch missing imports before running tests
+6. Run tests: `uv run pytest` or `bun run vitest`
 6. Fix code (not tests) until all tests pass naturally — no workarounds
 7. Configure coverage if not yet set up: `uv run pytest --cov=src --cov-report=term-missing`
 
