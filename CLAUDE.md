@@ -20,18 +20,27 @@ Normal Claude Code behavior is the default. Invoke `/bonsai` explicitly when you
 
 ## Commit Template
 
-Format: `<type>: <description>`
+Format: `<emoji> <description>`
 
-Types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`, `perf`, `clean`
+| Emoji | Mode | Meaning |
+|-------|------|---------|
+| 🌿 | Grow | New feature, capability, test |
+| 🔧 | Shape | Refactor, improve, perf, style |
+| ✂️ | Prune | Remove, clean, delete |
+| 🩹 | Fix | Bug fix |
+| 📜 | Docs | Documentation |
+| ⚙️ | Ops | Config, CI, deps, chore |
+
+Optional scope: `🌿(auth) add OAuth2 login flow`
 
 Guidelines:
-- Present tense, imperative mood ("Add feature" not "Added feature")
+- Present tense, imperative mood ("add feature" not "added feature")
 - Subject line under 50 characters
 - Body explains what and why, not how
 - Always include Claude Code attribution footer
 
 ```
-<type>: <description>
+<emoji> <description>
 
 <optional body>
 
