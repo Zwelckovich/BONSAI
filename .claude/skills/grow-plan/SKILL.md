@@ -64,8 +64,9 @@ Every phase MUST produce a deliverable that is:
 
 Once the user selects an approach:
 1. Update GROW.md with the refined phase plan and selected approach
-2. Execute the phase using the `/bonsai` workflow
-3. After implementation, verify the run command works
-4. Update GROW.md with completion status and verified run command
+2. **If in plan mode**: Write the refined plan to the plan file and call ExitPlanMode — the user will invoke `/bonsai` after approving. Do NOT try to execute `/bonsai` from within plan mode.
+3. **If not in plan mode**: Execute the phase directly using the `/bonsai` workflow
+4. After implementation, verify the run command works
+5. Update GROW.md with completion status and verified run command
 
 $ARGUMENTS
