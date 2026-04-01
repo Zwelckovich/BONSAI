@@ -120,7 +120,7 @@ Review the implementation for quality and verify all references are updated.
 2. Use Grep to find all files that reference modified functions/classes
 3. Update all references if signatures or names changed
 4. Check backward compatibility where relevant
-5. For thorough analysis, consider invoking `@dead-code-detector`
+5. For thorough analysis, consider using `/code-analyser`
 
 ## Task 7: Test
 
