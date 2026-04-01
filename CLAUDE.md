@@ -65,14 +65,6 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 | `/code-analyser` | Dead code detection and quality analysis |
 | `/bonsai-check` | Best practices compliance audit |
 
-## Available Agents
-
-| Agent | Model | Description |
-|-------|-------|-------------|
-| `@quality-auditor` | haiku | Linting, formatting, type checking on modified files |
-| `@compliance-reviewer` | sonnet | Tool usage and best practices validation |
-| `@dead-code-detector` | haiku | Unused functions, imports, variables detection |
-
 ## Rules Reference
 
 Guidelines are loaded automatically from `.claude/rules/`:
