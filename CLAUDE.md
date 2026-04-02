@@ -37,14 +37,11 @@ Guidelines:
 - Present tense, imperative mood ("add feature" not "added feature")
 - Subject line under 50 characters
 - Body explains what and why, not how
-- Always include Claude Code attribution footer
 
 ```
 <emoji> <description>
 
 <optional body>
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ## Available Skills
