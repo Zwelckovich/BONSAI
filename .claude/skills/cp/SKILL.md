@@ -92,8 +92,6 @@ After staging, run `git diff --cached --stat` to confirm.
 <emoji> <description>
 
 <optional body — what and why>
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ### Emoji Selection
@@ -141,9 +139,7 @@ Use: `⚙️ wip — <brief description of state>`
 ## Phase 5: Commit
 
 ```bash
-git commit -m "<emoji> <message>
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
+git commit -m "<emoji> <message>"
 ```
 
 If `--amend`: use `git commit --amend`.
