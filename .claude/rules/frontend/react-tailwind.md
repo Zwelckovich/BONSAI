@@ -252,6 +252,12 @@ const Layout = ({ children }) => {
 };
 ```
 
+## Biome Patterns
+
+- Always use `<button>` for clickable elements, never `<div role="button">` (biome a11y/useSemanticElements)
+- For fixed-size lists in `.map()`, use a constant key array instead of index: `const KEYS = ['a', 'b', 'c']; items.map((item, i) => <div key={KEYS[i]}>)`
+- Biome suppression: `// biome-ignore lint/rule: reason` must be on the line BEFORE the violation, not the same line
+
 ## Plotly BONSAI Theme
 
 ```javascript
