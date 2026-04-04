@@ -42,6 +42,13 @@ pythonpath = ["."]
 ```
 Also omit `[tool.ty.src] include` — ty auto-discovers `.py` files without it. Only set `include = ["src"]` for src/ layouts.
 
+### Full-Stack Unified Dev Runner
+
+Full-stack projects MUST have a single `dev.py` at root that spawns all services (backend + frontend). Use `subprocess` (stdlib) — no new deps. Must:
+- Auto-kill processes on required ports before starting (cross-platform: `lsof` on Linux/macOS, `netstat`+`taskkill` on Windows)
+- Handle Ctrl+C gracefully (terminate all child processes)
+- Run command: `uv run python dev.py`
+
 ### Full-Stack Progressive Evolution
 
 **Stage 1: Both in Root (Start here)**
