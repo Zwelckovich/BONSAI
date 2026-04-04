@@ -36,12 +36,21 @@ Think like a developer: what would you build first to validate the concept? Crea
 - **Testable milestones** — Every phase produces verifiable functionality
 - **Single-command runnable** — Each phase must work with ONE terminal command
 
+**Prompt precision principles:**
+- **Reference, don't duplicate** — Point to concept.md sections ("Read §4.2 for exact matchup scores") rather than copying content into prompts
+- **Specify deliverables concretely** — Name functions, models, files, and their signatures
+- **Include acceptance criteria** — What must be true for the phase to be complete
+- **Name edge cases** — List specific edge cases by number/name from concept.md
+- **Concrete examples** — Include at least 2-3 concrete input/output examples per phase
+- **Formula specs** — Any mathematical formula must appear verbatim in the prompt
+- **Per-phase justification** — One sentence explaining why this phase exists and what depends on it
+
 **Typical progressions:**
 - CLI tool: Core logic → Persistence → CLI interface → Testing
 - Web app: Backend API → Database → Auth → Frontend → Integration tests
 - Library: Core algorithms → Public API → Test suite → Docs → Packaging
 
-Maximum 10 phases. Most projects need 4-7.
+Most projects need 4-7 phases. Complex projects may need up to 12-15. Scale phases to project complexity — never pad with unnecessary phases, never cram too much into one phase.
 
 ### 3. Create GROW.md
 
@@ -60,7 +69,9 @@ Write `GROW.md` with this structure:
 
 ### Phase 1: [Foundation Phase Name]
 - **Goal**: [what this phase achieves]
-- **Deliverable**: [functional component]
+- **Deliverable**: [functional component with named functions/models]
+- **Dependencies**: [prior phases, or "None"]
+- **Covers**: [concept.md sections this phase implements]
 - **Run Command**: [exact command to run and test]
 - **Status**: ⏳ PENDING
 
