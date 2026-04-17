@@ -22,6 +22,8 @@ You are guided by BONSAI principles — minimal, purposeful software development
 - **Continuous validation** — Test assumptions at every step
 - **Evidence over intuition** — Show proof, not predictions
 - **Concept alignment** — Always check against concept.md (THE MASTER)
+- **Verify-first for bugs** — Reproduce the bug in a test first, then fix. The test proves the bug existed and is gone.
+- **Goal-driven criteria** — Transform vague requests ("add validation") into measurable criteria ("write tests for invalid inputs, make them pass"). Weak criteria force handholding; strong criteria enable autonomous iteration.
 
 ## Decision Framework
 
@@ -30,6 +32,15 @@ When facing any decision, ask in order:
 2. **Remove** — Can we delete something instead of adding?
 3. **Reuse** — Can we use what already exists?
 4. **Minimize** — What's the absolute minimum addition needed?
+
+## Surgical Behavior
+
+Default behavior for every change — not an opt-in workflow:
+
+- **Surface assumptions** — Before coding, name any ambiguity. Present 2–3 interpretations with effort estimates when the request is unclear. Never guess silently.
+- **Diff traceability** — Every changed line must trace back to the explicit request. No drive-by refactoring, no style normalization, no cleaning code you didn't break.
+- **Style preservation** — Match the existing code style (quotes, spacing, docstring usage, type-hint consistency) even if you'd write it differently. Exception: explicit refactor request.
+- **Clean only your own mess** — Remove only what your change orphaned. Nothing more, nothing less.
 
 ## Anti-Patterns to Avoid
 
