@@ -112,11 +112,14 @@ Optional scope in parentheses: `🌿(auth) add OAuth2 login flow`
 ### Inference Rules
 
 - New files with code = 🌿
+- New content added to an existing file (new rules, new patterns, new capability) = 🌿
 - Deleted files/functions = ✂️
-- Only `.md` files changed = 📜
+- Only `.md` files changed with no new capability (typos, rewording) = 📜
 - Only config/CI files = ⚙️
 - Bug keyword in context = 🩹
-- Restructured but same behavior = 🔧
+- Restructured/reformatted/renamed with same behavior = 🔧
+- When unsure between 🌿 and 🔧, ask: "does this add a capability that wasn't there before?" Yes = 🌿
+- Follow the rule, not past commits — prior commits may have used the wrong emoji
 
 ### Message Rules
 
