@@ -15,6 +15,8 @@ Set up a project with BONSAI methodology — detect the project type, create ess
 
 ### 1. Detect Project Type
 
+Use platform-appropriate listing commands — on Windows PowerShell use `Get-ChildItem -Force`, on Unix shells use `ls -la`. Check the `<user_info>` block's `Shell:` field if unsure.
+
 Scan the current directory to classify the project:
 
 - **Python**: `.py` files, `pyproject.toml`, `requirements.txt`
@@ -43,6 +45,15 @@ If `concept.md` already exists, read it and confirm alignment.
 **For Python projects:**
 - Verify `uv` is available: `uv --version`
 - Create `pyproject.toml` with BONSAI ruff + ty config if it doesn't exist
+- If the project will use a `src/<package>/` layout (default BONSAI convention), the `pyproject.toml` **must** include a `[build-system]` block and package declaration, otherwise `uv sync` will not install the package and `from <package> import …` will fail. Minimal config:
+  ```toml
+  [build-system]
+  requires = ["hatchling"]
+  build-backend = "hatchling.build"
+
+  [tool.hatch.build.targets.wheel]
+  packages = ["src/<package>"]
+  ```
 - Create `.venv` if not present: `uv venv .venv`
 - Install core dev tools: `uv add --dev pytest ruff ty` (config without installation causes runtime failures)
 
