@@ -41,7 +41,7 @@ Read the complete output. Fix all reported errors.
 uv run ty check
 ```
 ty catches errors ruff doesn't: type mismatches, missing attributes, incompatible returns.
-Fix type errors or add `type: ignore` comments with justification.
+Fix type errors. If a suppression is genuinely needed, use ty's native syntax `# ty: ignore[<diagnostic-name>]` (e.g., `# ty: ignore[invalid-assignment]`) with a one-line justification. Note: `# type: ignore` is mypy syntax and has **no effect** with ty.
 
 ## Iteration
 

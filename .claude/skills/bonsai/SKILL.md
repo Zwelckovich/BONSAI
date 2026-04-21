@@ -72,7 +72,7 @@ This prevents blind modifications and ensures you understand the codebase contex
 Write the actual code changes. The BONSAI philosophy applies: minimal, justified, purposeful.
 
 1. Write minimal code that solves the problem — no premature optimization
-2. **Lint after writing**: After writing each code file, run `uv run ruff check <file>` (Python) or `bun run biome check <file>` (JS/TS) to catch missing imports and obvious errors immediately — don't wait for Task 5
+2. **Lint after writing**: After writing each code file, run `uv run ruff format <file> && uv run ruff check --fix <file>` (Python) or `bun run biome check --write <file>` (JS/TS) to catch missing imports and auto-fix mechanical issues (import order, trailing whitespace) immediately — don't wait for Task 5. Only unfixable issues should require a manual edit.
 3. Add every new file to `CLEANUP.md` immediately upon creation
 4. Use `pathlib` for Python file operations (cross-platform)
 5. Update `.gitignore` if new tools or generated files are added
@@ -132,7 +132,7 @@ Write and run tests to verify the implementation is correct.
 2. **JavaScript**: Use vitest (or custom framework from CLAUDE.local.md)
 3. Mirror source structure in `tests/` directory
 4. Write minimal but comprehensive tests — cover the happy path and key edge cases
-5. **Lint test files**: After writing each test file, run `uv run ruff check <file>` (Python) or `bun run biome check <file>` (JS/TS) to catch missing imports before running tests
+5. **Lint test files**: After writing each test file, run `uv run ruff format <file> && uv run ruff check --fix <file>` (Python) or `bun run biome check --write <file>` (JS/TS) to auto-fix import order and catch missing imports before running tests
 6. Run tests: `uv run pytest` or `bun run vitest`
 6. Fix code (not tests) until all tests pass naturally — no workarounds
 7. Configure coverage if not yet set up: `uv run pytest --cov=src --cov-report=term-missing`
