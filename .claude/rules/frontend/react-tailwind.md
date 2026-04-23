@@ -129,6 +129,102 @@ export default defineConfig({
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 ```
 
+## BONSAI-Light Mode Overrides (src/index.css)
+
+Append AFTER the `@theme` block. Dark is always the default; light activates only via an explicit `:root.light` or `[data-theme="light"]` opt-in (e.g. a user toggle). No OS-preference auto-switching.
+
+```css
+@layer base {
+  :root.light,
+  :root[data-theme="light"] {
+    color-scheme: light;
+
+    --color-bonsai-bg-deep: #f5f2ec;
+    --color-bonsai-bg-primary: #ebe7de;
+    --color-bonsai-bg-secondary: #e2ddd1;
+    --color-bonsai-bg-elevated: #d8d2c3;
+    --color-bonsai-bg-overlay: #cec7b5;
+
+    --color-bonsai-text-primary: #1a1f26;
+    --color-bonsai-text-secondary: #3a4150;
+    --color-bonsai-text-muted: #5e6574;
+    --color-bonsai-text-disabled: #8a91a0;
+    --color-bonsai-text-inverted: #f5f2ec;
+
+    --color-bonsai-border-subtle: #dfd9cb;
+    --color-bonsai-border-primary: #c9c2b0;
+    --color-bonsai-border-accent: #b5ad98;
+    --color-bonsai-border-strong: #9e9580;
+
+    --color-bonsai-green-primary: #5a7a63;
+    --color-bonsai-green-secondary: #7c9885;
+    --color-bonsai-green-tertiary: #9db4a6;
+    --color-bonsai-green-muted: #a8c0b1;
+    --color-bonsai-green-glow: rgba(90, 122, 99, 0.15);
+
+    --color-bonsai-red-primary: #a56b71;
+    --color-bonsai-red-secondary: #c78289;
+    --color-bonsai-red-muted: #d4999f;
+
+    --color-bonsai-blue-primary: #5a7fa2;
+    --color-bonsai-blue-secondary: #82a4c7;
+    --color-bonsai-blue-muted: #9bb5d4;
+
+    --color-bonsai-yellow-primary: #a5906b;
+    --color-bonsai-yellow-secondary: #c7a882;
+    --color-bonsai-yellow-muted: #d4b99b;
+
+    --color-bonsai-purple-primary: #7e6ba5;
+    --color-bonsai-purple-secondary: #9882c7;
+    --color-bonsai-purple-muted: #ad9bd4;
+
+    --color-bonsai-orange-primary: #a57d4a;
+    --color-bonsai-orange-secondary: #c7975c;
+    --color-bonsai-orange-muted: #d4ad78;
+
+    --color-bonsai-teal-primary: #4aa58a;
+    --color-bonsai-teal-secondary: #5cc7a8;
+    --color-bonsai-teal-muted: #7ed4b8;
+
+    --color-bonsai-glass-surface: rgba(245, 242, 236, 0.72);
+    --color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
+
+    --shadow-glow-sm: 0 0 10px rgba(90, 122, 99, 0.20);
+    --shadow-glow: 0 0 20px rgba(90, 122, 99, 0.25);
+    --shadow-glow-lg: 0 0 30px rgba(90, 122, 99, 0.30);
+    --shadow-bonsai: 0 8px 32px rgba(30, 30, 30, 0.08);
+  }
+
+  /* Glass classes need inline-background overrides for light */
+  :root.light .glass-surface { background: rgba(245, 242, 236, 0.72); }
+  :root.light .glass-surface-elevated { background: rgba(235, 231, 222, 0.68); }
+}
+```
+
+Component classes (`btn-primary`, `card`, `input-field`, …) follow the theme automatically — they reference `bonsai-*` tokens, so no duplication is needed.
+
+## Theme Toggle (zustand)
+
+```typescript
+import { create } from 'zustand';
+
+type Theme = 'dark' | 'light' | 'auto';
+
+export const useThemeStore = create<{
+  theme: Theme;
+  setTheme: (t: Theme) => void;
+}>((set) => ({
+  theme: (localStorage.getItem('bonsai-theme') as Theme) ?? 'auto',
+  setTheme: (t) => {
+    localStorage.setItem('bonsai-theme', t);
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    if (t === 'light' || t === 'dark') root.classList.add(t);
+    set({ theme: t });
+  },
+}));
+```
+
 ## Component Classes
 
 ```css
