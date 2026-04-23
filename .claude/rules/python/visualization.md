@@ -144,6 +144,118 @@ class BonsaiApp(App):
     TITLE = "BONSAI Terminal Interface"
 ```
 
+## BONSAI-Light Variants
+
+Companion constants for plots exported to print, light-mode dashboards, or terminals on light backgrounds. Name-paired with the dark constants — import both, select at runtime.
+
+### Matplotlib (Light)
+
+```python
+BONSAI_STYLE_LIGHT = {
+    'figure.facecolor': '#f5f2ec', 'figure.edgecolor': '#f5f2ec',
+    'figure.figsize': [10, 6], 'figure.dpi': 100,
+    'savefig.facecolor': '#f5f2ec', 'savefig.dpi': 300,
+    'axes.facecolor': '#ebe7de', 'axes.edgecolor': '#c9c2b0',
+    'axes.linewidth': 1.0, 'axes.grid': True, 'axes.axisbelow': True,
+    'axes.labelcolor': '#1a1f26', 'axes.labelsize': 11,
+    'axes.titlesize': 14, 'axes.titlecolor': '#1a1f26',
+    'axes.spines.top': False, 'axes.spines.right': False,
+    'grid.color': '#c9c2b0', 'grid.linewidth': 0.8, 'grid.alpha': 0.6,
+    'xtick.color': '#3a4150', 'ytick.color': '#3a4150',
+    'xtick.labelsize': 10, 'ytick.labelsize': 10,
+    'legend.facecolor': '#e2ddd1', 'legend.edgecolor': '#dfd9cb',
+    'legend.fontsize': 9, 'legend.framealpha': 0.95,
+    'lines.linewidth': 2.0, 'lines.markersize': 6,
+    'font.family': ['DejaVu Sans', 'sans-serif'], 'font.size': 10,
+    'text.color': '#1a1f26',
+    'patch.facecolor': '#5a7a63', 'patch.edgecolor': '#677a70',
+}
+
+BONSAI_COLORS_LIGHT = {
+    'green_primary': '#5a7a63', 'green_secondary': '#7c9885', 'green_muted': '#a8c0b1',
+    'red_primary': '#a56b71', 'blue_primary': '#5a7fa2', 'yellow_primary': '#a5906b',
+    'purple_primary': '#7e6ba5', 'orange_primary': '#a57d4a', 'teal_primary': '#4aa58a',
+    'text_primary': '#1a1f26', 'text_secondary': '#3a4150', 'text_muted': '#5e6574',
+}
+
+BONSAI_QUALITATIVE_LIGHT = ['#5a7a63', '#5a7fa2', '#a5906b', '#a56b71', '#7e6ba5', '#a57d4a', '#4aa58a']
+BONSAI_SEQUENTIAL_GREEN_LIGHT = ['#5a7a63', '#7c9885', '#9db4a6', '#a8c0b1']
+BONSAI_DIVERGING_LIGHT = ['#a56b71', '#d4999f', '#5e6574', '#9bb5d4', '#5a7fa2']
+
+# Usage: plt.rcParams.update(BONSAI_STYLE_LIGHT)
+# Dark zen is always the default — opt into light explicitly, never via OS sniffing.
+```
+
+### Rich Console (Light)
+
+```python
+BONSAI_COLORS_LIGHT = {
+    'green_primary': '#5a7a63', 'red_primary': '#a56b71',
+    'blue_primary': '#5a7fa2', 'yellow_primary': '#a5906b',
+    'purple_primary': '#7e6ba5', 'text_primary': '#1a1f26',
+    'text_muted': '#5e6574',
+}
+
+console.print("→ Processing...", style=BONSAI_COLORS_LIGHT['blue_primary'])
+console.print("✓ Complete", style=BONSAI_COLORS_LIGHT['green_primary'])
+console.print("✗ Error", style=BONSAI_COLORS_LIGHT['red_primary'])
+```
+
+### Loguru (Light)
+
+```python
+def configure_loguru_light():
+    logger.remove()
+    logger.level("DEBUG", color="<fg #5e6574>")
+    logger.level("INFO", color="<fg #1a1f26>")
+    logger.level("SUCCESS", color="<fg #5a7a63>")
+    logger.level("WARNING", color="<fg #a5906b>")
+    logger.level("ERROR", color="<fg #a56b71>")
+
+    logger.add(sys.stderr,
+        format="<fg #5a7a63>{time:HH:mm:ss}</fg #5a7a63> | <level>{level: <8}</level> | <fg #5a7fa2>{name}</fg #5a7fa2>:<fg #5a7fa2>{function}</fg #5a7fa2> - <level>{message}</level>",
+        level="INFO", colorize=True, enqueue=True)
+```
+
+### tqdm (Light)
+
+```python
+BONSAI_TQDM_LIGHT = {
+    'bar_format': '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
+    'colour': '#5a7a63', 'leave': True, 'dynamic_ncols': True, 'smoothing': 0.1,
+}
+```
+
+### Plotly (Light)
+
+```python
+BONSAI_PLOTLY_THEME_LIGHT = {
+    'paper_bgcolor': '#f5f2ec',
+    'plot_bgcolor': '#ebe7de',
+    'font': {'family': 'Inter, sans-serif', 'color': '#1a1f26', 'size': 12},
+    'colorway': ['#5a7a63', '#5a7fa2', '#a5906b', '#a56b71', '#7e6ba5'],
+    'xaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
+    'yaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
+    'margin': {'t': 40, 'r': 20, 'b': 40, 'l': 60},
+}
+```
+
+### Textual (Light)
+
+```python
+class BonsaiLightApp(App):
+    CSS = """
+    Screen { background: #f5f2ec; }
+    Header { background: #ebe7de; color: #1a1f26; }
+    Footer { background: #ebe7de; color: #5e6574; }
+    Button { background: #5a7a63; color: #f5f2ec; border: solid #7c9885; }
+    Button:hover { background: #7c9885; }
+    """
+    TITLE = "BONSAI Terminal Interface (Light)"
+```
+
+For a mode-switching single app, load different `.tcss` files keyed off a `--theme` CLI flag or config value — keep component structure identical, vary only the stylesheet.
+
 ## Coverage Configuration (pyproject.toml)
 
 ```toml
