@@ -51,6 +51,44 @@ cp   ~/BONSAI/CLAUDE.md               .
 
 If symlinks aren't an option, replace every `ln -s` with `cp -r`. You'll have to re-copy after each `git pull`.
 
+### Using BONSAI with Cursor
+
+Cursor's rules + skills format mirrors Claude Code's — the migration is mostly a directory rename.
+
+| Claude Code | Cursor equivalent |
+|---|---|
+| `~/.claude/rules/` | `~/.cursor/rules/` |
+| `~/.claude/skills/` | `~/.cursor/skills/` |
+| `CLAUDE.md` (project root) | `AGENTS.md` (project root) |
+| `.claude/output-styles/bonsai.md` | Settings → **User Rules** (paste manually, one time) |
+
+**Global install on Cursor:**
+
+```bash
+git clone https://github.com/your-org/BONSAI.git ~/BONSAI
+
+ln -s ~/BONSAI/.claude/rules   ~/.cursor/rules
+ln -s ~/BONSAI/.claude/skills  ~/.cursor/skills
+cp    ~/BONSAI/CLAUDE.md       ~/AGENTS.md
+```
+
+Then open Cursor → Settings → Rules → **User Rules** and paste the contents of [`.claude/output-styles/bonsai.md`](.claude/output-styles/bonsai.md).
+
+**Per-project install on Cursor:**
+
+```bash
+cd your-project
+ln -s ~/BONSAI/.claude/rules   .cursor/rules
+ln -s ~/BONSAI/.claude/skills  .cursor/skills
+cp    ~/BONSAI/CLAUDE.md       AGENTS.md
+```
+
+**What works identically:**
+- Skills — invoke with `/<skill-name>` (e.g., `/bonsai-init`, `/cp`); Cursor reads the same `SKILL.md` format from `.cursor/skills/<name>/`
+- Rules — Cursor auto-loads `.md` (and `.mdc`) files from `.cursor/rules/`; BONSAI's existing `.md` files need no conversion
+
+**One caveat:** Cursor's User Rules are configured through Settings UI rather than a file, so the output style cannot be symlinked — paste it once into Settings.
+
 ### Verify
 
 In a new Claude Code session, type `/bonsai-init`. If the skill appears in the command list, you're done.
