@@ -21,7 +21,7 @@
 | Logging | **loguru** | logging module |
 | Console Output | **rich** | print statements |
 | File Operations | **pathlib** | os.path |
-| Process Execution | **sh** + rich | subprocess |
+| Process Execution | **subprocess** (stdlib) + rich | — |
 | Nested Data | **glom** | — |
 | Utilities | **boltons** | — |
 | Date Parsing | **dateparser** | — |
@@ -176,3 +176,5 @@ Never use these — always use the BONSAI alternative:
 - `mypy` -> use `ty`
 - `unittest` -> use `pytest`
 - `os.path` -> use `pathlib`
+- `sh` (Unix-only, breaks on Windows) -> use `subprocess` from stdlib
+- `delegator.py` (abandoned since 2018, depends on pexpect which is broken on Windows) -> use `subprocess` from stdlib
