@@ -154,6 +154,28 @@ Only add tools when evidence demands it:
 | **type hints** | Function used in 3+ places or has 3+ parameters |
 | **docker** | Deployment or complex dependencies |
 
+## Domain-Specific External Tools
+
+Not BONSAI defaults — install or load only when the specific trigger fires.
+
+### NotebookLM Automation
+
+When automating Google NotebookLM (creating notebooks, managing sources, generating podcasts/videos/quizzes, chatting with notebooks):
+
+- Library: [`notebooklm-py`](https://github.com/teng-lin/notebooklm-py)
+- Install: `uv add notebooklm-py`
+- Optional browser login: also `uv add playwright` and run `playwright install chromium`
+- ⚠️ Uses **undocumented Google APIs** — endpoints can break without notice. Suitable for prototypes and personal automation, not production.
+
+### Remotion (React-Based Video Generation)
+
+When creating programmatic videos with Remotion, copy the official Remotion skill into the **project's** `.claude/skills/` directory (not user-global) so the skill ships with the project:
+
+1. Source: [`remotion-dev/remotion/packages/skills/skills/remotion`](https://github.com/remotion-dev/remotion/tree/main/packages/skills/skills/remotion)
+2. Copy the entire `remotion/` directory (`SKILL.md` + the `rules/` subdirectory with all 38 rule files) into `.claude/skills/remotion/` at the project root.
+3. Verify Remotion's license fits the project (free for individuals and companies under $1M revenue; commercial license required above that — see [remotion.dev/license](https://www.remotion.dev/license)).
+4. After copying, the skill is invocable inside the project for Remotion-specific guidance (assets, animations, transitions, FFmpeg usage, etc.).
+
 ## Tool Selection Hierarchy
 
 1. **Standard library** — No dependencies is the best dependency
