@@ -169,6 +169,8 @@ When automating Google NotebookLM (creating notebooks, managing sources, generat
 
 ### Remotion (React-Based Video Generation)
 
+**Step 0 — before writing any Remotion code:** the official Remotion skill MUST be present at the project's `.claude/skills/remotion/`. If it isn't, copy it (steps below) and read its `SKILL.md` first. Do not scaffold `package.json`, compositions, or scenes from memory — version pins, current API surface, and platform caveats live in the skill, and training-time knowledge of Remotion may be stale.
+
 When creating programmatic videos with Remotion, copy the official Remotion skill into the **project's** `.claude/skills/` directory (not user-global) so the skill ships with the project:
 
 1. Source: [`remotion-dev/remotion/packages/skills/skills/remotion`](https://github.com/remotion-dev/remotion/tree/main/packages/skills/skills/remotion)
@@ -200,3 +202,13 @@ Never use these — always use the BONSAI alternative:
 - `os.path` -> use `pathlib`
 - `sh` (Unix-only, breaks on Windows) -> use `subprocess` from stdlib
 - `delegator.py` (abandoned since 2018, depends on pexpect which is broken on Windows) -> use `subprocess` from stdlib
+
+## External Skill Commands Take Precedence
+
+When an adopted external skill (e.g., the official Remotion skill in `.claude/skills/remotion/`) prescribes specific commands such as `npx create-video`, `npx remotion render`, or `npm install`, follow them **verbatim**. Do NOT rewrite those commands to use BONSAI's preferred package manager:
+
+- `npx create-video@latest …` — keep as `npx`, do not change to `bunx`
+- `npx remotion add <pkg>` — keep as `npx`
+- `npm i` after scaffolding — keep as `npm`, do not run `bun install`
+
+The BONSAI "Forbidden Tools" list applies to **your own code's runtime/build tooling**, not to the bootstrapping commands of an external authoring skill. Skill-prescribed commands are tested as written; substituting package managers may break behavior, change which lockfile is generated, or invalidate version pins. The skill's toolchain wins for the skill's toolchain.
