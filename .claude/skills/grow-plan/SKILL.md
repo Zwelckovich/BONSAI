@@ -62,11 +62,17 @@ Every phase MUST produce a deliverable that is:
 
 ### 6. On Approval
 
-Once the user selects an approach:
-1. Update GROW.md with the refined phase plan and selected approach
-2. **If in plan mode**: Write the refined plan to the plan file and call ExitPlanMode — the user will invoke `/bonsai` after approving. Do NOT try to execute `/bonsai` from within plan mode.
-3. **If not in plan mode**: Execute the phase directly using the `/bonsai` workflow
-4. After implementation, verify the run command works
-5. Update GROW.md with completion status and verified run command
+Once the user selects an approach, the default flow is **plan-then-implement in one shot** — `/bonsai` is invoked automatically as the handoff. The user does not need to say "use bonsai skill" or "now build it"; the handoff is unconditional unless the user explicitly says otherwise (e.g., "just plan, don't build" / "stop after planning").
+
+1. Update GROW.md with the refined phase plan and selected approach.
+2. **If in plan mode**:
+   a. Write the refined plan to the plan file (per plan-mode constraints — only the plan file is editable in this state).
+   b. Call `ExitPlanMode`.
+   c. After the user approves the exit, **immediately invoke the `/bonsai` skill in the same turn** via the Skill tool, passing the refined phase prompt (Goal, Deliverable, function signatures, acceptance criteria, anti-scope) as the `args`. Do NOT wait for the user to confirm again.
+3. **If not in plan mode**: Immediately invoke the `/bonsai` skill with the refined phase prompt as the directive — same payload as the plan-mode case.
+4. After `/bonsai` finishes implementation, verify the run command works.
+5. Update GROW.md with completion status and verified run command.
+
+**Opt-out:** if the user's message contains language like "just plan", "don't build yet", "stop after planning", or "I want to review before implementing", honor that — present the plan summary and stop. Do not invoke `/bonsai`. This is the override for the default handoff.
 
 $ARGUMENTS
