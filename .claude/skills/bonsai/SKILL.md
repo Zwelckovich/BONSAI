@@ -117,7 +117,7 @@ Show the actual command output as evidence that all tools pass clean.
 Review the implementation for quality and verify all references are updated.
 
 1. Remove redundant code — every line must have a clear purpose
-2. Use Grep to find all files that reference modified functions/classes
+2. Use Grep to find all files that reference modified functions/classes — **including test fixtures and mock signatures**, which are the most common collateral when refactoring private function signatures (e.g., a mock's `_run(netlist, output_dir)` becomes invalid the moment you add a `working_dir` kwarg)
 3. Update all references if signatures or names changed
 4. Check backward compatibility where relevant
 5. For thorough analysis, consider using `/code-analyser`

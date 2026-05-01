@@ -42,6 +42,30 @@ Default behavior for every change — not an opt-in workflow:
 - **Style preservation** — Match the existing code style (quotes, spacing, docstring usage, type-hint consistency) even if you'd write it differently. Exception: explicit refactor request.
 - **Clean only your own mess** — Remove only what your change orphaned. Nothing more, nothing less.
 
+## Wrapping complex systems (DSLs and ergonomic shells)
+
+When the underlying tool is too complex for direct daily use — verbose API, multi-step rituals, GUI-only workflows, brittle command sequences — wrap it in a thinner, opinionated layer **without removing the user's ability to drop down to the raw tool when needed**.
+
+The pattern: **low ceiling, no walls**.
+- **Low ceiling** — common operations should be 1-3 lines of code (or one button click). The 80% case is fast.
+- **No walls** — every wrapper exposes its underlying handles. The user can always reach the original API when the wrapper doesn't cover a niche case.
+
+Concrete shape for a Python DSL wrapper:
+- A small set of verbs covering 80% of daily tasks (`connect`, `do_thing`, `get_result`).
+- An escape-hatch accessor that returns the raw underlying objects (`session()`, `.client`, `.handle`).
+- Module-internal handles exposed (underscore-prefixed but reachable: `_db`, `_client`, `_state`) so tests can mock and advanced users can patch.
+- Implicit session state when it matches the user's mental model (matplotlib's `pyplot` is the canonical example: `plt.plot()` "knows" the current figure).
+- Logging on every user-visible action so the user sees what the wrapper did on their behalf — no "magic" they can't trace.
+
+Concrete shape for a GUI / TUI:
+- One primary action prominently surfaced; everything else accessible via menus or keyboard.
+- Never hide options — collapse them, but keep them reachable.
+- A "drop to terminal/script" path so power users can automate.
+
+The hardest part is the second clause. It's tempting to hide complexity entirely; resist. A wrapper that locks the user out of the underlying tool is worse than no wrapper, because they hit a wall the moment they outgrow your verbs. **Wrap, don't replace.**
+
+When to apply: any time the user describes a tool as "too painful to use directly," "I keep forgetting the steps," or "I need to write the same boilerplate every time." When NOT to apply: tools the user invokes once a quarter — wrappers cost maintenance, and a one-off script in their notebook is cheaper than a permanent abstraction.
+
 ## Anti-Patterns to Avoid
 
 - Creating empty directories — Folders only when files exist
