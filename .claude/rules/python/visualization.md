@@ -43,6 +43,12 @@ BONSAI_SEQUENTIAL_GREEN = ['#677a70', '#7c9885', '#9db4a6', '#a8c0b1']
 BONSAI_DIVERGING = ['#c78289', '#d4999f', '#8b92a5', '#9bb5d4', '#82a4c7']
 
 # Usage: plt.rcParams.update(BONSAI_STYLE)
+# When using seaborn, pass the palette explicitly — seaborn ignores
+# matplotlib's `axes.prop_cycle` and uses its own ("deep") which is too
+# dark for BONSAI dark backgrounds. Always:
+#   sns.lineplot(..., palette=BONSAI_QUALITATIVE)
+#   sns.scatterplot(..., palette=BONSAI_QUALITATIVE)
+#   sns.heatmap(..., cmap=sns.blend_palette(BONSAI_SEQUENTIAL_GREEN, as_cmap=True))
 ```
 
 ## BONSAI Rich Console Integration
