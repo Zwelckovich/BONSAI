@@ -5,6 +5,7 @@ description: >
   and generates intelligent, sequential development phases with prompts for each.
   Does NOT implement anything — just creates the plan. Trigger when user says
   "grow create", "create grow plan", "generate phases", or "plan my project".
+disable-model-invocation: true
 ---
 
 # GROW! Plan Creation

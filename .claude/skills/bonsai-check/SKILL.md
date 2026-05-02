@@ -6,6 +6,7 @@ description: >
   choices against BONSAI standards. Creates a detailed compliance report with
   migration guidance. Use for auditing tool usage, checking compliance, or when the
   user says "check compliance", "audit", "bonsai check", or "are we using the right tools".
+disable-model-invocation: true
 ---
 
 # BONSAI Best Practices Compliance Audit

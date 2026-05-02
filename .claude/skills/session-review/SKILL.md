@@ -11,6 +11,7 @@ description: >
   session", "analyze failures", or wants to understand why mistakes happened during
   a development session. Also use when the user asks what rules or skills need
   improving after a session.
+disable-model-invocation: true
 ---
 
 # Session Retrospective Analysis

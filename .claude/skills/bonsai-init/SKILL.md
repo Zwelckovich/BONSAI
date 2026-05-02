@@ -5,6 +5,7 @@ description: >
   .gitignore, and environment. Use when starting a new project, onboarding an
   existing project to BONSAI, or when the user says "init", "setup BONSAI",
   or "get started with BONSAI".
+disable-model-invocation: true
 ---
 
 # BONSAI Project Initialization

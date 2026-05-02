@@ -5,6 +5,7 @@ description: >
   asks clarifying questions, presents approach options, and requires approval
   before executing. Use when the user wants to plan a specific phase interactively
   before implementing it. Trigger on "grow plan", "plan phase", or "help me plan phase N".
+disable-model-invocation: true
 ---
 
 # GROW! Interactive Phase Planning

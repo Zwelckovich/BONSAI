@@ -6,6 +6,7 @@ description: >
   source files. Use when the user wants a code audit, dead code detection, or
   quality analysis. Trigger on "analyze code", "find dead code", "unused functions",
   or "code quality check".
+disable-model-invocation: true
 ---
 
 # Code Quality Analysis

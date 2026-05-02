@@ -5,6 +5,7 @@ description: >
   scanning, pre-flight checks, conflict detection, and error recovery. Supports
   flags: --amend, --no-push, --wip, --dry-run, or a quoted message override.
   Use when the user says "commit", "push", "c/p", "cp", or "commit and push".
+disable-model-invocation: true
 ---
 
 # Seal the Ring — BONSAI Commit & Push
