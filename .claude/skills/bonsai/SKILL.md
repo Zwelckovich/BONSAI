@@ -2,10 +2,12 @@
 name: bonsai
 description: >
   Adaptive development workflow with 10 tasks and 3 modes (Grow/Shape/Prune).
-  Use this skill whenever the user wants structured, systematic development —
-  new features, bug fixes, refactoring, or any code change that benefits from
-  planning, testing, linting, and cleanup. Trigger on /bonsai or when the user
-  explicitly asks for "the BONSAI workflow" or "full workflow".
+  Supports `--tdd` flag for test-driven development (tracer-bullet inner loop:
+  one failing test → minimal code → next test). Use this skill whenever the user
+  wants structured, systematic development — new features, bug fixes, refactoring,
+  or any code change that benefits from planning, testing, linting, and cleanup.
+  Trigger on /bonsai, /bonsai --tdd, or when the user explicitly asks for "the
+  BONSAI workflow" or "full workflow".
 ---
 
 # BONSAI Adaptive Development Workflow
@@ -46,7 +48,8 @@ Determine what needs to happen and select the appropriate mode.
    - Changes touch only `.md`, `.json`, `.toml`, `.yaml`, `.gitignore`, config → **Prune**
    - User says "use full workflow" → **Grow** regardless
    - User says "this is just a prune" → **Prune** regardless
-4. Identify all files to modify/create
+   - **User passes `--tdd` flag** → activate TDD mode on top of the chosen mode (see "TDD Mode" below)
+4. Identify all files to modify/create. **In TDD mode**: also produce a prioritized list of *behaviors to test* (e.g. "user can checkout with valid cart", "checkout fails with empty cart") — not just file names. The behavior list drives the inner loop.
 5. Verify BONSAI tools are available (only if code files involved):
    - Python: `uv --version` (never pip/pipenv/poetry)
    - Python dev tools: `uv run ruff --version && uv run ty --version` — if missing, run `uv add --dev ruff ty`
@@ -55,7 +58,29 @@ Determine what needs to happen and select the appropriate mode.
 6. **Read `CLEANUP.md`** if it exists — you must Read before you can Edit it later. If it doesn't exist, you'll Write it fresh.
 7. Create or update `CLEANUP.md` with new session timestamp
 
-Output: State the selected mode and task list clearly.
+Output: State the selected mode and task list clearly. If `--tdd` is active, say so explicitly.
+
+### TDD Mode (`--tdd` flag)
+
+When `--tdd` is active, Tasks 3 and 7 fuse into a single **inner loop driven by the behavior list from Task 1**. For each behavior, in priority order:
+
+1. **Write ONE failing test** that exercises the behavior via the *public interface* (never private methods or internal state).
+2. Run the test → confirm it fails for the *right reason* (RED).
+3. Write the **minimal** code that makes it pass (GREEN). No extra functionality, no anticipating future tests.
+4. Optional: refactor while keeping the test green. Tests must stay green throughout.
+5. Run `uv run ruff format <file> && uv run ruff check --fix <file>` (or `bun run biome check --write <file>`) on the changed files — *now*, not at the end.
+6. Move to the next behavior.
+
+**Hard constraints:**
+- **Never write two tests without implementing each between them.** That is horizontal slicing — it produces tests that describe imagined behavior, not actual behavior. Stop, write the code for test 1, then write test 2.
+- **Tests test behavior via public interfaces.** If your test breaks when you rename a private function, the test was wrong.
+- **If a test fails: fix the code, never the test.** Adjusting the test to make it pass defeats the purpose.
+
+Under `--tdd`:
+- **Task 3 (Implement)** becomes step 3 of the inner loop (minimal code per test).
+- **Task 4 (Run)** is the test runner — verification flows through tests.
+- **Task 5 (Lint)** runs inside the loop after each cycle, not as a final batch.
+- **Task 7 (Test)** is no longer "now write tests" — tests already exist. It becomes "run all tests, generate coverage report, confirm green."
 
 ## Task 2: Read and Understand
 
@@ -68,6 +93,8 @@ Read every file that will be modified before touching anything.
 This prevents blind modifications and ensures you understand the codebase context.
 
 ## Task 3: Implement
+
+*Under `--tdd`, this task is the GREEN step of the inner loop — see "TDD Mode" above. Write the minimal code to pass the current failing test, nothing more.*
 
 Write the actual code changes. The BONSAI philosophy applies: minimal, justified, purposeful.
 
@@ -125,6 +152,8 @@ Review the implementation for quality and verify all references are updated.
 ## Task 7: Test
 
 *Skipped in Prune mode.*
+
+*Under `--tdd`: tests already exist (written during the inner loop). This task collapses to: run the full suite, generate a coverage report, confirm everything green. Do NOT write new tests here — that would be horizontal slicing after the fact.*
 
 Write and run tests to verify the implementation is correct.
 
