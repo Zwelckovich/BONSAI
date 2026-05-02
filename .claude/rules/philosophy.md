@@ -42,6 +42,35 @@ Default behavior for every change — not an opt-in workflow:
 - **Style preservation** — Match the existing code style (quotes, spacing, docstring usage, type-hint consistency) even if you'd write it differently. Exception: explicit refactor request.
 - **Clean only your own mess** — Remove only what your change orphaned. Nothing more, nothing less.
 
+## Bug Discovery Protocol
+
+When facing a hard bug or performance regression, build a feedback loop *before* hypothesizing. The discipline:
+
+**Phase 0 — Build a feedback loop. This is the skill.**
+
+If you have a fast, deterministic, agent-runnable pass/fail signal for the bug, you will find the cause — bisection, hypothesis-testing, and instrumentation all just consume that signal. If you don't have one, no amount of staring at code will save you.
+
+Ten ways to construct a loop, in roughly priority order:
+
+1. **Failing test** at any seam (unit, integration, e2e) that reaches the bug.
+2. **Curl / HTTP script** against a running dev server.
+3. **CLI invocation** with fixture input, diffing stdout against a known-good snapshot.
+4. **Headless browser** (Playwright/Puppeteer) — drives UI, asserts on DOM/console/network.
+5. **Replay a captured trace** — save a real network request/payload/event log, replay through the code path.
+6. **Throwaway harness** — minimal subset of the system (one service, mocked deps) exercising the bug code path with one function call.
+7. **Property/fuzz loop** — for "sometimes wrong output" bugs, run many random inputs and watch for the failure mode.
+8. **Bisection harness** — automate "boot at state X, check, repeat" for `git bisect run`.
+9. **Differential loop** — same input through old vs. new (or two configs), diff outputs.
+10. **HITL bash script** — last resort if a human must click; structure the loop with a template script so captured output feeds back.
+
+**Iterate on the loop itself.** A 30-second flaky loop is barely better than no loop. A 2-second deterministic loop is a debugging superpower. Make it faster (cache setup, narrow scope), sharper (assert specific symptoms, not "didn't crash"), more deterministic (pin time, seed RNG, isolate filesystem).
+
+**Non-deterministic bugs.** Don't aim for clean repro — raise the reproduction rate. A 50%-flake bug is debuggable; 1% is not. Loop the trigger many times, parallelize, add stress, narrow timing windows.
+
+**When you genuinely cannot build a loop**, stop and say so explicitly. List what you tried. Ask the user for environment access, captured artifacts, or permission to add temporary instrumentation. Do **not** proceed to hypothesise without a loop.
+
+Only after the loop exists: rank 3-5 falsifiable hypotheses *before* instrumenting, write the regression test *before* the fix, and remove probes/temp logs after the fix lands.
+
 ## Wrapping complex systems (DSLs and ergonomic shells)
 
 When the underlying tool is too complex for direct daily use — verbose API, multi-step rituals, GUI-only workflows, brittle command sequences — wrap it in a thinner, opinionated layer **without removing the user's ability to drop down to the raw tool when needed**.
@@ -98,3 +127,38 @@ Normal Claude Code behavior is the default for all interactions. The `/bonsai` w
 - **concept.md** — For project vision and decisions
 - **CLAUDE.local.md** — For environment-specific learnings
 - **Code is self-documenting** — Clear names over comments
+
+## Skill Standards
+
+Skills (`~/.claude/skills/<name>/SKILL.md`) are user-defined workflows that the agent loads on demand. The trigger mechanism is simple but unforgiving:
+
+### Description is the gate
+
+The `description` field in the YAML frontmatter is the **only** content the agent reads when deciding whether to load a skill. Everything else in SKILL.md is invisible at trigger time.
+
+Rules for descriptions:
+- Under 1024 characters
+- Third-person ("Execute the...", "Answer questions...", "Run the...")
+- First sentence: what the skill does
+- Second sentence: `Use when [specific trigger phrases or conditions]`
+- 2-4 concrete trigger phrases
+- Distinct enough to separate from similar skills (e.g., `/pc` vs. `/grow-plan`)
+
+### `disable-model-invocation: true` for explicit-only skills
+
+Add this YAML flag to skills that should *never* auto-trigger via description match — only when the user explicitly invokes them. Use for:
+- Heavy operations (transformations, audits, pushes)
+- Setup/init commands (run rarely, deliberately)
+- Workflow entry points where accidental invocation is costly
+
+Skills that *should* auto-trigger (e.g., `/qa` on questions, `/pycheck` after Python edits) leave the flag off.
+
+### Skill structure
+
+- **Single file** under ~200 lines: keep everything in `SKILL.md`.
+- **Over 200 lines**: split into `SKILL.md` (main) + thematic `*.md` references (`tests.md`, `mocking.md`, `examples.md`). `SKILL.md` links to them.
+- **Deterministic operations** (hooks, generators, repeated commands): bundle as a script in `scripts/` next to `SKILL.md`, not as an inline Markdown block. The skill calls the script.
+
+### Deprecated skills
+
+When a skill is no longer used, move it to `~/.claude/skills/deprecated/<name>/` rather than deleting. Keeps history visible, allows reactivation, and signals intent during audits. Categorization into subdirectories (engineering/, productivity/, etc.) only becomes useful past ~20 skills.
