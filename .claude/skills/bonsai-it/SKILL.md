@@ -6,6 +6,7 @@ description: >
   migrates the design system, and updates concept.md. Requires double confirmation
   before executing. Use when user says "BONSAI it!", "transform to BONSAI",
   or "convert this project".
+disable-model-invocation: true
 ---
 
 # BONSAI it! — Project Transformation

@@ -5,6 +5,7 @@ description: >
   runs the full /bonsai workflow for that phase, and updates GROW.md with results.
   Use --ALL flag for continuous execution of all remaining phases.
   Trigger when user says "grow", "next phase", "execute phase", or "GROW! --ALL".
+disable-model-invocation: true
 ---
 
 # GROW! Phase Execution
