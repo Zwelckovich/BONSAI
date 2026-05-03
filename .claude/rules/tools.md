@@ -158,15 +158,6 @@ Only add tools when evidence demands it:
 
 Not BONSAI defaults — install or load only when the specific trigger fires.
 
-### NotebookLM Automation
-
-When automating Google NotebookLM (creating notebooks, managing sources, generating podcasts/videos/quizzes, chatting with notebooks):
-
-- Library: [`notebooklm-py`](https://github.com/teng-lin/notebooklm-py)
-- Install: `uv add notebooklm-py`
-- Optional browser login: also `uv add playwright` and run `playwright install chromium`
-- ⚠️ Uses **undocumented Google APIs** — endpoints can break without notice. Suitable for prototypes and personal automation, not production.
-
 ### Remotion (React-Based Video Generation)
 
 **Step 0 — before writing any Remotion code:** the official Remotion skill MUST be present at the project's `.claude/skills/remotion/`. If it isn't, copy it (steps below) and read its `SKILL.md` first. Do not scaffold `package.json`, compositions, or scenes from memory — version pins, current API surface, and platform caveats live in the skill, and training-time knowledge of Remotion may be stale.
