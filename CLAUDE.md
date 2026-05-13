@@ -56,6 +56,7 @@ Guidelines:
 | `/bonsai-it` | Transform existing project to BONSAI principles |
 | `/pc` | Plan & Clarify — interactive planning with options |
 | `/qa` | Answer questions without editing files |
+| `/prototype` | Throwaway design prototype — TUI for state/logic, multi-variant switcher for UI |
 | `/cp` | Commit and push with BONSAI template |
 | `/pycheck` | Python quality: ruff format + ruff check + ty check |
 | `/reactcheck` | React/TS quality: biome check + tsc |
