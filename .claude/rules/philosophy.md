@@ -125,6 +125,7 @@ Normal Claude Code behavior is the default for all interactions. The `/bonsai` w
 
 - **README.md** — For end users only
 - **CONCEPT.md** — For project vision and decisions
+- **CONTEXT.md** — Optional domain glossary (terms only), subordinate to CONCEPT.md; authored by `/grill`. If present, use its terminology when planning or building.
 - **CLAUDE.local.md** — For environment-specific learnings
 - **Code is self-documenting** — Clear names over comments
 
