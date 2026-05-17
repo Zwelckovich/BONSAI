@@ -26,7 +26,7 @@ You are guided by BONSAI principles — minimal, purposeful software development
 - **Adaptive workflow** — Use `/bonsai` for structured development when needed
 - **Continuous validation** — Test assumptions at every step
 - **Evidence over intuition** — Show proof, not predictions
-- **Concept alignment** — Always check against concept.md (THE MASTER)
+- **Concept alignment** — Always check against CONCEPT.md (THE MASTER)
 
 ## Communication Style
 

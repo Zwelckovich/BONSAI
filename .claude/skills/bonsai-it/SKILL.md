@@ -3,7 +3,7 @@ name: bonsai-it
 description: >
   Transform an existing project to follow BONSAI principles. Replaces tools
   (pip→uv, npm→bun, black→ruff, eslint→biome), restructures directories,
-  migrates the design system, and updates concept.md. Requires double confirmation
+  migrates the design system, and updates CONCEPT.md. Requires double confirmation
   before executing. Use when user says "BONSAI it!", "transform to BONSAI",
   or "convert this project".
 disable-model-invocation: true
@@ -41,19 +41,19 @@ Type "BONSAI transform my project" to begin.
 
 Detect what exists and act accordingly:
 
-| concept.md | Code Files | Action |
+| CONCEPT.md | Code Files | Action |
 |------------|------------|--------|
-| Yes | Yes | Modify concept.md + transform code |
-| Yes | No | Only modify concept.md |
-| No | Yes | Only transform code (don't create concept.md) |
+| Yes | Yes | Modify CONCEPT.md + transform code |
+| Yes | No | Only modify CONCEPT.md |
+| No | Yes | Only transform code (don't create CONCEPT.md) |
 | No | No | Do nothing — inform user |
 
 Code detection: `.py`, `.js`, `.ts`, `.html`, `.css`, `package.json`, `pyproject.toml`, `src/`, `lib/`, `app/`
 
 ## Phase 1: Concept Alignment
 
-If `concept.md` exists:
-1. Back up: `concept.md.bonsai_backup_[timestamp]`
+If `CONCEPT.md` exists:
+1. Back up: `CONCEPT.md.bonsai_backup_[timestamp]`
 2. Remove embedded directory structures and tooling choices
 3. Preserve project-specific requirements
 4. Add reference to BONSAI guidelines

@@ -1,7 +1,7 @@
 ---
 name: grow-create
 description: >
-  Create a GROW.md development plan from concept.md. Analyzes the project vision
+  Create a GROW.md development plan from CONCEPT.md. Analyzes the project vision
   and generates intelligent, sequential development phases with prompts for each.
   Does NOT implement anything — just creates the plan. Trigger when user says
   "grow create", "create grow plan", "generate phases", or "plan my project".
@@ -10,13 +10,13 @@ disable-model-invocation: true
 
 # GROW! Plan Creation
 
-Analyze `concept.md` and generate a smart, phase-based development plan in `GROW.md`.
+Analyze `CONCEPT.md` and generate a smart, phase-based development plan in `GROW.md`.
 
 ## Process
 
-### 1. Analyze concept.md
+### 1. Analyze CONCEPT.md
 
-Read `concept.md` and extract:
+Read `CONCEPT.md` and extract:
 - Project type (web app, CLI tool, library, API, etc.)
 - Core technology (Python, JavaScript, etc.)
 - Key requirements and features
@@ -24,7 +24,7 @@ Read `concept.md` and extract:
 
 Read `CLAUDE.local.md` if it exists — check the OS and shell environment. Adapt run commands accordingly (e.g., on Windows Git Bash, use `uv run uvicorn main:app` instead of `fastapi dev`).
 
-If `concept.md` doesn't exist, ask the user to create one first (or run `/bonsai-init`).
+If `CONCEPT.md` doesn't exist, ask the user to create one first (or run `/bonsai-init`).
 
 ### 2. Generate Development Phases
 
@@ -38,10 +38,10 @@ Think like a developer: what would you build first to validate the concept? Crea
 - **Single-command runnable** — Each phase must work with ONE terminal command
 
 **Prompt precision principles:**
-- **Reference, don't duplicate** — Point to concept.md sections ("Read §4.2 for exact matchup scores") rather than copying content into prompts
+- **Reference, don't duplicate** — Point to CONCEPT.md sections ("Read §4.2 for exact matchup scores") rather than copying content into prompts
 - **Specify deliverables concretely** — Name functions, models, files, and their signatures
 - **Include acceptance criteria** — What must be true for the phase to be complete
-- **Name edge cases** — List specific edge cases by number/name from concept.md
+- **Name edge cases** — List specific edge cases by number/name from CONCEPT.md
 - **Concrete examples** — Include at least 2-3 concrete input/output examples per phase
 - **Formula specs** — Any mathematical formula must appear verbatim in the prompt
 - **Per-phase justification** — One sentence explaining why this phase exists and what depends on it
@@ -64,7 +64,7 @@ Write `GROW.md` with this structure:
 - **Project Type**: [detected type]
 - **Core Technology**: [language/framework]
 - **Complexity**: [Simple/Medium/Complex]
-- **Source**: concept.md
+- **Source**: CONCEPT.md
 
 ## Development Phases
 
@@ -72,7 +72,7 @@ Write `GROW.md` with this structure:
 - **Goal**: [what this phase achieves]
 - **Deliverable**: [functional component with named functions/models]
 - **Dependencies**: [prior phases, or "None"]
-- **Covers**: [concept.md sections this phase implements]
+- **Covers**: [CONCEPT.md sections this phase implements]
 - **Run Command**: [exact command to run and test]
 - **Status**: ⏳ PENDING
 

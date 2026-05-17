@@ -9,7 +9,7 @@ When determining project structure, follow this priority:
    - Preserve their organization patterns
    - Make minimal changes for compliance
 
-2. **concept.md Specifications** (if defined)
+2. **CONCEPT.md Specifications** (if defined)
    - Follow explicit structure guidelines
    - Overrides BONSAI defaults
 
