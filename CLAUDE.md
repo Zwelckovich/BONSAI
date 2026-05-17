@@ -11,6 +11,7 @@ Normal Claude Code behavior is the default. Invoke `/bonsai` explicitly when you
 | Document | Purpose | Modify? |
 |----------|---------|---------|
 | **CONCEPT.md** | THE MASTER — Project vision, requirements, decisions. Overrides all other configs. | Yes, when fundamental changes made |
+| **CONTEXT.md** | Subordinate domain glossary (terms only), beneath CONCEPT.md. Optional; read if present. | Only via /grill |
 | **CLAUDE.md** | BONSAI methodology template. | Never (unless user explicitly requests) |
 | **CLAUDE.local.md** | Auto-generated environment learnings, project-specific patterns. | Yes, auto-maintained |
 | **README.md** | Manual for end users of your software. | Yes, when user-facing changes made |

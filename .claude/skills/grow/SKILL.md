@@ -26,6 +26,8 @@ Read `GROW.md` to find the current state:
 - Which phase is next (first without ✅)
 - The phase prompt and deliverables
 
+Also read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — so phase work, and the prompt handed to `/bonsai`, uses the project glossary (read-only; `/grill`-authored, subordinate to `CONCEPT.md`).
+
 If GROW.md doesn't exist, tell the user to run `/grow-create` first.
 
 ### 2. Execute the Phase

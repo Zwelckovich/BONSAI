@@ -14,7 +14,7 @@ Be interactive and collaborative. Ask questions before proposing solutions.
 
 ## Process
 
-1. **Analyze** the request and identify what you need to know
+1. **Analyze** the request and identify what you need to know. Read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — use the project glossary in your questions and plan (read-only; `/grill`-authored, subordinate to `CONCEPT.md`).
 2. **Ask 3-5 clarifying questions** about scope, constraints, preferences, and trade-offs.
    - Use the `AskUserQuestion` tool when the questions have discrete answers — clickable picker beats free text.
    - Use plain text questions only when the answer is genuinely open-ended (e.g. "what is the existing data shape?").

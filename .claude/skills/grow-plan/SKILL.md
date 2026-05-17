@@ -28,6 +28,8 @@ Read the phase prompt and identify:
 - Dependencies on previous phases
 - Technical decisions that need user input
 
+Also read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — align your questions and approach options with the established domain glossary (read-only; `/grill`-authored, subordinate to `CONCEPT.md`).
+
 ### 3. Ask Clarifying Questions
 
 Ask 3-5 focused questions about:
