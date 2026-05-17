@@ -41,7 +41,7 @@ $ARGUMENTS
 Determine what needs to happen and select the appropriate mode.
 
 1. Analyze the user's request — what are they asking for?
-2. Read `concept.md` if it exists — understand project goals and constraints
+2. Read `CONCEPT.md` if it exists — understand project goals and constraints
 3. **Classify the mode**:
    - Changes add new files, public interfaces, or dependencies → **Grow**
    - Changes modify existing code without new files/interfaces → **Shape**
@@ -174,10 +174,10 @@ Show actual test execution output as evidence.
 
 Verify the changes align with the project's goals.
 
-1. If `concept.md` exists: review ALL changes against it
+1. If `CONCEPT.md` exists: review ALL changes against it
 2. Check for scope creep — did you add anything not requested?
 3. Verify `.gitignore` is complete (no generated files tracked)
-4. If `concept.md` doesn't exist or `skip_concept_alignment` is set: skip this task
+4. If `CONCEPT.md` doesn't exist or `skip_concept_alignment` is set: skip this task
 
 ## Task 9: Documentation
 
@@ -185,7 +185,7 @@ Verify the changes align with the project's goals.
 
 Update documentation to reflect the changes.
 
-1. Update `concept.md` if fundamental changes were made
+1. Update `CONCEPT.md` if fundamental changes were made
 2. Update `README.md` with any new user-facing functions or features
 3. Update `CLAUDE.local.md` with session learnings (environment quirks, patterns discovered)
 4. **Never modify CLAUDE.md** — it's a template

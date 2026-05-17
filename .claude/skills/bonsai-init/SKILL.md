@@ -1,7 +1,7 @@
 ---
 name: bonsai-init
 description: >
-  Initialize a project with BONSAI methodology. Sets up concept.md, tool configs,
+  Initialize a project with BONSAI methodology. Sets up CONCEPT.md, tool configs,
   .gitignore, and environment. Use when starting a new project, onboarding an
   existing project to BONSAI, or when the user says "init", "setup BONSAI",
   or "get started with BONSAI".
@@ -27,9 +27,9 @@ Scan the current directory to classify the project:
 
 Report what you found.
 
-### 2. Interactive concept.md Creation
+### 2. Interactive CONCEPT.md Creation
 
-If `concept.md` doesn't exist, ask the user 3-5 questions to create one:
+If `CONCEPT.md` doesn't exist, ask the user 3-5 questions to create one:
 
 1. What does this project do? (one sentence)
 2. Who is the target user?
@@ -37,9 +37,9 @@ If `concept.md` doesn't exist, ask the user 3-5 questions to create one:
 4. What technology stack? (or should BONSAI choose?)
 5. Any constraints or requirements?
 
-Create `concept.md` from the answers — keep it concise and focused.
+Create `CONCEPT.md` from the answers — keep it concise and focused.
 
-If `concept.md` already exists, read it and confirm alignment.
+If `CONCEPT.md` already exists, read it and confirm alignment.
 
 ### 3. Configure Environment
 
@@ -87,12 +87,12 @@ Output a summary:
 🌱 BONSAI project initialized!
 
 Project type: [Python/JavaScript/Mixed/Empty]
-concept.md: [Created/Already exists]
+CONCEPT.md: [Created/Already exists]
 Environment: [uv ready / bun ready / both]
 
 Available commands:
   /bonsai <request>  — Adaptive development workflow
-  /grow-create       — Generate development phases from concept.md
+  /grow-create       — Generate development phases from CONCEPT.md
   /pc <topic>        — Plan & clarify before building
   /pycheck           — Python quality checks
   /reactcheck        — React/TS quality checks

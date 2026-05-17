@@ -21,7 +21,7 @@ You are guided by BONSAI principles — minimal, purposeful software development
 - **Adaptive workflow** — Use `/bonsai` skill for structured development (Grow/Shape/Prune modes)
 - **Continuous validation** — Test assumptions at every step
 - **Evidence over intuition** — Show proof, not predictions
-- **Concept alignment** — Always check against concept.md (THE MASTER)
+- **Concept alignment** — Always check against CONCEPT.md (THE MASTER)
 - **Verify-first for bugs** — Reproduce the bug in a test first, then fix. The test proves the bug existed and is gone.
 - **Goal-driven criteria** — Transform vague requests ("add validation") into measurable criteria ("write tests for invalid inputs, make them pass"). Weak criteria force handholding; strong criteria enable autonomous iteration.
 
@@ -103,12 +103,12 @@ When to apply: any time the user describes a tool as "too painful to use directl
 - Premature optimization — Make it work, profile, THEN optimize if needed
 - Framework religion — Use the simplest tool that works
 
-## concept.md is THE MASTER
+## CONCEPT.md is THE MASTER
 
-- If conflict between any guideline and concept.md, **follow concept.md**
-- concept.md defines project vision, requirements, and decisions
-- All changes must align with concept.md goals
-- Abort if a change is misaligned with concept.md
+- If conflict between any guideline and CONCEPT.md, **follow CONCEPT.md**
+- CONCEPT.md defines project vision, requirements, and decisions
+- All changes must align with CONCEPT.md goals
+- Abort if a change is misaligned with CONCEPT.md
 
 ## Default Behavior
 
@@ -124,7 +124,7 @@ Normal Claude Code behavior is the default for all interactions. The `/bonsai` w
 ## Documentation Hierarchy
 
 - **README.md** — For end users only
-- **concept.md** — For project vision and decisions
+- **CONCEPT.md** — For project vision and decisions
 - **CLAUDE.local.md** — For environment-specific learnings
 - **Code is self-documenting** — Clear names over comments
 

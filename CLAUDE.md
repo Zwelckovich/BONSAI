@@ -10,7 +10,7 @@ Normal Claude Code behavior is the default. Invoke `/bonsai` explicitly when you
 
 | Document | Purpose | Modify? |
 |----------|---------|---------|
-| **concept.md** | THE MASTER — Project vision, requirements, decisions. Overrides all other configs. | Yes, when fundamental changes made |
+| **CONCEPT.md** | THE MASTER — Project vision, requirements, decisions. Overrides all other configs. | Yes, when fundamental changes made |
 | **CLAUDE.md** | BONSAI methodology template. | Never (unless user explicitly requests) |
 | **CLAUDE.local.md** | Auto-generated environment learnings, project-specific patterns. | Yes, auto-maintained |
 | **README.md** | Manual for end users of your software. | Yes, when user-facing changes made |
@@ -49,12 +49,13 @@ Guidelines:
 | Skill | Description |
 |-------|-------------|
 | `/bonsai` | Adaptive development workflow (10 tasks, 3 modes: Grow/Shape/Prune) |
-| `/bonsai-init` | Project onboarding — detect type, create concept.md, configure tools |
+| `/bonsai-init` | Project onboarding — detect type, create CONCEPT.md, configure tools |
 | `/grow` | Execute next GROW! phase (or `--ALL` for continuous) |
-| `/grow-create` | Create GROW.md from concept.md analysis |
+| `/grow-create` | Create GROW.md from CONCEPT.md analysis |
 | `/grow-plan` | Interactive phase planning with approach options |
 | `/bonsai-it` | Transform existing project to BONSAI principles |
-| `/pc` | Plan & Clarify — interactive planning with options |
+| `/pc` | Plan & Clarify — clarifying questions, then approach options |
+| `/grill` | Adversarial grilling — pressure-test a plan, sharpen domain terms (CONTEXT.md), record ADRs |
 | `/qa` | Answer questions without editing files |
 | `/cp` | Commit and push with BONSAI template |
 | `/pycheck` | Python quality: ruff format + ruff check + ty check |

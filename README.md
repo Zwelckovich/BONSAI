@@ -99,7 +99,7 @@ Three pillars:
 
 1. **Minimalism First** — Start with nothing. Add only when necessity demands. Prefer deletion over addition.
 2. **Purposeful Growth** — Evidence-based decisions. Progressive enhancement. YAGNI enforcement.
-3. **Systematic Verification** — Test assumptions at every step. `concept.md` is THE MASTER and overrides every other config.
+3. **Systematic Verification** — Test assumptions at every step. `CONCEPT.md` is THE MASTER and overrides every other config.
 
 When facing any decision, ask in order:
 
@@ -119,10 +119,10 @@ Fourteen slash commands, grouped by purpose.
 | Skill | Purpose |
 |-------|---------|
 | [`/bonsai`](.claude/skills/bonsai/SKILL.md) | Adaptive development workflow — 10 tasks, 3 modes (Grow / Shape / Prune) |
-| [`/bonsai-init`](.claude/skills/bonsai-init/SKILL.md) | Onboard a project — detect type, create `concept.md`, configure tools |
+| [`/bonsai-init`](.claude/skills/bonsai-init/SKILL.md) | Onboard a project — detect type, create `CONCEPT.md`, configure tools |
 | [`/bonsai-it`](.claude/skills/bonsai-it/SKILL.md) | Transform an existing project to BONSAI (pip→uv, eslint→biome, …) |
 | [`/grow`](.claude/skills/grow/SKILL.md) | Execute the next GROW! development phase (`--ALL` for continuous) |
-| [`/grow-create`](.claude/skills/grow-create/SKILL.md) | Generate a `GROW.md` plan from `concept.md` |
+| [`/grow-create`](.claude/skills/grow-create/SKILL.md) | Generate a `GROW.md` plan from `CONCEPT.md` |
 | [`/grow-plan`](.claude/skills/grow-plan/SKILL.md) | Interactive planning for a single GROW phase |
 
 ### Planning
@@ -195,7 +195,7 @@ Forbidden: `pip`, `npm`, `black`, `eslint + prettier`, `mypy`, `unittest`, `os.p
 
 BONSAI is a default, not a cage.
 
-- **`concept.md`** is THE MASTER. If any rule conflicts with `concept.md`, the rule loses. Define your project vision there and every skill aligns to it.
+- **`CONCEPT.md`** is THE MASTER. If any rule conflicts with `CONCEPT.md`, the rule loses. Define your project vision there and every skill aligns to it.
 - **Per-project overrides** — drop files into the project's `.claude/rules/` to shadow a global rule for that repo only.
 - **`CLAUDE.local.md`** — auto-maintained environment learnings (OS quirks, project patterns). Always in `.gitignore`.
 
@@ -203,7 +203,7 @@ Documentation hierarchy Claude follows:
 
 | File | Audience | Modify? |
 |------|----------|---------|
-| `concept.md` | Project vision (THE MASTER) | Yes, when fundamental decisions change |
+| `CONCEPT.md` | Project vision (THE MASTER) | Yes, when fundamental decisions change |
 | `CLAUDE.md` | Claude Code (methodology template) | Rarely |
 | `CLAUDE.local.md` | Claude Code (env-specific, gitignored) | Auto-maintained |
 | `README.md` | End users of your software | Yes, when user-facing changes ship |
