@@ -2,7 +2,7 @@
 
 > **Build Only Necessary Software, Adapt Intelligently.**
 
-A Claude Code plugin that turns minimalism into a default. Ships a philosophy, a set of rules, 14 slash-command skills, and an output style — drop it into your `.claude/` directory and Claude Code starts writing less code, asking better questions, and pruning what doesn't belong.
+A Claude Code plugin that turns minimalism into a default. Ships a philosophy, a set of rules, a growing toolkit of slash-command skills, and an output style — drop it into your `.claude/` directory and Claude Code starts writing less code, asking better questions, and pruning what doesn't belong.
 
 ## What is this?
 
@@ -12,7 +12,7 @@ The repository contains:
 
 - `CLAUDE.md` — the methodology overview Claude loads into every session
 - `.claude/rules/` — the guidelines (philosophy, tool choices, structure, design system)
-- `.claude/skills/` — 14 invocable skills (`/bonsai`, `/grow`, `/cp`, `/pycheck`, …)
+- `.claude/skills/` — invocable skills (`/bonsai`, `/grow`, `/cp`, `/pycheck`, …)
 - `.claude/output-styles/bonsai.md` — the conversational tone Claude adopts
 
 No dependencies. No build step. Just Markdown.
@@ -107,7 +107,7 @@ Full version in [`.claude/rules/philosophy.md`](.claude/rules/philosophy.md).
 
 ## Skills
 
-Fourteen slash commands, grouped by purpose.
+Grouped by purpose.
 
 ### Workflow
 
