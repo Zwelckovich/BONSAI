@@ -19,108 +19,70 @@ No dependencies. No build step. Just Markdown.
 
 ## Quickstart
 
-> **Windows users:** PowerShell's `New-Item -ItemType SymbolicLink` is the equivalent of `ln -s`, but **the argument order is reversed**: `-Path` is the link, `-Target` is the source. Run PowerShell as administrator, or enable **Settings → For developers → Developer Mode** to create symlinks without elevation. Each block below shows Linux/macOS first, then the PowerShell equivalent.
+Clone the repo, then run the installer for your platform. The installer creates symlinks into `~/.claude/`, so `git pull` in this repo updates BONSAI everywhere.
 
-### Global install (recommended)
-
-Symlink the contents into your user-level Claude config. This keeps the repo as the source of truth — `git pull` updates your rules and skills everywhere.
+### Linux / macOS
 
 ```bash
 git clone https://github.com/your-org/BONSAI.git ~/BONSAI
+cd ~/BONSAI
 
-# Symlink the artifacts
+./scripts/install.sh install                  # global Claude Code (recommended)
+./scripts/install.sh install --project        # this directory only (Claude Code)
+./scripts/install.sh install --cursor-global  # Cursor user-level
+./scripts/install.sh install --cursor-project # Cursor, this directory
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/your-org/BONSAI.git $HOME\BONSAI
+cd $HOME\BONSAI
+
+.\scripts\install.ps1 install
+.\scripts\install.ps1 install -Project
+.\scripts\install.ps1 install -CursorGlobal
+.\scripts\install.ps1 install -CursorProject
+```
+
+> **Windows symlinks:** PowerShell needs Developer Mode (Settings → For developers → Developer Mode) or admin to create symlinks. The installer prints a clear error if it's blocked.
+
+### Other commands
+
+```bash
+./scripts/install.sh status      # show what's linked, drifted, or missing
+./scripts/install.sh update      # git pull --ff-only the BONSAI repo (refuses if dirty)
+./scripts/install.sh uninstall   # remove links safely (only links into BONSAI)
+```
+
+The PowerShell version takes the same subcommands and target flags.
+
+<details>
+<summary>What the installer does under the hood</summary>
+
+**Global install (Claude Code)** — four symlinks:
+
+```bash
 ln -s ~/BONSAI/CLAUDE.md              ~/.claude/CLAUDE.md
 ln -s ~/BONSAI/.claude/rules          ~/.claude/rules
 ln -s ~/BONSAI/.claude/skills         ~/.claude/skills
 ln -s ~/BONSAI/.claude/output-styles  ~/.claude/output-styles
 ```
 
-```powershell
-git clone https://github.com/your-org/BONSAI.git $HOME\BONSAI
+**Per-project (Claude Code)** — three symlinks into `./.claude/` (`rules`, `skills`, `output-styles`) plus a *copy* of `CLAUDE.md` into the project root, so each project can customize and commit its own.
 
-# -Path is the link, -Target is the source (reversed vs ln -s)
-New-Item -ItemType SymbolicLink -Path $HOME\.claude\CLAUDE.md      -Target $HOME\BONSAI\CLAUDE.md
-New-Item -ItemType SymbolicLink -Path $HOME\.claude\rules          -Target $HOME\BONSAI\.claude\rules
-New-Item -ItemType SymbolicLink -Path $HOME\.claude\skills         -Target $HOME\BONSAI\.claude\skills
-New-Item -ItemType SymbolicLink -Path $HOME\.claude\output-styles  -Target $HOME\BONSAI\.claude\output-styles
-```
-
-### Per-project install
-
-If you only want BONSAI on one repo, symlink (or copy) into that project's `.claude/` directory instead:
-
-```bash
-cd your-project
-ln -s ~/BONSAI/.claude/rules          .claude/rules
-ln -s ~/BONSAI/.claude/skills         .claude/skills
-ln -s ~/BONSAI/.claude/output-styles  .claude/output-styles
-cp   ~/BONSAI/CLAUDE.md               .
-```
-
-```powershell
-cd your-project
-New-Item -ItemType SymbolicLink -Path .claude\rules          -Target $HOME\BONSAI\.claude\rules
-New-Item -ItemType SymbolicLink -Path .claude\skills         -Target $HOME\BONSAI\.claude\skills
-New-Item -ItemType SymbolicLink -Path .claude\output-styles  -Target $HOME\BONSAI\.claude\output-styles
-Copy-Item $HOME\BONSAI\CLAUDE.md .
-```
-
-### Copy instead of symlink
-
-If symlinks aren't an option, replace every `ln -s` with `cp -r`. On Windows, replace `New-Item -ItemType SymbolicLink` with `Copy-Item -Recurse`. You'll have to re-copy after each `git pull`.
-
-### Using BONSAI with Cursor
-
-Cursor's rules + skills format mirrors Claude Code's — the migration is mostly a directory rename.
+**Cursor** — Cursor's layout mirrors Claude Code's:
 
 | Claude Code | Cursor equivalent |
 |---|---|
 | `~/.claude/rules/` | `~/.cursor/rules/` |
 | `~/.claude/skills/` | `~/.cursor/skills/` |
-| `CLAUDE.md` (project root) | `AGENTS.md` (project root) |
-| `.claude/output-styles/bonsai.md` | Settings → **User Rules** (paste manually, one time) |
+| `CLAUDE.md` | `AGENTS.md` (copied, not linked) |
+| `.claude/output-styles/bonsai.md` | Settings → **User Rules** (paste manually, once) |
 
-**Global install on Cursor:**
+The installer handles the symlinks and the `AGENTS.md` copy. The User Rules paste is the one step it can't automate — it prints the file path so you can paste it once into Cursor's Settings.
 
-```bash
-git clone https://github.com/your-org/BONSAI.git ~/BONSAI
-
-ln -s ~/BONSAI/.claude/rules   ~/.cursor/rules
-ln -s ~/BONSAI/.claude/skills  ~/.cursor/skills
-cp    ~/BONSAI/CLAUDE.md       ~/AGENTS.md
-```
-
-```powershell
-git clone https://github.com/your-org/BONSAI.git $HOME\BONSAI
-
-New-Item -ItemType SymbolicLink -Path $HOME\.cursor\rules   -Target $HOME\BONSAI\.claude\rules
-New-Item -ItemType SymbolicLink -Path $HOME\.cursor\skills  -Target $HOME\BONSAI\.claude\skills
-Copy-Item $HOME\BONSAI\CLAUDE.md $HOME\AGENTS.md
-```
-
-Then open Cursor → Settings → Rules → **User Rules** and paste the contents of [`.claude/output-styles/bonsai.md`](.claude/output-styles/bonsai.md).
-
-**Per-project install on Cursor:**
-
-```bash
-cd your-project
-ln -s ~/BONSAI/.claude/rules   .cursor/rules
-ln -s ~/BONSAI/.claude/skills  .cursor/skills
-cp    ~/BONSAI/CLAUDE.md       AGENTS.md
-```
-
-```powershell
-cd your-project
-New-Item -ItemType SymbolicLink -Path .cursor\rules   -Target $HOME\BONSAI\.claude\rules
-New-Item -ItemType SymbolicLink -Path .cursor\skills  -Target $HOME\BONSAI\.claude\skills
-Copy-Item $HOME\BONSAI\CLAUDE.md AGENTS.md
-```
-
-**What works identically:**
-- Skills — invoke with `/<skill-name>` (e.g., `/bonsai-init`, `/cp`); Cursor reads the same `SKILL.md` format from `.cursor/skills/<name>/`
-- Rules — Cursor auto-loads `.md` (and `.mdc`) files from `.cursor/rules/`; BONSAI's existing `.md` files need no conversion
-
-**One caveat:** Cursor's User Rules are configured through Settings UI rather than a file, so the output style cannot be symlinked — paste it once into Settings.
+</details>
 
 ### Verify
 
