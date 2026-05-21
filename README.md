@@ -19,6 +19,8 @@ No dependencies. No build step. Just Markdown.
 
 ## Quickstart
 
+> **Windows users:** PowerShell's `New-Item -ItemType SymbolicLink` is the equivalent of `ln -s`, but **the argument order is reversed**: `-Path` is the link, `-Target` is the source. Run PowerShell as administrator, or enable **Settings → For developers → Developer Mode** to create symlinks without elevation. Each block below shows Linux/macOS first, then the PowerShell equivalent.
+
 ### Global install (recommended)
 
 Symlink the contents into your user-level Claude config. This keeps the repo as the source of truth — `git pull` updates your rules and skills everywhere.
@@ -33,7 +35,15 @@ ln -s ~/BONSAI/.claude/skills         ~/.claude/skills
 ln -s ~/BONSAI/.claude/output-styles  ~/.claude/output-styles
 ```
 
-On Windows, run Git Bash as admin and use the same commands, or use `mklink /D` from `cmd`.
+```powershell
+git clone https://github.com/your-org/BONSAI.git $HOME\BONSAI
+
+# -Path is the link, -Target is the source (reversed vs ln -s)
+New-Item -ItemType SymbolicLink -Path $HOME\.claude\CLAUDE.md      -Target $HOME\BONSAI\CLAUDE.md
+New-Item -ItemType SymbolicLink -Path $HOME\.claude\rules          -Target $HOME\BONSAI\.claude\rules
+New-Item -ItemType SymbolicLink -Path $HOME\.claude\skills         -Target $HOME\BONSAI\.claude\skills
+New-Item -ItemType SymbolicLink -Path $HOME\.claude\output-styles  -Target $HOME\BONSAI\.claude\output-styles
+```
 
 ### Per-project install
 
@@ -47,9 +57,17 @@ ln -s ~/BONSAI/.claude/output-styles  .claude/output-styles
 cp   ~/BONSAI/CLAUDE.md               .
 ```
 
+```powershell
+cd your-project
+New-Item -ItemType SymbolicLink -Path .claude\rules          -Target $HOME\BONSAI\.claude\rules
+New-Item -ItemType SymbolicLink -Path .claude\skills         -Target $HOME\BONSAI\.claude\skills
+New-Item -ItemType SymbolicLink -Path .claude\output-styles  -Target $HOME\BONSAI\.claude\output-styles
+Copy-Item $HOME\BONSAI\CLAUDE.md .
+```
+
 ### Copy instead of symlink
 
-If symlinks aren't an option, replace every `ln -s` with `cp -r`. You'll have to re-copy after each `git pull`.
+If symlinks aren't an option, replace every `ln -s` with `cp -r`. On Windows, replace `New-Item -ItemType SymbolicLink` with `Copy-Item -Recurse`. You'll have to re-copy after each `git pull`.
 
 ### Using BONSAI with Cursor
 
@@ -72,6 +90,14 @@ ln -s ~/BONSAI/.claude/skills  ~/.cursor/skills
 cp    ~/BONSAI/CLAUDE.md       ~/AGENTS.md
 ```
 
+```powershell
+git clone https://github.com/your-org/BONSAI.git $HOME\BONSAI
+
+New-Item -ItemType SymbolicLink -Path $HOME\.cursor\rules   -Target $HOME\BONSAI\.claude\rules
+New-Item -ItemType SymbolicLink -Path $HOME\.cursor\skills  -Target $HOME\BONSAI\.claude\skills
+Copy-Item $HOME\BONSAI\CLAUDE.md $HOME\AGENTS.md
+```
+
 Then open Cursor → Settings → Rules → **User Rules** and paste the contents of [`.claude/output-styles/bonsai.md`](.claude/output-styles/bonsai.md).
 
 **Per-project install on Cursor:**
@@ -81,6 +107,13 @@ cd your-project
 ln -s ~/BONSAI/.claude/rules   .cursor/rules
 ln -s ~/BONSAI/.claude/skills  .cursor/skills
 cp    ~/BONSAI/CLAUDE.md       AGENTS.md
+```
+
+```powershell
+cd your-project
+New-Item -ItemType SymbolicLink -Path .cursor\rules   -Target $HOME\BONSAI\.claude\rules
+New-Item -ItemType SymbolicLink -Path .cursor\skills  -Target $HOME\BONSAI\.claude\skills
+Copy-Item $HOME\BONSAI\CLAUDE.md AGENTS.md
 ```
 
 **What works identically:**
