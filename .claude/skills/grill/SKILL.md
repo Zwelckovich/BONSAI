@@ -116,7 +116,9 @@ cancellation is possible — which is right?"
 
 When a term is resolved, update `CONTEXT.md` right there. Don't batch these up — capture them
 as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md). `CONTEXT.md` is a
-glossary and nothing else.
+glossary and nothing else: record only the resolved term and its `_Avoid_` aliases.
+Relationship reasoning and ambiguity resolutions stay in the conversation — if one is
+hard-to-reverse and surprising, capture it as an ADR instead.
 
 ### Offer ADRs sparingly
 
