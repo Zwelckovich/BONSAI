@@ -51,6 +51,22 @@ BONSAI_DIVERGING = ['#c78289', '#d4999f', '#8b92a5', '#9bb5d4', '#82a4c7']
 #   sns.heatmap(..., cmap=sns.blend_palette(BONSAI_SEQUENTIAL_GREEN, as_cmap=True))
 ```
 
+## BONSAI Plotly Theme
+
+```python
+BONSAI_PLOTLY_THEME = {
+    'paper_bgcolor': '#0a0e14',
+    'plot_bgcolor': '#151922',
+    'font': {'family': 'Inter, sans-serif', 'color': '#e6e8eb', 'size': 12},
+    'colorway': ['#7c9885', '#82a4c7', '#c7a882', '#c78289', '#9882c7'],
+    'xaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568', 'color': '#b8bcc8'},
+    'yaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568', 'color': '#b8bcc8'},
+    'margin': {'t': 40, 'r': 20, 'b': 40, 'l': 60},
+}
+
+# Usage: fig.update_layout(**BONSAI_PLOTLY_THEME)
+```
+
 ## BONSAI Rich Console Integration
 
 ```python
@@ -174,19 +190,19 @@ BONSAI_STYLE_LIGHT = {
     'lines.linewidth': 2.0, 'lines.markersize': 6,
     'font.family': ['DejaVu Sans', 'sans-serif'], 'font.size': 10,
     'text.color': '#1a1f26',
-    'patch.facecolor': '#5a7a63', 'patch.edgecolor': '#677a70',
+    'patch.facecolor': '#4b6552', 'patch.edgecolor': '#415747',
 }
 
 BONSAI_COLORS_LIGHT = {
-    'green_primary': '#5a7a63', 'green_secondary': '#7c9885', 'green_muted': '#a8c0b1',
-    'red_primary': '#a56b71', 'blue_primary': '#5a7fa2', 'yellow_primary': '#a5906b',
-    'purple_primary': '#7e6ba5', 'orange_primary': '#a57d4a', 'teal_primary': '#4aa58a',
-    'text_primary': '#1a1f26', 'text_secondary': '#3a4150', 'text_muted': '#5e6574',
+    'green_primary': '#4b6552', 'green_secondary': '#7c9885', 'green_muted': '#a8c0b1',
+    'red_primary': '#845156', 'blue_primary': '#46627d', 'yellow_primary': '#6d5d42',
+    'purple_primary': '#68568d', 'orange_primary': '#775a36', 'teal_primary': '#2f6958',
+    'text_primary': '#1a1f26', 'text_secondary': '#3a4150', 'text_muted': '#535a67',
 }
 
-BONSAI_QUALITATIVE_LIGHT = ['#5a7a63', '#5a7fa2', '#a5906b', '#a56b71', '#7e6ba5', '#a57d4a', '#4aa58a']
-BONSAI_SEQUENTIAL_GREEN_LIGHT = ['#5a7a63', '#7c9885', '#9db4a6', '#a8c0b1']
-BONSAI_DIVERGING_LIGHT = ['#a56b71', '#d4999f', '#5e6574', '#9bb5d4', '#5a7fa2']
+BONSAI_QUALITATIVE_LIGHT = ['#4b6552', '#46627d', '#6d5d42', '#845156', '#68568d', '#775a36', '#2f6958']
+BONSAI_SEQUENTIAL_GREEN_LIGHT = ['#4b6552', '#7c9885', '#9db4a6', '#a8c0b1']
+BONSAI_DIVERGING_LIGHT = ['#845156', '#d4999f', '#535a67', '#9bb5d4', '#46627d']
 
 # Usage: plt.rcParams.update(BONSAI_STYLE_LIGHT)
 # Dark zen is always the default — opt into light explicitly, never via OS sniffing.
@@ -196,10 +212,10 @@ BONSAI_DIVERGING_LIGHT = ['#a56b71', '#d4999f', '#5e6574', '#9bb5d4', '#5a7fa2']
 
 ```python
 BONSAI_COLORS_LIGHT = {
-    'green_primary': '#5a7a63', 'red_primary': '#a56b71',
-    'blue_primary': '#5a7fa2', 'yellow_primary': '#a5906b',
-    'purple_primary': '#7e6ba5', 'text_primary': '#1a1f26',
-    'text_muted': '#5e6574',
+    'green_primary': '#4b6552', 'red_primary': '#845156',
+    'blue_primary': '#46627d', 'yellow_primary': '#6d5d42',
+    'purple_primary': '#68568d', 'text_primary': '#1a1f26',
+    'text_muted': '#535a67',
 }
 
 console.print("→ Processing...", style=BONSAI_COLORS_LIGHT['blue_primary'])
@@ -212,14 +228,14 @@ console.print("✗ Error", style=BONSAI_COLORS_LIGHT['red_primary'])
 ```python
 def configure_loguru_light():
     logger.remove()
-    logger.level("DEBUG", color="<fg #5e6574>")
+    logger.level("DEBUG", color="<fg #535a67>")
     logger.level("INFO", color="<fg #1a1f26>")
-    logger.level("SUCCESS", color="<fg #5a7a63>")
-    logger.level("WARNING", color="<fg #a5906b>")
-    logger.level("ERROR", color="<fg #a56b71>")
+    logger.level("SUCCESS", color="<fg #4b6552>")
+    logger.level("WARNING", color="<fg #6d5d42>")
+    logger.level("ERROR", color="<fg #845156>")
 
     logger.add(sys.stderr,
-        format="<fg #5a7a63>{time:HH:mm:ss}</fg #5a7a63> | <level>{level: <8}</level> | <fg #5a7fa2>{name}</fg #5a7fa2>:<fg #5a7fa2>{function}</fg #5a7fa2> - <level>{message}</level>",
+        format="<fg #4b6552>{time:HH:mm:ss}</fg #4b6552> | <level>{level: <8}</level> | <fg #46627d>{name}</fg #46627d>:<fg #46627d>{function}</fg #46627d> - <level>{message}</level>",
         level="INFO", colorize=True, enqueue=True)
 ```
 
@@ -228,7 +244,7 @@ def configure_loguru_light():
 ```python
 BONSAI_TQDM_LIGHT = {
     'bar_format': '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
-    'colour': '#5a7a63', 'leave': True, 'dynamic_ncols': True, 'smoothing': 0.1,
+    'colour': '#4b6552', 'leave': True, 'dynamic_ncols': True, 'smoothing': 0.1,
 }
 ```
 
@@ -239,7 +255,7 @@ BONSAI_PLOTLY_THEME_LIGHT = {
     'paper_bgcolor': '#f5f2ec',
     'plot_bgcolor': '#ebe7de',
     'font': {'family': 'Inter, sans-serif', 'color': '#1a1f26', 'size': 12},
-    'colorway': ['#5a7a63', '#5a7fa2', '#a5906b', '#a56b71', '#7e6ba5'],
+    'colorway': ['#4b6552', '#46627d', '#6d5d42', '#845156', '#68568d'],
     'xaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
     'yaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
     'margin': {'t': 40, 'r': 20, 'b': 40, 'l': 60},
@@ -253,8 +269,8 @@ class BonsaiLightApp(App):
     CSS = """
     Screen { background: #f5f2ec; }
     Header { background: #ebe7de; color: #1a1f26; }
-    Footer { background: #ebe7de; color: #5e6574; }
-    Button { background: #5a7a63; color: #f5f2ec; border: solid #7c9885; }
+    Footer { background: #ebe7de; color: #535a67; }
+    Button { background: #4b6552; color: #f5f2ec; border: solid #7c9885; }
     Button:hover { background: #7c9885; }
     """
     TITLE = "BONSAI Terminal Interface (Light)"

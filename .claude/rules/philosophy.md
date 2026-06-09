@@ -109,6 +109,7 @@ When to apply: any time the user describes a tool as "too painful to use directl
 - CONCEPT.md defines project vision, requirements, and decisions
 - All changes must align with CONCEPT.md goals
 - Abort if a change is misaligned with CONCEPT.md
+- Exemption: meta/configuration repos (the BONSAI repo itself, dotfiles, skill collections) need no CONCEPT.md — the rule applies to software projects
 
 ## Default Behavior
 
@@ -160,6 +161,6 @@ Skills that *should* auto-trigger (e.g., `/qa` on questions, `/pycheck` after Py
 - **Over 200 lines**: split into `SKILL.md` (main) + thematic `*.md` references (`tests.md`, `mocking.md`, `examples.md`). `SKILL.md` links to them.
 - **Deterministic operations** (hooks, generators, repeated commands): bundle as a script in `scripts/` next to `SKILL.md`, not as an inline Markdown block. The skill calls the script.
 
-### Deprecated skills
+### Retired skills
 
-When a skill is no longer used, move it to `~/.claude/skills/deprecated/<name>/` rather than deleting. Keeps history visible, allows reactivation, and signals intent during audits. Categorization into subdirectories (engineering/, productivity/, etc.) only becomes useful past ~20 skills.
+Delete unused skills — git history is the archive (recover anytime via checkout). Reserve a `deprecated/<name>/` directory only for skills you expect to reactivate soon. Categorization into subdirectories (engineering/, productivity/, etc.) only becomes useful past ~20 skills.
