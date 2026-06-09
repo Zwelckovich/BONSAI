@@ -75,6 +75,11 @@ BONSAI design extends minimalism to the visual realm — every pixel serves a pu
 --color-bonsai-focus-ring: rgba(124, 152, 133, 0.5);
 --color-bonsai-active-overlay: rgba(124, 152, 133, 0.08);
 --color-bonsai-hover-overlay: rgba(255, 255, 255, 0.04);
+
+/* Button hover backgrounds: dark lightens (= accent secondary),
+   light DARKENS — hovered button text must keep WCAG AA */
+--color-bonsai-green-hover: #9db4a6;
+--color-bonsai-red-hover: #d4999f;
 ```
 
 ## BONSAI-Light Mode (Washi Paper)
@@ -97,7 +102,7 @@ Warm cream backgrounds and darker-tuned accents — a light companion that feels
 |-------|-----|-----------------|
 | `text_primary` | `#1a1f26` | `#e6e8eb` |
 | `text_secondary` | `#3a4150` | `#b8bcc8` |
-| `text_muted` | `#5e6574` | `#8b92a5` |
+| `text_muted` | `#535a67` | `#8b92a5` |
 | `text_disabled` | `#8a91a0` | `#737b8a` |
 | `text_inverted` | `#f5f2ec` | `#0a0e14` |
 
@@ -107,28 +112,28 @@ Warm cream backgrounds and darker-tuned accents — a light companion that feels
 | `border_subtle` | `#dfd9cb` | Gentle separations |
 | `border_primary` | `#c9c2b0` | Standard borders |
 | `border_accent` | `#b5ad98` | Hover states, focus |
-| `border_strong` | `#9e9580` | Strong emphasis |
+| `border_strong` | `#877d67` | Strong emphasis, input boundaries (3:1 non-text contrast on light fills) |
 
 ### Accent Colors (Light)
 
-Rule: `primary` shifts **darker** (contrast on cream); `secondary` = the dark-mode primary; `muted` shifts **lighter** (badge/glow fills).
+Rule: `primary` shifts **darker** — computed to >=5.15:1 against `background_primary` (`#ebe7de`), which keeps AA for normal text, button labels, and /10 badge tints; `secondary` = the dark-mode primary; `muted` shifts **lighter** (badge/glow fills).
 
 **Green (Nature, Growth, Success)**
-- Primary: `#5a7a63` | Secondary: `#7c9885` | Tertiary: `#9db4a6` | Muted: `#a8c0b1` | Glow: `rgba(90, 122, 99, 0.15)`
+- Primary: `#4b6552` | Secondary: `#7c9885` | Tertiary: `#9db4a6` | Muted: `#a8c0b1` | Glow: `rgba(75, 101, 82, 0.15)`
 
 **Red (Attention, Errors)**
-- Primary: `#a56b71` | Secondary: `#c78289` | Muted: `#d4999f`
+- Primary: `#845156` | Secondary: `#c78289` | Muted: `#d4999f`
 
 **Blue (Information, Links)**
-- Primary: `#5a7fa2` | Secondary: `#82a4c7` | Muted: `#9bb5d4`
+- Primary: `#46627d` | Secondary: `#82a4c7` | Muted: `#9bb5d4`
 
 **Yellow (Warning, Warmth)**
-- Primary: `#a5906b` | Secondary: `#c7a882` | Muted: `#d4b99b`
+- Primary: `#6d5d42` | Secondary: `#c7a882` | Muted: `#d4b99b`
 
 **Extended Palette (Light)**
-- Purple: `#7e6ba5` | Secondary: `#9882c7` | Muted: `#ad9bd4` | Glow: `rgba(126, 107, 165, 0.15)`
-- Orange: `#a57d4a` | Secondary: `#c7975c` | Muted: `#d4ad78` | Glow: `rgba(165, 125, 74, 0.15)`
-- Teal: `#4aa58a` | Secondary: `#5cc7a8` | Muted: `#7ed4b8` | Glow: `rgba(74, 165, 138, 0.15)`
+- Purple: `#68568d` | Secondary: `#9882c7` | Muted: `#ad9bd4` | Glow: `rgba(104, 86, 141, 0.15)`
+- Orange: `#775a36` | Secondary: `#c7975c` | Muted: `#d4ad78` | Glow: `rgba(119, 90, 54, 0.15)`
+- Teal: `#2f6958` | Secondary: `#5cc7a8` | Muted: `#7ed4b8` | Glow: `rgba(47, 105, 88, 0.15)`
 
 ### Glass & Gradient Tokens (Light)
 ```css
@@ -137,32 +142,41 @@ Rule: `primary` shifts **darker** (contrast on cream); `secondary` = the dark-mo
 --color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
 
 --gradient-bonsai-surface: linear-gradient(135deg, rgba(245, 242, 236, 0.9), rgba(235, 231, 222, 0.7));
---gradient-bonsai-accent: linear-gradient(135deg, #5a7a63, #7c9885);
---gradient-bonsai-glow: radial-gradient(ellipse at center, rgba(90, 122, 99, 0.10), transparent 70%);
+--gradient-bonsai-accent: linear-gradient(135deg, #4b6552, #7c9885);
+--gradient-bonsai-glow: radial-gradient(ellipse at center, rgba(75, 101, 82, 0.10), transparent 70%);
 ```
 
 ### Interactive State Tokens (Light)
 ```css
---color-bonsai-focus-ring: rgba(90, 122, 99, 0.5);
---color-bonsai-active-overlay: rgba(90, 122, 99, 0.08);
+--color-bonsai-focus-ring: rgba(75, 101, 82, 0.5);
+--color-bonsai-active-overlay: rgba(75, 101, 82, 0.08);
 --color-bonsai-hover-overlay: rgba(0, 0, 0, 0.04);
+
+--color-bonsai-green-hover: #415747; /* 7.0:1 with cream button text */
+--color-bonsai-red-hover: #71464a;
 ```
 
 ### CLI & Terminal Output (Light Terminal)
 
 For light-background terminals or hex-colored log sinks where dark-mode accents wash out:
-- Success: `#5a7a63` (green_primary_light) with `✓` symbol
-- Error: `#a56b71` (red_primary_light) with `✗` symbol
-- Info: `#5a7fa2` (blue_primary_light) with `→` symbol
-- Warning: `#a5906b` (yellow_primary_light) with `⚠` symbol
-- Muted: `#5e6574` (text_muted_light) for timestamps, metadata
+- Success: `#4b6552` (green_primary_light) with `✓` symbol
+- Error: `#845156` (red_primary_light) with `✗` symbol
+- Info: `#46627d` (blue_primary_light) with `→` symbol
+- Warning: `#6d5d42` (yellow_primary_light) with `⚠` symbol
+- Muted: `#535a67` (text_muted_light) for timestamps, metadata
 
 ### Theme Swap Pattern (Canonical)
 
 ```css
-/* Dark (default) — defined in @theme */
+/* Dark (default) — color tokens defined in @theme; shadow COLORS live in
+   plain custom properties so light mode can re-theme them (Tailwind v4
+   inlines --shadow-* token values — overriding those directly does nothing) */
 :root {
   color-scheme: dark;
+  --bonsai-shadow-glow-sm: rgba(124, 152, 133, 0.3);
+  --bonsai-shadow-glow: rgba(124, 152, 133, 0.4);
+  --bonsai-shadow-glow-lg: rgba(124, 152, 133, 0.5);
+  --bonsai-shadow-ambient: rgba(10, 14, 20, 0.3);
 }
 
 /* Light — override every token under an explicit class or data attribute */
@@ -177,52 +191,62 @@ For light-background terminals or hex-colored log sinks where dark-mode accents 
 
   --color-bonsai-text-primary: #1a1f26;
   --color-bonsai-text-secondary: #3a4150;
-  --color-bonsai-text-muted: #5e6574;
+  --color-bonsai-text-muted: #535a67;
   --color-bonsai-text-disabled: #8a91a0;
   --color-bonsai-text-inverted: #f5f2ec;
 
   --color-bonsai-border-subtle: #dfd9cb;
   --color-bonsai-border-primary: #c9c2b0;
   --color-bonsai-border-accent: #b5ad98;
-  --color-bonsai-border-strong: #9e9580;
+  --color-bonsai-border-strong: #877d67;
 
-  --color-bonsai-green-primary: #5a7a63;
+  --color-bonsai-green-primary: #4b6552;
   --color-bonsai-green-secondary: #7c9885;
   --color-bonsai-green-tertiary: #9db4a6;
   --color-bonsai-green-muted: #a8c0b1;
-  --color-bonsai-green-glow: rgba(90, 122, 99, 0.15);
+  --color-bonsai-green-glow: rgba(75, 101, 82, 0.15);
+  --color-bonsai-green-hover: #415747;
 
-  --color-bonsai-red-primary: #a56b71;
+  --color-bonsai-red-primary: #845156;
   --color-bonsai-red-secondary: #c78289;
   --color-bonsai-red-muted: #d4999f;
+  --color-bonsai-red-hover: #71464a;
 
-  --color-bonsai-blue-primary: #5a7fa2;
+  --color-bonsai-blue-primary: #46627d;
   --color-bonsai-blue-secondary: #82a4c7;
   --color-bonsai-blue-muted: #9bb5d4;
 
-  --color-bonsai-yellow-primary: #a5906b;
+  --color-bonsai-yellow-primary: #6d5d42;
   --color-bonsai-yellow-secondary: #c7a882;
   --color-bonsai-yellow-muted: #d4b99b;
 
-  --color-bonsai-purple-primary: #7e6ba5;
+  --color-bonsai-purple-primary: #68568d;
   --color-bonsai-purple-secondary: #9882c7;
   --color-bonsai-purple-muted: #ad9bd4;
+  --color-bonsai-purple-glow: rgba(104, 86, 141, 0.15);
 
-  --color-bonsai-orange-primary: #a57d4a;
+  --color-bonsai-orange-primary: #775a36;
   --color-bonsai-orange-secondary: #c7975c;
   --color-bonsai-orange-muted: #d4ad78;
+  --color-bonsai-orange-glow: rgba(119, 90, 54, 0.15);
 
-  --color-bonsai-teal-primary: #4aa58a;
+  --color-bonsai-teal-primary: #2f6958;
   --color-bonsai-teal-secondary: #5cc7a8;
   --color-bonsai-teal-muted: #7ed4b8;
+  --color-bonsai-teal-glow: rgba(47, 105, 88, 0.15);
 
   --color-bonsai-glass-surface: rgba(245, 242, 236, 0.72);
   --color-bonsai-glass-surface-light: rgba(235, 231, 222, 0.65);
   --color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
 
-  --color-bonsai-focus-ring: rgba(90, 122, 99, 0.5);
-  --color-bonsai-active-overlay: rgba(90, 122, 99, 0.08);
+  --color-bonsai-focus-ring: rgba(75, 101, 82, 0.5);
+  --color-bonsai-active-overlay: rgba(75, 101, 82, 0.08);
   --color-bonsai-hover-overlay: rgba(0, 0, 0, 0.04);
+
+  --bonsai-shadow-glow-sm: rgba(75, 101, 82, 0.20);
+  --bonsai-shadow-glow: rgba(75, 101, 82, 0.25);
+  --bonsai-shadow-glow-lg: rgba(75, 101, 82, 0.30);
+  --bonsai-shadow-ambient: rgba(30, 30, 30, 0.08);
 }
 ```
 
@@ -231,7 +255,7 @@ For light-background terminals or hex-colored log sinks where dark-mode accents 
 ### Light-Mode UI Principles
 
 - **Paper warmth over clinical white** — Cream reduces glare; pure `#ffffff` feels harsh and un-zen.
-- **Darker accent primaries** — Light-bg accents need roughly 30% more darkness than their dark-mode counterparts to maintain WCAG AA contrast.
+- **Darker accent primaries** — Light-bg accent text needs far more darkness than intuition suggests: every light primary is computed to >=5.15:1 against `background_primary`, the minimum that keeps AA for normal text, button labels, AND /10 badge tints. Do not lighten them by eye — verify any change with the WCAG contrast formula.
 - **Soft shadows, not glows** — Dark-mode glows (`rgba(green, 0.4)`) vanish on cream. Use `rgba(0, 0, 0, 0.06–0.12)` drop shadows.
 - **Borders carry more weight** — Without luminance contrast to lean on, light UI needs visible borders to separate regions.
 
@@ -265,6 +289,23 @@ Line height: 1.6-1.7 for comfortable reading. Letter spacing: 0.02em-0.1em for b
 - **Interactive states**: `transform: translateY(-1px)` for lift effect
 - **Focus indicators**: `green_primary` with soft glow
 - **Transitions**: 0.3s ease — organic, not mechanical
+
+## Motion & Accessibility
+
+Respect `prefers-reduced-motion` in every UI — it is an explicit accessibility choice the user made in their OS (vestibular disorders, motion sensitivity), not theme sniffing. This does **not** conflict with the no-`prefers-color-scheme` rule: color is aesthetic preference, motion is accessibility.
+
+Include this block by default in every `index.css`:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
 
 ## Dark Zen UI Principles
 

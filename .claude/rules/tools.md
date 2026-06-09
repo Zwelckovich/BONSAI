@@ -14,7 +14,7 @@
 | AI/ML Platform | **mlflow** | — |
 | HTTP Client | **httpx** | requests |
 | Web Framework | **FastAPI** | Flask |
-| Web Scraping | **requests_html2** | — |
+| Web Scraping | **httpx + selectolax** | requests_html2, BeautifulSoup |
 | CLI Tools | **typer** | argparse |
 | Terminal UIs | **textual** | — |
 | Progress Bars | **tqdm** | — |
@@ -27,6 +27,8 @@
 | Date Parsing | **dateparser** | — |
 | Debug Printing | **icecream** | — |
 | Data Cleaning | **janitor** (with pandas, then convert to polars) | — |
+
+Type-checker escape hatch: plugin-dependent codebases (Django, SQLAlchemy mypy plugins) → use **pyrefly** instead of ty; ty has no plugin system.
 
 ### Python Workflows
 
@@ -49,7 +51,7 @@ uv run ty check                   # Type check third
 ```toml
 [tool.ruff]
 line-length = 120
-target-version = "py312"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "UP", "B", "C4", "PIE", "PTH", "I"]
@@ -69,7 +71,7 @@ line-ending = "auto"
 "tests/*" = ["F401", "F811"]
 
 [tool.ty.environment]
-python-version = "3.13"
+python-version = "3.14"
 
 [tool.ty.src]
 # Do NOT set `include` for flat root layouts — ty auto-discovers .py files.
@@ -115,14 +117,15 @@ bun run tsc --noEmit              # Type check
 - **Plugin order**: `[tailwindcss(), react()]` (Tailwind first)
 - **CSS**: Use `@import "tailwindcss"` (single import, no `@tailwind` directives)
 - **Tokens**: Use `@theme { }` in CSS (no `tailwind.config.js`)
+- **React Compiler (stable 1.0) default-on**: wire `babel-plugin-react-compiler` through `@vitejs/plugin-react` — never hand-write `useMemo`/`useCallback`/`memo`, the compiler handles memoization
 - Missing plugin symptom: unstyled UI, white background
 
 ### Biome Configuration (biome.json)
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
-  "organizeImports": { "enabled": true },
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -153,6 +156,7 @@ Only add tools when evidence demands it:
 | **pre-commit** | 4+ core files, multiple contributors, production deployment, security-sensitive code |
 | **type hints** | Function used in 3+ places or has 3+ parameters |
 | **docker** | Deployment or complex dependencies |
+| **playwright** | Scraping target requires JS rendering (httpx + selectolax insufficient) |
 
 ## Domain-Specific External Tools
 
@@ -188,7 +192,8 @@ Never use these — always use the BONSAI alternative:
 - `npm`, `yarn`, `pnpm` -> use `bun`
 - `black`, `isort`, `flake8` -> use `ruff`
 - `eslint` + `prettier` -> use `biome`
-- `mypy` -> use `ty`
+- `mypy` -> use `ty` (or `pyrefly` where mypy plugins are required)
+- `requests_html2` (unmaintained) -> use `httpx` + `selectolax`
 - `unittest` -> use `pytest`
 - `os.path` -> use `pathlib`
 - `sh` (Unix-only, breaks on Windows) -> use `subprocess` from stdlib

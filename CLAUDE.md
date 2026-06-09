@@ -59,6 +59,7 @@ Guidelines:
 | `/grill` | Adversarial grilling — pressure-test a plan, sharpen domain terms (CONTEXT.md), record ADRs |
 | `/qa` | Answer questions without editing files |
 | `/handoff` | Compact current conversation into a handoff doc (OS temp) for a fresh agent to pick up |
+| `/session-review` | Post-session retrospective — audits the conversation for failures and traces each to the rule/skill that should have prevented it |
 | `/prototype` | Throwaway design prototype — runnable TUI for state/logic, or multi-variant UI from one route |
 | `/cp` | Commit and push with BONSAI template |
 | `/pycheck` | Python quality: ruff format + ruff check + ty check |
