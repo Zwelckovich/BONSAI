@@ -142,7 +142,7 @@ Rules for descriptions:
 - Under 1024 characters
 - Third-person ("Execute the...", "Answer questions...", "Run the...")
 - First sentence: what the skill does
-- Second sentence: `Use when [specific trigger phrases or conditions]`
+- Second sentence: `Use when [specific trigger phrases or conditions]` (auto-triggering skills only — a command can drop it; see "Commands vs skills" below)
 - 2-4 concrete trigger phrases
 - Distinct enough to separate from similar skills (e.g., `/pc` vs. `/grow-plan`)
 
@@ -154,6 +154,18 @@ Add this YAML flag to skills that should *never* auto-trigger via description ma
 - Workflow entry points where accidental invocation is costly
 
 Skills that *should* auto-trigger (e.g., `/qa` on questions, `/pycheck` after Python edits) leave the flag off.
+
+### Commands vs skills: who reads the description
+
+The `disable-model-invocation: true` flag splits a `SKILL.md` into two kinds, and the audience of its `description` follows:
+
+- **Command** — always user-invoked (flag set). The description is **human-facing**: a one-line summary read by a person browsing slash-commands. The "Use when…" trigger list does nothing for a command (it never auto-fires) and can be dropped.
+- **Skill** — model- or user-invocable (no flag). The description is **model-facing** — keep the rich trigger phrasing so auto-invocation fires.
+
+Two rules follow:
+
+- **A command never invokes another command** — only skills. (Skills may invoke skills.)
+- **Express cross-skill dependencies as prose `/skill` invocation** ("Run the `/grill` session"), not deep `../other-skill/FILE.md` links. Shared reference docs live inside the skill that owns them; other skills reach that material by invoking the skill.
 
 ### Skill structure
 
