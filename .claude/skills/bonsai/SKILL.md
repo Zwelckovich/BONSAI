@@ -67,13 +67,14 @@ When `--tdd` is active, Tasks 3 and 7 fuse into a single **inner loop driven by 
 1. **Write ONE failing test** that exercises the behavior via the *public interface* (never private methods or internal state).
 2. Run the test → confirm it fails for the *right reason* (RED).
 3. Write the **minimal** code that makes it pass (GREEN). No extra functionality, no anticipating future tests.
-4. Optional: refactor while keeping the test green. Tests must stay green throughout.
+4. Optional: refactor — but **never while RED**. Get to GREEN first; refactor only while green, and keep tests green throughout.
 5. Run `uv run ruff format <file> && uv run ruff check --fix <file>` (or `bun run biome check --write <file>`) on the changed files — *now*, not at the end.
 6. Move to the next behavior.
 
 **Hard constraints:**
 - **Never write two tests without implementing each between them.** That is horizontal slicing — it produces tests that describe imagined behavior, not actual behavior. Stop, write the code for test 1, then write test 2.
 - **Tests test behavior via public interfaces.** If your test breaks when you rename a private function, the test was wrong.
+- **Mock only at system boundaries** — external APIs, the database, time, randomness. Never mock your own modules or internal collaborators: that couples the test to implementation and defeats behavior-testing.
 - **If a test fails: fix the code, never the test.** Adjusting the test to make it pass defeats the purpose.
 
 Under `--tdd`:
