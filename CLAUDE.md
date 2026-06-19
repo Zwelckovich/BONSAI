@@ -61,6 +61,7 @@ Guidelines:
 | `/handoff` | Compact current conversation into a handoff doc (OS temp) for a fresh agent to pick up |
 | `/session-review` | Post-session retrospective — audits the conversation for failures and traces each to the rule/skill that should have prevented it |
 | `/prototype` | Throwaway design prototype — runnable TUI for state/logic, or multi-variant UI from one route |
+| `/write-skill` | Author or sharpen a skill the BONSAI way — leading words, the two loads, info hierarchy, no-op pruning |
 | `/cp` | Commit and push with BONSAI template |
 | `/pycheck` | Python quality: ruff format + ruff check + ty check |
 | `/reactcheck` | React/TS quality: biome check + tsc |
