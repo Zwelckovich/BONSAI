@@ -58,6 +58,13 @@ Audit the codebase against BONSAI guidelines and report compliance status.
 | Formatter/Linter | biome | eslint + prettier |
 | State Management | zustand | Redux |
 
+### Project Navigation (Python)
+| Category | BONSAI Tool | Check Against |
+|----------|------------|---------------|
+| Code map | graphify — `graphify-out/` present | no map (navigation falls back to grep/read) |
+
+If `graphify-out/` is absent on a Python project, surface it as a Priority 3 (optional) improvement: `uv add --dev graphifyy && uv run graphify install` (package `graphifyy`, double "y"; CLI `graphify`). Audit-only — never run it. If `graphify-out/` is present but its newest file predates recent commits, note it may be stale.
+
 ### Files to Scan
 1. All `.py` files for imports
 2. `pyproject.toml` dependencies and tool configs

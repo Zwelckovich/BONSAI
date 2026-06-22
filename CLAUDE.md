@@ -75,5 +75,6 @@ Guidelines are loaded automatically from `.claude/rules/`:
 - **tools.md** — Preferred tools and configurations
 - **structure.md** — Progressive project structure
 - **design-system.md** — Colors, typography, dark zen UI
+- **navigation.md** — graphify-out detection + graph-first project navigation
 - **python/visualization.md** — matplotlib/Rich BONSAI themes (loaded when working on .py files)
 - **frontend/react-tailwind.md** — React+Tailwind+Vite templates (loaded when working on frontend files)

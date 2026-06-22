@@ -84,6 +84,17 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 pythonpath = ["."]
 ```
 
+### Code Navigation (graphify)
+
+**graphify** builds a code map (JSON graph + Markdown summaries) so Claude can navigate by reading a compact index instead of grepping every file — saving tokens on structure and "where is X" questions. Python-only.
+
+```bash
+uv add --dev graphifyy        # PyPI package — double "y"
+uv run graphify install       # CLI command — single "y"; builds the graphify-out/ map
+```
+
+BONSAI never installs or runs graphify autonomously — `/bonsai-init` offers it as an explicit opt-in and `/bonsai-check` flags its absence. When `graphify-out/` is present, Claude navigates it graph-first (see `navigation.md`). Add `graphify-out/` to `.gitignore`.
+
 ## JavaScript / React
 
 | Category | BONSAI Tool | Replaces |
