@@ -57,6 +57,12 @@ If `CONCEPT.md` already exists, read it and confirm alignment.
   ```
 - Create `.venv` if not present: `uv venv .venv`
 - Install core dev tools: `uv add --dev pytest ruff ty` (config without installation causes runtime failures)
+- **Offer graphify** (optional, token-efficient navigation — Python-only). If no `graphify-out/` directory exists, ask with `AskUserQuestion`:
+  - **Yes, set it up now** → run `uv add --dev graphifyy && uv run graphify install` (package `graphifyy` has a double "y"; the CLI is `graphify`), then add `graphify-out/` to `.gitignore`
+  - **Just show me the command** → print `uv add --dev graphifyy && uv run graphify install`; do not execute it
+  - **Skip** → continue; graphify can be added later
+
+  This opt-in is the only place BONSAI runs graphify — never install it without the user choosing "Yes".
 
 **For JavaScript projects:**
 - Verify `bun` is available: `bun --version`

@@ -153,6 +153,7 @@ Rules auto-load into every Claude Code session. They are the enforcement arm of 
 | [`tools.md`](.claude/rules/tools.md) | Always | Preferred tools (uv, ruff, ty, bun, biome, …) and forbidden ones |
 | [`structure.md`](.claude/rules/structure.md) | Always | Progressive project structure — single file first, split when forced |
 | [`design-system.md`](.claude/rules/design-system.md) | Always | Dark-zen palette, typography, spacing, UI principles |
+| [`navigation.md`](.claude/rules/navigation.md) | Always | graphify-out detection, graph-first project navigation |
 | [`python/visualization.md`](.claude/rules/python/visualization.md) | On `.py` edits | matplotlib / Rich BONSAI themes |
 | [`frontend/react-tailwind.md`](.claude/rules/frontend/react-tailwind.md) | On frontend edits | React 19 + Tailwind v4 + Vite 8 templates |
 
@@ -186,6 +187,17 @@ BONSAI is opinionated. Full matrix in [`.claude/rules/tools.md`](.claude/rules/t
 
 Forbidden: `pip`, `npm`, `black`, `eslint + prettier`, `mypy`, `unittest`, `os.path`. Always use the BONSAI alternative.
 
+## Project navigation (optional)
+
+For token-efficient navigation, BONSAI recognizes **graphify** — a Python tool that builds a `graphify-out/` code map (JSON graph + Markdown summaries). When that directory is present, Claude reads the compact map instead of grepping every file. BONSAI never installs it for you; generate it yourself:
+
+```bash
+uv add --dev graphifyy        # PyPI package — double "y"
+uv run graphify install       # CLI command — single "y"
+```
+
+`/bonsai-init` offers this as an opt-in; add `graphify-out/` to `.gitignore`.
+
 ## Customization
 
 BONSAI is a default, not a cage.
@@ -218,6 +230,7 @@ BONSAI/
     │   ├── tools.md
     │   ├── structure.md
     │   ├── design-system.md
+    │   ├── navigation.md
     │   ├── python/
     │   │   └── visualization.md
     │   └── frontend/
