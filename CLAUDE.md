@@ -78,3 +78,6 @@ Guidelines are loaded automatically from `.claude/rules/`:
 - **navigation.md** — graphify-out detection + graph-first project navigation
 - **python/visualization.md** — matplotlib/Rich BONSAI themes (loaded when working on .py files)
 - **frontend/react-tailwind.md** — React+Tailwind+Vite templates (loaded when working on frontend files)
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
