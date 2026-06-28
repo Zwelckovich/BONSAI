@@ -27,6 +27,7 @@
 | Date Parsing | **dateparser** | — |
 | Debug Printing | **icecream** | — |
 | Data Cleaning | **janitor** (with pandas, then convert to polars) | — |
+| CAD / 3D Modeling | **build123d** | CadQuery, OpenSCAD |
 
 Type-checker escape hatch: plugin-dependent codebases (Django, SQLAlchemy mypy plugins) → use **pyrefly** instead of ty; ty has no plugin system.
 
