@@ -82,7 +82,9 @@ Create these if they don't exist:
   __pycache__/
   .coverage
   htmlcov/
+  graphify-out/
   ```
+  Include `graphify-out/` whenever a map is (or may be) present — it must never be committed. The graphify offer's "Yes" branch also adds it, but listing it here covers a project that already carries a map (where the offer is skipped).
 - **`CLAUDE.local.md`** with detected environment info (Python version, Node version, OS, detected patterns)
 - **`.claude/settings.local.json`** with `{"outputStyle": "BONSAI"}` if not present
 
@@ -95,6 +97,7 @@ Output a summary:
 Project type: [Python/JavaScript/Mixed/Empty]
 CONCEPT.md: [Created/Already exists]
 Environment: [uv ready / bun ready / both]
+graphify: [installed / command shown / declined / N/A (non-Python)]
 
 Available commands:
   /bonsai <request>  — Adaptive development workflow
@@ -104,5 +107,7 @@ Available commands:
   /reactcheck        — React/TS quality checks
   /bonsai-check      — Best practices audit
 ```
+
+For Python projects the **`graphify:` line is mandatory** — it records the outcome of the Step 3 offer. If you reach this summary without having presented the graphify `AskUserQuestion`, go back and present it now; the line must read `installed`, `command shown`, or `declined` — never be omitted. This is the forcing function that guarantees the offer was actually made, not silently skipped.
 
 $ARGUMENTS

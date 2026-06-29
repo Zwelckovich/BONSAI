@@ -2,9 +2,12 @@
 
 A code map lets Claude navigate a project by reading a compact index instead of grepping and reading source — saving tokens on every "where is X / how does Y connect" question. BONSAI's recommended map tool is **graphify** (Python-only). BONSAI never generates, installs, or refreshes a map autonomously; it only *consumes* one the user produced (`/bonsai-init` offers install as an explicit opt-in).
 
-## Detect at session start
+## Detect before navigating (mandatory first action)
 
-Check whether a `graphify-out/` directory exists at the project root (a cheap `ls`/glob). Absent → navigate normally with grep/read. Present → navigate graph-first.
+Before answering the **first** structure / "where is X" / dependency / "how does Y connect" question of a session — and before any grep/read done to answer it — glob the project root for `graphify-out/`. Do this even when the task looks like a quick one-liner; it is a single cheap glob, and skipping it silently forfeits the token savings the map exists for. (BONSAI ships no session-start hook — by design, so it never touches a user's `settings.json` — so this check is yours to run, not the harness's.)
+
+- **Absent** → navigate normally with grep/read.
+- **Present** → navigate graph-first (see below) — do not fall back to grepping until the map has been consulted.
 
 ## Graph-first navigation
 
