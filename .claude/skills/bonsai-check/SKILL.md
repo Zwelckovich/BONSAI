@@ -63,7 +63,7 @@ Audit the codebase against BONSAI guidelines and report compliance status.
 |----------|------------|---------------|
 | Code map | graphify — `graphify-out/` present | no map (navigation falls back to grep/read) |
 
-If `graphify-out/` is absent on a Python project, surface it as a Priority 3 (optional) improvement: `uv add --dev graphifyy && uv run graphify install` (package `graphifyy`, double "y"; CLI `graphify`). Audit-only — never run it. If `graphify-out/` is present but its newest file predates recent commits, note it may be stale.
+If `graphify-out/` is absent on a Python project, surface it as a Priority 3 (optional) improvement: `uv add --dev graphifyy && uv run graphify install` (package `graphifyy`, double "y"; CLI `graphify`). Audit-only — never run it. If `graphify-out/` is present but its newest file predates recent commits, note it may be stale. Also verify a present `graphify-out/` is listed in `.gitignore` — a map must never be committed; flag a tracked `graphify-out/` as a Priority 2 fix.
 
 ### Files to Scan
 1. All `.py` files for imports
@@ -71,6 +71,7 @@ If `graphify-out/` is absent on a Python project, surface it as a Priority 3 (op
 3. `package.json` for dependencies and lock files
 4. `vite.config.ts/js` for plugin setup
 5. Check for forbidden lock files (`package-lock.json`, `yarn.lock`)
+6. `.gitignore` — confirm `graphify-out/` is ignored when a map is present
 
 ## Report Sections
 
