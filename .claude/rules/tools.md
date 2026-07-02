@@ -108,6 +108,7 @@ BONSAI never installs or runs graphify autonomously — `/bonsai-init` offers it
 | State Management | **zustand** | Redux |
 | Server State | **@tanstack/react-query** | — |
 | Testing | **vitest** + @testing-library/react | jest |
+| Guided Tours | **react-joyride** | driver.js, shepherd.js, intro.js |
 
 ### JavaScript Workflows
 
