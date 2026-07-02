@@ -206,6 +206,7 @@ When creating programmatic videos with Remotion, copy the official Remotion skil
 - `fastapi dev` crashes due to Rich console rendering (`LegacyWindowsTerm`) — use `uv run python -m uvicorn main:app --host 127.0.0.1 --port 8000` instead. Use **`python -m uvicorn`**, NOT `uv run uvicorn`: the `uvicorn` console-script goes through uv's exe trampoline, which can fail with `trampoline failed to canonicalize script path` under some shells or when spawned from a subprocess (e.g. a `dev.py` runner). `python -m uvicorn` has no trampoline.
 - **Vite dev server binds IPv6 by default.** Vite's default host `localhost` resolves to `::1` on Windows, so a browser / dev runner / `/api` proxy hitting `127.0.0.1:<port>` gets connection-refused even though Vite logs "ready". Pin `server.host = '127.0.0.1'` in `vite.config.ts` and keep the proxy target on `127.0.0.1` (not `localhost`) so all four agree.
 - Always check `CLAUDE.local.md` for OS before generating run commands in GROW.md phases
+- **Python + React/Vite projects MUST ship a root `dev.py`** (`uv run python dev.py`) that spawns uvicorn + Vite, opens the browser, and tears both down on Ctrl+C — see `structure.md` "Full-Stack Unified Dev Runner" for the canonical template. `/bonsai-init` generates it; `/bonsai-check` flags its absence.
 
 ## Forbidden Tools
 

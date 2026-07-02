@@ -42,12 +42,122 @@ pythonpath = ["."]
 ```
 Also omit `[tool.ty.src] include` — ty auto-discovers `.py` files without it. Only set `include = ["src"]` for src/ layouts.
 
-### Full-Stack Unified Dev Runner
+### Full-Stack Unified Dev Runner (Python + React/Vite) — MANDATORY
 
-Full-stack projects MUST have a single `dev.py` at root that spawns all services (backend + frontend). Use `subprocess` (stdlib) — no new deps. Must:
-- Auto-kill processes on required ports before starting (cross-platform: `lsof` on Linux/macOS, `netstat`+`taskkill` on Windows)
-- Handle Ctrl+C gracefully (terminate all child processes)
-- Run command: `uv run python dev.py`
+Any project with a Python backend **and** a React/Vite frontend MUST ship a single root `dev.py` that starts the whole stack with one command: `uv run python dev.py`. No separate "start the backend" / "start the frontend" dance. `/bonsai-init` generates it for new full-stack projects; `/bonsai-check` flags its absence.
+
+Requirements:
+- `subprocess` only (stdlib) — no new deps.
+- Free the required ports first (cross-platform: `lsof` on Linux/macOS, `netstat` + `taskkill` on Windows) so a stale run doesn't block the bind.
+- Spawn `uv run python -m uvicorn <module>:app` — use `python -m uvicorn`, NOT the `uvicorn` console-script (uv's exe trampoline can fail under some shells / when spawned from a subprocess).
+- Pin Vite to IPv4: `server.host: "127.0.0.1"` in `vite.config.ts` (Vite defaults `localhost`→`::1` on Windows; without the pin the readiness probe and `127.0.0.1:<port>` are connection-refused — see `tools.md` "Windows (Git Bash) Caveats").
+- Open the browser once Vite accepts connections (poll the port).
+- Handle Ctrl+C: terminate the whole child tree (`taskkill /T /F` on Windows, `terminate()` elsewhere).
+
+Canonical template (adjust `<module>` to the detected entry, e.g. `app` or `main`):
+
+```python
+"""Full-stack dev runner — start the backend and the Vite dev server together.
+
+One command for full-stack development (BONSAI full-stack rule). Frees the
+required ports, spawns uvicorn (FastAPI backend) and ``bun run dev`` (Vite
+frontend), opens the browser to the Vite URL, and terminates both children on
+Ctrl+C. Windows is the target: ports are freed with netstat + taskkill and the
+backend uses ``python -m uvicorn`` (never the uvicorn console-script / fastapi dev).
+
+Run with: uv run python dev.py
+"""
+
+from __future__ import annotations
+
+import socket
+import subprocess
+import sys
+import threading
+import time
+import webbrowser
+from pathlib import Path
+
+HOST = "127.0.0.1"
+BACKEND_PORT = 8000
+FRONTEND_PORT = 5173
+FRONTEND_DIR = Path(__file__).parent / "frontend"
+FRONTEND_URL = f"http://{HOST}:{FRONTEND_PORT}"
+# Adjust to the project's FastAPI entry: "<module>:app" (e.g. "app:app" or "main:app").
+BACKEND_TARGET = "app:app"
+IS_WINDOWS = sys.platform == "win32"
+
+
+def _free_port(port: int) -> None:
+    """Kill whatever is listening on ``port`` so the dev servers can bind it."""
+    if not IS_WINDOWS:
+        subprocess.run(
+            ["bash", "-c", f"lsof -ti tcp:{port} | xargs -r kill -9"],
+            check=False,
+            capture_output=True,
+        )
+        return
+    netstat = subprocess.run(["netstat", "-ano", "-p", "tcp"], capture_output=True, text=True, check=False).stdout
+    pids = {
+        parts[4]
+        for line in netstat.splitlines()
+        if len(parts := line.split()) >= 5 and parts[1].endswith(f":{port}") and parts[3] == "LISTENING"
+    }
+    for pid in pids:
+        subprocess.run(["taskkill", "/PID", pid, "/F"], check=False, capture_output=True)
+
+
+def _spawn(cmd: list[str], cwd: Path | None = None) -> subprocess.Popen:
+    """Start a child process in its own group so the whole tree can be killed."""
+    flags = subprocess.CREATE_NEW_PROCESS_GROUP if IS_WINDOWS else 0
+    return subprocess.Popen(cmd, cwd=cwd, creationflags=flags)
+
+
+def _terminate(proc: subprocess.Popen) -> None:
+    """Terminate a child and its descendants (Vite/uvicorn spawn workers)."""
+    if proc.poll() is not None:
+        return
+    if IS_WINDOWS:
+        subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], check=False, capture_output=True)
+    else:
+        proc.terminate()
+
+
+def _open_when_ready() -> None:
+    """Open the browser once the Vite server accepts connections (poll ~20s)."""
+    for _ in range(100):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            if probe.connect_ex((HOST, FRONTEND_PORT)) == 0:
+                break
+        time.sleep(0.2)
+    webbrowser.open(FRONTEND_URL)
+
+
+def main() -> None:
+    for port in (BACKEND_PORT, FRONTEND_PORT):
+        _free_port(port)
+
+    backend = _spawn(
+        ["uv", "run", "python", "-m", "uvicorn", BACKEND_TARGET, "--host", HOST, "--port", str(BACKEND_PORT)]
+    )
+    frontend = _spawn(["bun", "run", "dev"], cwd=FRONTEND_DIR)
+
+    threading.Thread(target=_open_when_ready, daemon=True).start()
+    print(f"dev: backend :{BACKEND_PORT}, frontend {FRONTEND_URL} — Ctrl+C to stop")
+
+    try:
+        while backend.poll() is None and frontend.poll() is None:
+            time.sleep(0.3)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        _terminate(frontend)
+        _terminate(backend)
+
+
+if __name__ == "__main__":
+    main()
+```
 
 ### Full-Stack Progressive Evolution
 
