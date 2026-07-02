@@ -69,6 +69,13 @@ If `CONCEPT.md` already exists, read it and confirm alignment.
 - Create `biome.json` with BONSAI config if it doesn't exist
 - Run `bun install` if `package.json` exists but `node_modules` doesn't
 
+**For full-stack (Python backend + React/Vite frontend) projects:**
+- If `dev.py` is absent, offer to generate it with `AskUserQuestion` (like the graphify offer):
+  - **Yes, create it** → write `dev.py` from the canonical template in `structure.md` "Full-Stack Unified Dev Runner", setting `BACKEND_TARGET` to the detected FastAPI entry (`<module>:app`, e.g. `app:app` / `main:app`); also ensure `vite.config.ts` sets `server.host: "127.0.0.1"` (Vite IPv6-bind gotcha — see `tools.md`).
+  - **Just show me the template** → print the `structure.md` template; do not write the file.
+  - **Skip** → continue; `dev.py` can be added later.
+- This is the only place BONSAI generates `dev.py` — never write it without the user choosing "Yes".
+
 ### 4. Create Essential Files
 
 Create these if they don't exist:
@@ -98,6 +105,7 @@ Project type: [Python/JavaScript/Mixed/Empty]
 CONCEPT.md: [Created/Already exists]
 Environment: [uv ready / bun ready / both]
 graphify: [installed / command shown / declined / N/A (non-Python)]
+dev.py: [generated / command shown / declined / N/A (not full-stack)]
 
 Available commands:
   /bonsai <request>  — Adaptive development workflow
@@ -109,5 +117,7 @@ Available commands:
 ```
 
 For Python projects the **`graphify:` line is mandatory** — it records the outcome of the Step 3 offer. If you reach this summary without having presented the graphify `AskUserQuestion`, go back and present it now; the line must read `installed`, `command shown`, or `declined` — never be omitted. This is the forcing function that guarantees the offer was actually made, not silently skipped.
+
+For full-stack (Python + React/Vite) projects the **`dev.py:` line is likewise mandatory** — it records the outcome of the Step 3 full-stack offer. The line must read `generated`, `command shown`, or `declined` — never be omitted for a full-stack project.
 
 $ARGUMENTS

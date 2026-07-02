@@ -65,6 +65,15 @@ Audit the codebase against BONSAI guidelines and report compliance status.
 
 If `graphify-out/` is absent on a Python project, surface it as a Priority 3 (optional) improvement: `uv add --dev graphifyy && uv run graphify install` (package `graphifyy`, double "y"; CLI `graphify`). Audit-only — never run it. If `graphify-out/` is present but its newest file predates recent commits, note it may be stale. Also verify a present `graphify-out/` is listed in `.gitignore` — a map must never be committed; flag a tracked `graphify-out/` as a Priority 2 fix.
 
+### Full-Stack Dev Runner (Python + React/Vite)
+| Category | BONSAI Tool | Check Against |
+|----------|------------|---------------|
+| One-command runner | root `dev.py` (`uv run python dev.py`) | separate backend/frontend start scripts, or no runner |
+
+For a project with a Python backend **and** a React/Vite frontend:
+- **Priority 2 — Should Fix** if a root `dev.py` is missing (runnable via `uv run python dev.py`, spawning uvicorn + `bun run dev`, tearing both down on Ctrl+C — see `structure.md` "Full-Stack Unified Dev Runner").
+- **Priority 3 — Consider** if `dev.py` exists but `vite.config.ts` lacks `server.host: "127.0.0.1"` (Vite IPv6-bind gotcha on Windows — see `tools.md`).
+
 ### Files to Scan
 1. All `.py` files for imports
 2. `pyproject.toml` dependencies and tool configs
