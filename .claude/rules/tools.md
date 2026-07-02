@@ -122,6 +122,8 @@ bun run biome check --write .     # Lint + format
 bun run tsc --noEmit              # Type check
 ```
 
+**bun behind a private registry:** bun does NOT read npm's global registry config. Set it in a project `.npmrc` (`registry=https://host/path/<repo>/`) — the **trailing slash is mandatory**: bun resolves each package name relative to the URL, so without it the last path segment is dropped and every package 404s (`…/api/npm/react` instead of `…/<repo>/react`). npm tolerates its absence; bun does not.
+
 ### Vite + Tailwind v4 (Mandatory Wiring)
 
 - **vite must be 8.x** (`^8.0.0` or newer)
@@ -143,7 +145,8 @@ bun run tsc --noEmit              # Type check
     "rules": {
       "recommended": true,
       "correctness": { "noUnusedVariables": "error", "noUnusedImports": "error" },
-      "style": { "noParameterAssign": "off" }
+      "style": { "noParameterAssign": "off" },
+      "complexity": { "noImportantStyles": "off" }
     }
   },
   "formatter": {
@@ -151,9 +154,14 @@ bun run tsc --noEmit              # Type check
   },
   "javascript": {
     "formatter": { "quoteStyle": "single", "semicolons": "always", "trailingCommas": "es5" }
+  },
+  "css": {
+    "parser": { "tailwindDirectives": true }
   }
 }
 ```
+
+**Tailwind v4 + biome:** `css.parser.tailwindDirectives` is required, or biome's CSS parser rejects `@theme` / `@utility`. `complexity.noImportantStyles` is off because the mandated `prefers-reduced-motion` reset legitimately uses `!important`. After `bun install`, run `bun run biome migrate --write` once to pin the config to the installed biome schema version.
 
 ## Tool Introduction Triggers
 
@@ -194,7 +202,8 @@ When creating programmatic videos with Remotion, copy the official Remotion skil
 
 ## Windows (Git Bash) Caveats
 
-- `fastapi dev` crashes due to Rich console rendering (`LegacyWindowsTerm`) — use `uv run uvicorn main:app --host 127.0.0.1 --port 8000` instead
+- `fastapi dev` crashes due to Rich console rendering (`LegacyWindowsTerm`) — use `uv run python -m uvicorn main:app --host 127.0.0.1 --port 8000` instead. Use **`python -m uvicorn`**, NOT `uv run uvicorn`: the `uvicorn` console-script goes through uv's exe trampoline, which can fail with `trampoline failed to canonicalize script path` under some shells or when spawned from a subprocess (e.g. a `dev.py` runner). `python -m uvicorn` has no trampoline.
+- **Vite dev server binds IPv6 by default.** Vite's default host `localhost` resolves to `::1` on Windows, so a browser / dev runner / `/api` proxy hitting `127.0.0.1:<port>` gets connection-refused even though Vite logs "ready". Pin `server.host = '127.0.0.1'` in `vite.config.ts` and keep the proxy target on `127.0.0.1` (not `localhost`) so all four agree.
 - Always check `CLAUDE.local.md` for OS before generating run commands in GROW.md phases
 
 ## Forbidden Tools

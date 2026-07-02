@@ -65,7 +65,14 @@ export default defineConfig({
     tailwindcss(),  // TAILWIND FIRST
     react({ babel: { plugins: ['babel-plugin-react-compiler'] } }),
   ],
-  server: { port: 3000, proxy: { '/api': 'http://localhost:8000' } },
+  // Pin IPv4: Vite's default host 'localhost' resolves to IPv6 ::1 on Windows,
+  // so a browser / dev runner / proxy hitting 127.0.0.1 gets connection-refused
+  // even though Vite logs "ready". Keep host AND proxy target on 127.0.0.1.
+  server: {
+    host: '127.0.0.1',
+    port: 3000,
+    proxy: { '/api': 'http://127.0.0.1:8000' },
+  },
 });
 // React Compiler is default-on: never hand-write useMemo/useCallback/memo.
 ```
