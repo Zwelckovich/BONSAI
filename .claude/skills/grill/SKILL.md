@@ -23,9 +23,10 @@ decisions one-by-one — don't jump around.
 - **Ask ONE question at a time.** Wait for the answer before the next.
 - **Include your recommended answer with each question** ("I think X, because Y — agree?").
   Forces the user to confirm or push back, not just brainstorm.
-- **If a question can be answered by exploring the codebase, explore it instead of asking.**
+- **Look up *facts* in the codebase; never look up *decisions*.** If a fact can be found by reading the code, read it instead of asking. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
 - **Stop only** when every load-bearing assumption has been surfaced.
 - End with: "These are the assumptions your plan rests on. Do they hold?"
+- **Do not enact the plan** until the user confirms you have reached a shared understanding. `/grill` pressure-tests; it never starts building.
 
 </what-to-do>
 

@@ -76,6 +76,7 @@ When `--tdd` is active, Tasks 3 and 7 fuse into a single **inner loop driven by 
 - **Tests test behavior via public interfaces.** If your test breaks when you rename a private function, the test was wrong.
 - **Mock only at system boundaries** — external APIs, the database, time, randomness. Never mock your own modules or internal collaborators: that couples the test to implementation and defeats behavior-testing.
 - **If a test fails: fix the code, never the test.** Adjusting the test to make it pass defeats the purpose.
+- **No tautological tests.** The expected value must come from an independent source of truth — a known-good literal, a worked example, or the spec — never recomputed the way the code computes it. A test that restates the implementation passes by construction and can never catch a bug.
 
 Under `--tdd`:
 - **Task 3 (Implement)** becomes step 3 of the inner loop (minimal code per test).
