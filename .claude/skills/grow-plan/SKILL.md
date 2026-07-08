@@ -63,6 +63,8 @@ Every phase MUST produce a deliverable that is:
 3. **Self-contained** — No dangling imports, placeholder TODOs, or half-wired features
 4. **Run command defined** — The exact command is documented in GROW.md
 
+Slice to hit these: cut the phase as a **tracer-bullet vertical slice** — one complete path through every layer (UI → logic → data), sized to a single session — not layer-by-layer horizontal work. For a wide mechanical refactor, sequence it **expand → migrate in batches → contract** so the build stays green at every step.
+
 ### 6. On Approval
 
 Once the user selects an approach, the default flow is **plan-then-implement in one shot** — `/bonsai` is invoked automatically as the handoff. The user does not need to say "use bonsai skill" or "now build it"; the handoff is unconditional unless the user explicitly says otherwise (e.g., "just plan, don't build" / "stop after planning").
