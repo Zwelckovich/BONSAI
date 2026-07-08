@@ -26,6 +26,7 @@ Analyze the codebase for dead code and quality issues. This is a read-only analy
    - Empty/stub functions
    - Dead code (unreachable or obsolete logic)
    - Unused imports and variables
+   - Code smells (Fowler) — name-check against the catalog: mysterious name, duplicated code, feature envy, data clumps, primitive obsession, repeated switches, divergent change, shotgun surgery, speculative generality, message chains, middleman. Naming the smell surfaces the fix.
 3. **Cross-reference** function usage across the entire codebase before flagging as unused
 4. **Update CODECHECK.md** after each file (preserves progress if context compacts)
 5. **Write final summary** with actionable recommendations
@@ -41,12 +42,14 @@ Analyze the codebase for dead code and quality issues. This is a read-only analy
 - ⚠️ Unused function: `function_name` (line X) — not called anywhere
 - ⚠️ Unused import: `module` (line X)
 - ⚠️ Empty stub: `function_name` (line X)
+- ⚠️ Code smell: `function_name` (line X) — feature envy; reaches into another object's data
 
 ### Summary
 - Total issues: [count]
 - Unused functions: [count]
 - Unused imports: [count]
 - Dead code blocks: [count]
+- Code smells: [count]
 
 ### Recommendations
 1. [actionable recommendation]

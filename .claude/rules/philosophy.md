@@ -69,7 +69,7 @@ Ten ways to construct a loop, in roughly priority order:
 
 **When you genuinely cannot build a loop**, stop and say so explicitly. List what you tried. Ask the user for environment access, captured artifacts, or permission to add temporary instrumentation. Do **not** proceed to hypothesise without a loop.
 
-Only after the loop exists: rank 3-5 falsifiable hypotheses *before* instrumenting, write the regression test *before* the fix, and remove probes/temp logs after the fix lands.
+Only after the loop exists: rank 3-5 falsifiable hypotheses *before* instrumenting, write the regression test *before* the fix, and remove probes/temp logs after the fix lands — tag every temporary probe with a unique marker (e.g. `[DEBUG-a1b2]`) when you add it, so a single grep clears all of them at cleanup.
 
 ## Wrapping complex systems (DSLs and ergonomic shells)
 
