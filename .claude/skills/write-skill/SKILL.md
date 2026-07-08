@@ -53,6 +53,7 @@ Hunt for restatements a leading word retires: "fast, deterministic, low-overhead
 - **Sediment** — stale layers that settle because adding feels safe and removing feels risky. The default fate of any skill without a pruning discipline.
 - **Sprawl** — simply too long, even when every line is live. Cure: the information hierarchy — disclose reference behind pointers, split by branch or sequence.
 - **No-op** — a line the model obeys by default. A weak leading word (*be thorough* when the agent already is) is a no-op; the fix is a stronger word (*relentless*), not a different technique.
+- **Negation** — steering by prohibition backfires: *don't think of an elephant* names the elephant and makes it *more* available, not less. Prompt the *positive* — state the target behavior so the banned one is never spoken; keep a prohibition only as a hard guardrail you can't phrase positively, and even then pair it with what to do instead.
 
 ## Workflow
 
