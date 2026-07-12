@@ -38,9 +38,16 @@ Ask 3-5 focused questions about:
 - Trade-offs — Performance vs simplicity? Feature completeness vs speed?
 - Integration — How should this connect to existing code?
 
+Ask them via the `AskUserQuestion` tool — clickable pickers with 2-4 concrete
+answers per question; put a recommendation first with "(Recommended)" in its
+label. Fall back to a plain-text question only when the answer is genuinely
+open-ended (e.g. "what is the existing data shape?").
+
 ### 4. Present Approach Options
 
-After receiving answers, present 2-3 options:
+After receiving answers, present 2-3 options — as text first (the trade-off
+context lives there), then as an `AskUserQuestion` picker so the user clicks
+their choice:
 
 ```
 Option 1: [approach] — [trade-off summary]
@@ -53,7 +60,11 @@ Each option must include:
 - What the user will see when they run it
 - How to verify it works
 
-End with: "Which option do you prefer, or would you like to explore a different direction?"
+The picker carries one choice per approach (label = the approach's short name,
+recommended one first with "(Recommended)"; description = its one-line
+trade-off). Do NOT end with a free-text question like "Which option do you
+prefer?" — the picker is how the user answers, and its automatic "Other"
+choice already covers exploring a different direction.
 
 ### 5. Phase Requirements Check
 
