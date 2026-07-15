@@ -25,8 +25,8 @@ decisions one-by-one — don't jump around.
   Forces the user to confirm or push back, not just brainstorm.
 - **Look up *facts* in the codebase; never look up *decisions*.** If a fact can be found by reading the code, read it instead of asking. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
 - **Stop only** when every load-bearing assumption has been surfaced.
-- End with: "These are the assumptions your plan rests on. Do they hold?"
-- **Do not enact the plan** until the user confirms you have reached a shared understanding. `/grill` pressure-tests; it never starts building.
+- **Never build.** `/grill` pressure-tests a plan — it never writes code, edits source, runs a build, or hands off to a BONSAI build workflow. Not even when the plan feels "obviously ready." Implementation is a separate, explicitly user-initiated step that happens *after* this session, never inside it.
+- **Close the session** as described in **After the session** below — recap the assumptions, then ask where to capture the outcome. Never slide from grilling into building.
 
 </what-to-do>
 
@@ -132,5 +132,30 @@ Only offer to create an ADR when all three are true:
 If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
 
 </supporting-info>
+
+<closing>
+
+## After the session — capture, don't code
+
+`/grill` is a **pure planning phase**. When the grilling ends, stop. Do NOT start
+implementing, edit source files, run anything, or invoke a BONSAI build workflow — even
+if the shared understanding feels ready to code. Enacting the plan is a separate step the
+user starts explicitly, later.
+
+Close in two moves:
+
+1. **Recap the assumptions.** Say: "These are the assumptions your plan rests on. Do they hold?"
+2. **Ask where to capture the outcome** — via `AskUserQuestion`, single choice:
+   - **Update `CONCEPT.md`** — write/update THE MASTER when the plan has crystallised into
+     ratified project vision, requirements, or decisions.
+   - **Update `IDEA.md`** — write/update the informal pre-CONCEPT brainstorm doc when the
+     idea isn't ready to become THE MASTER yet. `IDEA.md` is the holding pen; it graduates
+     into `CONCEPT.md` once it matures.
+   - **Nothing** — leave the outcome in the conversation only.
+
+Only after the user picks does anything get written — and even then, only `CONCEPT.md` or
+`IDEA.md`, never code.
+
+</closing>
 
 $ARGUMENTS
