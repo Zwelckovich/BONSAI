@@ -115,16 +115,13 @@ Grouped by purpose.
 |-------|---------|
 | [`/bonsai`](.claude/skills/bonsai/SKILL.md) | Adaptive development workflow — 10 tasks, 3 modes (Grow / Shape / Prune) |
 | [`/bonsai-init`](.claude/skills/bonsai-init/SKILL.md) | Onboard a project — detect type, create `CONCEPT.md`, configure tools |
-| [`/bonsai-it`](.claude/skills/bonsai-it/SKILL.md) | Transform an existing project to BONSAI (pip→uv, eslint→biome, …) |
-| [`/grow`](.claude/skills/grow/SKILL.md) | Execute the next GROW! development phase (`--ALL` for continuous) |
-| [`/grow-create`](.claude/skills/grow-create/SKILL.md) | Generate a `GROW.md` plan from `CONCEPT.md` |
-| [`/grow-plan`](.claude/skills/grow-plan/SKILL.md) | Interactive planning for a single GROW phase |
+| [`/grow`](.claude/skills/grow/SKILL.md) | Generate a `GROW.md` plan from `CONCEPT.md` |
 
 ### Planning
 
 | Skill | Purpose |
 |-------|---------|
-| [`/pc`](.claude/skills/pc/SKILL.md) | Plan & Clarify — ask questions, propose options, then plan |
+| [`/grill`](.claude/skills/grill/SKILL.md) | THE planning skill — pressure-test any plan, phase, or idea; then execute via `/bonsai` or capture |
 | [`/qa`](.claude/skills/qa/SKILL.md) | Answer questions without editing files |
 
 ### Quality
@@ -214,7 +211,7 @@ Documentation hierarchy Claude follows:
 | `CLAUDE.md` | Claude Code (methodology template) | Rarely |
 | `CLAUDE.local.md` | Claude Code (env-specific, gitignored) | Auto-maintained |
 | `README.md` | End users of your software | Yes, when user-facing changes ship |
-| `GROW.md` | Development plan and execution log | During `/grow` runs |
+| `GROW.md` | Development plan and execution log | Created by `/grow`, executed phase-by-phase via `/grill` |
 
 ## Repo layout
 
@@ -238,14 +235,11 @@ BONSAI/
     └── skills/
         ├── bonsai/          # Main workflow
         ├── bonsai-init/     # Onboard new projects
-        ├── bonsai-it/       # Transform existing projects
         ├── bonsai-check/    # Compliance audit
         ├── code-analyser/   # Dead-code detection
         ├── cp/              # Commit + push
-        ├── grow/            # GROW! phase executor
-        ├── grow-create/     # Generate GROW.md
-        ├── grow-plan/       # Interactive phase planning
-        ├── pc/              # Plan & Clarify
+        ├── grill/           # Central planning — grill, then route
+        ├── grow/            # Generate GROW.md
         ├── pycheck/         # Python quality pipeline
         ├── qa/              # Read-only questions
         ├── reactcheck/      # React/TS quality pipeline

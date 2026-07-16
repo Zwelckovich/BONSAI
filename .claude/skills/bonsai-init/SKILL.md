@@ -109,8 +109,8 @@ dev.py: [generated / command shown / declined / N/A (not full-stack)]
 
 Available commands:
   /bonsai <request>  — Adaptive development workflow
-  /grow-create       — Generate development phases from CONCEPT.md
-  /pc <topic>        — Plan & clarify before building
+  /grow              — Generate development phases from CONCEPT.md
+  /grill <topic>     — Plan & pressure-test before building
   /pycheck           — Python quality checks
   /reactcheck        — React/TS quality checks
   /bonsai-check      — Best practices audit

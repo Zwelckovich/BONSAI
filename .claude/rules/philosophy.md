@@ -144,7 +144,7 @@ Rules for descriptions:
 - First sentence: what the skill does
 - Second sentence: `Use when [specific trigger phrases or conditions]` (auto-triggering skills only — a command can drop it; see "Commands vs skills" below)
 - 2-4 concrete trigger phrases
-- Distinct enough to separate from similar skills (e.g., `/pc` vs. `/grow-plan`)
+- Distinct enough to separate from similar skills (e.g., `/grill` vs. `/qa`)
 
 ### `disable-model-invocation: true` for explicit-only skills
 

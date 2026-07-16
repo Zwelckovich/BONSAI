@@ -1,72 +1,107 @@
 ---
 name: grow
 description: >
-  Execute the next GROW! development phase from GROW.md. Reads the phase plan,
-  runs the full /bonsai workflow for that phase, and updates GROW.md with results.
-  Use --ALL flag for continuous execution of all remaining phases.
-  Trigger when user says "grow", "next phase", "execute phase", or "GROW! --ALL".
+  Create a GROW.md development plan from CONCEPT.md. Analyzes the project vision
+  and generates intelligent, sequential development phases with prompts for each.
+  Does NOT implement anything — just creates the plan. Trigger when user says
+  "grow", "create grow plan", "generate phases", or "plan my project".
 disable-model-invocation: true
 ---
 
-# GROW! Phase Execution
+# GROW! Plan Creation
 
-Execute development phases from GROW.md using the BONSAI workflow.
-
-## Modes
-
-- **Standard** (`/grow`): Execute the next incomplete phase, then stop
-- **Continuous** (`/grow --ALL`): Execute all remaining phases without stopping
+Analyze `CONCEPT.md` and generate a smart, phase-based development plan in `GROW.md`.
 
 ## Process
 
-### 1. Read GROW.md
+### 1. Analyze CONCEPT.md
 
-Read `GROW.md` to find the current state:
-- Which phases are completed (marked ✅)
-- Which phase is next (first without ✅)
-- The phase prompt and deliverables
+Read `CONCEPT.md` and extract:
+- Project type (web app, CLI tool, library, API, etc.)
+- Core technology (Python, JavaScript, etc.)
+- Key requirements and features
+- Complexity level
 
-Also read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — so phase work, and the prompt handed to `/bonsai`, uses the project glossary (read-only; `/grill`-authored, subordinate to `CONCEPT.md`).
+Read `CLAUDE.local.md` if it exists — check the OS and shell environment. Adapt run commands accordingly (e.g., on Windows Git Bash, use `uv run uvicorn main:app` instead of `fastapi dev`).
 
-If GROW.md doesn't exist, tell the user to run `/grow-create` first.
+Read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — use the established domain vocabulary in phase names, prompts, and deliverables (read-only; `/grill`-authored, subordinate to `CONCEPT.md`).
 
-### 2. Execute the Phase
+If `CONCEPT.md` doesn't exist, ask the user to create one first (or run `/bonsai-init`).
 
-For the current phase:
-1. Read the phase prompt from GROW.md
-2. Execute it using the `/bonsai` skill (invoke the full adaptive workflow)
-3. The phase prompt becomes the `$ARGUMENTS` for `/bonsai`
+### 2. Generate Development Phases
 
-### 3. Update GROW.md
+Think like a developer: what would you build first to validate the concept? Create phases that follow a natural progression:
 
-After the `/bonsai` workflow completes for the phase:
-1. Mark the phase as ✅ COMPLETED with timestamp
-2. Record files modified and summary of changes
-3. Verify the phase deliverable is functional (runs with one command)
+**Phase planning principles:**
+- **Foundation first** — Core data structures and basic operations
+- **Incremental value** — Each phase adds working features
+- **Natural dependencies** — Backend before frontend, core before extensions
+- **Testable milestones** — Every phase produces verifiable functionality
+- **Single-command runnable** — Each phase must work with ONE terminal command
 
-### 4. Mode Check
+**Prompt precision principles:**
+- **Reference, don't duplicate** — Point to CONCEPT.md sections ("Read §4.2 for exact matchup scores") rather than copying content into prompts
+- **Specify deliverables concretely** — Name functions, models, files, and their signatures
+- **Include acceptance criteria** — What must be true for the phase to be complete
+- **Name edge cases** — List specific edge cases by number/name from CONCEPT.md
+- **Concrete examples** — Include at least 2-3 concrete input/output examples per phase
+- **Formula specs** — Any mathematical formula must appear verbatim in the prompt
+- **Per-phase justification** — One sentence explaining why this phase exists and what depends on it
 
-- **Standard mode**: Stop and inform the user. They can run `/grow` again for the next phase.
-- **Continuous mode** (`--ALL`): Immediately proceed to the next incomplete phase. Repeat steps 2-4 until all phases are complete.
+**Typical progressions:**
+- CLI tool: Core logic → Persistence → CLI interface → Testing
+- Web app: Backend API → Database → Auth → Frontend → Integration tests
+- Library: Core algorithms → Public API → Test suite → Docs → Packaging
 
-### 5. Completion
+Most projects need 4-7 phases. Complex projects may need up to 12-15. Scale phases to project complexity — never pad with unnecessary phases, never cram too much into one phase.
 
-When all phases are done (or standard mode stops after one):
+### 3. Create GROW.md
+
+Write `GROW.md` with this structure:
+
+```markdown
+# GROW! Intelligent Development Plan
+
+## Project Analysis
+- **Project Type**: [detected type]
+- **Core Technology**: [language/framework]
+- **Complexity**: [Simple/Medium/Complex]
+- **Source**: CONCEPT.md
+
+## Development Phases
+
+### Phase 1: [Foundation Phase Name]
+- **Goal**: [what this phase achieves]
+- **Deliverable**: [functional component with named functions/models]
+- **Dependencies**: [prior phases, or "None"]
+- **Covers**: [CONCEPT.md sections this phase implements]
+- **Run Command**: [exact command to run and test]
+- **Status**: ⏳ PENDING
+
+#### Phase 1 Prompt:
+[Detailed prompt that will be passed to /bonsai]
+
+### Phase 2: [Next Phase Name]
+- **Goal**: [builds upon Phase 1]
+- **Deliverable**: [next functional increment]
+- **Dependencies**: Phase 1
+- **Run Command**: [exact command]
+- **Status**: ⏳ PENDING
+
+#### Phase 2 Prompt:
+[Detailed prompt for Phase 2]
+
+[... additional phases ...]
 ```
-🌱 Phase [N] Complete: [phase name]
-  Files: [count] modified, [count] created
-  Run command: [the command to test this phase]
 
-  [Standard mode]: Run /grow for the next phase
-  [Continuous mode]: Proceeding to Phase [N+1]...
-```
+### 4. Present the Plan
 
-## Error Handling
+Show the user the generated plan and ask if they want to:
+- Modify any phases
+- Add or remove phases
+- Adjust the order
+- Plan & execute Phase 1 with `/grill Phase 1`
 
-If a phase fails:
-1. Mark it as ❌ FAILED in GROW.md with the error
-2. Stop execution (even in --ALL mode — phases have dependencies)
-3. Tell the user what went wrong and suggest fixes
-4. Next `/grow` invocation retries the failed phase
+**Important**: Do NOT start implementing any phase. This skill only creates the plan.
 
 $ARGUMENTS

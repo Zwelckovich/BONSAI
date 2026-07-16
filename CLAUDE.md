@@ -51,12 +51,8 @@ Guidelines:
 |-------|-------------|
 | `/bonsai` | Adaptive development workflow (10 tasks, 3 modes: Grow/Shape/Prune) |
 | `/bonsai-init` | Project onboarding — detect type, create CONCEPT.md, configure tools |
-| `/grow` | Execute next GROW! phase (or `--ALL` for continuous) |
-| `/grow-create` | Create GROW.md from CONCEPT.md analysis |
-| `/grow-plan` | Interactive phase planning with approach options |
-| `/bonsai-it` | Transform existing project to BONSAI principles |
-| `/pc` | Plan & Clarify — clarifying questions, then approach options |
-| `/grill` | Adversarial grilling — pressure-test a plan, sharpen domain terms (CONTEXT.md), record ADRs |
+| `/grow` | Create GROW.md development plan from CONCEPT.md analysis |
+| `/grill` | THE planning skill — pressure-test any plan, phase, or idea; then execute via /bonsai or capture the outcome |
 | `/qa` | Answer questions without editing files |
 | `/handoff` | Compact current conversation into a handoff doc (OS temp) for a fresh agent to pick up |
 | `/session-review` | Post-session retrospective — audits the conversation for failures and traces each to the rule/skill that should have prevented it |
