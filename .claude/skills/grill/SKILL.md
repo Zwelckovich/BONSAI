@@ -1,17 +1,21 @@
 ---
 name: grill
 description: >
-  Adversarial grilling session that pressure-tests an existing plan one tough question at a
-  time, sharpens domain terminology against a CONTEXT.md glossary, cross-checks claims against
-  the code, and records crystallized decisions as ADRs. Use when the user has a plan they want
-  stress-tested rather than options — "grill me", "stress test my plan", "challenge this
-  approach", "pressure-test this plan".
+  The central BONSAI planning skill: an adversarial grilling session that pressure-tests a
+  plan one tough question at a time via AskUserQuestion pickers (recommended answer first),
+  drafts a strawman approach when no plan exists yet, plans GROW.md phases, sharpens domain
+  terminology against a CONTEXT.md glossary, cross-checks claims against the code, and records
+  crystallized decisions as ADRs. Closes with a picker: execute the refined plan via /bonsai,
+  capture it in the doc in play, or leave it in the conversation. Use for any planning ask —
+  "grill me", "pressure-test this plan", "help me plan", "plan this feature", "how should I
+  approach", "plan phase N", "fix bug X" when the user wants a plan first.
 ---
 
 # Grill
 
-Adapted from Matt Pocock's `grill-with-docs` skill. This is the adversarial counterpart to
-`/pc`: `/pc` presents options before a plan exists; `/grill` attacks a plan that already does.
+Adapted from Matt Pocock's `grill-with-docs` skill. The central BONSAI planning skill: it
+attacks a plan — given, found in a doc, or strawman-drafted — until every load-bearing
+decision is confirmed, then routes the outcome (execute, capture, or nothing).
 
 <what-to-do>
 
@@ -19,18 +23,39 @@ Interview the user relentlessly about every aspect of this plan until you reach 
 understanding. Walk down each branch of the design tree, resolving dependencies between
 decisions one-by-one — don't jump around.
 
-- **Do NOT present alternatives.** The user has chosen a direction; pressure-test it.
+- **Start from what you're given** — a plan, a doc, a GROW.md phase, or a bare task. See
+  **Entry modes** below for how each session begins.
+- **Do NOT present alternatives.** One direction is on the table — given by the user or
+  drafted as the strawman; pressure-test it. Alternatives surface per-decision, as the
+  non-recommended choices in each picker — never as upfront option menus.
 - **Ask ONE question at a time.** Wait for the answer before the next.
-- **Include your recommended answer with each question** ("I think X, because Y — agree?").
-  Forces the user to confirm or push back, not just brainstorm.
+- **Ask via `AskUserQuestion`.** Every question goes through the picker, with your
+  recommended answer FIRST, labeled "(Recommended)" and carrying the reason in its
+  description. A plain-text question is allowed ONLY when the answer is genuinely
+  open-ended and predefined options would be fabricated (e.g. "what is the existing data
+  shape?").
 - **Look up *facts* in the codebase; never look up *decisions*.** If a fact can be found by reading the code, read it instead of asking. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
 - **Stop only** when every load-bearing assumption has been surfaced.
-- **Never build.** `/grill` pressure-tests a plan — it never writes code, edits source, runs a build, or hands off to a BONSAI build workflow. Not even when the plan feels "obviously ready." Implementation is a separate, explicitly user-initiated step that happens *after* this session, never inside it.
-- **Close the session** as described in **After the session** below — recap the assumptions, then ask where to capture the outcome. Never slide from grilling into building.
+- **Never build during grilling.** While the session runs, don't write code, edit source,
+  run a build, or start a build workflow — even when the plan feels "obviously ready."
+  Execution happens only when the user picks it in the closing picker (see **After the
+  session** below).
+- **Close the session** as described in **After the session** below — recap the assumptions,
+  then ask what happens next. Never slide from grilling into building on your own judgment.
 
 </what-to-do>
 
 <supporting-info>
+
+## Entry modes
+
+- **A plan or doc** (`/grill @IDEA.md`, `/grill @CONCEPT.md`, a pasted plan) — grill it
+  directly.
+- **A GROW.md phase** (`/grill Phase 4`) — "Phase N" almost always means GROW.md: read it,
+  find phase N (or the next incomplete phase if no number given), and grill that phase's
+  plan against its Goal, Deliverable, and acceptance criteria.
+- **A bare task, no plan yet** (`/grill Fix bug xyz`) — explore the code first, draft ONE
+  recommended approach as a strawman, then grill its load-bearing decisions one at a time.
 
 ## What to attack
 
@@ -135,26 +160,30 @@ If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](
 
 <closing>
 
-## After the session — capture, don't code
+## After the session — recap, then route
 
-`/grill` is a **pure planning phase**. When the grilling ends, stop. Do NOT start
-implementing, edit source files, run anything, or invoke a BONSAI build workflow — even
-if the shared understanding feels ready to code. Enacting the plan is a separate step the
-user starts explicitly, later.
-
-Close in two moves:
+When the grilling ends, close in two moves:
 
 1. **Recap the assumptions.** Say: "These are the assumptions your plan rests on. Do they hold?"
-2. **Ask where to capture the outcome** — via `AskUserQuestion`, single choice:
-   - **Update `CONCEPT.md`** — write/update THE MASTER when the plan has crystallised into
-     ratified project vision, requirements, or decisions.
-   - **Update `IDEA.md`** — write/update the informal pre-CONCEPT brainstorm doc when the
-     idea isn't ready to become THE MASTER yet. `IDEA.md` is the holding pen; it graduates
-     into `CONCEPT.md` once it matures.
-   - **Nothing** — leave the outcome in the conversation only.
+2. **Ask what happens next** — via `AskUserQuestion`, single choice, in this fixed order:
 
-Only after the user picks does anything get written — and even then, only `CONCEPT.md` or
-`IDEA.md`, never code.
+   1. **Execute via `/bonsai`** — invoke the `/bonsai` skill in this session, passing the
+      full refined plan as args. Suggest `--tdd` in the option description when the plan is
+      test-shaped (testable behaviors, a bug with a reproducible symptom). Execution writes
+      no planning doc — with one exception: when the grilled subject is a **GROW.md phase**,
+      first write the refined plan into that phase's section, then invoke `/bonsai`, and
+      after it finishes mark the phase ✅ COMPLETED in GROW.md with the verified run command.
+   2. **Update the doc in play** — capture the refined plan without building. The target is
+      context-sensitive: the doc the user referenced (`@IDEA.md` → `IDEA.md`, `@GROW.md` or
+      "Phase N" → `GROW.md`, `@CONCEPT.md` → `CONCEPT.md`); when none was referenced, infer
+      from what the session touched (`CONCEPT.md` if project-level decisions crystallised,
+      `IDEA.md` if it was pre-CONCEPT brainstorming). **Drop this option entirely when
+      nothing fits** — never invent a doc for a routine fix.
+   3. **Nothing** — leave the outcome in the conversation only.
+
+Until the user picks, nothing is written and nothing is built. The picker is the only door
+to implementation: the user picking "Execute via `/bonsai`" IS the explicit go — honor it
+in this session. Any other pick stays plan-only.
 
 </closing>
 
