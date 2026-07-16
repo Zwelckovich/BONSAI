@@ -2,7 +2,7 @@
 name: grill
 description: >
   The central BONSAI planning skill: an adversarial grilling session that pressure-tests a
-  plan one tough question at a time via AskUserQuestion pickers (recommended answer first),
+  plan, decision, or idea with tough questions via AskUserQuestion pickers (recommended answer first),
   drafts a strawman approach when no plan exists yet, plans GROW.md phases, sharpens domain
   terminology against a CONTEXT.md glossary, cross-checks claims against the code, and records
   crystallized decisions as ADRs. Closes with a picker: execute the refined plan via /bonsai,
@@ -19,22 +19,25 @@ decision is confirmed, then routes the outcome (execute, capture, or nothing).
 
 <what-to-do>
 
-Interview the user relentlessly about every aspect of this plan until you reach a shared
-understanding. Walk down each branch of the design tree, resolving dependencies between
-decisions one-by-one — don't jump around.
+Interview the user relentlessly about every aspect of the plan, decision, or idea until you
+reach a shared understanding. Walk down each branch of the decision tree, resolving
+dependencies between decisions one-by-one — don't jump around.
 
 - **Start from what you're given** — a plan, a doc, a GROW.md phase, or a bare task. See
   **Entry modes** below for how each session begins.
 - **Do NOT present alternatives.** One direction is on the table — given by the user or
   drafted as the strawman; pressure-test it. Alternatives surface per-decision, as the
   non-recommended choices in each picker — never as upfront option menus.
-- **Ask ONE question at a time.** Wait for the answer before the next.
+- **Ask along the frontier.** A question is askable only when every answer it depends on is
+  already settled. Independent askable questions may share one `AskUserQuestion` call (max 4);
+  a question that depends on a still-open answer waits for a later round. When unsure whether
+  two questions are independent, ask them sequentially.
 - **Ask via `AskUserQuestion`.** Every question goes through the picker, with your
   recommended answer FIRST, labeled "(Recommended)" and carrying the reason in its
   description. A plain-text question is allowed ONLY when the answer is genuinely
   open-ended and predefined options would be fabricated (e.g. "what is the existing data
   shape?").
-- **Look up *facts* in the codebase; never look up *decisions*.** If a fact can be found by reading the code, read it instead of asking. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
+- **Look up *facts* in the environment; never look up *decisions*.** If a fact can be found by reading the code — or the filesystem, tools, or web — read it instead of asking. Fact-finding may run in a subagent without blocking the current round; only questions downstream of the missing fact wait for it. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
 - **Stop only** when every load-bearing assumption has been surfaced.
 - **Never build during grilling.** While the session runs, don't write code, edit source,
   run a build, or start a build workflow — even when the plan feels "obviously ready."
@@ -55,7 +58,7 @@ decisions one-by-one — don't jump around.
   find phase N (or the next incomplete phase if no number given), and grill that phase's
   plan against its Goal, Deliverable, and acceptance criteria.
 - **A bare task, no plan yet** (`/grill Fix bug xyz`) — explore the code first, draft ONE
-  recommended approach as a strawman, then grill its load-bearing decisions one at a time.
+  recommended approach as a strawman, then grill its load-bearing decisions.
 
 ## What to attack
 
