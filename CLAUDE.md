@@ -54,6 +54,7 @@ Guidelines:
 | `/grow` | Create GROW.md development plan from CONCEPT.md analysis |
 | `/grill` | THE planning skill — pressure-test any plan, phase, or idea; then execute via /bonsai or capture the outcome |
 | `/qa` | Answer questions without editing files |
+| `/eli5` | Explain anything like you're five, then climb to an expert deep dive on demand |
 | `/handoff` | Compact current conversation into a handoff doc (OS temp) for a fresh agent to pick up |
 | `/session-review` | Post-session retrospective — audits the conversation for failures and traces each to the rule/skill that should have prevented it |
 | `/prototype` | Throwaway design prototype — runnable TUI for state/logic, or multi-variant UI from one route |
