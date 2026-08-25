@@ -20,25 +20,29 @@ decision is confirmed, then routes the outcome (execute, capture, or nothing).
 <what-to-do>
 
 Interview the user relentlessly about every aspect of the plan, decision, or idea until you
-reach a shared understanding. Walk down each branch of the decision tree, resolving
-dependencies between decisions one-by-one — don't jump around.
+reach a shared understanding. Map it as a **design tree**: every decision branches into the
+decisions that hang off it. Walk the tree branch by branch, resolving dependencies one-by-one
+— don't jump around.
 
 - **Start from what you're given** — a plan, a doc, a GROW.md phase, or a bare task. See
   **Entry modes** below for how each session begins.
 - **Do NOT present alternatives.** One direction is on the table — given by the user or
   drafted as the strawman; pressure-test it. Alternatives surface per-decision, as the
   non-recommended choices in each picker — never as upfront option menus.
-- **Ask along the frontier.** A question is askable only when every answer it depends on is
-  already settled. Independent askable questions may share one `AskUserQuestion` call (max 4);
-  a question that depends on a still-open answer waits for a later round. When unsure whether
-  two questions are independent, ask them sequentially.
+- **Ask along the frontier.** The **frontier** is every decision whose prerequisites are
+  already settled — the questions askable *now* without guessing at answers you haven't heard.
+  Independent frontier questions may share one `AskUserQuestion` call (max 4); a question that
+  depends on a still-open answer waits for a later round. When unsure whether two questions are
+  independent, ask them sequentially. Each round of answers reshapes the tree: settled decisions
+  push the frontier outward and unblock what depended on them. Recompute it, then ask again.
 - **Ask via `AskUserQuestion`.** Every question goes through the picker, with your
   recommended answer FIRST, labeled "(Recommended)" and carrying the reason in its
   description. A plain-text question is allowed ONLY when the answer is genuinely
   open-ended and predefined options would be fabricated (e.g. "what is the existing data
   shape?").
 - **Look up *facts* in the environment; never look up *decisions*.** If a fact can be found by reading the code — or the filesystem, tools, or web — read it instead of asking. Fact-finding may run in a subagent without blocking the current round; only questions downstream of the missing fact wait for it. But every decision is the user's — put each one to them and wait; do not answer your own decision question from the code.
-- **Stop only** when every load-bearing assumption has been surfaced.
+- **The session is done when the frontier is empty** — every branch of the design tree visited,
+  every load-bearing assumption surfaced, nothing left silently assumed.
 - **Never build during grilling.** While the session runs, don't write code, edit source,
   run a build, or start a build workflow — even when the plan feels "obviously ready."
   Execution happens only when the user picks it in the closing picker (see **After the
@@ -170,11 +174,11 @@ When the grilling ends, close in two moves:
 1. **Recap the assumptions.** Say: "These are the assumptions your plan rests on. Do they hold?"
 2. **Ask what happens next** — via `AskUserQuestion`, single choice, in this fixed order:
 
-   1. **Execute via `/bonsai`** — invoke the `/bonsai` skill in this session, passing the
-      full refined plan as args. Suggest `--tdd` in the option description when the plan is
-      test-shaped (testable behaviors, a bug with a reproducible symptom). Execution writes
-      no planning doc — with one exception: when the grilled subject is a **GROW.md phase**,
-      first write the refined plan into that phase's section, then invoke `/bonsai`, and
+   1. **Execute via `/bonsai`** — call the Skill tool with `bonsai`, passing the full refined
+      plan as args. Suggest `--tdd` in the option description when the plan is test-shaped
+      (testable behaviors, a bug with a reproducible symptom). Execution writes no planning
+      doc — with one exception: when the grilled subject is a **GROW.md phase**, first write
+      the refined plan into that phase's section, then call the Skill tool with `bonsai`, and
       after it finishes mark the phase ✅ COMPLETED in GROW.md with the verified run command.
    2. **Update the doc in play** — capture the refined plan without building. The target is
       context-sensitive: the doc the user referenced (`@IDEA.md` → `IDEA.md`, `@GROW.md` or

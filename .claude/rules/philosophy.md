@@ -165,7 +165,13 @@ The `disable-model-invocation: true` flag splits a `SKILL.md` into two kinds, an
 Two rules follow:
 
 - **A command never invokes another command** — only skills. (Skills may invoke skills.)
-- **Express cross-skill dependencies as prose `/skill` invocation** ("Run the `/grill` session"), not deep `../other-skill/FILE.md` links. Shared reference docs live inside the skill that owns them; other skills reach that material by invoking the skill.
+- **Express an operative cross-skill dependency as a Skill-tool call** — `Call the Skill tool with "grill"`, not prose ("Run the `/grill` session") and not deep `../other-skill/FILE.md` links. Naming a skill in prose does not reliably load it; naming the tool is what fires it, and dropping the leading `/` keeps the instruction harness-neutral. Shared reference docs live inside the skill that owns them; other skills reach that material by calling the Skill tool with it.
+
+Three qualifications on that form:
+
+- **Model-invoked targets only.** A command has no description, so nothing but the human can reach it and naming it to the Skill tool fails silently. Write that dependency for the human instead: "tell the user to run `/bonsai-init`".
+- **Router prose keeps `/skill` labels.** A line addressed to a human browsing options (`CLAUDE.md`'s "Use `/bonsai` for structured development", a skills table, a picker label) is an index entry, not a step. Only *operative* instructions — a skill's own steps sending the agent to run another skill right now — take the Skill-tool form.
+- **One skill per call.** A step needing two says so as two calls: "Call the Skill tool twice, for `pycheck` and `reactcheck`".
 
 ### Skill structure
 

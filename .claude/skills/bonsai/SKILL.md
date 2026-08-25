@@ -127,15 +127,15 @@ Execute the code and verify it works correctly.
 
 Run quality tools to ensure the code meets standards. This task composes with other skills.
 
-**For Python projects**: Invoke `/pycheck`
+**For Python projects**: Call the Skill tool with `pycheck`
 - `uv run ruff format` → `uv run ruff check` → `uv run ty check`
 - Fix all issues, re-run until clean
 
-**For JavaScript/TypeScript projects**: Invoke `/reactcheck`
+**For JavaScript/TypeScript projects**: Call the Skill tool with `reactcheck`
 - `bun run biome check --write .` → `bun run tsc --noEmit`
 - Fix all issues, re-run until clean
 
-**For mixed projects**: Invoke both sequentially.
+**For mixed projects**: Call the Skill tool twice, for `pycheck` and `reactcheck`.
 
 Show the actual command output as evidence that all tools pass clean.
 
@@ -149,7 +149,7 @@ Review the implementation for quality and verify all references are updated.
 2. Use Grep to find all files that reference modified functions/classes — **including test fixtures and mock signatures**, which are the most common collateral when refactoring private function signatures (e.g., a mock's `_run(netlist, output_dir)` becomes invalid the moment you add a `working_dir` kwarg)
 3. Update all references if signatures or names changed
 4. Check backward compatibility where relevant
-5. For thorough analysis, consider using `/code-analyser`
+5. For thorough analysis, suggest the user run `/code-analyser` — it is a command, so only they can fire it
 
 ## Task 7: Test
 
