@@ -1,0 +1,6 @@
+node_modules/
+composition/snapshots/
+composition/.hyperframes/
+composition/assets/gsap.min.js
+deck.pdf
+*.log

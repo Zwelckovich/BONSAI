@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Add data-ambient to <html> and uncomment the .ambient block below to run an MP4 loop behind the slides. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deck title</title>
+    <!-- defer is required: the slideshow element must upgrade after its JSON island is parsed. -->
+    <script defer src="node_modules/@hyperframes/player/dist/hyperframes-player.global.js"></script>
+    <script defer src="node_modules/@hyperframes/player/dist/slideshow/hyperframes-slideshow.global.js"></script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 100%; height: 100%; overflow: hidden; background: #050506; }
+      .ambient { position: fixed; inset: 0; z-index: 0; }
+      .ambient video { width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+      .ambient::after { content: ""; position: absolute; inset: 0; background: rgba(5, 5, 6, 0.45); }
+      hyperframes-slideshow { display: block; position: relative; z-index: 1; width: 100vw; height: 100vh; }
+      hyperframes-player { position: absolute; inset: 0; background: transparent !important; }
+    </style>
+  </head>
+  <body>
+    <!--
+    <div class="ambient"><video src="composition/assets/ambient.mp4" autoplay muted loop playsinline></video></div>
+    -->
+    <hyperframes-slideshow tabindex="0">
+      <!-- Directory URL with trailing slash: static servers with "clean URLs" redirect index.html and break relative asset paths. -->
+      <hyperframes-player src="composition/"></hyperframes-player>
+      <!-- Verbatim copy of the island in composition/index.html. Keep both in sync. -->
+      <script type="application/hyperframes-slideshow+json">
+        {
+          "slides": [
+            { "sceneId": "cover", "notes": "Cold open. Let the claim breathe before you speak." },
+            { "sceneId": "three", "notes": "Three points, one per click. Pause after each.", "fragments": [10.3, 10.6, 10.9] },
+            { "sceneId": "close", "notes": "Land the takeaway. Then stop talking." }
+          ]
+        }
+      </script>
+    </hyperframes-slideshow>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="keynote-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Deck title</title>
+    <script src="assets/gsap.min.js"></script>
+    <link rel="stylesheet" href="deck.css" />
+    <style>
+      /* Per-deck overrides go here (accent, special slides). Keep deck.css generic. */
+    </style>
+  </head>
+  <body>
+    <!--
+      Timeline layout: every scene owns a 10 s slot (start = 10 × index). Fragment hold
+      times are absolute: start + 0.3, + 0.6, + 0.9 … (bunched so clicks feel instant).
+      The island below is the source of truth for slide order, fragments and notes —
+      copy it verbatim into ../index.html (the wrapper) whenever it changes.
+    -->
+    <script type="application/hyperframes-slideshow+json">
+      {
+        "slides": [
+          { "sceneId": "cover", "notes": "Cold open. Let the claim breathe before you speak." },
+          { "sceneId": "three", "notes": "Three points, one per click. Pause after each.", "fragments": [10.3, 10.6, 10.9] },
+          { "sceneId": "close", "notes": "Land the takeaway. Then stop talking." }
+        ]
+      }
+    </script>
+
+    <div id="root" data-composition-id="root" data-start="0" data-duration="30" data-width="1920" data-height="1080">
+
+      <section id="scene-cover" class="scene-frame clip" data-composition-id="cover" data-start="0" data-duration="10" data-label="Cover">
+        <div class="slide center">
+          <div class="eyebrow" data-anim>Eyebrow line</div>
+          <h1 data-anim>A headline that is a complete claim.</h1>
+          <p class="lede" data-anim>One supporting sentence. Nothing else on this slide.</p>
+        </div>
+      </section>
+
+      <section id="scene-three" class="scene-frame clip" data-composition-id="three" data-start="10" data-duration="10" data-label="Three points">
+        <div class="slide">
+          <div class="eyebrow" data-anim>Section</div>
+          <h2 data-anim>Three things happen, one click at a time.</h2>
+          <div class="list" style="margin-top: 24px">
+            <div class="row" data-fragment="1"><span class="num">01</span><span>First point, a full sentence.</span></div>
+            <div class="row" data-fragment="2"><span class="num">02</span><span>Second point, a full sentence.</span></div>
+            <div class="row" data-fragment="3"><span class="num">03</span><span>Third point, a full sentence.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-close" class="scene-frame clip" data-composition-id="close" data-start="20" data-duration="10" data-label="Close">
+        <div class="slide center">
+          <h1 data-anim>The one thing to remember.</h1>
+          <p class="lede" data-anim>Thank you.</p>
+        </div>
+      </section>
+
+      <img class="logo" src="assets/rs.svg" alt="" />
+
+      <!-- Root timeline registration stays inline: the linter looks for it here. deck.js reuses it. -->
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["root"] = gsap.timeline({ paused: true }).to({}, { duration: parseFloat(document.getElementById("root").getAttribute("data-duration")) });
+      </script>
+    </div>
+
+    <script src="deck.js"></script>
+    <!-- Include only the patterns this deck uses: <script src="patterns/timeline.js"></script> -->
+
+  </body>
+</html>

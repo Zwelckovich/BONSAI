@@ -1,0 +1,172 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   deck.css — tokens + layout for create-slides decks.
+   Theme is chosen with <html data-theme="keynote-dark|keynote-light|rs-dark|rs-light">.
+   Keep this file generic; put per-deck overrides in a <style> block in index.html.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Fonts: shipped locally so the live deck never depends on the network.
+   HyperFrames aliases the family name "Arial" to Inter at compile time, so the
+   R&S faces are declared under neutral names that map to the local system fonts. */
+@font-face { font-family: "Inter"; src: url("assets/fonts/Inter.woff2") format("woff2-variations"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "JetBrains Mono"; src: url("assets/fonts/JetBrainsMono.woff2") format("woff2-variations"); font-weight: 100 800; font-display: block; }
+@font-face { font-family: "RS Heading"; src: local("Arial Narrow"), local("ArialNarrow"), local("Arial Narrow Bold"), local("Arial"); }
+@font-face { font-family: "RS Body"; src: local("Arial"), local("Helvetica"); }
+
+/* ── Tokens ─────────────────────────────────────────────────────────────── */
+:root {
+  /* keynote-dark (default): near-black canvas, white type, one accent */
+  --bg: #050506;
+  --bg-cover: var(--bg);
+  --glow: radial-gradient(ellipse 70% 50% at 50% 115%, rgba(124, 152, 133, 0.16), transparent 70%);
+  --surface: rgba(255, 255, 255, 0.055);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.12);
+  --fg: #f5f5f7;
+  --fg-2: rgba(245, 245, 247, 0.72);
+  --fg-3: rgba(245, 245, 247, 0.5);
+  --heading: var(--fg);
+  --accent: #7c9885;
+  --accent-2: #9db4a6;
+  --accent-soft: rgba(124, 152, 133, 0.18);
+  --c1: #7c9885; --c2: #82a4c7; --c3: #c7a882; --c4: #c78289; --c5: #9882c7; --c6: #5cc7a8;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+  --display-weight: 700;
+  --display-tracking: -0.03em;
+  --radius: 28px;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="keynote-light"] {
+  --bg: #fbfbfd;
+  --glow: radial-gradient(ellipse 70% 50% at 50% 115%, rgba(75, 101, 82, 0.10), transparent 70%);
+  --surface: rgba(0, 0, 0, 0.035);
+  --surface-strong: rgba(0, 0, 0, 0.06);
+  --border: rgba(0, 0, 0, 0.10);
+  --fg: #1d1d1f;
+  --fg-2: rgba(29, 29, 31, 0.72);
+  --fg-3: rgba(29, 29, 31, 0.5);
+  --accent: #4b6552;
+  --accent-2: #7c9885;
+  --accent-soft: rgba(75, 101, 82, 0.14);
+  --c1: #4b6552; --c2: #46627d; --c3: #6d5d42; --c4: #845156; --c5: #68568d; --c6: #2f6958;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+}
+
+/* Rohde & Schwarz — tokens from rus_style/tokens.json (roles_dark / roles). */
+html[data-theme="rs-dark"] {
+  --bg: #001437;
+  --bg-cover: linear-gradient(135deg, #001437 0%, #001437 20%, #002858 20%, #002858 42%, #003E76 42%, #003E76 66%, #004A8F 66%, #004A8F 88%, #005A9E 88%, #005A9E 100%);
+  --glow: none;
+  --surface: rgba(0, 20, 55, 0.58);
+  --surface-strong: #003E76;
+  --border: rgba(255, 255, 255, 0.10);
+  --fg: #ffffff;
+  --fg-2: #9FBDD8;
+  --fg-3: rgba(159, 189, 216, 0.7);
+  --accent: #009DEC;
+  --accent-2: #7CC9F2;
+  --accent-soft: rgba(0, 157, 236, 0.20);
+  --c1: #009DEC; --c2: #EA5B0C; --c3: #2BBBAD; --c4: #FF5A60; --c5: #F8AD3E; --c6: #9B6BD3;
+  --font-display: "RS Heading", "Arial Narrow", Arial, sans-serif;
+  --font-body: "RS Body", Arial, Helvetica, sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --display-weight: 700;
+  --display-tracking: -0.01em;
+  --radius: 8px;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="rs-light"] {
+  --bg: #ffffff;
+  --bg-cover: var(--bg);
+  --glow: none;
+  --surface: #F2F4F5;
+  --surface-strong: #E6EAED;
+  --border: #BFC3C6;
+  --fg: #000000;
+  --fg-2: #5A5F63;
+  --fg-3: #8A9094;
+  --heading: #003E76;
+  --accent: #009DEC;
+  --accent-2: #003E76;
+  --accent-soft: rgba(0, 157, 236, 0.14);
+  --c1: #009DEC; --c2: #EA5B0C; --c3: #007973; --c4: #A50F14; --c5: #003E76; --c6: #F8AD3E;
+  --font-display: "RS Heading", "Arial Narrow", Arial, sans-serif;
+  --font-body: "RS Body", Arial, Helvetica, sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --display-weight: 700;
+  --display-tracking: -0.01em;
+  --radius: 8px;
+  --shadow: 0 4px 28px rgba(0, 0, 0, 0.16);
+}
+
+/* ── Canvas ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+body { font-family: var(--font-body); color: var(--fg); font-size: 40px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg-cover); }
+#root::before { content: ""; position: absolute; inset: 0; background: var(--glow); pointer-events: none; }
+/* The wrapper sets data-ambient on its <html>; deck.js mirrors it as html.ambient so an MP4 behind the player shows through. */
+html.ambient, html.ambient body, html.ambient #root { background: transparent; }
+html.ambient #root::before { display: none; }
+
+.scene-frame { position: absolute; inset: 0; opacity: 0; visibility: hidden; pointer-events: none; }
+.scene-frame.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+/* ── Slide containers ───────────────────────────────────────────────────── */
+.slide { position: absolute; inset: 0; padding: 120px 160px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.slide.center { align-items: center; text-align: center; padding: 120px 240px; }
+.slide.top { justify-content: flex-start; gap: 24px; }
+.slide.split { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto; align-items: center; column-gap: 96px; }
+.figure { position: relative; flex: 1 1 auto; min-height: 0; width: 100%; }
+.figure > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); color: var(--heading); text-wrap: balance; }
+h1 { font-size: 128px; line-height: 1.02; }
+h2 { font-size: 88px; line-height: 1.06; max-width: 1500px; }
+h3 { font-size: 52px; line-height: 1.15; }
+.eyebrow { font-family: var(--font-body); font-size: 28px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 44px; line-height: 1.35; color: var(--fg-2); max-width: 1320px; text-wrap: pretty; }
+.small { font-size: 32px; line-height: 1.35; color: var(--fg-3); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.accent { color: var(--accent); }
+.muted { color: var(--fg-2); }
+strong { font-weight: 600; color: var(--fg); }
+em { font-style: normal; color: var(--accent); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ── Building blocks ────────────────────────────────────────────────────── */
+.cols { display: grid; gap: 48px; align-items: stretch; }
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 44px 48px; display: flex; flex-direction: column; gap: 16px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.card h3 { color: var(--fg); }
+.card p { font-size: 36px; line-height: 1.35; color: var(--fg-2); }
+.card .icon { width: 56px; height: 56px; color: var(--accent); margin-bottom: 8px; }
+
+.list { display: flex; flex-direction: column; gap: 28px; }
+.row { display: flex; align-items: baseline; gap: 36px; font-size: 44px; line-height: 1.3; }
+.row .num { font-family: var(--font-mono); font-size: 30px; color: var(--accent); min-width: 72px; font-variant-numeric: tabular-nums; }
+.row .icon { width: 44px; height: 44px; color: var(--accent); align-self: center; flex: none; }
+
+.stat { display: flex; flex-direction: column; gap: 8px; }
+.stat .num { font-family: var(--font-display); font-size: 168px; line-height: 1; font-weight: 700; letter-spacing: -0.04em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat .label { font-size: 34px; color: var(--fg-2); }
+
+.quote { font-family: var(--font-display); font-size: 60px; line-height: 1.25; font-weight: 500; letter-spacing: -0.02em; border-left: 6px solid var(--accent); padding-left: 48px; max-width: 1400px; text-wrap: pretty; }
+.quote cite { display: block; margin-top: 28px; font-family: var(--font-body); font-style: normal; font-size: 30px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+
+.icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.15em; stroke: currentColor; fill: none; }
+.icon-xl { width: 120px; height: 120px; color: var(--accent); }
+
+.kicker { position: absolute; left: 160px; bottom: 64px; font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); }
+.logo { position: absolute; right: 64px; bottom: 56px; width: 64px; height: 64px; display: none; opacity: 0.9; }
+html[data-theme^="rs"] .logo { display: block; }
+
+/* Fragments start hidden; deck.js reveals them at their hold time. */
+[data-fragment] { opacity: 0; }
