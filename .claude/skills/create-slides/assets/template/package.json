@@ -1,0 +1,22 @@
+{
+  "name": "deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "node -e \"require('fs').copyFileSync('node_modules/gsap/dist/gsap.min.js','composition/assets/gsap.min.js')\"",
+    "dev": "serve -l 3030 .",
+    "lint": "hyperframes lint ./composition",
+    "check": "node scripts/validate.mjs",
+    "check:all": "node scripts/validate.mjs --all",
+    "snapshot": "node scripts/validate.mjs --snapshot-only",
+    "pdf": "magick composition/snapshots/frame-*.png -quality 92 deck.pdf"
+  },
+  "dependencies": {
+    "@hyperframes/player": "0.8.29",
+    "gsap": "^3.14.2",
+    "serve": "^14.2.6"
+  },
+  "devDependencies": {
+    "hyperframes": "0.8.29"
+  }
+}
