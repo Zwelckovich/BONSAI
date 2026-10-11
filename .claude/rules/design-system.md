@@ -1,300 +1,209 @@
 # BONSAI Design System
 
-BONSAI design extends minimalism to the visual realm — every pixel serves a purpose, every color conveys meaning, every interaction feels intentional.
+BONSAI design extends minimalism to the visual realm — every pixel serves a purpose, every
+color conveys meaning, every interaction feels intentional. The look is the **Rohde & Schwarz
+ZNA instrument look** (flat slate panels, recessed borders, a cyan lead accent, plots as
+black neon screens) set in the **BONSAI type system** (Inter / Quicksand / JetBrains Mono).
+
+Every value below is machine-readable in [`design-tokens.json`](design-tokens.json) (W3C
+DTCG) next to this file. Code snippets per target live in
+[`frontend/react-tailwind.md`](frontend/react-tailwind.md) and
+[`python/visualization.md`](python/visualization.md).
 
 ## Core Design Principles
 
-- **Dark Zen Approach** — Eye-friendly dark themes that reduce fatigue. Interfaces should feel like meditation in motion.
+- **One theme.** No light/dark toggle, no `prefers-color-scheme`. The only other look is
+  the white **report** figure — for documents, print and PDF, never an app theme.
+- **Instrument, not decoration.** Surfaces are flat. Separation comes from a **recessed**
+  border (`bd1`, darker than every surface), not from shadows or glass.
+- **Contrast first.** White headings, near-white body text, saturated accents; every text
+  token holds WCAG AA on the surfaces it is meant for (table below).
 - **Progressive Disclosure** — Start with essential information, reveal complexity only when needed.
-- **Purposeful Aesthetics** — No decorative elements, no visual noise — only design that guides attention naturally.
-- **Dark-first UI** — When generating interface code, always start with dark theme; light variants are secondary.
+- **Purposeful Aesthetics** — No decorative elements, no visual noise.
+- **Name colors by hue, mean them by role.** Tokens are `ac-cyan`, `ac-red` …; the role
+  table says what each hue means. A hue never changes meaning between surfaces.
+- **The terminal and the app speak the same colors.** A WARNING is the same orange in
+  loguru, in Rich and in any in-app log view.
 
-## Color Palette
+## Color
 
-### Background Colors
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `background_deep` | `#0a0e14` | Main application background |
-| `background_primary` | `#151922` | Primary containers, cards |
-| `background_secondary` | `#1e242e` | Secondary containers, nested |
-| `background_elevated` | `#232933` | Elevated surfaces, dropdowns |
-| `background_overlay` | `#2a3040` | Modal overlays |
+### Surfaces, text, borders
 
-### Text Colors
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `text_primary` | `#e6e8eb` | Main headings, primary content |
-| `text_secondary` | `#b8bcc8` | Body text, secondary info |
-| `text_muted` | `#8b92a5` | Labels, captions, metadata |
-| `text_disabled` | `#737b8a` | Disabled text, inactive elements |
-| `text_inverted` | `#0a0e14` | Text on light backgrounds |
+| Token | Hex | Use |
+|-------|-----|-----|
+| `bg0` | `#14181d` | App ground |
+| `bg1` | `#232a33` | Panels, cards |
+| `bg2` | `#2a323c` | Nested panels, inputs |
+| `bg3` | `#333d48` | Menus, hovered rows |
+| `bg4` | `#3d4855` | Overlays, pressed state |
+| `tx1` | `#ffffff` | Headings, values |
+| `tx2` | `#d6dce1` | Body text |
+| `tx3` | `#aab5be` | Labels, metadata |
+| `tx4` | `#919da8` | Secondary metadata, placeholders |
+| `bd1` | `#10151a` | **Recessed** separation — darker than `bg0` |
+| `bd2` | `#3e4a55` | Standard raised border (surfaces) |
+| `bd3` | `#4e5c69` | Hover / emphasis border (surfaces) |
+| `bd4` | `#66737f` | **Input, select and search borders** — 3:1 against the ground |
 
-### Border Colors
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `border_subtle` | `#2d3441` | Gentle separations |
-| `border_primary` | `#3d4455` | Standard borders |
-| `border_accent` | `#4a5568` | Hover states, focus |
-| `border_strong` | `#5a6578` | Strong emphasis |
+### Accents (named by hue)
 
-### Accent Colors
+| Token | Hex | Typical use |
+|-------|-----|-------------|
+| `ac-cyan` | `#009dec` | Lead accent: active tab, primary button, selection |
+| `ac-cyan2` | `#33b4f5` | Lead hover, links, active underline / bar |
+| `ac-navy` | `#003e76` | R&S dark blue: logo gradient start, report titles |
+| `ac-green` | `#2bd98a` | Success, "ok", done |
+| `ac-orange` | `#ffa23c` | Warning, paused, attention |
+| `ac-red` | `#e8483e` | Error, destructive actions |
+| `ac-sky` | `#7cc9f2` | Info, data, secondary axis |
+| `ac-violet` | `#9b6bd3` | Variables, protocol traffic, a fifth category hue |
+| `glow-cyan` | `rgba(0,157,236,.18)` | Running glow, connection pulse |
+| `glow-orange` | `rgba(255,162,60,.18)` | Paused glow |
+| `focus` | `#66ccff` | Focus line (opaque, 2 px) |
+| `selection` | `rgba(0,157,236,.40)` | Text selection, selected-item halo |
 
-**Green (Nature, Growth, Success)**
-- Primary: `#7c9885` | Secondary: `#9db4a6` | Tertiary: `#a8c0b1` | Muted: `#677a70` | Glow: `rgba(124, 152, 133, 0.15)`
+### States
 
-**Red (Attention, Errors)**
-- Primary: `#c78289` | Secondary: `#d4999f` | Muted: `#a56b71`
+| Token | Hex | Use |
+|-------|-----|-----|
+| `lead-dim` | `#2c5468` | Pressed segment, active toggle, owned badge — text on it is `tx1` (8.2:1) |
+| `on-lead` | `#04121b` | Text on a **filled** cyan button (6.4:1) |
+| `ok-dim` | `#1e6f4e` | Done fill, ok borders (`tx1` on it 6.1:1) |
+| `row-hover` | `#1b2128` | Row under the pointer |
+| `row-selected` | `#17303f` | Selected row — always with a 3 px `ac-cyan2` bar on the left |
 
-**Blue (Information, Links)**
-- Primary: `#82a4c7` | Secondary: `#9bb5d4` | Muted: `#6b8aa5`
+### Roles
 
-**Yellow (Warning, Warmth)**
-- Primary: `#c7a882` | Secondary: `#d4b99b` | Muted: `#a5906b`
+| Role | Hue | Terminal glyph |
+|------|-----|----------------|
+| lead | cyan | — |
+| ok | green | `✓` |
+| warn | orange | `⚠` |
+| err | red | `✗` |
+| info | sky | `→` |
 
-**Extended Palette**
-- Purple: `#9882c7` | Secondary: `#ad9bd4` | Muted: `#7e6ba5` | Glow: `rgba(152, 130, 199, 0.15)`
-- Orange: `#c7975c` | Secondary: `#d4ad78` | Muted: `#a57d4a` | Glow: `rgba(199, 151, 92, 0.15)`
-- Teal: `#5cc7a8` | Secondary: `#7ed4b8` | Muted: `#4aa58a` | Glow: `rgba(92, 199, 168, 0.15)`
+### Contrast (WCAG 2.x, computed)
 
-### Semantic Aliases
-- Success: `green_primary` | Warning: `yellow_primary` | Error: `red_primary` | Info: `blue_primary`
+| Text on → | `bg0` | `bg1` | `bg3` |
+|-----------|-------|-------|-------|
+| `tx1` | 17.8 | 14.5 | 11.0 |
+| `tx2` | 12.9 | 10.5 | 8.0 |
+| `tx3` | 8.5 | 6.9 | 5.3 |
+| `tx4` | 6.4 | 5.2 | 4.0 |
+| cyan | 6.0 | 4.8 | 3.7 |
+| green / sky | 9.7 | 7.9 | 6.0 |
+| orange | 8.9 | 7.2 | 5.5 |
+| red / violet | 4.6 | **3.7** | **2.9** |
+| `bd4` field border (non-text) | 3.7 | 3.0 | 2.3 |
+| `focus` line (non-text) | 9.9 | 8.0 | 6.1 |
 
-### Glass & Gradient Tokens
-```css
---color-bonsai-glass-surface: rgba(21, 25, 34, 0.72);
---color-bonsai-glass-surface-light: rgba(30, 36, 46, 0.65);
---color-bonsai-glass-border: rgba(61, 68, 85, 0.45);
+Rules that follow:
 
---gradient-bonsai-surface: linear-gradient(135deg, rgba(21, 25, 34, 0.9), rgba(30, 36, 46, 0.7));
---gradient-bonsai-accent: linear-gradient(135deg, #677a70, #7c9885);
---gradient-bonsai-glow: radial-gradient(ellipse at center, rgba(124, 152, 133, 0.12), transparent 70%);
-```
-
-### Interactive State Tokens
-```css
---color-bonsai-focus-ring: rgba(124, 152, 133, 0.5);
---color-bonsai-active-overlay: rgba(124, 152, 133, 0.08);
---color-bonsai-hover-overlay: rgba(255, 255, 255, 0.04);
-
-/* Button hover backgrounds: dark lightens (= accent secondary),
-   light DARKENS — hovered button text must keep WCAG AA */
---color-bonsai-green-hover: #9db4a6;
---color-bonsai-red-hover: #d4999f;
-```
-
-## BONSAI-Light Mode (Washi Paper)
-
-Warm cream backgrounds and darker-tuned accents — a light companion that feels like a Japanese garden scroll, not a clinical dashboard. Use for apps with light/dark toggles, print exports, or light-mode plots.
-
-**Rule:** Token names are identical to the dark palette — swap at runtime via an **explicit opt-in** CSS class or data attribute (`:root.light` / `[data-theme="light"]`). For static targets (matplotlib, terminals), use explicit `_LIGHT` constants. **Dark zen is always the default** — never auto-switch based on OS preference.
-
-### Background Colors (Light)
-| Token | Hex | Pairs with dark |
-|-------|-----|-----------------|
-| `background_deep` | `#f5f2ec` | `#0a0e14` |
-| `background_primary` | `#ebe7de` | `#151922` |
-| `background_secondary` | `#e2ddd1` | `#1e242e` |
-| `background_elevated` | `#d8d2c3` | `#232933` |
-| `background_overlay` | `#cec7b5` | `#2a3040` |
-
-### Text Colors (Light)
-| Token | Hex | Pairs with dark |
-|-------|-----|-----------------|
-| `text_primary` | `#1a1f26` | `#e6e8eb` |
-| `text_secondary` | `#3a4150` | `#b8bcc8` |
-| `text_muted` | `#535a67` | `#8b92a5` |
-| `text_disabled` | `#8a91a0` | `#737b8a` |
-| `text_inverted` | `#f5f2ec` | `#0a0e14` |
-
-### Border Colors (Light)
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `border_subtle` | `#dfd9cb` | Gentle separations |
-| `border_primary` | `#c9c2b0` | Standard borders |
-| `border_accent` | `#b5ad98` | Hover states, focus |
-| `border_strong` | `#877d67` | Strong emphasis, input boundaries (3:1 non-text contrast on light fills) |
-
-### Accent Colors (Light)
-
-Rule: `primary` shifts **darker** — computed to >=5.15:1 against `background_primary` (`#ebe7de`), which keeps AA for normal text, button labels, and /10 badge tints; `secondary` = the dark-mode primary; `muted` shifts **lighter** (badge/glow fills).
-
-**Green (Nature, Growth, Success)**
-- Primary: `#4b6552` | Secondary: `#7c9885` | Tertiary: `#9db4a6` | Muted: `#a8c0b1` | Glow: `rgba(75, 101, 82, 0.15)`
-
-**Red (Attention, Errors)**
-- Primary: `#845156` | Secondary: `#c78289` | Muted: `#d4999f`
-
-**Blue (Information, Links)**
-- Primary: `#46627d` | Secondary: `#82a4c7` | Muted: `#9bb5d4`
-
-**Yellow (Warning, Warmth)**
-- Primary: `#6d5d42` | Secondary: `#c7a882` | Muted: `#d4b99b`
-
-**Extended Palette (Light)**
-- Purple: `#68568d` | Secondary: `#9882c7` | Muted: `#ad9bd4` | Glow: `rgba(104, 86, 141, 0.15)`
-- Orange: `#775a36` | Secondary: `#c7975c` | Muted: `#d4ad78` | Glow: `rgba(119, 90, 54, 0.15)`
-- Teal: `#2f6958` | Secondary: `#5cc7a8` | Muted: `#7ed4b8` | Glow: `rgba(47, 105, 88, 0.15)`
-
-### Glass & Gradient Tokens (Light)
-```css
---color-bonsai-glass-surface: rgba(245, 242, 236, 0.72);
---color-bonsai-glass-surface-light: rgba(235, 231, 222, 0.65);
---color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
-
---gradient-bonsai-surface: linear-gradient(135deg, rgba(245, 242, 236, 0.9), rgba(235, 231, 222, 0.7));
---gradient-bonsai-accent: linear-gradient(135deg, #4b6552, #7c9885);
---gradient-bonsai-glow: radial-gradient(ellipse at center, rgba(75, 101, 82, 0.10), transparent 70%);
-```
-
-### Interactive State Tokens (Light)
-```css
---color-bonsai-focus-ring: rgba(75, 101, 82, 0.5);
---color-bonsai-active-overlay: rgba(75, 101, 82, 0.08);
---color-bonsai-hover-overlay: rgba(0, 0, 0, 0.04);
-
---color-bonsai-green-hover: #415747; /* 7.0:1 with cream button text */
---color-bonsai-red-hover: #71464a;
-```
-
-### CLI & Terminal Output (Light Terminal)
-
-For light-background terminals or hex-colored log sinks where dark-mode accents wash out:
-- Success: `#4b6552` (green_primary_light) with `✓` symbol
-- Error: `#845156` (red_primary_light) with `✗` symbol
-- Info: `#46627d` (blue_primary_light) with `→` symbol
-- Warning: `#6d5d42` (yellow_primary_light) with `⚠` symbol
-- Muted: `#535a67` (text_muted_light) for timestamps, metadata
-
-### Theme Swap Pattern (Canonical)
-
-```css
-/* Dark (default) — color tokens defined in @theme; shadow COLORS live in
-   plain custom properties so light mode can re-theme them (Tailwind v4
-   inlines --shadow-* token values — overriding those directly does nothing) */
-:root {
-  color-scheme: dark;
-  --bonsai-shadow-glow-sm: rgba(124, 152, 133, 0.3);
-  --bonsai-shadow-glow: rgba(124, 152, 133, 0.4);
-  --bonsai-shadow-glow-lg: rgba(124, 152, 133, 0.5);
-  --bonsai-shadow-ambient: rgba(10, 14, 20, 0.3);
-}
-
-/* Light — override every token under an explicit class or data attribute */
-:root.light,
-:root[data-theme="light"] {
-  color-scheme: light;
-  --color-bonsai-bg-deep: #f5f2ec;
-  --color-bonsai-bg-primary: #ebe7de;
-  --color-bonsai-bg-secondary: #e2ddd1;
-  --color-bonsai-bg-elevated: #d8d2c3;
-  --color-bonsai-bg-overlay: #cec7b5;
-
-  --color-bonsai-text-primary: #1a1f26;
-  --color-bonsai-text-secondary: #3a4150;
-  --color-bonsai-text-muted: #535a67;
-  --color-bonsai-text-disabled: #8a91a0;
-  --color-bonsai-text-inverted: #f5f2ec;
-
-  --color-bonsai-border-subtle: #dfd9cb;
-  --color-bonsai-border-primary: #c9c2b0;
-  --color-bonsai-border-accent: #b5ad98;
-  --color-bonsai-border-strong: #877d67;
-
-  --color-bonsai-green-primary: #4b6552;
-  --color-bonsai-green-secondary: #7c9885;
-  --color-bonsai-green-tertiary: #9db4a6;
-  --color-bonsai-green-muted: #a8c0b1;
-  --color-bonsai-green-glow: rgba(75, 101, 82, 0.15);
-  --color-bonsai-green-hover: #415747;
-
-  --color-bonsai-red-primary: #845156;
-  --color-bonsai-red-secondary: #c78289;
-  --color-bonsai-red-muted: #d4999f;
-  --color-bonsai-red-hover: #71464a;
-
-  --color-bonsai-blue-primary: #46627d;
-  --color-bonsai-blue-secondary: #82a4c7;
-  --color-bonsai-blue-muted: #9bb5d4;
-
-  --color-bonsai-yellow-primary: #6d5d42;
-  --color-bonsai-yellow-secondary: #c7a882;
-  --color-bonsai-yellow-muted: #d4b99b;
-
-  --color-bonsai-purple-primary: #68568d;
-  --color-bonsai-purple-secondary: #9882c7;
-  --color-bonsai-purple-muted: #ad9bd4;
-  --color-bonsai-purple-glow: rgba(104, 86, 141, 0.15);
-
-  --color-bonsai-orange-primary: #775a36;
-  --color-bonsai-orange-secondary: #c7975c;
-  --color-bonsai-orange-muted: #d4ad78;
-  --color-bonsai-orange-glow: rgba(119, 90, 54, 0.15);
-
-  --color-bonsai-teal-primary: #2f6958;
-  --color-bonsai-teal-secondary: #5cc7a8;
-  --color-bonsai-teal-muted: #7ed4b8;
-  --color-bonsai-teal-glow: rgba(47, 105, 88, 0.15);
-
-  --color-bonsai-glass-surface: rgba(245, 242, 236, 0.72);
-  --color-bonsai-glass-surface-light: rgba(235, 231, 222, 0.65);
-  --color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
-
-  --color-bonsai-focus-ring: rgba(75, 101, 82, 0.5);
-  --color-bonsai-active-overlay: rgba(75, 101, 82, 0.08);
-  --color-bonsai-hover-overlay: rgba(0, 0, 0, 0.04);
-
-  --bonsai-shadow-glow-sm: rgba(75, 101, 82, 0.20);
-  --bonsai-shadow-glow: rgba(75, 101, 82, 0.25);
-  --bonsai-shadow-glow-lg: rgba(75, 101, 82, 0.30);
-  --bonsai-shadow-ambient: rgba(30, 30, 30, 0.08);
-}
-```
-
-**No `prefers-color-scheme` fallback.** The BONSAI default is dark zen, always — light mode must be an explicit, user-initiated choice (toggle button, config flag, stylesheet class).
-
-### Light-Mode UI Principles
-
-- **Paper warmth over clinical white** — Cream reduces glare; pure `#ffffff` feels harsh and un-zen.
-- **Darker accent primaries** — Light-bg accent text needs far more darkness than intuition suggests: every light primary is computed to >=5.15:1 against `background_primary`, the minimum that keeps AA for normal text, button labels, AND /10 badge tints. Do not lighten them by eye — verify any change with the WCAG contrast formula.
-- **Soft shadows, not glows** — Dark-mode glows (`rgba(green, 0.4)`) vanish on cream. Use `rgba(0, 0, 0, 0.06–0.12)` drop shadows.
-- **Borders carry more weight** — Without luminance contrast to lean on, light UI needs visible borders to separate regions.
+- `tx3` and `tx4` hold AA on `bg0`–`bg2`; on `bg3`+ prefer `tx3`.
+- **Disabled is opacity, not a color**: `opacity: .45` on the control.
+- Field borders use `bd4` (WCAG 1.4.11: 3:1 for control boundaries); `bd2`/`bd3` are for
+  surfaces. A field's hover goes *lighter* (`tx4`), never to `bd3`.
+- **Red and violet fall below AA on `bg1` and up** — use them there for icons, borders,
+  glyphs, tinted chips or bold ≥ 14 px text, not small body text.
+- A filled cyan button takes `on-lead` text; white on cyan is only 3.0. `ac-cyan2` text on
+  `lead-dim` is only 3.5 — an active fill takes `tx1` text.
 
 ## Typography
 
-| Role | Font | Weights | Usage |
-|------|------|---------|-------|
-| Body/UI | Inter Variable | 420 (body), 520 (emphasis), 600 (heading) | All body text, UI elements |
-| Display | Quicksand | 400-500 | Headings, logos, branding |
-| Code | JetBrains Mono Variable | 450 | Code blocks, terminal |
+| Role | Family stack | Weight |
+|------|--------------|--------|
+| Body / UI | `"Inter Variable", Inter, system-ui, sans-serif` | 420 body · 520 emphasis · 600 heading |
+| Display | `Quicksand, "Inter Variable", Inter, sans-serif` | 500–700 |
+| Mono | `"JetBrains Mono Variable", "JetBrains Mono", Consolas, monospace` | inherits the body weight |
 
-```css
---font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
---font-display: "Quicksand", system-ui, sans-serif;
---font-mono: "JetBrains Mono Variable", "JetBrains Mono", Monaco, monospace;
-```
+- Body **13 px** (dense app UI) or **14 px** (content pages), line-height **1.55–1.6**,
+  letter-spacing **0.01em**. Dense UI steps: 9.5 / 10 / 10.5 / 11 / 12 / 13 px.
+- Bundle the fonts in web apps (fontsource: `@fontsource-variable/inter`,
+  `@fontsource/quicksand`, `@fontsource-variable/jetbrains-mono`); single-file pages load
+  them from Google Fonts. The "… Variable" name comes first because fontsource registers it;
+  the plain name second resolves an *installed* font.
+- **Exports need installed fonts.** Browser PNG/SVG export (canvas), kaleido and matplotlib
+  never see webfonts. An installed `InterVariable.ttf` is *not* found under "Inter Variable"
+  — only "Inter" resolves, so keep the plain names in every stack. Full-stack projects check
+  and install them via `dev.py --fonts` (see `structure.md`); elsewhere install Inter,
+  Quicksand and JetBrains Mono manually (Nerd-Font builds are different families).
+- Numbers that line up (tables, readouts, counters) use mono + `tabular-nums`.
 
-Line height: 1.6-1.7 for comfortable reading. Letter spacing: 0.02em-0.1em for breathing room.
+## Shape, Motion, Chrome
 
-## Spacing System
+- **Radius:** 3–4 px controls and cards, 6–8 px menus and dialogs, full for pills and dots.
+- **Borders:** 1 px. `bd1` between regions, `bd2` around surfaces, `bd3` on their hover,
+  `bd4` around input fields.
+- **Spacing:** 8 px base (4 px steps in dense UI); generous section gaps.
+- **Scrollbars:** 4 px, thumb `bd2`, transparent track.
+- **Transitions:** 200–300 ms ease. No lift/translate on hover — instrument UIs stay still.
+- **Focus:** opaque 2 px `focus` line (`outline: 2px solid; outline-offset: 2px`, or
+  Tailwind `focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus`).
+- **Logo:** 135° gradient `ac-navy → ac-cyan`, dark glyph (`bg0`).
+- `color-scheme: dark` on `:root`; `<meta name="theme-color" content="#14181d">`.
 
-- **Base unit**: 8px
-- **Common increments**: 8, 16, 24, 32, 48, 64px
-- **Container padding**: 2rem (32px) minimum
-- **Section gaps**: 3rem (48px) for clear separation
+## Component Patterns
 
-## Layout Principles
+| Pattern | Recipe |
+|---------|--------|
+| **Status card** | `bg1`, 1 px `bd2`, **3 px top stripe** in the status hue (`ac-cyan2` current, `ac-green` done, `ac-orange` attention, `bd3` neutral), radius 4 px. A 3 px left stripe marks a callout. |
+| **Eyebrow label** | 11 px uppercase, letter-spacing 0.08–0.14em, `tx3` (or `ac-cyan` as section kicker), above a display heading. |
+| **Display heading** | Quicksand, `tx1`, 600–700, line-height 1.05–1.2, `text-wrap: balance`. |
+| **Segmented control** | One bordered group. Active: `lead-dim` fill, `tx1` text, `inset 0 -3px 0 ac-cyan2`. Inactive `tx3`, hover `tx1`. |
+| **Toggle (on)** | `border ac-cyan/50`, `lead-dim` fill, `tx1` text; hover strengthens the border to `ac-cyan2`. |
+| **Buttons** | Primary: filled `ac-cyan`, `on-lead` text, 700; hover `ac-cyan2`. Secondary: `bg3` + `bd3`, hover `bg4` + `bd4`. Danger: transparent, border + text `ac-orange`/`ac-red`. |
+| **Badge / chip** | 11 px uppercase, 0.06–0.08em, 1 px border, radius 3 px. Owned/active: `lead-dim` + `border ac-cyan`. Ok: `border ok-dim`, text `ac-green`. Optional: dashed. Status dot 7 px (+ `0 0 6px` glow when live). |
+| **Table** | Sticky header `bg2`, 11 px uppercase `tx3`, weight 400. Rows: 1 px `bd1`, hover `row-hover`, selected `row-selected` + `inset 3px 0 0 ac-cyan2`. Numbers right-aligned mono. |
+| **Progress bar** | 6 px track `bg3`, radius 3, fill `ac-cyan` (running) / `ac-green` (done). |
+| **kbd** | Mono 11 px, 1 px `bd3`, 2 px bottom border, radius 3. |
+| **Toast** | `bg3`, 1 px `bd3`, radius 3, `0 4px 16px rgba(0,0,0,.5)`, bottom-center above the safe area. |
+| **Disclosure** | `<details>` with a CSS chevron (rotated 2 px border corner), never a glyph in the accessible name. |
 
-- **Border radius**: 6-16px for modern softness
-- **Card elevation**: Subtle 1px borders, minimal shadows
-- **Interactive states**: `transform: translateY(-1px)` for lift effect
-- **Focus indicators**: `green_primary` with soft glow
-- **Transitions**: 0.3s ease — organic, not mechanical
+## Plots: `screen` and `report`
+
+| Token | `screen` (default) | `report` (documents only) |
+|-------|--------------------|---------------------------|
+| paper / plot | `#10141A` / `#0A0D10` | `#FFFFFF` / `#FFFFFF` |
+| title · axis titles · ticks | `#FFFFFF` · `#D6DCE1` · `#98A4AE` | navy `#003E76` · `#000000` · `#5A5F63` |
+| grid · zero/axis line | `#262E36` · `#3A434D` | `#E3E6E8` · `#BFC3C6` |
+| hover card | `rgba(35,42,51,.96)`, bd `#3E4A55`, white text | `#003E76`, white text |
+| legend card | `rgba(16,20,26,.88)`, bd `#3E4A55` | `rgba(255,255,255,.92)`, bd `#BFC3C6` |
+| markers M1 / M2 | `#FFA23C` / `#FFE14B` | `#EA5B0C` / `#F8AD3E` |
+| aggregate mean / envelope | `#E86BD8` / `#98A4AE` | `#933973` / `#5A5F63` |
+| secondary axis (Y2) | `#7CC9F2` | `#003E76` |
+| trace width · ticks | 2 px · none | 2.5 px · `outside` |
+| trace cycle | `#3BE065 #00B0F0 #FFA23C #FF5252 #E86BD8 #FFE14B #7CC9F2 #2BD9C8 #BFC3C6` | `#009DEC #EA5B0C #007973 #A50F14 #003E76 #F8AD3E #0083A2 #933973 #BFC3C6` |
+| heatmap / surface | `#003E76 → #0083A2 → #009DEC → #7CC9F2 → #C7E8FA` | same |
+| correlation (−1 → 0 → +1) | `#e8483e → #0A0D10 → #009dec` | `#A50F14 → #FFFFFF → #009DEC` |
+
+Trace rules: **color = which trace** (walk the cycle in order; frozen/pinned curves keep their
+color and the walk continues after them); **dash = which source file** (ladder `solid, dot,
+dash, longdash, dashdot, longdashdot`); **generated curves** (means, ±σ, envelopes) are
+dashed width 2; **Y2 traces** go thinner (1.25 px) in the Y2 color. Drag = pan, wheel = zoom,
+SI tick exponents, hover label in mono 11 px.
+
+## Console Output
+
+| Level | Color | Hex |
+|-------|-------|-----|
+| DEBUG | `tx3` | `#aab5be` |
+| INFO | `tx1` | `#ffffff` |
+| SUCCESS | green | `#2bd98a` |
+| WARNING | orange | `#ffa23c` |
+| ERROR / CRITICAL | red | `#e8483e` |
+| custom protocol level (e.g. SCPI) | violet | `#9b6bd3` |
+| custom data level | sky | `#7cc9f2` |
+
+Line format: cyan `HH:mm:ss`, level-colored level and message, sky `name:function:line`.
+Rich uses role keys — `lead` cyan, `ok` green, `warn` orange, `err` red, `info` sky,
+`accent` violet, `text` `tx1`, `muted` `tx3`, `border` `bd3` — from ONE dict per project,
+never inline hex at call sites. Light terminals: use the `report` hues (navy/`#007973`/
+`#C74D0A`/`#A50F14`, darkened to AA on white) for the same roles.
 
 ## Motion & Accessibility
 
-Respect `prefers-reduced-motion` in every UI — it is an explicit accessibility choice the user made in their OS (vestibular disorders, motion sensitivity), not theme sniffing. This does **not** conflict with the no-`prefers-color-scheme` rule: color is aesthetic preference, motion is accessibility.
-
-Include this block by default in every `index.css`:
+Respect `prefers-reduced-motion` in every UI — it is an accessibility choice, not theme
+sniffing. Include this block by default in every `index.css`:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -307,20 +216,13 @@ Include this block by default in every `index.css`:
 }
 ```
 
-## Dark Zen UI Principles
-
-- **Color temperature**: Warm grays and sage greens create calm interfaces
-- **Breathing space**: Generous whitespace prevents visual overwhelm
-- **Gentle transitions**: Subtle animations feel organic
-- **Purposeful glow**: Shadows and glows guide attention naturally
-- **Zen garden separation**: Borders appear through light, not heavy lines
-- **Natural grouping**: Related functions flow together like garden paths
+- Hit targets ≥ 44 px under `@media (pointer: coarse)`; inputs ≥ 16 px font there.
+- `@media (forced-colors: active)`: never signal state by color alone — add
+  `outline: 2px solid Highlight` to pressed/selected items and a dashed border to "done".
+- `[hidden] { display: none !important }`; skip link first; `scroll-padding-top` = sticky
+  header height.
 
 ## CLI & Terminal Output
 
-Use BONSAI colors for semantic meaning:
-- Success: `#7c9885` (green_primary) with `✓` symbol
-- Error: `#c78289` (red_primary) with `✗` symbol
-- Info: `#82a4c7` (blue_primary) with `→` symbol
-- Warning: `#c7a882` (yellow_primary) with `⚠` symbol
-- Muted: `#8b92a5` (text_muted) for timestamps, metadata
+Use the console roles for meaning, one glyph each: `✓` ok (`#2bd98a`), `✗` err (`#e8483e`),
+`→` info (`#7cc9f2`), `⚠` warn (`#ffa23c`), muted `#aab5be` for timestamps and metadata.

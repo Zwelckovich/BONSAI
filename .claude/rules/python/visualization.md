@@ -5,110 +5,130 @@ paths:
 
 # BONSAI Python Visualization & Tool Patterns
 
-## BONSAI Matplotlib Theme
+Values come from `design-system.md` / `design-tokens.json`. Two plot looks: **`screen`**
+(default — the black instrument screen) and **`report`** (white, for documents and print).
+Keep every color in ONE module per project (e.g. `colors.py`) and import it; never inline
+hex at call sites.
+
+## Shared Tokens (colors.py)
+
+```python
+FONT_SANS = '"Inter Variable", Inter, system-ui, sans-serif'
+FONT_DISPLAY = 'Quicksand, "Inter Variable", Inter, sans-serif'
+FONT_MONO = '"JetBrains Mono Variable", "JetBrains Mono", Consolas, monospace'
+
+SCREEN_TRACES = ["#3BE065", "#00B0F0", "#FFA23C", "#FF5252", "#E86BD8",
+                 "#FFE14B", "#7CC9F2", "#2BD9C8", "#BFC3C6"]
+REPORT_TRACES = ["#009DEC", "#EA5B0C", "#007973", "#A50F14", "#003E76",
+                 "#F8AD3E", "#0083A2", "#933973", "#BFC3C6"]
+GRID_SCALE = [[0.0, "#003E76"], [0.25, "#0083A2"], [0.5, "#009DEC"], [0.75, "#7CC9F2"], [1.0, "#C7E8FA"]]
+
+# Console roles — loguru levels and Rich styles read from here
+CONSOLE_COLORS = {
+    "lead": "#009dec", "ok": "#2bd98a", "warn": "#ffa23c", "err": "#e8483e",
+    "info": "#7cc9f2", "accent": "#9b6bd3", "text": "#ffffff", "muted": "#aab5be",
+    "border": "#4e5c69",
+}
+```
+
+## Matplotlib (screen)
 
 ```python
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
+from cycler import cycler
+from matplotlib import font_manager
 
-BONSAI_STYLE = {
-    'figure.facecolor': '#0a0e14', 'figure.edgecolor': '#0a0e14',
-    'figure.figsize': [10, 6], 'figure.dpi': 100,
-    'savefig.facecolor': '#0a0e14', 'savefig.dpi': 300,
-    'axes.facecolor': '#151922', 'axes.edgecolor': '#2d3441',
-    'axes.linewidth': 1.0, 'axes.grid': True, 'axes.axisbelow': True,
-    'axes.labelcolor': '#e6e8eb', 'axes.labelsize': 11,
-    'axes.titlesize': 14, 'axes.titlecolor': '#e6e8eb',
-    'axes.spines.top': False, 'axes.spines.right': False,
-    'grid.color': '#4a5568', 'grid.linewidth': 0.8, 'grid.alpha': 0.8,
-    'xtick.color': '#e6e8eb', 'ytick.color': '#e6e8eb',
-    'xtick.labelsize': 10, 'ytick.labelsize': 10,
-    'legend.facecolor': '#1e242e', 'legend.edgecolor': '#2d3441',
-    'legend.fontsize': 9, 'legend.framealpha': 0.95,
-    'lines.linewidth': 2.0, 'lines.markersize': 6,
-    'font.family': ['DejaVu Sans', 'sans-serif'], 'font.size': 10,
-    'text.color': '#e6e8eb',
-    'patch.facecolor': '#7c9885', 'patch.edgecolor': '#677a70',
+SCREEN_RC = {
+    "figure.facecolor": "#10141A", "savefig.facecolor": "#10141A",
+    "figure.figsize": [10, 6], "savefig.dpi": 300,
+    "axes.facecolor": "#0A0D10", "axes.edgecolor": "#3A434D",
+    "axes.labelcolor": "#D6DCE1", "axes.titlecolor": "#FFFFFF",
+    "axes.labelsize": 11, "axes.titlesize": 14,
+    "axes.spines.top": False, "axes.spines.right": False,
+    "axes.grid": True, "axes.axisbelow": True, "grid.color": "#262E36",
+    "xtick.color": "#98A4AE", "ytick.color": "#98A4AE",
+    "legend.facecolor": "#10141A", "legend.edgecolor": "#3E4A55",
+    "legend.labelcolor": "#D6DCE1", "text.color": "#D6DCE1",
+    "lines.linewidth": 2.0, "lines.markersize": 6,
+    "axes.prop_cycle": cycler(color=SCREEN_TRACES),
+    "image.cmap": "Blues_r",  # or build GRID_SCALE with LinearSegmentedColormap
 }
-
-BONSAI_COLORS = {
-    'green_primary': '#7c9885', 'green_secondary': '#9db4a6', 'green_muted': '#677a70',
-    'red_primary': '#c78289', 'blue_primary': '#82a4c7', 'yellow_primary': '#c7a882',
-    'purple_primary': '#9882c7', 'orange_primary': '#c7975c', 'teal_primary': '#5cc7a8',
-    'text_primary': '#e6e8eb', 'text_secondary': '#b8bcc8', 'text_muted': '#8b92a5',
-}
-
-BONSAI_QUALITATIVE = ['#7c9885', '#82a4c7', '#c7a882', '#c78289', '#9882c7', '#c7975c', '#5cc7a8']
-BONSAI_SEQUENTIAL_GREEN = ['#677a70', '#7c9885', '#9db4a6', '#a8c0b1']
-BONSAI_DIVERGING = ['#c78289', '#d4999f', '#8b92a5', '#9bb5d4', '#82a4c7']
-
-# Usage: plt.rcParams.update(BONSAI_STYLE)
-# When using seaborn, pass the palette explicitly — seaborn ignores
-# matplotlib's `axes.prop_cycle` and uses its own ("deep") which is too
-# dark for BONSAI dark backgrounds. Always:
-#   sns.lineplot(..., palette=BONSAI_QUALITATIVE)
-#   sns.scatterplot(..., palette=BONSAI_QUALITATIVE)
-#   sns.heatmap(..., cmap=sns.blend_palette(BONSAI_SEQUENTIAL_GREEN, as_cmap=True))
+plt.rcParams.update(SCREEN_RC)
+# Name Inter only when installed — a missing family warns on every draw
+if any(f.name == "Inter" for f in font_manager.fontManager.ttflist):
+    plt.rcParams.update({"font.family": "sans-serif", "font.sans-serif": ["Inter", "DejaVu Sans"]})
 ```
 
-## BONSAI Plotly Theme
+**report** — same keys with: `figure/savefig/axes.facecolor` `#FFFFFF`, `axes.edgecolor`
+`#BFC3C6`, `axes.labelcolor`/`text.color` `#000000`, `axes.titlecolor` `#003E76`, ticks
+`#5A5F63`, `grid.color` `#E3E6E8`, legend `#FFFFFF`/`#BFC3C6`, `lines.linewidth` 2.5,
+cycle `REPORT_TRACES`. Seaborn ignores `axes.prop_cycle` — pass `palette=SCREEN_TRACES`.
+
+## Plotly (screen)
 
 ```python
-BONSAI_PLOTLY_THEME = {
-    'paper_bgcolor': '#0a0e14',
-    'plot_bgcolor': '#151922',
-    'font': {'family': 'Inter, sans-serif', 'color': '#e6e8eb', 'size': 12},
-    'colorway': ['#7c9885', '#82a4c7', '#c7a882', '#c78289', '#9882c7'],
-    'xaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568', 'color': '#b8bcc8'},
-    'yaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568', 'color': '#b8bcc8'},
-    'margin': {'t': 40, 'r': 20, 'b': 40, 'l': 60},
+SCREEN_LAYOUT = {
+    "paper_bgcolor": "#10141A",
+    "plot_bgcolor": "#0A0D10",
+    "colorway": SCREEN_TRACES,
+    "font": {"family": FONT_SANS, "color": "#FFFFFF", "size": 12},
+    "title": {"font": {"family": FONT_DISPLAY, "color": "#FFFFFF", "size": 16}},
+    "xaxis": {"gridcolor": "#262E36", "linecolor": "#3A434D", "zerolinecolor": "#3A434D",
+              "tickfont": {"color": "#98A4AE"}, "title": {"font": {"color": "#D6DCE1"}}},
+    "yaxis": {"gridcolor": "#262E36", "linecolor": "#3A434D", "zerolinecolor": "#3A434D",
+              "tickfont": {"color": "#98A4AE"}, "title": {"font": {"color": "#D6DCE1"}}},
+    "legend": {"bgcolor": "rgba(16,20,26,0.88)", "bordercolor": "#3E4A55", "font": {"color": "#D6DCE1"}},
+    "hoverlabel": {"bgcolor": "rgba(35,42,51,0.96)", "bordercolor": "#3E4A55", "font_color": "#FFFFFF"},
+    "margin": {"t": 60, "r": 40, "b": 60, "l": 60},
 }
-
-# Usage: fig.update_layout(**BONSAI_PLOTLY_THEME)
+# Usage: fig.update_layout(**SCREEN_LAYOUT)
 ```
 
-## BONSAI Rich Console Integration
+**report** — `paper_bgcolor`/`plot_bgcolor` `#FFFFFF`, font `#000000`, title `#003E76`,
+ticks `#5A5F63`, grid `#E3E6E8`, axis/zero `#BFC3C6`, `ticks: "outside"`, legend
+`rgba(255,255,255,0.9)`/`#BFC3C6`, hover `#003E76` with white text, colorway `REPORT_TRACES`,
+line width 2.5. Image export (kaleido) only sees **installed** fonts — see design-system.md.
+
+## Rich Console
 
 ```python
 from rich.console import Console
 from rich.panel import Panel
-
-BONSAI_COLORS = {
-    'green_primary': '#7c9885', 'red_primary': '#c78289',
-    'blue_primary': '#82a4c7', 'yellow_primary': '#c7a882',
-    'purple_primary': '#9882c7', 'text_primary': '#e6e8eb',
-    'text_muted': '#8b92a5',
-}
+from rich.table import Table
 
 console = Console()
+C = CONSOLE_COLORS
 
-# Zen-like messaging
-console.print("→ Processing...", style=BONSAI_COLORS['blue_primary'])
-console.print("✓ Complete", style=BONSAI_COLORS['green_primary'])
-console.print("✗ Error", style=BONSAI_COLORS['red_primary'])
+console.print("→ Processing...", style=C["info"])
+console.print("✓ Complete", style=C["ok"])
+console.print("⚠ 1 deprecated method", style=C["warn"])
+console.print("✗ Error", style=C["err"])
 
-# BONSAI panel
 def bonsai_panel(content, title):
-    return Panel(content,
-        title=f"[bold {BONSAI_COLORS['green_primary']}]{title}[/]",
-        border_style=BONSAI_COLORS['green_primary'])
+    return Panel(content, title=f"[bold {C['lead']}]{title}[/]", border_style=C["border"])
+
+table = Table(header_style=f"bold {C['lead']}", border_style=C["border"])
 ```
 
-## BONSAI Loguru Setup
+Never `[red]…[/red]` markup — use the role style, so a palette change reaches every line.
+
+## Loguru Setup
 
 ```python
-from loguru import logger
 import sys
+from loguru import logger
 
 logger.remove()
-logger.level("DEBUG", color="<fg #8b92a5>")
-logger.level("INFO", color="<fg #e6e8eb>")
-logger.level("SUCCESS", color="<fg #7c9885>")
-logger.level("WARNING", color="<fg #c7a882>")
-logger.level("ERROR", color="<fg #c78289>")
+logger.level("DEBUG", color="<fg #aab5be>")
+logger.level("INFO", color="<fg #ffffff>")
+logger.level("SUCCESS", color="<fg #2bd98a>")
+logger.level("WARNING", color="<fg #ffa23c>")
+logger.level("ERROR", color="<fg #e8483e>")
+logger.level("CRITICAL", color="<fg #e8483e>")
 
 logger.add(sys.stderr,
-    format="<fg #7c9885>{time:HH:mm:ss}</fg #7c9885> | <level>{level: <8}</level> | <fg #82a4c7>{name}</fg #82a4c7>:<fg #82a4c7>{function}</fg #82a4c7> - <level>{message}</level>",
+    format="<fg #009dec>{time:HH:mm:ss}</fg #009dec> | <level>{level: <8}</level> | "
+           "<fg #7cc9f2>{name}:{function}:{line}</fg #7cc9f2> - <level>{message}</level>",
     level="INFO", colorize=True, enqueue=True, backtrace=True, diagnose=True)
 
 logger.add("logs/bonsai-{time:YYYY-MM-DD}.log",
@@ -116,21 +136,24 @@ logger.add("logs/bonsai-{time:YYYY-MM-DD}.log",
     level="DEBUG", rotation="1 day", retention="30 days", compression="gz")
 ```
 
-## BONSAI tqdm Progress
+Custom levels keep the hue scheme: a protocol/traffic level in violet `#9b6bd3`, a data
+level in sky `#7cc9f2`.
+
+## tqdm Progress
 
 ```python
 from tqdm import tqdm
 
 BONSAI_TQDM = {
-    'bar_format': '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
-    'colour': '#7c9885', 'leave': True, 'dynamic_ncols': True, 'smoothing': 0.1,
+    "bar_format": "{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]",
+    "colour": "#009dec", "leave": True, "dynamic_ncols": True, "smoothing": 0.1,
 }
 
 def bonsai_progress(iterable, desc="Processing", **kwargs):
     return tqdm(iterable, desc=f"→ {desc}", **{**BONSAI_TQDM, **kwargs})
 ```
 
-## BONSAI Typer CLI
+## Typer CLI
 
 ```python
 import typer
@@ -143,140 +166,34 @@ console = Console()
 def process(input_file: Path = typer.Argument(..., help="Input file")):
     """Process files with BONSAI efficiency."""
     try:
-        console.print("✓ Complete", style="#7c9885")
+        console.print("✓ Complete", style=CONSOLE_COLORS["ok"])
     except Exception as e:
-        console.print(f"✗ Error: {e}", style="#c78289")
+        console.print(f"✗ Error: {e}", style=CONSOLE_COLORS["err"])
         raise typer.Exit(1)
 ```
 
-## BONSAI Textual TUI
+## Textual TUI
 
 ```python
-from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Static, Button
+from textual.app import App
 
 class BonsaiApp(App):
     CSS = """
-    Screen { background: #0a0e14; }
-    Header { background: #151922; color: #e6e8eb; }
-    Footer { background: #151922; color: #8b92a5; }
-    Button { background: #7c9885; color: #0a0e14; border: solid #677a70; }
-    Button:hover { background: #9db4a6; }
+    Screen { background: #14181d; color: #d6dce1; }
+    Header { background: #232a33; color: #ffffff; }
+    Footer { background: #232a33; color: #aab5be; }
+    Input { background: #2a323c; border: tall #66737f; }
+    Input:focus { border: tall #66ccff; }
+    Button { background: #333d48; color: #ffffff; border: tall #4e5c69; }
+    Button:hover { background: #3d4855; }
+    Button.-primary { background: #009dec; color: #04121b; border: tall #009dec; }
+    DataTable > .datatable--cursor { background: #17303f; }
     """
     TITLE = "BONSAI Terminal Interface"
 ```
 
-## BONSAI-Light Variants
-
-Companion constants for plots exported to print, light-mode dashboards, or terminals on light backgrounds. Name-paired with the dark constants — import both, select at runtime.
-
-### Matplotlib (Light)
-
-```python
-BONSAI_STYLE_LIGHT = {
-    'figure.facecolor': '#f5f2ec', 'figure.edgecolor': '#f5f2ec',
-    'figure.figsize': [10, 6], 'figure.dpi': 100,
-    'savefig.facecolor': '#f5f2ec', 'savefig.dpi': 300,
-    'axes.facecolor': '#ebe7de', 'axes.edgecolor': '#c9c2b0',
-    'axes.linewidth': 1.0, 'axes.grid': True, 'axes.axisbelow': True,
-    'axes.labelcolor': '#1a1f26', 'axes.labelsize': 11,
-    'axes.titlesize': 14, 'axes.titlecolor': '#1a1f26',
-    'axes.spines.top': False, 'axes.spines.right': False,
-    'grid.color': '#c9c2b0', 'grid.linewidth': 0.8, 'grid.alpha': 0.6,
-    'xtick.color': '#3a4150', 'ytick.color': '#3a4150',
-    'xtick.labelsize': 10, 'ytick.labelsize': 10,
-    'legend.facecolor': '#e2ddd1', 'legend.edgecolor': '#dfd9cb',
-    'legend.fontsize': 9, 'legend.framealpha': 0.95,
-    'lines.linewidth': 2.0, 'lines.markersize': 6,
-    'font.family': ['DejaVu Sans', 'sans-serif'], 'font.size': 10,
-    'text.color': '#1a1f26',
-    'patch.facecolor': '#4b6552', 'patch.edgecolor': '#415747',
-}
-
-BONSAI_COLORS_LIGHT = {
-    'green_primary': '#4b6552', 'green_secondary': '#7c9885', 'green_muted': '#a8c0b1',
-    'red_primary': '#845156', 'blue_primary': '#46627d', 'yellow_primary': '#6d5d42',
-    'purple_primary': '#68568d', 'orange_primary': '#775a36', 'teal_primary': '#2f6958',
-    'text_primary': '#1a1f26', 'text_secondary': '#3a4150', 'text_muted': '#535a67',
-}
-
-BONSAI_QUALITATIVE_LIGHT = ['#4b6552', '#46627d', '#6d5d42', '#845156', '#68568d', '#775a36', '#2f6958']
-BONSAI_SEQUENTIAL_GREEN_LIGHT = ['#4b6552', '#7c9885', '#9db4a6', '#a8c0b1']
-BONSAI_DIVERGING_LIGHT = ['#845156', '#d4999f', '#535a67', '#9bb5d4', '#46627d']
-
-# Usage: plt.rcParams.update(BONSAI_STYLE_LIGHT)
-# Dark zen is always the default — opt into light explicitly, never via OS sniffing.
-```
-
-### Rich Console (Light)
-
-```python
-BONSAI_COLORS_LIGHT = {
-    'green_primary': '#4b6552', 'red_primary': '#845156',
-    'blue_primary': '#46627d', 'yellow_primary': '#6d5d42',
-    'purple_primary': '#68568d', 'text_primary': '#1a1f26',
-    'text_muted': '#535a67',
-}
-
-console.print("→ Processing...", style=BONSAI_COLORS_LIGHT['blue_primary'])
-console.print("✓ Complete", style=BONSAI_COLORS_LIGHT['green_primary'])
-console.print("✗ Error", style=BONSAI_COLORS_LIGHT['red_primary'])
-```
-
-### Loguru (Light)
-
-```python
-def configure_loguru_light():
-    logger.remove()
-    logger.level("DEBUG", color="<fg #535a67>")
-    logger.level("INFO", color="<fg #1a1f26>")
-    logger.level("SUCCESS", color="<fg #4b6552>")
-    logger.level("WARNING", color="<fg #6d5d42>")
-    logger.level("ERROR", color="<fg #845156>")
-
-    logger.add(sys.stderr,
-        format="<fg #4b6552>{time:HH:mm:ss}</fg #4b6552> | <level>{level: <8}</level> | <fg #46627d>{name}</fg #46627d>:<fg #46627d>{function}</fg #46627d> - <level>{message}</level>",
-        level="INFO", colorize=True, enqueue=True)
-```
-
-### tqdm (Light)
-
-```python
-BONSAI_TQDM_LIGHT = {
-    'bar_format': '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
-    'colour': '#4b6552', 'leave': True, 'dynamic_ncols': True, 'smoothing': 0.1,
-}
-```
-
-### Plotly (Light)
-
-```python
-BONSAI_PLOTLY_THEME_LIGHT = {
-    'paper_bgcolor': '#f5f2ec',
-    'plot_bgcolor': '#ebe7de',
-    'font': {'family': 'Inter, sans-serif', 'color': '#1a1f26', 'size': 12},
-    'colorway': ['#4b6552', '#46627d', '#6d5d42', '#845156', '#68568d'],
-    'xaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
-    'yaxis': {'gridcolor': '#c9c2b0', 'linecolor': '#b5ad98', 'color': '#3a4150'},
-    'margin': {'t': 40, 'r': 20, 'b': 40, 'l': 60},
-}
-```
-
-### Textual (Light)
-
-```python
-class BonsaiLightApp(App):
-    CSS = """
-    Screen { background: #f5f2ec; }
-    Header { background: #ebe7de; color: #1a1f26; }
-    Footer { background: #ebe7de; color: #535a67; }
-    Button { background: #4b6552; color: #f5f2ec; border: solid #7c9885; }
-    Button:hover { background: #7c9885; }
-    """
-    TITLE = "BONSAI Terminal Interface (Light)"
-```
-
-For a mode-switching single app, load different `.tcss` files keyed off a `--theme` CLI flag or config value — keep component structure identical, vary only the stylesheet.
+Light terminals: use the `report` hues for the same roles — lead `#003e76`, ok `#007973`,
+warn `#c74d0a`, err `#a50f14`, info `#007f9d`, muted `#5a5f63` (all >= 4.6:1 on white).
 
 ## Coverage Configuration (pyproject.toml)
 

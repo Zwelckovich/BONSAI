@@ -18,11 +18,11 @@ $RepoRoot = (Resolve-Path "$PSScriptRoot\..").Path
 
 # BONSAI palette (24-bit VT100)
 $esc = [char]27
-$G = "$esc[38;2;124;152;133m"  # green  #7c9885
-$R = "$esc[38;2;199;130;137m"  # red    #c78289
-$B = "$esc[38;2;130;164;199m"  # blue   #82a4c7
-$Y = "$esc[38;2;199;168;130m"  # yellow #c7a882
-$M = "$esc[38;2;139;146;165m"  # muted  #8b92a5
+$G = "$esc[38;2;43;217;138m"  # ok     #2bd98a
+$R = "$esc[38;2;232;72;62m"  # err    #e8483e
+$B = "$esc[38;2;124;201;242m"  # info   #7cc9f2
+$Y = "$esc[38;2;255;162;60m"  # warn   #ffa23c
+$M = "$esc[38;2;170;181;190m"  # muted  #aab5be
 $N = "$esc[0m"
 
 function Show-CursorHint([string]$Verb) {

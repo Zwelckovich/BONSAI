@@ -9,49 +9,55 @@
    R&S faces are declared under neutral names that map to the local system fonts. */
 @font-face { font-family: "Inter"; src: url("assets/fonts/Inter.woff2") format("woff2-variations"); font-weight: 100 900; font-display: block; }
 @font-face { font-family: "JetBrains Mono"; src: url("assets/fonts/JetBrainsMono.woff2") format("woff2-variations"); font-weight: 100 800; font-display: block; }
+@font-face { font-family: "Quicksand"; src: url("assets/fonts/Quicksand.woff2") format("woff2-variations"); font-weight: 300 700; font-display: block; }
 @font-face { font-family: "RS Heading"; src: local("Arial Narrow"), local("ArialNarrow"), local("Arial Narrow Bold"), local("Arial"); }
 @font-face { font-family: "RS Body"; src: local("Arial"), local("Helvetica"); }
 
 /* ── Tokens ─────────────────────────────────────────────────────────────── */
 :root {
-  /* keynote-dark (default): near-black canvas, white type, one accent */
-  --bg: #050506;
+  /* keynote-dark (default): the BONSAI screen look — flat slate ground,
+     recessed borders, white type, one cyan accent; series walk the
+     green-led screen cycle */
+  --bg: #14181d;
   --bg-cover: var(--bg);
-  --glow: radial-gradient(ellipse 70% 50% at 50% 115%, rgba(124, 152, 133, 0.16), transparent 70%);
-  --surface: rgba(255, 255, 255, 0.055);
-  --surface-strong: rgba(255, 255, 255, 0.09);
-  --border: rgba(255, 255, 255, 0.12);
-  --fg: #f5f5f7;
-  --fg-2: rgba(245, 245, 247, 0.72);
-  --fg-3: rgba(245, 245, 247, 0.5);
+  --glow: none;
+  --surface: #232a33;
+  --surface-strong: #2a323c;
+  --border: #3e4a55;
+  --fg: #ffffff;
+  --fg-2: #d6dce1;
+  --fg-3: #aab5be;
   --heading: var(--fg);
-  --accent: #7c9885;
-  --accent-2: #9db4a6;
-  --accent-soft: rgba(124, 152, 133, 0.18);
-  --c1: #7c9885; --c2: #82a4c7; --c3: #c7a882; --c4: #c78289; --c5: #9882c7; --c6: #5cc7a8;
-  --font-display: "Inter", system-ui, sans-serif;
+  --accent: #009dec;
+  --accent-2: #33b4f5;
+  --accent-soft: rgba(0, 157, 236, 0.18);
+  --c1: #3BE065; --c2: #00B0F0; --c3: #FFA23C; --c4: #FF5252; --c5: #E86BD8; --c6: #FFE14B;
+  --font-display: "Quicksand", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", Consolas, monospace;
-  --display-weight: 700;
-  --display-tracking: -0.03em;
-  --radius: 28px;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --display-weight: 600;
+  --display-tracking: -0.01em;
+  --radius: 12px;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* keynote-light: the BONSAI report look — white ground, black type, navy
+   headings, brand series cycle; for bright rooms and print handouts */
 html[data-theme="keynote-light"] {
-  --bg: #fbfbfd;
-  --glow: radial-gradient(ellipse 70% 50% at 50% 115%, rgba(75, 101, 82, 0.10), transparent 70%);
-  --surface: rgba(0, 0, 0, 0.035);
-  --surface-strong: rgba(0, 0, 0, 0.06);
-  --border: rgba(0, 0, 0, 0.10);
-  --fg: #1d1d1f;
-  --fg-2: rgba(29, 29, 31, 0.72);
-  --fg-3: rgba(29, 29, 31, 0.5);
-  --accent: #4b6552;
-  --accent-2: #7c9885;
-  --accent-soft: rgba(75, 101, 82, 0.14);
-  --c1: #4b6552; --c2: #46627d; --c3: #6d5d42; --c4: #845156; --c5: #68568d; --c6: #2f6958;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+  --bg: #ffffff;
+  --glow: none;
+  --surface: #f6f7f8;
+  --surface-strong: #e3e6e8;
+  --border: #bfc3c6;
+  --fg: #000000;
+  --fg-2: #3f4448;
+  --fg-3: #5a5f63;
+  --heading: #003e76;
+  --accent: #009dec;
+  --accent-2: #003e76;
+  --accent-soft: rgba(0, 157, 236, 0.14);
+  --c1: #009DEC; --c2: #EA5B0C; --c3: #007973; --c4: #A50F14; --c5: #003E76; --c6: #F8AD3E;
+  --shadow: 0 4px 28px rgba(0, 0, 0, 0.12);
 }
 
 /* Rohde & Schwarz — tokens from rus_style/tokens.json (roles_dark / roles). */

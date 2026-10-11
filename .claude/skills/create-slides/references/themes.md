@@ -4,22 +4,22 @@ One template, four looks. Switch with the `data-theme` attribute on `<html>` in 
 
 | `data-theme` | Canvas | Type | Accent | Use |
 |---|---|---|---|---|
-| `keynote-dark` (default) | near-black `#050506` + soft radial glow | Inter (shipped woff2) | one accent, default sage `#7c9885` | talks, demos, anything on a projector |
-| `keynote-light` | `#fbfbfd` | Inter | darker sage `#4b6552` | bright rooms, print-leaning handouts |
+| `keynote-dark` (default) | BONSAI screen look: flat slate `#14181d`, panels `#232a33`, recessed borders | Quicksand headings / Inter body / JetBrains Mono (all shipped woff2) | cyan `#009dec`; series = green-led screen cycle `#3BE065 #00B0F0 #FFA23C …` | talks, demos, anything on a projector |
+| `keynote-light` | BONSAI report look: white, black type, headings navy `#003E76` | Quicksand / Inter / JetBrains Mono (shipped) | `#009DEC`; series = brand cycle `#009DEC #EA5B0C #007973 …` | bright rooms, print-leaning handouts |
 | `rs-dark` | R&S stepped cover gradient `#001437 → #005A9E` (135°, hard stops) | Arial Narrow headings / Arial body (local system fonts) | R&S blue `#009DEC`, secondary `#7CC9F2` | Rohde & Schwarz internal talks; logo bottom-right appears automatically |
 | `rs-light` | white, headings in R&S dark blue `#003E76` | Arial Narrow / Arial | `#009DEC` | R&S print-style content, PDF handouts |
 
-Tokens live in `composition/deck.css`. R&S values come from `~/.claude/skills/rus_style/tokens.json` (`roles_dark`, `roles`, `trace_cycle_dark`, `trace_cycle`); if the two ever disagree, `tokens.json` wins — update deck.css.
+Tokens live in `composition/deck.css`. The keynote values follow the BONSAI design system (`~/.claude/rules/design-system.md`); if the two ever disagree, the design system wins — update deck.css. R&S values come from `~/.claude/skills/rus_style/tokens.json` (`roles_dark`, `roles`, `trace_cycle_dark`, `trace_cycle`); if the two ever disagree, `tokens.json` wins — update deck.css.
 
 ## Changing the accent
 
 In the `<style>` block of `composition/index.html`:
 
 ```css
-:root { --accent: #82a4c7; --accent-2: #9bb5d4; --accent-soft: rgba(130, 164, 199, 0.18); }
+:root { --accent: #2bd98a; --accent-2: #5ce3a6; --accent-soft: rgba(43, 217, 138, 0.18); }
 ```
 
-Keep one accent per deck. Chart series use `--c1 … --c6` (already ordered for hue separation per theme).
+Keep one accent per deck — cyan is the default; the example swaps in the design system's green. Chart series use `--c1 … --c6` (already ordered for hue separation per theme).
 
 ## Ambient preset (MP4 loop behind the slides)
 

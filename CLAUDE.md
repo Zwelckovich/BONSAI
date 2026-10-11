@@ -71,9 +71,9 @@ Guidelines are loaded automatically from `.claude/rules/`:
 - **philosophy.md** — Core principles, decision framework
 - **tools.md** — Preferred tools and configurations
 - **structure.md** — Progressive project structure
-- **design-system.md** — Colors, typography, dark zen UI
+- **design-system.md** — Instrument-look palette, typography, component patterns (+ `design-tokens.json`)
 - **navigation.md** — graphify-out detection + graph-first project navigation
-- **python/visualization.md** — matplotlib/Rich BONSAI themes (loaded when working on .py files)
+- **python/visualization.md** — matplotlib/plotly/Rich/loguru `screen` + `report` looks (loaded when working on .py files)
 - **frontend/react-tailwind.md** — React+Tailwind+Vite templates (loaded when working on frontend files)
 # graphify
 - **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
