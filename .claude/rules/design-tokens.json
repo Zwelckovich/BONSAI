@@ -1,0 +1,648 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "BONSAI design system tokens: the Rohde & Schwarz ZNA instrument look set in the BONSAI type system (Inter / Quicksand / JetBrains Mono). W3C Design Tokens (DTCG) format, colors as hex strings (#rrggbb, #rrggbbaa for translucency). Rules, patterns and copy-paste snippets: design-system.md next to this file.",
+  "color": {
+    "$type": "color",
+    "ui": {
+      "$description": "App chrome. bg0 is the deepest ground, bg1..bg4 step UP in elevation; tx1 strongest text; bd1 is a RECESSED border darker than every surface (the instrument look), bd2/bd3 are raised edges.",
+      "bg0": {
+        "$value": "#14181d",
+        "$description": "app ground"
+      },
+      "bg1": {
+        "$value": "#232a33",
+        "$description": "panels, cards"
+      },
+      "bg2": {
+        "$value": "#2a323c",
+        "$description": "nested panels, inputs"
+      },
+      "bg3": {
+        "$value": "#333d48",
+        "$description": "elevated: menus, hover rows"
+      },
+      "bg4": {
+        "$value": "#3d4855",
+        "$description": "overlays, pressed"
+      },
+      "tx1": {
+        "$value": "#ffffff",
+        "$description": "headings, values"
+      },
+      "tx2": {
+        "$value": "#d6dce1",
+        "$description": "body text"
+      },
+      "tx3": {
+        "$value": "#aab5be",
+        "$description": "labels, metadata (>= 4.5:1 on bg0..bg3)"
+      },
+      "tx4": {
+        "$value": "#919da8",
+        "$description": "secondary metadata, placeholders (>= 4.5:1 on bg0..bg2) — disabled is opacity, not a color"
+      },
+      "bd1": {
+        "$value": "#10151a",
+        "$description": "recessed separation (darker than bg0)"
+      },
+      "bd2": {
+        "$value": "#3e4a55",
+        "$description": "standard raised border"
+      },
+      "bd3": {
+        "$value": "#4e5c69",
+        "$description": "hover / emphasis border"
+      },
+      "bd4": {
+        "$value": "#66737f",
+        "$description": "input / select / search borders — 3:1 non-text contrast against the ground"
+      }
+    },
+    "accent": {
+      "$description": "Accents are named by HUE, never by role — see color.role for meaning.",
+      "cyan": {
+        "$value": "#009dec",
+        "$description": "R&S blue — the lead accent"
+      },
+      "cyan2": {
+        "$value": "#33b4f5",
+        "$description": "lead hover / secondary"
+      },
+      "navy": {
+        "$value": "#003e76",
+        "$description": "R&S dark blue — logo gradient start, report titles"
+      },
+      "green": {
+        "$value": "#2bd98a",
+        "$description": "success / ok"
+      },
+      "orange": {
+        "$value": "#ffa23c",
+        "$description": "warning, paused, sweep"
+      },
+      "red": {
+        "$value": "#e8483e",
+        "$description": "error, destructive"
+      },
+      "sky": {
+        "$value": "#7cc9f2",
+        "$description": "info, data, Y2"
+      },
+      "violet": {
+        "$value": "#9b6bd3",
+        "$description": "variables, SCPI"
+      }
+    },
+    "effect": {
+      "glow-cyan": {
+        "$value": "#009dec2e",
+        "$description": "running-block glow, connection pulse (cyan @ 0.18)"
+      },
+      "glow-orange": {
+        "$value": "#ffa23c2e",
+        "$description": "paused-block glow (orange @ 0.18)"
+      },
+      "focus": {
+        "$value": "#66ccff",
+        "$description": "opaque focus line, 2 px (>= 8:1 on every surface)"
+      },
+      "selection": {
+        "$value": "#009dec66",
+        "$description": "text selection, selected-block halo (cyan @ 0.40)"
+      }
+    },
+    "state": {
+      "$description": "Interaction states. Fills a hue cannot carry at full strength.",
+      "lead-dim": {
+        "$value": "#2c5468",
+        "$description": "pressed segment, active toggle, owned badge (tx1 on it: 8.2:1)"
+      },
+      "on-lead": {
+        "$value": "#04121b",
+        "$description": "text on a filled cyan button (6.4:1 on cyan)"
+      },
+      "ok-dim": {
+        "$value": "#1e6f4e",
+        "$description": "done fill, ok borders (green 45% into bg0; tx1 on it: 6.1:1)"
+      },
+      "row-hover": {
+        "$value": "#1b2128",
+        "$description": "table / list row under the pointer"
+      },
+      "row-selected": {
+        "$value": "#17303f",
+        "$description": "selected row — pair with a 3 px cyan2 bar on the left"
+      }
+    },
+    "role": {
+      "$description": "Semantic aliases. Code uses the hue tokens; these say which hue means what.",
+      "lead": {
+        "$value": "{color.accent.cyan}"
+      },
+      "ok": {
+        "$value": "{color.accent.green}"
+      },
+      "warn": {
+        "$value": "{color.accent.orange}"
+      },
+      "err": {
+        "$value": "{color.accent.red}"
+      },
+      "info": {
+        "$value": "{color.accent.sky}"
+      }
+    },
+    "console": {
+      "$description": "Log levels — the terminal (loguru, Rich) and any in-app log console use the SAME hues.",
+      "DEBUG": {
+        "$value": "{color.ui.tx3}"
+      },
+      "SCPI": {
+        "$value": "{color.accent.violet}"
+      },
+      "DATA": {
+        "$value": "{color.accent.sky}"
+      },
+      "INFO": {
+        "$value": "{color.ui.tx1}"
+      },
+      "SUCCESS": {
+        "$value": "{color.accent.green}"
+      },
+      "WARNING": {
+        "$value": "{color.accent.orange}"
+      },
+      "ERROR": {
+        "$value": "{color.accent.red}"
+      },
+      "CRITICAL": {
+        "$value": "{color.accent.red}"
+      },
+      "timestamp": {
+        "$value": "{color.accent.cyan}",
+        "$description": "loguru {time} field"
+      },
+      "source": {
+        "$value": "{color.accent.sky}",
+        "$description": "loguru {name}:{function}:{line}"
+      }
+    },
+    "plot": {
+      "screen": {
+        "$description": "The default plot look: a black instrument screen (style name 'screen').",
+        "paper": {
+          "$value": "#10141A"
+        },
+        "plotBg": {
+          "$value": "#0A0D10"
+        },
+        "txStrong": {
+          "$value": "#FFFFFF",
+          "$description": "titles"
+        },
+        "txBody": {
+          "$value": "#D6DCE1",
+          "$description": "axis titles, legend"
+        },
+        "txTick": {
+          "$value": "#98A4AE",
+          "$description": "tick labels"
+        },
+        "grid": {
+          "$value": "#262E36"
+        },
+        "zero": {
+          "$value": "#3A434D"
+        },
+        "axline": {
+          "$value": "#3A434D"
+        },
+        "grid3d": {
+          "$value": "#262E36"
+        },
+        "line3d": {
+          "$value": "#3A434D"
+        },
+        "hoverBg": {
+          "$value": "#232A33F5"
+        },
+        "hoverBd": {
+          "$value": "#3E4A55"
+        },
+        "hoverTx": {
+          "$value": "#FFFFFF"
+        },
+        "glassBg": {
+          "$value": "#10141AE0",
+          "$description": "legend / marker-table card"
+        },
+        "glassBd": {
+          "$value": "#3E4A55"
+        },
+        "modebar": {
+          "$value": "#98A4AE"
+        },
+        "modebarActive": {
+          "$value": "#009DEC"
+        },
+        "m1": {
+          "$value": "#FFA23C",
+          "$description": "marker M1"
+        },
+        "m2": {
+          "$value": "#FFE14B",
+          "$description": "marker M2"
+        },
+        "fxMean": {
+          "$value": "#E86BD8",
+          "$description": "family-mean aggregate"
+        },
+        "fxEnv": {
+          "$value": "#98A4AE",
+          "$description": "envelope aggregate"
+        },
+        "y2": {
+          "$value": "#7CC9F2"
+        },
+        "y2Muted": {
+          "$value": "#7CC9F2"
+        },
+        "y2Grid": {
+          "$value": "#7CC9F21F"
+        },
+        "trace": {
+          "$description": "Green-led neon cycle, walked modulo its length.",
+          "1": {
+            "$value": "#3BE065"
+          },
+          "2": {
+            "$value": "#00B0F0"
+          },
+          "3": {
+            "$value": "#FFA23C"
+          },
+          "4": {
+            "$value": "#FF5252"
+          },
+          "5": {
+            "$value": "#E86BD8"
+          },
+          "6": {
+            "$value": "#FFE14B"
+          },
+          "7": {
+            "$value": "#7CC9F2"
+          },
+          "8": {
+            "$value": "#2BD9C8"
+          },
+          "9": {
+            "$value": "#BFC3C6"
+          }
+        }
+      },
+      "report": {
+        "$description": "The white report figure for documents and print (style name 'report'). Never an app theme.",
+        "paper": {
+          "$value": "#FFFFFF"
+        },
+        "plotBg": {
+          "$value": "#FFFFFF"
+        },
+        "txStrong": {
+          "$value": "#000000"
+        },
+        "txBody": {
+          "$value": "#000000"
+        },
+        "txTick": {
+          "$value": "#5A5F63"
+        },
+        "grid": {
+          "$value": "#E3E6E8"
+        },
+        "zero": {
+          "$value": "#BFC3C6"
+        },
+        "axline": {
+          "$value": "#BFC3C6"
+        },
+        "grid3d": {
+          "$value": "#E3E6E8"
+        },
+        "line3d": {
+          "$value": "#BFC3C6"
+        },
+        "hoverBg": {
+          "$value": "#003E76"
+        },
+        "hoverBd": {
+          "$value": "#003E76"
+        },
+        "hoverTx": {
+          "$value": "#FFFFFF"
+        },
+        "glassBg": {
+          "$value": "#FFFFFFEB"
+        },
+        "glassBd": {
+          "$value": "#BFC3C6"
+        },
+        "modebar": {
+          "$value": "#5A5F63"
+        },
+        "modebarActive": {
+          "$value": "#009DEC"
+        },
+        "m1": {
+          "$value": "#EA5B0C"
+        },
+        "m2": {
+          "$value": "#F8AD3E"
+        },
+        "fxMean": {
+          "$value": "#933973"
+        },
+        "fxEnv": {
+          "$value": "#5A5F63"
+        },
+        "y2": {
+          "$value": "#003E76"
+        },
+        "y2Muted": {
+          "$value": "#003E76"
+        },
+        "y2Grid": {
+          "$value": "#003E761F"
+        },
+        "title": {
+          "$value": "#003E76",
+          "$description": "Python report figures color the title navy"
+        },
+        "trace": {
+          "$description": "R&S brand cycle for white grounds.",
+          "1": {
+            "$value": "#009DEC"
+          },
+          "2": {
+            "$value": "#EA5B0C"
+          },
+          "3": {
+            "$value": "#007973"
+          },
+          "4": {
+            "$value": "#A50F14"
+          },
+          "5": {
+            "$value": "#003E76"
+          },
+          "6": {
+            "$value": "#F8AD3E"
+          },
+          "7": {
+            "$value": "#0083A2"
+          },
+          "8": {
+            "$value": "#933973"
+          },
+          "9": {
+            "$value": "#BFC3C6"
+          }
+        }
+      }
+    }
+  },
+  "gradient": {
+    "$type": "gradient",
+    "grid-scale": {
+      "$description": "Heatmaps and 3D surfaces, both looks: R&S dark blue → light blue.",
+      "$value": [
+        {
+          "color": "#003E76",
+          "position": 0
+        },
+        {
+          "color": "#0083A2",
+          "position": 0.25
+        },
+        {
+          "color": "#009DEC",
+          "position": 0.5
+        },
+        {
+          "color": "#7CC9F2",
+          "position": 0.75
+        },
+        {
+          "color": "#C7E8FA",
+          "position": 1
+        }
+      ]
+    },
+    "correlation-screen": {
+      "$description": "Diverging, -1 → 0 → +1, on the black screen.",
+      "$value": [
+        {
+          "color": "#e8483e",
+          "position": 0
+        },
+        {
+          "color": "#0A0D10",
+          "position": 0.5
+        },
+        {
+          "color": "#009dec",
+          "position": 1
+        }
+      ]
+    },
+    "correlation-report": {
+      "$description": "Diverging, -1 → 0 → +1, on white.",
+      "$value": [
+        {
+          "color": "#A50F14",
+          "position": 0
+        },
+        {
+          "color": "#FFFFFF",
+          "position": 0.5
+        },
+        {
+          "color": "#009DEC",
+          "position": 1
+        }
+      ]
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": [
+          "Inter Variable",
+          "Inter",
+          "system-ui",
+          "sans-serif"
+        ],
+        "$description": "Body and UI. 'Inter Variable' is the bundled fontsource family; 'Inter' resolves an installed font in exports viewed outside the app."
+      },
+      "display": {
+        "$value": [
+          "Quicksand",
+          "Inter Variable",
+          "Inter",
+          "sans-serif"
+        ],
+        "$description": "Headings, figure titles"
+      },
+      "mono": {
+        "$value": [
+          "JetBrains Mono Variable",
+          "JetBrains Mono",
+          "Consolas",
+          "monospace"
+        ],
+        "$description": "Code, values, hover labels, marker readouts"
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "body": {
+        "$value": 420
+      },
+      "emphasis": {
+        "$value": 520
+      },
+      "heading": {
+        "$value": 600
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "body": {
+        "$value": {
+          "value": 13,
+          "unit": "px"
+        },
+        "$description": "app body text"
+      },
+      "plot-hover": {
+        "$value": {
+          "value": 11,
+          "unit": "px"
+        }
+      },
+      "plot-legend": {
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        }
+      },
+      "plot-marker-table": {
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        }
+      },
+      "export-title": {
+        "$value": {
+          "value": 17,
+          "unit": "px"
+        }
+      },
+      "python-title": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "python-body": {
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      }
+    },
+    "line-height": {
+      "$type": "number",
+      "body": {
+        "$value": 1.55
+      }
+    },
+    "letter-spacing": {
+      "$type": "dimension",
+      "body": {
+        "$value": {
+          "value": 0.01,
+          "unit": "em"
+        }
+      }
+    }
+  },
+  "stroke": {
+    "$type": "dimension",
+    "trace-screen": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "trace-report": {
+      "$value": {
+        "value": 2.5,
+        "unit": "px"
+      }
+    },
+    "trace-y2": {
+      "$value": {
+        "value": 1.25,
+        "unit": "px"
+      },
+      "$description": "Y2 traces go thinner — dash already means 'which file'"
+    },
+    "marker-line": {
+      "$value": {
+        "value": 1.5,
+        "unit": "px"
+      }
+    }
+  },
+  "$extensions": {
+    "com.bonsai.plotly": {
+      "$description": "Plotly-specific ladders that have no DTCG type.",
+      "fileDashes": [
+        "solid",
+        "dot",
+        "dash",
+        "longdash",
+        "dashdot",
+        "longdashdot",
+        "8px,3px,2px,3px",
+        "14px,4px,2px,4px"
+      ],
+      "fileSymbols": [
+        "circle",
+        "square",
+        "diamond",
+        "x",
+        "cross",
+        "circle-open",
+        "square-open",
+        "diamond-open"
+      ],
+      "generatedTraceDash": "dash",
+      "dragmode": "pan",
+      "exponentformat": "SI"
+    },
+    "com.bonsai.console": {
+      "$description": "Terminal glyphs, one per role.",
+      "symbols": {
+        "ok": "✓",
+        "err": "✗",
+        "warn": "⚠",
+        "info": "→"
+      },
+      "logFormat": "<lead>{time:HH:mm:ss}</lead> | <level>{level: <8}</level> | <info>{name}:{function}:{line}</info> - <level>{message}</level>"
+    }
+  }
+}

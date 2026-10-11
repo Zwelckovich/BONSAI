@@ -149,9 +149,9 @@ Rules auto-load into every Claude Code session. They are the enforcement arm of 
 | [`philosophy.md`](.claude/rules/philosophy.md) | Always | Core principles, decision framework, anti-patterns |
 | [`tools.md`](.claude/rules/tools.md) | Always | Preferred tools (uv, ruff, ty, bun, biome, …) and forbidden ones |
 | [`structure.md`](.claude/rules/structure.md) | Always | Progressive project structure — single file first, split when forced |
-| [`design-system.md`](.claude/rules/design-system.md) | Always | Dark-zen palette, typography, spacing, UI principles |
+| [`design-system.md`](.claude/rules/design-system.md) | Always | Instrument-look palette, typography, component patterns, plot looks (`screen` / `report`); values in `design-tokens.json` |
 | [`navigation.md`](.claude/rules/navigation.md) | Always | graphify-out detection, graph-first project navigation |
-| [`python/visualization.md`](.claude/rules/python/visualization.md) | On `.py` edits | matplotlib / Rich BONSAI themes |
+| [`python/visualization.md`](.claude/rules/python/visualization.md) | On `.py` edits | matplotlib / plotly / Rich / loguru in the `screen` and `report` looks |
 | [`frontend/react-tailwind.md`](.claude/rules/frontend/react-tailwind.md) | On frontend edits | React 19 + Tailwind v4 + Vite 8 templates |
 
 ## Output style
@@ -227,6 +227,7 @@ BONSAI/
     │   ├── tools.md
     │   ├── structure.md
     │   ├── design-system.md
+    │   ├── design-tokens.json
     │   ├── navigation.md
     │   ├── python/
     │   │   └── visualization.md

@@ -71,7 +71,7 @@ Navigation is a **pure seek** (no playback). State is computed from `t` alone; t
 | `missing_timeline_registry` | lint looks for `window.__timelines[...] =` in index.html itself | keep the inline registration script; deck.js reuses it |
 | Snapshots show half-drawn curves / dim headlines | transitions in flight at capture | engine is instant under automation — if you add custom tweens, gate them on `deck.instant` |
 | Background video freezes on slide change | `<video>` inside the composition is paused by the player | ambient loops live in the wrapper only |
-| Text renders in Segoe/Arial instead of Inter | bundled HyperFrames fonts exist only at compile time | fonts are shipped as local woff2 in `assets/fonts/` (already wired in deck.css) |
+| Text renders in Segoe/Arial instead of Inter or Quicksand | bundled HyperFrames fonts exist only at compile time | fonts are shipped as local woff2 in `assets/fonts/` (Inter, Quicksand, JetBrains Mono — already wired in deck.css) |
 | `Arial` becomes Inter in check | compiler alias | R&S faces are declared as `RS Heading` / `RS Body` via `local()` — the "No deterministic font mapping for: Arial Narrow" warning is expected and harmless |
 | Layout/contrast report `0 sample(s)` | a lint **error** disables the browser audits | fix lint first (validate.mjs stops on lint errors) |
 | `sweep_static` failure | even sampling of a still deck | always sample with `--at` (validate.mjs does) |

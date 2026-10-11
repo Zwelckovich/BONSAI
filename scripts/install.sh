@@ -6,11 +6,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # BONSAI palette (24-bit VT100)
-G=$'\033[38;2;124;152;133m'  # green  #7c9885
-R=$'\033[38;2;199;130;137m'  # red    #c78289
-B=$'\033[38;2;130;164;199m'  # blue   #82a4c7
-Y=$'\033[38;2;199;168;130m'  # yellow #c7a882
-M=$'\033[38;2;139;146;165m'  # muted  #8b92a5
+G=$'\033[38;2;43;217;138m'  # ok     #2bd98a
+R=$'\033[38;2;232;72;62m'  # err    #e8483e
+B=$'\033[38;2;124;201;242m'  # info   #7cc9f2
+Y=$'\033[38;2;255;162;60m'  # warn   #ffa23c
+M=$'\033[38;2;170;181;190m'  # muted  #aab5be
 N=$'\033[0m'
 
 cursor_hint() {

@@ -79,104 +79,74 @@ export default defineConfig({
 
 ## BONSAI @theme Block (src/index.css)
 
+One theme — the instrument look from `design-system.md`. No light overrides, no toggle,
+no `prefers-color-scheme`. Token names are the design-system vocabulary, so Tailwind
+utilities read `bg-bg1`, `text-tx3`, `border-bd4`, `bg-ac-cyan`, `bg-lead-dim` …
+
 ```css
 @import "tailwindcss";
 
 @theme {
-  --color-bonsai-bg-deep: #0a0e14;
-  --color-bonsai-bg-primary: #151922;
-  --color-bonsai-bg-secondary: #1e242e;
-  --color-bonsai-bg-elevated: #232933;
-  --color-bonsai-bg-overlay: #2a3040;
+  /* surfaces · text · borders */
+  --color-bg0: #14181d;
+  --color-bg1: #232a33;
+  --color-bg2: #2a323c;
+  --color-bg3: #333d48;
+  --color-bg4: #3d4855;
+  --color-tx1: #ffffff;
+  --color-tx2: #d6dce1;
+  --color-tx3: #aab5be; /* tx3 + tx4 hold >= 4.5:1 on bg0..bg2 */
+  --color-tx4: #919da8;
+  --color-bd1: #10151a; /* recessed — darker than every surface */
+  --color-bd2: #3e4a55;
+  --color-bd3: #4e5c69;
+  --color-bd4: #66737f; /* input / select borders: 3:1 against the ground */
 
-  --color-bonsai-text-primary: #e6e8eb;
-  --color-bonsai-text-secondary: #b8bcc8;
-  --color-bonsai-text-muted: #8b92a5;
-  --color-bonsai-text-disabled: #737b8a;
-  --color-bonsai-text-inverted: #0a0e14;
+  /* accents, named by hue — roles live in design-system.md */
+  --color-ac-cyan: #009dec;
+  --color-ac-cyan2: #33b4f5;
+  --color-ac-navy: #003e76;
+  --color-ac-green: #2bd98a;
+  --color-ac-orange: #ffa23c;
+  --color-ac-red: #e8483e;
+  --color-ac-sky: #7cc9f2;
+  --color-ac-violet: #9b6bd3;
+  --color-glow-cyan: rgba(0, 157, 236, 0.18);
+  --color-glow-orange: rgba(255, 162, 60, 0.18);
+  --color-focus: #66ccff; /* opaque focus line */
+  --color-selection: rgba(0, 157, 236, 0.4); /* text selection, selected-item halo */
 
-  --color-bonsai-border-subtle: #2d3441;
-  --color-bonsai-border-primary: #3d4455;
-  --color-bonsai-border-accent: #4a5568;
-  --color-bonsai-border-strong: #5a6578;
+  /* states */
+  --color-lead-dim: #2c5468;
+  --color-on-lead: #04121b;
+  --color-ok-dim: #1e6f4e;
+  --color-row-hover: #1b2128;
+  --color-row-selected: #17303f;
 
-  --color-bonsai-green-primary: #7c9885;
-  --color-bonsai-green-secondary: #9db4a6;
-  --color-bonsai-green-tertiary: #a8c0b1;
-  --color-bonsai-green-muted: #677a70;
-  --color-bonsai-green-glow: rgba(124, 152, 133, 0.15);
-  /* hover tokens: dark lightens (= secondary), light DARKENS — keeps AA on hovered button text */
-  --color-bonsai-green-hover: #9db4a6;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Quicksand", "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", Consolas, monospace;
 
-  --color-bonsai-red-primary: #c78289;
-  --color-bonsai-red-secondary: #d4999f;
-  --color-bonsai-red-muted: #a56b71;
-  --color-bonsai-red-hover: #d4999f;
-
-  --color-bonsai-blue-primary: #82a4c7;
-  --color-bonsai-blue-secondary: #9bb5d4;
-  --color-bonsai-blue-muted: #6b8aa5;
-
-  --color-bonsai-yellow-primary: #c7a882;
-  --color-bonsai-yellow-secondary: #d4b99b;
-  --color-bonsai-yellow-muted: #a5906b;
-
-  --color-bonsai-purple-primary: #9882c7;
-  --color-bonsai-purple-secondary: #ad9bd4;
-  --color-bonsai-purple-muted: #7e6ba5;
-  --color-bonsai-purple-glow: rgba(152, 130, 199, 0.15);
-
-  --color-bonsai-orange-primary: #c7975c;
-  --color-bonsai-orange-secondary: #d4ad78;
-  --color-bonsai-orange-muted: #a57d4a;
-  --color-bonsai-orange-glow: rgba(199, 151, 92, 0.15);
-
-  --color-bonsai-teal-primary: #5cc7a8;
-  --color-bonsai-teal-secondary: #7ed4b8;
-  --color-bonsai-teal-muted: #4aa58a;
-  --color-bonsai-teal-glow: rgba(92, 199, 168, 0.15);
-
-  /* Glass tokens */
-  --color-bonsai-glass-surface: rgba(21, 25, 34, 0.72);
-  --color-bonsai-glass-surface-light: rgba(30, 36, 46, 0.65);
-  --color-bonsai-glass-border: rgba(61, 68, 85, 0.45);
-
-  /* Interactive state tokens */
-  --color-bonsai-focus-ring: rgba(124, 152, 133, 0.5);
-  --color-bonsai-active-overlay: rgba(124, 152, 133, 0.08);
-  --color-bonsai-hover-overlay: rgba(255, 255, 255, 0.04);
-
-  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
-  --font-display: "Quicksand", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", Monaco, monospace;
-
-  /* Shadow COLOR lives in plain custom properties (defined in @layer base below):
-     v4 inlines --shadow-* token values into utilities, so overriding --shadow-*
-     under :root.light silently does nothing — the var() indirection is what
-     makes light-mode shadows actually re-theme. */
-  --shadow-glow-sm: 0 0 10px var(--bonsai-shadow-glow-sm);
-  --shadow-glow: 0 0 20px var(--bonsai-shadow-glow);
-  --shadow-glow-lg: 0 0 30px var(--bonsai-shadow-glow-lg);
-  --shadow-bonsai: 0 8px 32px var(--bonsai-shadow-ambient);
-
-  --animate-fade-in: fadeIn 0.5s ease-out;
-  --animate-slide-up: slideUp 0.3s ease-out;
-  --animate-scale-in: scaleIn 0.2s ease-out;
-
-  /* @keyframes INSIDE @theme: emitted only when the matching --animate-* token is used */
+  --animate-fade-in: fadeIn 0.3s ease-out;
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 }
 
 @layer base {
-  :root {
-    color-scheme: dark; /* dark scrollbars, form controls, browser UI — UA default is light */
-    --bonsai-shadow-glow-sm: rgba(124, 152, 133, 0.3);
-    --bonsai-shadow-glow: rgba(124, 152, 133, 0.4);
-    --bonsai-shadow-glow-lg: rgba(124, 152, 133, 0.5);
-    --bonsai-shadow-ambient: rgba(10, 14, 20, 0.3);
+  :root { color-scheme: dark; }
+  body {
+    background: var(--color-bg0);
+    color: var(--color-tx2);
+    font-family: var(--font-sans);
+    font-weight: 420;
+    font-size: 13px;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
   }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-bd2); border-radius: 4px; }
+  ::selection { background: var(--color-selection); }
+  [hidden]:not([hidden="until-found"]) { display: none !important; }
 }
 
 /* Accessibility: respect the user's explicit reduced-motion choice — always include */
@@ -190,125 +160,22 @@ export default defineConfig({
 }
 ```
 
-In `index.html`, add `<meta name="theme-color" content="#0a0e14">` so browser chrome matches the dark shell.
-
-## BONSAI-Light Mode Overrides (src/index.css)
-
-Append AFTER the `@theme` block. Dark is always the default; light activates only via an explicit `:root.light` or `[data-theme="light"]` opt-in (e.g. a user toggle). No OS-preference auto-switching.
-
-```css
-@layer base {
-  :root.light,
-  :root[data-theme="light"] {
-    color-scheme: light;
-
-    --color-bonsai-bg-deep: #f5f2ec;
-    --color-bonsai-bg-primary: #ebe7de;
-    --color-bonsai-bg-secondary: #e2ddd1;
-    --color-bonsai-bg-elevated: #d8d2c3;
-    --color-bonsai-bg-overlay: #cec7b5;
-
-    --color-bonsai-text-primary: #1a1f26;
-    --color-bonsai-text-secondary: #3a4150;
-    --color-bonsai-text-muted: #535a67;
-    --color-bonsai-text-disabled: #8a91a0;
-    --color-bonsai-text-inverted: #f5f2ec;
-
-    --color-bonsai-border-subtle: #dfd9cb;
-    --color-bonsai-border-primary: #c9c2b0;
-    --color-bonsai-border-accent: #b5ad98;
-    --color-bonsai-border-strong: #877d67;
-
-    /* Accent primaries computed to >=5.15:1 on bg_primary (#ebe7de) — AA as
-       normal text, AA for button labels, and >=4.5:1 inside /10 badge tints */
-    --color-bonsai-green-primary: #4b6552;
-    --color-bonsai-green-secondary: #7c9885;
-    --color-bonsai-green-tertiary: #9db4a6;
-    --color-bonsai-green-muted: #a8c0b1;
-    --color-bonsai-green-glow: rgba(75, 101, 82, 0.15);
-    --color-bonsai-green-hover: #415747;
-
-    --color-bonsai-red-primary: #845156;
-    --color-bonsai-red-secondary: #c78289;
-    --color-bonsai-red-muted: #d4999f;
-    --color-bonsai-red-hover: #71464a;
-
-    --color-bonsai-blue-primary: #46627d;
-    --color-bonsai-blue-secondary: #82a4c7;
-    --color-bonsai-blue-muted: #9bb5d4;
-
-    --color-bonsai-yellow-primary: #6d5d42;
-    --color-bonsai-yellow-secondary: #c7a882;
-    --color-bonsai-yellow-muted: #d4b99b;
-
-    --color-bonsai-purple-primary: #68568d;
-    --color-bonsai-purple-secondary: #9882c7;
-    --color-bonsai-purple-muted: #ad9bd4;
-    --color-bonsai-purple-glow: rgba(104, 86, 141, 0.15);
-
-    --color-bonsai-orange-primary: #775a36;
-    --color-bonsai-orange-secondary: #c7975c;
-    --color-bonsai-orange-muted: #d4ad78;
-    --color-bonsai-orange-glow: rgba(119, 90, 54, 0.15);
-
-    --color-bonsai-teal-primary: #2f6958;
-    --color-bonsai-teal-secondary: #5cc7a8;
-    --color-bonsai-teal-muted: #7ed4b8;
-    --color-bonsai-teal-glow: rgba(47, 105, 88, 0.15);
-
-    --color-bonsai-glass-surface: rgba(245, 242, 236, 0.72);
-    --color-bonsai-glass-surface-light: rgba(235, 231, 222, 0.65);
-    --color-bonsai-glass-border: rgba(185, 175, 152, 0.45);
-
-    --color-bonsai-focus-ring: rgba(75, 101, 82, 0.5);
-    --color-bonsai-active-overlay: rgba(75, 101, 82, 0.08);
-    --color-bonsai-hover-overlay: rgba(0, 0, 0, 0.04);
-
-    --bonsai-shadow-glow-sm: rgba(75, 101, 82, 0.20);
-    --bonsai-shadow-glow: rgba(75, 101, 82, 0.25);
-    --bonsai-shadow-glow-lg: rgba(75, 101, 82, 0.30);
-    --bonsai-shadow-ambient: rgba(30, 30, 30, 0.08);
-  }
-
-}
+```tsx
+// main.tsx — bundle the type system (the app never depends on installed fonts)
+import '@fontsource-variable/inter';
+import '@fontsource/quicksand/500.css';
+import '@fontsource/quicksand/700.css';
+import '@fontsource-variable/jetbrains-mono';
 ```
 
-Both glass surfaces re-theme via their tokens — no per-class light overrides
-(a `:root.light .class` override inside `@layer base` would silently LOSE to
-the utility layer: Tailwind orders `theme, base, components, utilities`).
+In `index.html`, add `<meta name="theme-color" content="#14181d">` so browser chrome matches the shell.
 
-Note: v4 tree-shakes `@theme` tokens not referenced by any used utility or
-`var()` — if JS reads a token via `getComputedStyle` (e.g. to theme Plotly),
-make sure some CSS references it, or the read returns an empty string.
+Tints derive from tokens, so a palette change never leaves a stale hue:
+`background: color-mix(in srgb, var(--color-ac-cyan) 10%, transparent);`
 
-Component classes (`btn-primary`, `card`, `input-field`, …) follow the theme automatically — they reference `bonsai-*` tokens, so no duplication is needed.
-
-## Theme Toggle (zustand)
-
-```typescript
-import { create } from 'zustand';
-
-type Theme = 'dark' | 'light';
-
-// Apply the stored preference at module init — without this, a returning
-// light-mode user gets the dark UI on every reload until they toggle twice.
-// (To also avoid the one-frame dark flash before the bundle runs, inline
-// these two lines as a <script> in the index.html <head>.)
-const stored = (localStorage.getItem('bonsai-theme') as Theme | null) ?? 'dark';
-document.documentElement.classList.toggle('light', stored === 'light');
-
-export const useThemeStore = create<{
-  theme: Theme;
-  setTheme: (t: Theme) => void;
-}>((set) => ({
-  theme: stored,
-  setTheme: (t) => {
-    localStorage.setItem('bonsai-theme', t);
-    document.documentElement.classList.toggle('light', t === 'light');
-    set({ theme: t });
-  },
-}));
-```
+Note: v4 tree-shakes `@theme` tokens not referenced by any used utility or `var()` — if JS
+reads a token via `getComputedStyle` (e.g. to theme Plotly), make sure some CSS references
+it, or the read returns an empty string.
 
 ## Component Classes
 
@@ -324,137 +191,121 @@ forced-colors/High-Contrast mode where box-shadow rings don't render;
 
 ```css
 @utility btn-primary {
-  @apply bg-bonsai-green-primary text-bonsai-text-inverted px-6 py-3 rounded-xl font-medium
-    transition duration-300 hover:bg-bonsai-green-hover hover:-translate-y-px
-    hover:shadow-lg hover:shadow-bonsai-green-primary/25 active:translate-y-0
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-bonsai-green-primary/50;
+  @apply rounded-[3px] border border-ac-cyan bg-ac-cyan px-4 py-2 font-bold text-on-lead
+    transition duration-200 hover:border-ac-cyan2 hover:bg-ac-cyan2
+    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus
+    disabled:opacity-45;
 }
 
 @utility btn-secondary {
-  @apply bg-bonsai-bg-elevated text-bonsai-text-primary border border-bonsai-border-primary
-    px-6 py-3 rounded-xl font-medium transition duration-300
-    hover:bg-bonsai-bg-overlay hover:border-bonsai-border-accent hover:-translate-y-px active:translate-y-0
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-bonsai-green-primary/50;
+  @apply rounded-[3px] border border-bd3 bg-bg3 px-4 py-2 text-tx1
+    transition duration-200 hover:border-bd4 hover:bg-bg4
+    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus
+    disabled:opacity-45;
 }
 
-@utility btn-correct {
-  @apply bg-bonsai-green-primary text-bonsai-text-inverted px-4 py-2 rounded-lg font-medium
-    transition duration-300 hover:bg-bonsai-green-hover hover:-translate-y-px active:translate-y-0
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-bonsai-green-primary/50;
+@utility btn-danger {
+  @apply rounded-[3px] border border-ac-red bg-transparent px-4 py-2 text-ac-red
+    transition duration-200 hover:bg-ac-red/10 hover:text-tx1
+    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus;
 }
 
-@utility btn-wrong {
-  @apply bg-bonsai-red-primary text-bonsai-text-inverted px-4 py-2 rounded-lg font-medium
-    transition duration-300 hover:bg-bonsai-red-hover hover:-translate-y-px active:translate-y-0
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-bonsai-red-primary/50;
+/* active toggle: opaque lead-dim fill, tx1 text (cyan2 on lead-dim is only 3.5:1) */
+@utility toggle-on {
+  @apply border-ac-cyan/50 bg-lead-dim text-tx1 hover:border-ac-cyan2;
 }
 
 @utility card {
-  @apply bg-bonsai-bg-primary border border-bonsai-border-subtle rounded-2xl p-6
-    transition duration-300 hover:border-bonsai-border-primary
-    hover:shadow-xl hover:translate-y-[-2px] backdrop-blur-sm;
+  @apply rounded border border-bd2 bg-bg1 p-4;
 }
 
-@utility card-elevated {
-  @apply bg-bonsai-bg-elevated border border-bonsai-border-primary rounded-2xl p-6
-    shadow-xl backdrop-blur-sm transition duration-300
-    hover:shadow-2xl hover:translate-y-[-3px];
+/* status card: 3px top stripe in the status hue — set it with border-t-ac-* */
+@utility card-status {
+  @apply rounded border border-t-[3px] border-bd2 border-t-bd3 bg-bg1 px-3.5 py-3;
 }
 
 @utility input-field {
-  @apply bg-bonsai-bg-secondary border border-bonsai-border-strong rounded-xl px-4 py-3
-    text-bonsai-text-primary placeholder-bonsai-text-muted
-    focus-visible:outline-hidden focus-visible:border-bonsai-green-primary
-    focus-visible:ring-2 focus-visible:ring-bonsai-green-primary/30
-    transition duration-300;
+  @apply rounded-[3px] border border-bd4 bg-bg2 px-3 py-2 text-tx1 placeholder:text-tx4
+    transition duration-200 hover:border-tx4
+    focus-visible:border-ac-cyan2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus
+    disabled:opacity-45;
 }
 
-@utility nav-link {
-  @apply text-bonsai-text-secondary hover:text-bonsai-text-primary transition duration-300
-    px-4 py-2 rounded-lg hover:bg-bonsai-bg-secondary
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-bonsai-green-primary/50;
+@utility eyebrow {
+  @apply text-[11px] uppercase tracking-[0.12em] text-tx3;
 }
 
-@utility nav-link-active {
-  @apply text-bonsai-green-primary bg-bonsai-bg-secondary shadow-inner
-    border-l-2 border-bonsai-green-primary;
+@utility badge {
+  @apply inline-flex items-center gap-1.5 rounded-[3px] border border-bd2 px-2 text-[11px]
+    leading-5 uppercase tracking-[0.06em] text-tx3;
+}
+@utility badge-active { @apply border-ac-cyan bg-lead-dim text-tx1; }
+@utility badge-ok { @apply border-ok-dim text-ac-green; }
+@utility badge-warn { @apply border-ac-orange text-ac-orange; }
+
+/* selected list/table row: row-selected + 3px cyan2 bar */
+@utility row-active {
+  @apply bg-row-selected text-tx1 shadow-[inset_3px_0_0_var(--color-ac-cyan2)];
 }
 
-/* /10 tints, not /20 — at /20 the lightened pill background drops 12px badge
-   text below 4.5:1 (computed: green 4.16, red 4.31); at /10 all pass */
-@utility confidence-badge { @apply px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm border; }
-@utility confidence-high { @apply bg-bonsai-green-primary/10 text-bonsai-green-primary border-bonsai-green-primary/30; }
-@utility confidence-medium { @apply bg-bonsai-yellow-primary/10 text-bonsai-yellow-primary border-bonsai-yellow-primary/30; }
-@utility confidence-low { @apply bg-bonsai-red-primary/10 text-bonsai-red-primary border-bonsai-red-primary/30; }
-
-@utility metric-card {
-  @apply bg-gradient-to-br from-bonsai-bg-elevated to-bonsai-bg-secondary
-    border border-bonsai-border-primary rounded-xl p-4 transition duration-300
-    hover:from-bonsai-bg-overlay hover:border-bonsai-border-accent backdrop-blur-sm;
-}
-
-/* Glass surfaces — use sparingly on high-value elements */
-@utility glass-surface {
-  @apply backdrop-blur-[16px] border border-bonsai-border-subtle/45;
-  background: var(--color-bonsai-glass-surface); /* re-themes via the token */
-}
-
-@utility glass-surface-elevated {
-  @apply backdrop-blur-[24px] border border-bonsai-border-primary/40;
-  background: var(--color-bonsai-glass-surface-light); /* re-themes via the token */
+@utility kbd {
+  @apply rounded-[3px] border border-b-2 border-bd3 px-1 font-mono text-[11px] text-tx2;
 }
 ```
+
+Segmented control (one bordered group, active option):
+`bg-lead-dim text-tx1 shadow-[inset_0_-3px_0_var(--color-ac-cyan2)]`, inactive
+`text-tx3 hover:text-tx1`. Numbers that line up: `font-mono tabular-nums`.
 
 ## Layout Pattern (Layout.jsx)
 
 `NavLink` (not `Link` + manual `isActive`) — it applies `aria-current="page"`
 automatically, which screen readers announce; the manual pattern is more code
-AND less accessible. Emoji icons get `aria-hidden` (screen readers otherwise
-read their Unicode names). The skip link is the first focusable element.
+AND less accessible. The skip link is the first focusable element.
 
 ```jsx
 import { NavLink } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/analytics', label: 'Analytics', icon: '📈' },
-    { path: '/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/dashboard', label: 'Dashboard' },
+    { path: '/analytics', label: 'Analytics' },
+    { path: '/settings', label: 'Settings' },
   ];
 
   return (
-    <div className="flex min-h-screen animate-fade-in">
+    <div className="flex min-h-screen bg-bg0">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
-          focus:px-4 focus:py-2 focus:rounded-lg focus:bg-bonsai-bg-elevated focus:text-bonsai-text-primary"
+          focus:rounded-[3px] focus:bg-ac-cyan focus:px-4 focus:py-2 focus:font-bold focus:text-on-lead"
       >
         Skip to content
       </a>
-      <nav aria-label="Primary" className="w-64 bg-gradient-to-b from-bonsai-bg-primary to-bonsai-bg-secondary border-r border-bonsai-border-subtle flex flex-col shadow-bonsai">
-        <div className="p-6 border-b border-bonsai-border-subtle">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-bonsai-green-primary flex items-center justify-center shadow-glow-sm" aria-hidden="true">🌱</div>
-            <h1 className="text-xl font-semibold text-bonsai-text-primary">Your App</h1>
-          </div>
+      <nav aria-label="Primary" className="flex w-60 flex-col border-r border-bd1 bg-bg1">
+        <div className="flex items-center gap-3 border-b border-bd1 p-5">
+          <div className="h-8 w-8 rounded-lg bg-linear-135 from-ac-navy to-ac-cyan" aria-hidden="true" />
+          <h1 className="font-display text-xl font-semibold text-tx1">Your App</h1>
         </div>
-        <div className="flex-1 p-4">
-          <ul className="space-y-3">
-            {navItems.map((item) => (
-              <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) => `nav-link flex items-center gap-3 w-full ${isActive ? 'nav-link-active' : ''}`}
-                >
-                  <span aria-hidden="true">{item.icon}</span><span className="font-medium">{item.label}</span>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="flex-1 space-y-1 p-3">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `block rounded-[3px] px-3 py-2 transition duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus ${
+                    isActive ? 'row-active' : 'text-tx2 hover:bg-row-hover hover:text-tx1'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </nav>
-      <main id="main" className="flex-1 bg-bonsai-bg-deep">
-        <div className="max-w-6xl mx-auto p-6 animate-slide-up">{children}</div>
+      <main id="main" className="flex-1">
+        <div className="mx-auto max-w-6xl p-6">{children}</div>
       </main>
     </div>
   );
@@ -479,11 +330,11 @@ const ConfirmDialog = ({ title, children, onConfirm }) => {
       <dialog
         ref={ref}
         aria-label={title}
-        className="m-auto max-w-md rounded-2xl border border-bonsai-border-primary bg-bonsai-bg-elevated p-6
-          text-bonsai-text-primary backdrop:bg-bonsai-bg-overlay/60 backdrop:backdrop-blur-sm"
+        className="m-auto max-w-md rounded-lg border border-bd2 bg-bg1 p-6 text-tx2
+          shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop:bg-bg0/70"
       >
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <div className="mt-3 text-bonsai-text-secondary">{children}</div>
+        <h2 className="font-display text-lg font-semibold text-tx1">{title}</h2>
+        <div className="mt-3">{children}</div>
         <div className="mt-6 flex justify-end gap-3">
           <button type="button" className="btn-secondary" onClick={() => ref.current.close()}>Cancel</button>
           <button type="button" className="btn-primary" onClick={() => { onConfirm(); ref.current.close(); }}>Confirm</button>
@@ -503,18 +354,26 @@ over positioned divs — light dismiss and top-layer come free.
 - For fixed-size lists in `.map()`, use a constant key array instead of index: `const KEYS = ['a', 'b', 'c']; items.map((item, i) => <div key={KEYS[i]}>)`
 - Biome suppression: `// biome-ignore lint/rule: reason` must be on the line BEFORE the violation, not the same line
 
-## Plotly BONSAI Theme
+## Plotly Theme (screen look)
 
 ```javascript
-const BONSAI_PLOTLY_THEME = {
-  paper_bgcolor: '#0a0e14',
-  plot_bgcolor: '#151922',
-  font: { family: 'Inter, sans-serif', color: '#e6e8eb', size: 12 },
-  colorway: ['#7c9885', '#82a4c7', '#c7a882', '#c78289', '#9882c7'],
-  xaxis: { gridcolor: '#4a5568', linecolor: '#4a5568', color: '#b8bcc8' },
-  yaxis: { gridcolor: '#4a5568', linecolor: '#4a5568', color: '#b8bcc8' },
-  margin: { t: 40, r: 20, b: 40, l: 60 },
+const SCREEN = {
+  paper_bgcolor: '#10141A',
+  plot_bgcolor: '#0A0D10',
+  colorway: ['#3BE065', '#00B0F0', '#FFA23C', '#FF5252', '#E86BD8', '#FFE14B', '#7CC9F2', '#2BD9C8', '#BFC3C6'],
+  font: { family: '"Inter Variable", Inter, system-ui, sans-serif', color: '#D6DCE1', size: 12 },
+  title: { font: { family: 'Quicksand, "Inter Variable", Inter, sans-serif', color: '#FFFFFF' } },
+  xaxis: { gridcolor: '#262E36', zerolinecolor: '#3A434D', linecolor: '#3A434D', tickfont: { color: '#98A4AE' }, exponentformat: 'SI', automargin: true },
+  yaxis: { gridcolor: '#262E36', zerolinecolor: '#3A434D', linecolor: '#3A434D', tickfont: { color: '#98A4AE' }, exponentformat: 'SI', automargin: true },
+  hoverlabel: { bgcolor: 'rgba(35,42,51,0.96)', bordercolor: '#3E4A55', font: { family: '"JetBrains Mono Variable", "JetBrains Mono", Consolas, monospace', size: 11, color: '#FFFFFF' } },
+  legend: { bgcolor: 'rgba(16,20,26,0.88)', bordercolor: '#3E4A55', font: { color: '#D6DCE1' } },
+  modebar: { bgcolor: 'rgba(0,0,0,0)', color: '#98A4AE', activecolor: '#009DEC', orientation: 'v' },
+  margin: { t: 14, r: 14, b: 50, l: 62 },
+  dragmode: 'pan',
 };
+// report look (documents/print only): paper/plot #FFFFFF, text #000000, ticks #5A5F63,
+// grid #E3E6E8, axis #BFC3C6, title #003E76, hover #003E76, colorway
+// ['#009DEC','#EA5B0C','#007973','#A50F14','#003E76','#F8AD3E','#0083A2','#933973','#BFC3C6']
 ```
 
 ## Zustand Store Pattern

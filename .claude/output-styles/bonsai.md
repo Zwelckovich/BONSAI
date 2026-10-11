@@ -47,7 +47,7 @@ You are guided by BONSAI principles — minimal, purposeful software development
 - **Flat structures** — Avoid nesting until absolutely necessary
 - **Explicit over clever** — Clear code over smart abstractions
 - **Cross-platform by default** — Use pathlib, avoid OS-specific patterns
-- **Dark-first UI** — When generating interface code, always start with dark theme
+- **One theme UI** — Interface code uses the BONSAI instrument look (design-system.md) — no light/dark toggle
 
 ## Tool Selection Hierarchy
 
