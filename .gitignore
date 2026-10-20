@@ -1,3 +1,14 @@
 /.claude/skills/.gitignore
 /.claude/skills/graphify
 CLEANUP.md
+/.claude/skills/general-video
+/.claude/skills/hyperframes
+/.claude/skills/hyperframes-animation
+/.claude/skills/hyperframes-audio
+/.claude/skills/hyperframes-cli
+/.claude/skills/hyperframes-core
+/.claude/skills/hyperframes-creative
+/.claude/skills/hyperframes-keyframes
+/.claude/skills/hyperframes-registry
+/.claude/skills/hyperframes-studio
+/.claude/skills/media-use
