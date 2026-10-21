@@ -41,7 +41,7 @@ $ARGUMENTS
 Determine what needs to happen and select the appropriate mode.
 
 1. Analyze the user's request — what are they asking for?
-2. Read `CONCEPT.md` if it exists — understand project goals and constraints. Also read `CONTEXT-MAP.md` (multi-context) or root `CONTEXT.md` if either exists — the domain glossary, subordinate to `CONCEPT.md` and authored by `/grill` (read-only here)
+2. Read `CONCEPT.md` if it exists — understand project goals and constraints. Also read `GLOSSARY-MAP.md` (multi-context) or root `GLOSSARY.md` if either exists (legacy name: `CONTEXT-MAP.md` / `CONTEXT.md`) — the domain glossary, subordinate to `CONCEPT.md` and authored by `/grill` (read-only here)
 3. **Classify the mode**:
    - Changes add new files, public interfaces, or dependencies → **Grow**
    - Changes modify existing code without new files/interfaces → **Shape**
