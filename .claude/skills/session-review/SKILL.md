@@ -34,7 +34,7 @@ These fire whether or not the session had failures. Work every category, and say
 - **Tool economy** — expensive or token-inefficient tool calls. A custom CLI or MCP that returns far more than the agent needed, a command run repeatedly that could be one script. *Fires when a single call dominated the token spend.*
 - **No-ops** — instructions in rules or skills that don't change behavior versus the model's default. They pay context load to say nothing. *Fires when steering files are large.*
 - **Information access** — a crucial fact the agent never had access to: dev-server logs not teed to a file, read-only access to a service, a config the agent had to guess at. *Fires when the agent worked around missing information rather than reading it.*
-- **Automated checks** — could a linter, type check, test, or hook have caught a mistake the agent made? *Fires when a failure in Step 1 was mechanically detectable.*
+- **Automated checks** — could a linter, type check, test, or hook have caught a mistake the agent made? Read the repo's own check commands first (`pyproject.toml` / `package.json` scripts, `.pre-commit-config.yaml`, the CI workflow): an existing check that sits unwired or silently broken is the finding, not a reinvention. A repo with no **guardrail** — no pre-commit hook and no CI job running its lint/typecheck/test — is itself a finding. Classify each violation: a **mechanical** one (a fixed syntactic pattern, a banned API, an import shape, a file-location rule) gets a deterministic check; a **judgement call** (cross-file consistency, "matches the surrounding style") goes to a rule, a skill, or `CLAUDE.local.md`. *Fires when a failure in Step 1 was mechanically detectable, or the repo has no guardrail at all.*
 
 ### 3. Read the guidance files
 
@@ -61,6 +61,8 @@ Environment-gap findings carry no round-trips. Rate them by what they cost *per 
 For each finding write a recommendation naming: **which file** (exact path), **what to add or change** (before/after, or the new content), **where in the file** (after which section), and **why this prevents it** (the causal link).
 
 Recommendations are minimal and targeted — the smallest change that would have prevented the finding, never a rewrite of a whole skill to fix one gap.
+
+Pick the highest rung of the **enforcement ladder** that works, and say why each higher rung does not: architecture (make the mistake impossible) → types → a lint rule or hook whose error message names the fix → a test → rule or skill text, last. Text is the weakest rung: the model can ignore it. Every new check must be proven to fail on the real past mistake before it counts.
 
 **Done when** every finding from Steps 1 and 2 is traced to a named file or explicitly marked "no guidance gap — genuine bug", and every Step 2 category is reported, including the clean ones.
 
