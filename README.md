@@ -139,6 +139,7 @@ Grouped by purpose.
 |-------|---------|
 | [`/cp`](.claude/skills/cp/SKILL.md) | Commit + push with the BONSAI emoji template |
 | [`/session-review`](.claude/skills/session-review/SKILL.md) | Post-session retro — trace failures to missing rules |
+| [`pr`](.claude/skills/pr/SKILL.md) | PR/MR body for fast review — smallest visual, before/after evidence, merge danger (model-invoked) |
 
 ## Rules
 
@@ -241,6 +242,7 @@ BONSAI/
         ├── cp/              # Commit + push
         ├── grill/           # Central planning — grill, then route
         ├── grow/            # Generate GROW.md
+        ├── pr/              # PR/MR body template
         ├── pycheck/         # Python quality pipeline
         ├── qa/              # Read-only questions
         ├── reactcheck/      # React/TS quality pipeline
