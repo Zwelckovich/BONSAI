@@ -74,6 +74,13 @@ For a project with a Python backend **and** a React/Vite frontend:
 - **Priority 2 — Should Fix** if a root `dev.py` is missing (runnable via `uv run python dev.py`, spawning uvicorn + `bun run dev`, tearing both down on Ctrl+C — see `structure.md` "Full-Stack Unified Dev Runner").
 - **Priority 3 — Consider** if `dev.py` exists but `vite.config.ts` lacks `server.host: "127.0.0.1"` (Vite IPv6-bind gotcha on Windows — see `tools.md`).
 
+### Domain Glossary
+| Category | BONSAI Name | Check Against |
+|----------|------------|---------------|
+| Glossary | `GLOSSARY.md` / `GLOSSARY-MAP.md` | legacy `CONTEXT.md` / `CONTEXT-MAP.md` |
+
+A legacy name is a **Priority 3 — Consider** item: suggest `git mv CONTEXT.md GLOSSARY.md` (and the same for `CONTEXT-MAP.md` plus the per-context files it links). The skills still read the old name, so nothing is broken.
+
 ### Files to Scan
 1. All `.py` files for imports
 2. `pyproject.toml` dependencies and tool configs

@@ -4,7 +4,7 @@ description: >
   The central BONSAI planning skill: an adversarial grilling session that pressure-tests a
   plan, decision, or idea with tough questions via AskUserQuestion pickers (recommended answer first),
   drafts a strawman approach when no plan exists yet, plans GROW.md phases, sharpens domain
-  terminology against a CONTEXT.md glossary, cross-checks claims against the code, and records
+  terminology against a GLOSSARY.md glossary, cross-checks claims against the code, and records
   crystallized decisions as ADRs. Closes with a picker: execute the refined plan via /bonsai,
   capture it in the doc in play, or leave it in the conversation. Use for any planning ask —
   "grill me", "pressure-test this plan", "help me plan", "plan this feature", "how should I
@@ -74,7 +74,7 @@ creep, tech-debt risk, YAGNI violations, and conflicts with `CONCEPT.md`.
 BONSAI doc hierarchy — respect it during grilling:
 
 - **`CONCEPT.md`** — project vision, requirements, and decisions. It wins **every** conflict.
-- **`CONTEXT.md`** — a subordinate glossary: terminology only. No vision, no decisions, no
+- **`GLOSSARY.md`** — a subordinate glossary: terminology only. No vision, no decisions, no
   implementation details. Never treat it as a spec or scratch pad.
 - **ADRs** (`docs/adr/`) — record individual decisions, but defer to `CONCEPT.md`.
 
@@ -92,7 +92,7 @@ Most repos have a single context:
 ```
 /
 ├── CONCEPT.md          ← THE MASTER (vision/requirements/decisions)
-├── CONTEXT.md          ← subordinate glossary (terms only)
+├── GLOSSARY.md          ← subordinate glossary (terms only)
 ├── docs/
 │   └── adr/
 │       ├── 0001-event-sourced-orders.md
@@ -100,32 +100,36 @@ Most repos have a single context:
 └── src/
 ```
 
-If a `CONTEXT-MAP.md` exists at the root, the repo has multiple contexts. The map points to
+If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The map points to
 where each one lives:
 
 ```
 /
-├── CONTEXT-MAP.md
+├── GLOSSARY-MAP.md
 ├── docs/
 │   └── adr/                          ← system-wide decisions
 ├── src/
 │   ├── ordering/
-│   │   ├── CONTEXT.md
+│   │   ├── GLOSSARY.md
 │   │   └── docs/adr/                 ← context-specific decisions
 │   └── billing/
-│       ├── CONTEXT.md
+│       ├── GLOSSARY.md
 │       └── docs/adr/
 ```
 
-Create files lazily — only when you have something to write. If no `CONTEXT.md` exists,
+Create files lazily — only when you have something to write. If no `GLOSSARY.md` exists,
 create one when the first term is resolved. If no `docs/adr/` exists, create it when the
 first ADR is needed.
+
+Older projects may still carry the pre-rename names `CONTEXT.md` / `CONTEXT-MAP.md`. When no
+`GLOSSARY.md` exists, read the legacy file instead; before the first write, `git mv` it to the
+new name and tell the user — never keep two glossaries.
 
 ## During the session
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it
+When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it
 out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which?"
 
 ### Sharpen fuzzy language
@@ -145,10 +149,10 @@ When the user states how something works, check whether the code agrees. If you 
 contradiction, surface it: "Your code cancels entire Orders, but you just said partial
 cancellation is possible — which is right?"
 
-### Update CONTEXT.md inline
+### Update GLOSSARY.md inline
 
-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up — capture them
-as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md). `CONTEXT.md` is a
+When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up — capture them
+as they happen. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md). `GLOSSARY.md` is a
 glossary and nothing else: record only the resolved term and its `_Avoid_` aliases.
 Relationship reasoning and ambiguity resolutions stay in the conversation — if one is
 hard-to-reverse and surprising, capture it as an ADR instead.
