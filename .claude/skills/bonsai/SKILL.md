@@ -49,7 +49,7 @@ Determine what needs to happen and select the appropriate mode.
    - User says "use full workflow" → **Grow** regardless
    - User says "this is just a prune" → **Prune** regardless
    - **User passes `--tdd` flag** → activate TDD mode on top of the chosen mode (see "TDD Mode" below)
-4. Identify all files to modify/create. **In TDD mode**: also produce a prioritized list of *behaviors to test* (e.g. "user can checkout with valid cart", "checkout fails with empty cart") — not just file names. The behavior list drives the inner loop.
+4. Identify all files to modify/create. **In TDD mode**: also produce a prioritized list of *behaviors to test* (e.g. "user can checkout with valid cart", "checkout fails with empty cart") — not just file names. The behavior list drives the inner loop. Name the seam (public interface) each behavior is tested at, with a one-line note on what that seam catches and what it misses.
 5. Verify BONSAI tools are available (only if code files involved):
    - Python: `uv --version` (never pip/pipenv/poetry)
    - Python dev tools: `uv run ruff --version && uv run ty --version` — if missing, run `uv add --dev ruff ty`
@@ -65,7 +65,7 @@ Output: State the selected mode and task list clearly. If `--tdd` is active, say
 When `--tdd` is active, Tasks 3 and 7 fuse into a single **inner loop driven by the behavior list from Task 1**. For each behavior, in priority order:
 
 1. **Write ONE failing test** that exercises the behavior via the *public interface* (never private methods or internal state).
-2. Run the test → confirm it fails for the *right reason* (RED).
+2. Run the test → confirm it fails for the *right reason* (RED). If you forced the red by mutating code or a fixture, `diff` against a pristine copy to prove the mutation landed before you trust it.
 3. Write the **minimal** code that makes it pass (GREEN). No extra functionality, no anticipating future tests.
 4. Optional: refactor — but **never while RED**. Get to GREEN first; refactor only while green, and keep tests green throughout.
 5. Run `uv run ruff format <file> && uv run ruff check --fix <file>` (or `bun run biome check --write <file>`) on the changed files — *now*, not at the end.

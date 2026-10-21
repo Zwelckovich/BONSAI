@@ -71,6 +71,8 @@ Ten ways to construct a loop, in roughly priority order:
 
 Only after the loop exists: rank 3-5 falsifiable hypotheses *before* instrumenting, write the regression test *before* the fix, and remove probes/temp logs after the fix lands — tag every temporary probe with a unique marker (e.g. `[DEBUG-a1b2]`) when you add it, so a single grep clears all of them at cleanup.
 
+**Attack the premise.** When two fixes that share one premise fail the same gate, stop fixing. Test the premise itself before you write a third fix.
+
 ## Wrapping complex systems (DSLs and ergonomic shells)
 
 When the underlying tool is too complex for direct daily use — verbose API, multi-step rituals, GUI-only workflows, brittle command sequences — wrap it in a thinner, opinionated layer **without removing the user's ability to drop down to the raw tool when needed**.
