@@ -73,6 +73,23 @@ Only after the loop exists: rank 3-5 falsifiable hypotheses *before* instrumenti
 
 **Attack the premise.** When two fixes that share one premise fail the same gate, stop fixing. Test the premise itself before you write a third fix.
 
+## Process Hygiene
+
+Every process you start needs an owner that ends it — test fakes, spawned servers, dev runners, background commands, parallel test workers. A leftover process is invisible until it eats memory and CPU and turns unrelated tests into "flakes".
+
+**In test code:**
+- A process a test spawns ends with that test, also when the test fails or is interrupted: kill the whole tree in a fixture teardown or `finally` (Windows: a job object with kill-on-close, or `taskkill /PID <pid> /T /F`; POSIX: a new process group and `killpg`).
+- Fakes and helpers get a hard self-timeout no longer than the test needs (never a bare `sleep(120)` "just in case"), and they exit when their parent or their stdin goes away.
+- A process started suspended, paused or blocked on a barrier always has a guaranteed resume-or-kill path.
+
+**When running tests and long commands:**
+- Never run two test suites at once, and never start a suite in the background while running other tests or heavy work.
+- Before a long or parallel run, check free memory, CPU load and leftover processes from earlier runs; clean up first.
+- Cap parallel workers below the core count when tests spawn processes (e.g. `pytest -n 4`–`6`, not `-n auto`); split a large suite into batches and run them one after another.
+- After a run that timed out, was cancelled or was killed, look for its leftovers and end them. Select them by command line (the test's script, the project's venv, the worker bootstrap), never by image name alone — that hits the user's own tools.
+
+**Diagnosis:** a failure that only appears under load is a signal, not noise. Check for leftover processes and resource pressure before calling it a flake; when leftovers exist, find out which test left them and fix that test.
+
 ## Wrapping complex systems (DSLs and ergonomic shells)
 
 When the underlying tool is too complex for direct daily use — verbose API, multi-step rituals, GUI-only workflows, brittle command sequences — wrap it in a thinner, opinionated layer **without removing the user's ability to drop down to the raw tool when needed**.
