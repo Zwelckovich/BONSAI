@@ -116,6 +116,7 @@ Grouped by purpose.
 | [`/bonsai`](.claude/skills/bonsai/SKILL.md) | Adaptive development workflow — 10 tasks, 3 modes (Grow / Shape / Prune) |
 | [`/bonsai-init`](.claude/skills/bonsai-init/SKILL.md) | Onboard a project — detect type, create `CONCEPT.md`, configure tools |
 | [`/grow`](.claude/skills/grow/SKILL.md) | Generate a `GROW.md` plan from `CONCEPT.md` |
+| [`cowork`](.claude/skills/cowork/SKILL.md) | Claude coordinates, Codex (GPT-6 Astra) implements or reviews — brief, runner, SHA-256 freeze, 1+1 review limit (model-invoked) |
 
 ### Planning
 
@@ -239,6 +240,7 @@ BONSAI/
         ├── bonsai-init/     # Onboard new projects
         ├── bonsai-check/    # Compliance audit
         ├── code-analyser/   # Dead-code detection
+        ├── cowork/          # Claude + Codex work runs
         ├── cp/              # Commit + push
         ├── grill/           # Central planning — grill, then route
         ├── grow/            # Generate GROW.md
