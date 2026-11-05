@@ -36,7 +36,9 @@ inside the project; the runner takes the git root of the current directory as th
    `git ls-files -o --exclude-standard -z | tar --null -T - -cf .collaboration/.runs/<run>-baseline-untracked.tar`.
    Done when you can name the files in scope, who writes each one, and which changes predate the run.
 2. **Contract.** Fix the user outcome, concrete blockers, non-goals and accepted uncertainty. Exactly one writer
-   per file; Codex and Claude work in parallel only on disjoint files.
+   per file; Codex and Claude work in parallel only on disjoint files. Name Codex's role per run: **worker**
+   (it writes files — e.g. a grill or the user splits "Claude frontend, Codex backend") or **reviewer**. The role
+   sets the sandbox in step 5; a worker brief started read-only cannot do its job.
 3. **Brief.** Write it in the user's working language with these sections: context, frozen state (reviews), scope
    of change, review task or task with acceptance criteria, handover. Codex runs with `--ignore-user-config` and
    knows nothing of this chat or CLAUDE.md: name every rule file it must read by absolute path and restate the
@@ -52,10 +54,12 @@ inside the project; the runner takes the git root of the current directory as th
 5. **Run** with Bash `run_in_background: true`, then wait for the notification:
 
    ```bash
-   uv run --no-project python <SKILL>/scripts/run_codex.py <brief.md> <run-name> --sandbox read-only
+   uv run --no-project python <SKILL>/scripts/run_codex.py <brief.md> <run-name> --sandbox <read-only|workspace-write>
    ```
 
-   - `--sandbox read-only` for reviews, `workspace-write` for implementations and for headless-Chrome rendering.
+   - The sandbox follows the role from step 2: **worker → `workspace-write`** (also for headless-Chrome
+     rendering), **reviewer → `read-only`**. Pass it explicitly on every run and on every `--resume`: the flag
+     applies per turn, so a worker fixing review findings resumes with `workspace-write` again.
    - `--effort high` is the default; `max` only when the user asks (a max turn takes 11–30 minutes).
    - `--resume <THREAD-ID>` continues a session: the id from your own run's summary, never `--last`.
    - Each run name is new; the runner refuses a reused name.
